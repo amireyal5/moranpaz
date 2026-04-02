@@ -90,15 +90,26 @@ export default function Home() {
                <div className="w-24 h-[1px] mt-10 mr-0 bg-primary/30"></div>
              </div>
              
-             <div className="space-y-12 boutique-para max-w-2xl mr-0">
+             <div className="space-y-12 boutique-para max-w-3xl mr-0">
                 <p className="stagger-1 text-4xl font-headline text-foreground italic">"אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה."</p>
-                <p className="stagger-2">
-                  פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. אני מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושהבחירה קיימת לכל אדם בכל מצב.
-                </p>
-                <p className="stagger-3">
-                  בעשור האחרון עברתי מסע אישי מרפא וכיום אני מלווה אנשים למצוא את הדרך שלהם פנימה – לחיבור העמוק והאותנטי עם עצמם.
-                </p>
-                <Link href="/practice" className="stagger-4 inline-flex items-center gap-6 boutique-label border-b border-primary/20 hover:border-primary transition-all pb-4 group text-xl">
+                <div className="space-y-8">
+                  <p className="stagger-2">
+                    פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. 
+                    אני מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושהבחירה קיימת לכל אדם בכל מצב. 
+                    אני מאמינה בפוטנציאל הנשמתי של כל אדם לממש את עצמו ולהעניק לעולם את המתנות שלו.
+                  </p>
+                  <p className="stagger-3">
+                    לכל אדם יש את הקצב והמסע שלו ואני כאן ללוות מתוך כבוד ואמונה באדם ובדרך. 
+                    בוגרת תואר שני בייעוץ ארגוני מאוניברסיטת חיפה ובוגרת מסלול פסיכותרפיה הוליסטית.
+                  </p>
+                  <p className="stagger-4">
+                    בעשור האחרון עברתי מסע אישי מרפא וכיום אני מלווה אנשים למצוא את הדרך שלהם פנימה – לחיבור העמוק והאותנטי עם עצמם – ולחיות את חייהם דרך אותו החיבור. 
+                  </p>
+                  <p className="stagger-5 font-medium text-accent">
+                    מה זה נותן? פחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, קבלת החלטות בהירה ויעילה יותר, ביטוי אותנטי, בריאות נפשית ופיזית גבוהה יותר ובכללי – תחושת רווחה ואושר גבוהה יותר מהחיים שלך.
+                  </p>
+                </div>
+                <Link href="/practice" className="stagger-6 inline-flex items-center gap-6 boutique-label border-b border-primary/20 hover:border-primary transition-all pb-4 group text-xl">
                   קראי עוד על התהליך הטיפולי
                   <ArrowLeft size={18} className="group-hover:-translate-x-2 transition-transform" />
                 </Link>
