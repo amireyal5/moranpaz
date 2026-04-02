@@ -1,27 +1,28 @@
+
 {
   "placeholderImages": [
     {
       "id": "hero-bg",
-      "description": "Abstract artistic texture with golden light and shadows",
-      "imageUrl": "https://picsum.photos/seed/soke-hero/1920/1080",
+      "description": "Abstract artistic texture with golden light and deep shadows",
+      "imageUrl": "https://picsum.photos/seed/soke-hero-art/1920/1080",
       "imageHint": "abstract gold"
     },
     {
       "id": "moran-portrait",
-      "description": "Artistic minimalist portrait of Moran with cinematic lighting",
-      "imageUrl": "https://picsum.photos/seed/soke-portrait/800/1200",
+      "description": "Minimalist editorial portrait with cinematic lighting",
+      "imageUrl": "https://picsum.photos/seed/soke-portrait-art/800/1200",
       "imageHint": "editorial portrait"
     },
     {
-      "id": "workshop-art",
-      "description": "Artistic abstract representation of connection",
-      "imageUrl": "https://picsum.photos/seed/soke-workshop/1000/1000",
+      "id": "workshop-women",
+      "description": "Artistic abstract representation of women gathering",
+      "imageUrl": "https://picsum.photos/seed/soke-workshop-art/1000/1000",
       "imageHint": "minimalist art"
     },
     {
-      "id": "clinic-vibe",
-      "description": "Serene and minimalist architectural detail",
-      "imageUrl": "https://picsum.photos/seed/soke-clinic/1200/800",
+      "id": "clinic-tivon",
+      "description": "Serene minimalist interior with natural light and green view",
+      "imageUrl": "https://picsum.photos/seed/soke-clinic-art/1200/800",
       "imageHint": "minimalist interior"
     }
   ]
