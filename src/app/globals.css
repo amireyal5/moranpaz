@@ -49,6 +49,10 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline font-light tracking-tight;
   }
+  sup {
+    @apply text-[0.6em] leading-none ml-0.5;
+    vertical-align: super;
+  }
 }
 
 /* אנימציות יוקרה בסגנון Soke */
@@ -98,9 +102,9 @@
   @apply scale-105 grayscale-0;
 }
 
-/* סגנון טיפוגרפי בוטיק - הסרת צבע כפוי כדי לא לשבור לחצנים */
+/* סגנון טיפוגרפי בוטיק */
 .boutique-label {
-  @apply text-[14px] sm:text-[16px] md:text-[18px] uppercase tracking-[0.4em] sm:tracking-[0.6em] font-bold;
+  @apply text-[14px] sm:text-[16px] md:text-[18px] uppercase tracking-[0.4em] font-bold;
 }
 
 .boutique-title {

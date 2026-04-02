@@ -115,14 +115,14 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="inline-flex w-full md:w-auto px-8 md:px-32 py-6 md:py-10 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 items-center justify-center gap-4 md:gap-6 shadow-2xl rounded-sm"
+               className="inline-flex w-full md:w-auto px-8 md:px-20 py-4 md:py-6 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 items-center justify-center gap-4 shadow-2xl rounded-sm"
              >
                 תאום שיחת היכרות
                 <ArrowLeft size={24} />
              </a>
              <Link 
                href="/about"
-               className="inline-flex w-full md:w-auto px-8 md:px-24 py-6 md:py-10 bg-transparent border border-foreground/20 text-foreground text-lg md:text-[20px] hover:bg-stone-50 transition-all duration-700 font-light items-center justify-center gap-4 shadow-sm"
+               className="inline-flex w-full md:w-auto px-8 md:px-16 py-4 md:py-6 bg-transparent border border-foreground/20 text-foreground text-lg md:text-[18px] hover:bg-stone-50 transition-all duration-700 font-light items-center justify-center gap-4 shadow-sm"
              >
                 על הגישה שלי
              </Link>
@@ -135,7 +135,7 @@ export default function Home() {
       </section>
 
       {/* Uniqueness Section */}
-      <section ref={uniquenessReveal} className="py-24 md:py-56 px-6 md:px-24 bg-white reveal">
+      <section ref={uniquenessReveal} className="py-24 md:py-48 px-6 md:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Unique Approach" title="מה מייחד את הגישה שלי?" className="flex flex-col items-center text-center" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mt-16 md:mt-20">
@@ -158,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* Audience Section - ARTISTIC CARDS */}
-      <section ref={audienceReveal} className="py-24 md:py-48 px-6 md:px-24 bg-stone-50 reveal">
+      <section ref={audienceReveal} className="py-24 md:py-40 px-6 md:px-24 bg-stone-50 reveal">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 md:mb-24">
             <SectionTitle subtitle="Audiences" title="עם מי אני עובדת?" className="flex flex-col items-center text-center" />
@@ -204,7 +204,7 @@ export default function Home() {
       </section>
 
       {/* Clinic Tour Section */}
-      <section ref={tourReveal} className="py-24 md:py-56 px-6 md:px-24 reveal bg-white overflow-hidden">
+      <section ref={tourReveal} className="py-24 md:py-48 px-6 md:px-24 reveal bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
           <div className="order-2 lg:order-1">
             <SectionTitle subtitle="The Clinic" title="סיור בקליניקה בטבעון" />
@@ -233,7 +233,7 @@ export default function Home() {
       </section>
 
       {/* Offerings Section - ARTISTIC CARDS */}
-      <section ref={offeringsReveal} className="py-24 md:py-56 px-6 md:px-24 reveal bg-stone-50">
+      <section ref={offeringsReveal} className="py-24 md:py-48 px-6 md:px-24 reveal bg-stone-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 md:mb-24">
             <SectionTitle subtitle="Therapy & Workshops" title="מה אני מציעה?" className="flex flex-col items-center text-center" />
@@ -247,7 +247,7 @@ export default function Home() {
                 icon: <Orbit size={180} strokeWidth={0.3} />
               },
               { 
-                title: "קורס BeinMe©", 
+                title: <>קורס BeinMe<sup>©</sup></>, 
                 link: "/workshop", 
                 desc: "מרחב קבוצתי-טיפולי לנשים לחיבור אותנטי וכנה עם עצמך דרך עבודת עומק חווייתית.",
                 icon: <Waves size={180} strokeWidth={0.3} />
@@ -281,7 +281,7 @@ export default function Home() {
       <FaqSection items={homeFaqs} title="שאלות נפוצות" subtitle="SEO FAQ" />
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 md:py-56 px-6 bg-white border-t border-border/20">
+      <section id="contact" className="py-24 md:py-48 px-6 bg-white border-t border-border/20">
         <div className="max-w-4xl mx-auto text-center">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center text-center" />
           <p className="boutique-para mb-12 md:mb-20">אני כאן בשבילך לתאום שיחת הכרות ללא עלות. בואי נתחיל את המסע שלך יחד.</p>
