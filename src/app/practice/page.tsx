@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -5,12 +6,14 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { FaqAssistant } from '@/components/shared/FaqAssistant';
+import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, ArrowLeft } from 'lucide-react';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
-export function PracticePage() {
+export default function PracticePage() {
   const introReveal = useReveal();
 
   const steps = [
@@ -32,7 +35,7 @@ export function PracticePage() {
     {
       id: "04",
       title: "הטמעה ושינוי בחיי היום-יום",
-      desc: "בסיום התהליך תוכל/י לחוות הקלה בתחושות מתח, חרדה, תלות וחוסר משמעות. תוכל/י להגביר את היכולת שלך לוויסות עצמי ואת הערך העצמי, ולאפשר לעצמך ביטוי יותר בהיר ואותנטי כבימאי/ת של חייך."
+      desc: "בסיום התהליך ובהתאם למטרות המשותפות שהצבנו לטיפול, תוכל/י לחוות הקלה בתחושות מתח, חרדה, תלות וחוסר משמעות. תוכל/י להגביר את היכולת שלך לוויסות עצמי ואת הערך העצמי."
     }
   ];
 
@@ -41,8 +44,23 @@ export function PracticePage() {
     "חווה תקיעות רגשית, דפוסים שחוזרים על עצמם, עומס או חרדה.",
     "מבקש/ת להתחבר מחדש לעצמך - לרגש, לנשמה, לגוף ולתחושת משמעות עמוקה.",
     "מרגיש/ה שאיבדת שליטה על החיים שלך, שאת/ה לא עצמך.",
-    "רוצה לקבל כלים פרקטיים לוויסות עצמי, חיזוק חוסן נפשי ובניית מערכות יחסים בריאות יותר.",
-    "זקוק/ה לתמיכה ועיניים טובות לשתף ולהתמודד עם כאבים פיזיים ורגשיים כאחד."
+    "רוצה לקבל כלים פרקטיים לוויסות עצמי וחיזוק חוסן נפשי.",
+    "זקוק/ה לתמיכה ועיניים טובות לשתף ולהתמודד עם קשיים רגשיים."
+  ];
+
+  const practiceFaqs = [
+    {
+      question: "מהי פסיכותרפיה הוליסטית?",
+      answer: "פסיכותרפיה הוליסטית רואה את האדם כשלם - גוף, נפש ורוח. הטיפול משלב שיחה יחד עם כלים חווייתיים כדי להגיע לרובד העמוק של הרגש ולא רק להישאר ברמה המחשבתית."
+    },
+    {
+      question: "למי מתאים הטיפול הרגשי בטבעון?",
+      answer: "הטיפול מתאים לכל מי שמרגיש צורך בתמיכה, מי שחווה משבר או מי שפשוט רוצה להכיר את עצמו טוב יותר ולחיות חיים מלאים ומשמעותיים יותר."
+    },
+    {
+      question: "האם הטיפול הוא אנונימי וחסוי?",
+      answer: "בהחלט. כל פגישה מתקיימת תחת סודיות רפואית ומקצועית מלאה, במרחב בטוח ומוגן."
+    }
   ];
 
   return (
@@ -51,7 +69,7 @@ export function PracticePage() {
       
       <section className="pt-56 pb-48 px-8 md:px-24">
         <div className="max-w-6xl mx-auto">
-          <SectionTitle subtitle="Therapy" title="התהליך הטיפולי" />
+          <SectionTitle subtitle="The Practice" title="התהליך הטיפולי" />
           
           <div ref={introReveal} className="reveal mb-32 text-right">
             <h3 className="text-4xl md:text-6xl font-headline italic text-accent mb-12 leading-tight stagger-1">
@@ -90,16 +108,24 @@ export function PracticePage() {
                         </li>
                       ))}
                    </ul>
-                   <p className="mt-12 text-xs text-primary/60 italic leading-relaxed">לא בטוחים אם הטיפול יכול לסייע? מוזמנים להתייעץ איתי ללא התחייבות.</p>
+                   <Link href="#contact" className="mt-12 inline-flex items-center gap-4 boutique-label text-primary hover:text-white transition-all group">
+                     תאום פגישת היכרות
+                     <ArrowLeft size={14} className="group-hover:-translate-x-2 transition-transform" />
+                   </Link>
                 </div>
              </div>
           </div>
         </div>
       </section>
 
+      <FaqSection items={practiceFaqs} title="שאלות על הטיפול" subtitle="Process FAQ" />
+
       <section className="py-48 bg-stone-50 px-8 md:px-24" id="contact">
         <div className="max-w-4xl mx-auto">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
+          <div className="text-center mb-16">
+            <p className="boutique-para">מוזמנת להשאיר פרטים לתיאום פגישה בטבעון או בזום.</p>
+          </div>
           <ContactForm />
         </div>
       </section>
