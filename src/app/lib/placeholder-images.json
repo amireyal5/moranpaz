@@ -24,6 +24,12 @@
       "description": "Serene minimalist interior with natural light and green view",
       "imageUrl": "https://picsum.photos/seed/soke-clinic-art/1200/800",
       "imageHint": "minimalist interior"
+    },
+    {
+      "id": "online-therapy-bg",
+      "description": "Abstract minimalist aesthetic represention of connection and digital warmth",
+      "imageUrl": "https://picsum.photos/seed/online-therapy/1200/800",
+      "imageHint": "abstract connection"
     }
   ]
 }

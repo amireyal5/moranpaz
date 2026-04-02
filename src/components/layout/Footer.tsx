@@ -21,7 +21,7 @@ export function Footer() {
           <div className="lg:col-span-4">
             <h3 className="text-2xl font-headline tracking-[0.3em] font-light mb-6">MORAN PAZ</h3>
             <p className="text-stone-400 font-light leading-relaxed max-w-sm mr-0 text-lg">
-              פסיכותרפיה הוליסטית וליווי רגשי חווייתי. מרחב בטוח לגילוי, ריפוי וחיבור אותנטי לעצמך בטבעון ובעמק יזרעאל.
+              פסיכותרפיה הוליסטית וליווי רגשי חווייתי. מרחב בטוח לגילוי, ריפוי וחיבור אותנטי לעצמך בטבעון, עמק יזרעאל ואונליין.
             </p>
           </div>
           
@@ -32,6 +32,7 @@ export function Footer() {
                 <Link href="/" className="hover:text-primary transition-colors duration-500">דף הבית</Link>
                 <Link href="/about" className="hover:text-primary transition-colors duration-500">אודות</Link>
                 <Link href="/practice" className="hover:text-primary transition-colors duration-500">התהליך הטיפולי</Link>
+                <Link href="/online-therapy" className="hover:text-primary transition-colors duration-500">טיפול אונליין</Link>
                 <Link href="/workshop" className="hover:text-primary transition-colors duration-500">קורס BEINME</Link>
                 <Link href="/tivon" className="hover:text-primary transition-colors duration-500">טבעון</Link>
              </nav>
