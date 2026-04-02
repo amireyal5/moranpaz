@@ -40,9 +40,9 @@ export function TestimonialsSection() {
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-20">
           {testimonials.map((t, i) => (
-            <div key={i} className="bg-white p-12 shadow-sm border border-border/10 flex flex-col justify-between h-full hover:shadow-xl transition-all duration-700">
+            <div key={i} className="bg-white p-12 shadow-sm border border-border/10 flex flex-col justify-between h-full hover:shadow-xl transition-all duration-700 text-right">
               <div>
-                <div className="flex justify-center mb-6 space-x-reverse space-x-1">
+                <div className="flex justify-end mb-6 space-x-reverse space-x-1">
                   {[...Array(5)].map((_, starI) => (
                     <Star key={starI} size={14} className="fill-primary text-primary" />
                   ))}
@@ -51,11 +51,16 @@ export function TestimonialsSection() {
                   "{t.text}"
                 </p>
               </div>
-              <div>
+              <div className="border-t border-stone-100 pt-6">
                 <span className="block boutique-label text-primary">— {t.author}, {t.location}</span>
               </div>
             </div>
           ))}
+        </div>
+        
+        {/* Schema.org AggregateRating hint (visual only here) */}
+        <div className="mt-16 opacity-30 text-[10px] uppercase tracking-widest">
+          Rated 5/5 based on patient reviews
         </div>
       </div>
     </section>

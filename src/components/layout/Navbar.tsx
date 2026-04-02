@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -19,6 +20,7 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Scroll lock when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -27,6 +29,7 @@ export function Navbar() {
     }
   }, [mobileMenuOpen]);
 
+  // Close menu on navigation
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
@@ -36,7 +39,6 @@ export function Navbar() {
     { label: 'טיפול', href: '/practice' },
     { label: 'קורס BEINME', href: '/workshop' },
     { label: 'טיפול בטבעון', href: '/tivon' },
-    { label: 'אודות', href: '/#about' },
   ];
 
   return (
@@ -51,14 +53,15 @@ export function Navbar() {
         MORAN PAZ
       </Link>
       
-      <div className="hidden lg:flex items-center space-x-reverse space-x-16 boutique-label">
+      {/* Desktop Menu */}
+      <div className="hidden lg:flex items-center space-x-reverse space-x-12 boutique-label">
         {navItems.map((item) => (
           <Link 
             key={item.href} 
             href={item.href} 
             className={cn(
               "hover-gold relative py-1 transition-all duration-700",
-              pathname === item.href ? "text-primary" : "text-foreground"
+              pathname === item.href ? "text-primary border-b border-primary/30" : "text-foreground"
             )}
           >
             {item.label}
@@ -66,12 +69,13 @@ export function Navbar() {
         ))}
         <Link 
           href="#contact" 
-          className="text-primary hover:text-accent transition-all duration-700 border border-primary/40 px-8 py-3 hover:bg-primary/5"
+          className="text-primary hover:text-accent transition-all duration-700 border border-primary/40 px-10 py-3 hover:bg-primary/5"
         >
-          צור קשר
+          צרו קשר
         </Link>
       </div>
 
+      {/* Mobile Menu Trigger */}
       <button 
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
         className="lg:hidden p-3 hover:opacity-50 transition-opacity z-[220] relative"
@@ -93,9 +97,9 @@ export function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className={cn(
                 "text-4xl font-headline font-light tracking-[0.2em] hover:text-primary transition-all duration-700",
-                mobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0",
-                `transition-delay-[${i * 100}ms]`
+                mobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
               )}
+              style={{ transitionDelay: `${i * 100}ms` }}
             >
               {item.label}
             </Link>
@@ -105,7 +109,7 @@ export function Navbar() {
             onClick={() => setMobileMenuOpen(false)}
             className="boutique-label text-primary pt-16 border-t border-white/10 w-48 text-center"
           >
-            צור קשר
+            צרו קשר
           </Link>
         </div>
       </div>
