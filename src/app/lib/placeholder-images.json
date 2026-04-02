@@ -3,9 +3,9 @@
   "placeholderImages": [
     {
       "id": "hero-bg",
-      "description": "Abstract artistic texture with golden light and deep shadows",
-      "imageUrl": "https://picsum.photos/seed/soke-hero-art/1920/1080",
-      "imageHint": "abstract gold"
+      "description": "Serene minimalist therapy room with soft natural light and elegant interior",
+      "imageUrl": "https://picsum.photos/seed/soke-therapy-hero/1920/1080",
+      "imageHint": "serene clinic"
     },
     {
       "id": "moran-portrait",

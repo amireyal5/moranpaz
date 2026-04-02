@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -51,11 +52,12 @@ export default function Home() {
               src={heroImg.imageUrl} 
               alt="מורן פז - פסיכותרפיה וטיפול רגשי בטבעון" 
               fill
-              className="object-cover opacity-10 grayscale"
+              className="object-cover opacity-20 grayscale-0"
               priority
               data-ai-hint={heroImg.imageHint}
             />
           )}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background"></div>
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal max-w-6xl">
@@ -64,9 +66,9 @@ export default function Home() {
              להתחבר | לגלות | <span className="italic">להשתנות</span>
            </h1>
            <div className="flex flex-col md:flex-row items-center justify-center gap-12 mt-12 stagger-3">
-              <Link href="#contact" className="px-20 py-6 border border-foreground/10 text-foreground text-[14px] uppercase tracking-[0.5em] hover:bg-foreground hover:text-white transition-all font-bold flex items-center gap-6 group">
+              <Link href="#contact" className="px-20 py-8 border border-foreground/10 text-foreground text-[16px] uppercase tracking-[0.5em] hover:bg-foreground hover:text-white transition-all font-bold flex items-center gap-6 group">
                 תאום שיחת היכרות
-                <ArrowLeft size={18} className="group-hover:-translate-x-2 transition-transform" />
+                <ArrowLeft size={20} className="group-hover:-translate-x-2 transition-transform" />
               </Link>
            </div>
         </div>
@@ -82,14 +84,14 @@ export default function Home() {
           <div ref={introReveal} className="lg:col-span-7 text-right reveal">
              <SectionTitle subtitle="About Moran Paz" title="נעים מאוד, מורן פז" />
              <div className="space-y-12 boutique-para max-w-2xl mr-0">
-                <p className="stagger-1 text-3xl font-headline text-foreground italic">"אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה."</p>
+                <p className="stagger-1 text-4xl font-headline text-foreground italic">"אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה."</p>
                 <p className="stagger-2">
                   פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. אני מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושהבחירה קיימת לכל אדם בכל מצב.
                 </p>
                 <p className="stagger-3">
                   בעשור האחרון עברתי מסע אישי מרפא וכיום אני מלווה אנשים למצוא את הדרך שלהם פנימה – לחיבור העמוק והאותנטי עם עצמם.
                 </p>
-                <Link href="/practice" className="stagger-4 inline-flex items-center gap-6 boutique-label border-b border-primary/20 hover:border-primary transition-all pb-4 group text-lg">
+                <Link href="/practice" className="stagger-4 inline-flex items-center gap-6 boutique-label border-b border-primary/20 hover:border-primary transition-all pb-4 group text-xl">
                   קראי עוד על התהליך הטיפולי
                   <ArrowLeft size={18} className="group-hover:-translate-x-2 transition-transform" />
                 </Link>
@@ -116,7 +118,7 @@ export default function Home() {
       <section ref={quoteReveal} className="py-72 bg-stone-50 text-foreground px-8 text-center reveal overflow-hidden relative border-y border-border/40">
         <div className="max-w-5xl mx-auto relative z-10">
           <span className="boutique-label text-primary block mb-20">The Philosophy</span>
-          <h2 className="text-5xl md:text-7xl font-headline font-light italic leading-snug stagger-1">
+          <h2 className="text-5xl md:text-8xl font-headline font-light italic leading-snug stagger-1">
             "אם לא תכירי את העולם הפנימי שלך – <br/> הוא ינהל אותך ואת תקראי לזה גורל."
           </h2>
           <div className="w-32 h-[1px] bg-primary/40 mx-auto mt-24 stagger-2"></div>
@@ -137,7 +139,7 @@ export default function Home() {
               <Link key={i} href={service.link} className={cn("bg-white p-24 hover:bg-stone-50 transition-all group flex flex-col justify-between aspect-square", `stagger-${i+1}`)}>
                 <div>
                   <span className="boutique-label block mb-12">0{i+1}</span>
-                  <h3 className="text-5xl font-headline text-foreground group-hover:italic transition-all duration-1000">{service.title}</h3>
+                  <h3 className="text-6xl font-headline text-foreground group-hover:italic transition-all duration-1000">{service.title}</h3>
                 </div>
                 <div className="space-y-12">
                   <p className="text-stone-500 font-light text-2xl leading-relaxed">{service.desc}</p>
@@ -156,9 +158,9 @@ export default function Home() {
       {/* CTA Bottom Section */}
       <section className="py-56 bg-white border-t border-border/40 px-8 text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-5xl md:text-7xl font-headline text-foreground mb-16">מוכנה להתחיל את המסע פנימה?</h2>
+          <h2 className="text-6xl md:text-8xl font-headline text-foreground mb-16">מוכנה להתחיל את המסע פנימה?</h2>
           <p className="boutique-para mb-20">אני כאן ללוות אותך בכל שלב בדרך. בואי נתחיל בשיחה קצרה ללא עלות.</p>
-          <Link href="#contact" className="inline-block px-20 py-8 border border-primary text-primary text-[14px] uppercase tracking-[0.6em] hover:bg-primary hover:text-white transition-all font-bold">
+          <Link href="#contact" className="inline-block px-24 py-10 border border-primary text-primary text-[16px] uppercase tracking-[0.6em] hover:bg-primary hover:text-white transition-all font-bold">
             תאום שיחת היכרות
           </Link>
         </div>
@@ -176,9 +178,9 @@ export default function Home() {
               href="https://wa.me/972500000000" 
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-6 text-foreground hover:text-primary transition-colors boutique-label group text-lg"
+              className="flex items-center gap-6 text-foreground hover:text-primary transition-colors boutique-label group text-xl"
             >
-              <MessageCircle size={32} className="group-hover:rotate-12 transition-transform" />
+              <MessageCircle size={40} className="group-hover:rotate-12 transition-transform text-primary" />
               דברי איתי ב-WHATSAPP
             </a>
           </div>
