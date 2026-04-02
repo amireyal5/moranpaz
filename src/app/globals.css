@@ -4,33 +4,33 @@
 
 @layer base {
   :root {
-    /* פלטת צבעים יוקרתית מעודנת: יותר קרם ולבן, פחות חום כהה משתלט */
+    /* פלטת צבעים יוקרתית מעודנת: פחם, לבן וזהב-ברונזה */
     --background: 30 20% 98%; /* קרם בהיר מאוד */
-    --foreground: 20 10% 10%; /* שחור-חום כמעט שחור */
+    --foreground: 20 10% 15%; /* שחור-פחם יוקרתי במקום חום */
     
     --card: 0 0% 100%;
-    --card-foreground: 20 10% 10%;
+    --card-foreground: 20 10% 15%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 20 10% 10%;
+    --popover-foreground: 20 10% 15%;
     
-    --primary: 35 35% 45%; /* זהב-ברונזה אלגנטי */
+    --primary: 35 35% 45%; /* זהב-ברונזה אלגנטי להדגשות */
     --primary-foreground: 30 20% 98%;
     
-    --secondary: 20 15% 92%; /* אפור-חום בהיר */
-    --secondary-foreground: 20 20% 20%;
+    --secondary: 20 15% 92%; /* אפור-אבן בהיר */
+    --secondary-foreground: 20 10% 15%;
     
     --muted: 30 10% 90%;
     --muted-foreground: 20 10% 40%;
     
-    --accent: 20 25% 15%; /* חום שוקולד כהה - לשימוש בטקסט ואלמנטים קטנים */
+    --accent: 20 10% 10%; /* שחור עמוק לאלמנטים מודגשים */
     --accent-foreground: 30 20% 98%;
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     
-    --border: 20 10% 90%;
-    --input: 20 10% 90%;
+    --border: 20 10% 88%;
+    --input: 20 10% 88%;
     --ring: 35 35% 45%;
     
     --radius: 0rem; /* פינות חדות למראה מודרני ויוקרתי */
@@ -42,7 +42,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-body text-xl; /* הגדלת בסיס הטקסט */
     direction: rtl;
     -webkit-font-smoothing: antialiased;
   }
@@ -81,7 +81,7 @@
 
 .image-zoom-container img {
   @apply transition-transform ease-out grayscale;
-  transition-duration: 4000ms; /* איטי יותר ליוקרה */
+  transition-duration: 4000ms;
 }
 
 .image-zoom-container:hover img {
@@ -91,18 +91,24 @@
 /* Custom selection color */
 ::selection {
   background-color: hsl(var(--primary) / 0.2);
-  color: hsl(var(--accent));
+  color: hsl(var(--foreground));
 }
 
-/* סגנון טיפוגרפי בוטיק */
+/* סגנון טיפוגרפי בוטיק - מוגדל לקריאות מקסימלית */
 .boutique-label {
-  @apply text-[10px] uppercase tracking-[0.7em] font-bold text-primary;
+  @apply text-[13px] uppercase tracking-[0.6em] font-bold text-primary;
 }
 
 .boutique-title {
-  @apply text-4xl md:text-7xl font-headline font-light leading-[1.15] text-accent;
+  @apply text-5xl md:text-8xl font-headline font-light leading-[1.1] text-foreground;
 }
 
 .boutique-para {
-  @apply text-lg md:text-xl font-light text-stone-600 leading-[1.9];
+  @apply text-xl md:text-2xl font-light text-stone-700 leading-[1.8];
+}
+
+/* מניעת גלילה כשתפריט פתוח */
+body.menu-open {
+  overflow: hidden;
+  height: 100vh;
 }
