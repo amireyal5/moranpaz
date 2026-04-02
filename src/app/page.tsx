@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -108,8 +109,8 @@ export default function Home() {
              מטפלת רגשית מוסמכת בטבעון ועמק יזרעאל
            </span>
            
-           <h1 className="mb-16 md:mb-24">
-             <div className="flex flex-wrap justify-center items-center gap-x-6 md:gap-x-14 gap-y-4 text-5xl sm:text-7xl md:text-9xl font-bold tracking-normal leading-none font-['Amatic_SC'] text-foreground">
+           <h1 className="mb-16 md:mb-24 w-full">
+             <div className="flex flex-wrap justify-center items-center gap-x-6 md:gap-x-14 gap-y-4 text-5xl sm:text-7xl md:text-9xl font-bold tracking-normal leading-none font-['Amatic_SC'] text-foreground w-full">
                <span className="inline-block transition-transform hover:scale-105 duration-700">להתחבר</span>
                <span className="text-primary/40 text-3xl md:text-5xl select-none">•</span>
                <span className="inline-block transition-transform hover:scale-105 duration-700">לגלות</span>
