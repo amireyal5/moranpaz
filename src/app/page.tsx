@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -107,7 +106,7 @@ export default function Home() {
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal max-w-6xl w-full px-4">
-           <span className="boutique-label block mb-6 md:mb-12">מטפלת רגשית בעמק יזרעאל</span>
+           <span className="boutique-label text-primary block mb-6 md:mb-12">מטפלת רגשית בעמק יזרעאל</span>
            <h1 className="boutique-title mb-10 md:mb-20">
              להתחבר | לגלות | <span className="italic">להשתנות</span>
            </h1>
@@ -116,7 +115,7 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="inline-flex w-full md:w-auto px-8 md:px-32 py-6 md:py-10 bg-primary text-white text-lg md:text-[22px] uppercase tracking-[0.2em] md:tracking-[0.4em] hover:bg-accent transition-all duration-700 font-bold items-center justify-center gap-4 md:gap-6 shadow-2xl rounded-sm"
+               className="inline-flex w-full md:w-auto px-8 md:px-32 py-6 md:py-10 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 items-center justify-center gap-4 md:gap-6 shadow-2xl rounded-sm"
              >
                 תאום שיחת היכרות
                 <ArrowLeft size={24} />
@@ -179,7 +178,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-4xl sm:text-5xl md:text-6xl font-headline mb-4 md:mb-6 group-hover:scale-105 transition-transform duration-700">{item.title}</h3>
                 <p className="text-xl md:text-2xl font-light opacity-80 leading-relaxed max-w-[280px]">{item.desc}</p>
-                <div className="mt-8 md:mt-10 boutique-label text-[12px] sm:text-[14px] text-white/50 group-hover:text-white transition-all flex items-center gap-2">
+                <div className="mt-8 md:mt-10 boutique-label !text-white/50 group-hover:!text-white transition-all flex items-center gap-2">
                   למידע נוסף <ArrowLeft size={16} />
                 </div>
               </Link>
@@ -196,7 +195,7 @@ export default function Home() {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-6 px-12 py-6 bg-primary text-white boutique-label hover:bg-white hover:text-accent transition-all duration-700 shadow-2xl"
+            className="inline-flex items-center gap-6 px-12 py-6 bg-primary !text-white boutique-label hover:bg-white hover:!text-accent transition-all duration-700 shadow-2xl"
           >
             בואי נדבר
             <ArrowLeft size={18} />
@@ -266,7 +265,7 @@ export default function Home() {
                   {service.icon}
                 </div>
                 <div className="z-10">
-                  <span className="boutique-label text-white/40 block mb-4 md:mb-6">0{i+1}</span>
+                  <span className="boutique-label !text-white/40 block mb-4 md:mb-6">0{i+1}</span>
                   <h3 className="text-4xl sm:text-5xl md:text-7xl font-headline mb-6 md:mb-8 group-hover:italic transition-all duration-700">{service.title}</h3>
                   <p className="opacity-80 font-light text-xl md:text-3xl leading-relaxed mb-8 md:mb-10 max-w-sm mx-auto">{service.desc}</p>
                   <div className="w-12 md:w-16 h-[1px] bg-white/30 mx-auto group-hover:w-24 md:group-hover:w-32 transition-all duration-700"></div>

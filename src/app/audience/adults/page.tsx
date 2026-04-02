@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -56,7 +55,7 @@ export default function AdultsPage() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex px-16 py-8 bg-accent text-white boutique-label hover:bg-primary transition-all duration-700 items-center gap-6 rounded-sm shadow-2xl"
+                className="inline-flex px-16 py-8 bg-accent !text-white boutique-label hover:bg-primary transition-all duration-700 items-center gap-6 rounded-sm shadow-2xl"
               >
                 תאום שיחת היכרות
                 <ArrowLeft size={18} />
@@ -77,4 +76,3 @@ export default function AdultsPage() {
     </main>
   );
 }
-

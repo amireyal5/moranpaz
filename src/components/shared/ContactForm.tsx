@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -30,7 +29,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
 
       <form className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20">
         <div className="border-b border-border focus-within:border-primary transition-colors pb-4 md:pb-6">
-          <label className="block text-[12px] sm:text-[14px] uppercase tracking-[0.4em] mb-4 md:mb-6 opacity-60 font-bold">שם מלא</label>
+          <label className="block text-[12px] sm:text-[14px] uppercase tracking-[0.4em] mb-4 md:mb-6 opacity-60 font-bold text-primary">שם מלא</label>
           <input 
             type="text" 
             required
@@ -39,7 +38,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
           />
         </div>
         <div className="border-b border-border focus-within:border-primary transition-colors pb-4 md:pb-6">
-          <label className="block text-[12px] sm:text-[14px] uppercase tracking-[0.4em] mb-4 md:mb-6 opacity-60 font-bold">מייל</label>
+          <label className="block text-[12px] sm:text-[14px] uppercase tracking-[0.4em] mb-4 md:mb-6 opacity-60 font-bold text-primary">מייל</label>
           <input 
             type="email" 
             required
@@ -48,7 +47,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
           />
         </div>
         <div className="md:col-span-2 border-b border-border focus-within:border-primary transition-colors pb-4 md:pb-6">
-          <label className="block text-[12px] sm:text-[14px] uppercase tracking-[0.4em] mb-4 md:mb-6 opacity-60 font-bold">טלפון</label>
+          <label className="block text-[12px] sm:text-[14px] uppercase tracking-[0.4em] mb-4 md:mb-6 opacity-60 font-bold text-primary">טלפון</label>
           <input 
             type="tel" 
             required
@@ -68,8 +67,8 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
             className={cn(
               "w-full md:w-auto px-16 sm:px-32 py-6 sm:py-10 text-[14px] sm:text-[16px] uppercase tracking-[0.4em] sm:tracking-[0.8em] font-bold transition-all border",
               isLight 
-                ? 'border-white text-white hover:bg-white hover:text-black' 
-                : 'border-foreground text-foreground hover:bg-foreground hover:text-white'
+                ? 'border-white !text-white hover:bg-white hover:!text-black' 
+                : 'border-accent bg-accent !text-white hover:bg-primary hover:border-primary'
             )}
           >
             שליחה

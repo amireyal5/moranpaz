@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -51,7 +50,7 @@ export default function YouthPage() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex px-16 py-8 bg-primary text-white boutique-label hover:bg-accent transition-all duration-700 items-center gap-6 rounded-sm shadow-2xl"
+                className="inline-flex px-16 py-8 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 items-center gap-6 rounded-sm shadow-2xl"
               >
                 פנייה לשיחת ייעוץ
                 <ArrowLeft size={18} />
@@ -73,4 +72,3 @@ export default function YouthPage() {
     </main>
   );
 }
-
