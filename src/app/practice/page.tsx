@@ -10,12 +10,30 @@ import { CheckCircle2 } from 'lucide-react';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { cn } from '@/lib/utils';
 
-export default function PracticePage() {
+export function PracticePage() {
   const introReveal = useReveal();
 
   const steps = [
-    { id: "01", title: "פגישת הכרות", desc: "נפגש לשיחה ראשונית (בקליניקה או בזום), נכיר אותך ואת מה שמעסיק אותך. נתאם ציפיות ונבין האם מתאים לנו לצאת למסע הטיפולי יחד." },
-    { id: "02", title: "יצירת מרחב בטוח ואמון", desc: "בפגישות הראשונות נעמיק בחיבור ובבניית אמון. זהו מרחב שבו אפשר להביא את עצמך כפי שאת/ה – בלי מסכות, בלי שיפוטיות – ולדעת שיש אוזן קשבת ותמיכה מלאה." }
+    { 
+      id: "01", 
+      title: "פגישת הכרות", 
+      desc: "נפגש לשיחה ראשונית (בקליניקה או בזום), נכיר אותך ואת מה שמעסיק אותך. נתאם ציפיות ונבין האם מתאים לנו לצאת למסע הטיפולי יחד." 
+    },
+    { 
+      id: "02", 
+      title: "יצירת מרחב בטוח ואמון", 
+      desc: "בפגישות הראשונות נעמיק בחיבור ובבניית אמון. זהו מרחב שבו אפשר להביא את עצמך כפי שאת/ה – בלי מסכות, בלי שיפוטיות – ולדעת שיש אוזן קשבת ותמיכה מלאה." 
+    },
+    {
+      id: "03",
+      title: "עבודה רגשית חווייתית",
+      desc: "נשתמש בכלים מגוונים כמו מיינדפולנס, עבודת צללים, דמיון מודרך, קלפים טיפוליים וילד/ה פנימית. המטרה היא לשחרר חסמים, לעבד דפוסים חוזרים ולהתחבר מחדש לגוף, לרגש ולתחושת חיות."
+    },
+    {
+      id: "04",
+      title: "הטמעה ושינוי בחיי היום-יום",
+      desc: "בסיום התהליך תוכל/י לחוות הקלה בתחושות מתח, חרדה, תלות וחוסר משמעות. תוכל/י להגביר את היכולת שלך לוויסות עצמי ואת הערך העצמי, ולאפשר לעצמך ביטוי יותר בהיר ואותנטי כבימאי/ת של חייך."
+    }
   ];
 
   const fits = [
@@ -81,7 +99,7 @@ export default function PracticePage() {
 
       <section className="py-48 bg-stone-50 px-8 md:px-24" id="contact">
         <div className="max-w-4xl mx-auto">
-          <SectionTitle subtitle="Connect" title="מוכנים להתחיל?" className="flex flex-col items-center" />
+          <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
           <ContactForm />
         </div>
       </section>

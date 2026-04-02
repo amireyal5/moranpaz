@@ -43,7 +43,7 @@ export default function Home() {
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal max-w-5xl">
-           <span className="boutique-label block mb-10 stagger-1">מטפלת רגשית בעמק יזרעאל | פסיכותרפיה בטבעון</span>
+           <span className="boutique-label block mb-10 stagger-1">מטפלת רגשית בעמק יזרעאל</span>
            <h1 className="boutique-title mb-16 stagger-2">
              להתחבר | לגלות | <span className="italic">להשתנות</span>
            </h1>
@@ -62,18 +62,19 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="py-48 px-8 md:px-24 bg-white">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
-          <div ref={introReveal} className="lg:col-span-6 text-right reveal">
-             <SectionTitle subtitle="About Moran Paz" title="אודות" />
-             <div className="space-y-12 boutique-para max-w-xl mr-0">
-                <p className="stagger-1">מורן פז היא פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים המציעה <strong>טיפול רגשי בטבעון</strong> ובעמק יזרעאל. היא מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושבחירה קיימת לכל אדם בכל מצב.</p>
-                <p className="stagger-2">בעשור האחרון עברה מסע אישי מרפא וכיום היא מלווה אנשים למצוא את הדרך שלהם פנימה – לחיבור העמוק והאותנטי עם עצמם – ולחיות את חייהם דרך אותו החיבור.</p>
-                <Link href="/practice" className="stagger-3 inline-block boutique-label border-b border-primary/20 hover:border-primary transition-all pb-2">
+          <div ref={introReveal} className="lg:col-span-7 text-right reveal">
+             <SectionTitle subtitle="About Moran Paz" title="נעים מאוד, מורן פז" />
+             <div className="space-y-10 boutique-para max-w-2xl mr-0">
+                <p className="stagger-1 text-2xl font-headline text-accent italic">"אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה."</p>
+                <p className="stagger-2">פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. אני מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושהבחירה קיימת לכל אדם בכל מצב. אני מאמינה בפוטנציאל הנשמתי של כל אדם לממש את עצמו ולהעניק לעולם את המתנות שלו.</p>
+                <p className="stagger-3">בעשור האחרון עברתי מסע אישי מרפא וכיום אני מלווה אנשים למצוא את הדרך שלהם פנימה – לחיבור העמוק והאותנטי עם עצמם – ולחיות את חייהם דרך אותו החיבור.</p>
+                <Link href="/practice" className="stagger-4 inline-block boutique-label border-b border-primary/20 hover:border-primary transition-all pb-2">
                   קראי עוד על התהליך הטיפולי
                 </Link>
              </div>
           </div>
           
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-5">
              <div className="image-zoom-container aspect-[4/5] shadow-2xl">
                 {portraitImg && (
                   <Image 
