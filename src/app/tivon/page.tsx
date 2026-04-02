@@ -10,7 +10,7 @@ import { FaqAssistant } from '@/components/shared/FaqAssistant';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { ContactForm } from '@/components/shared/ContactForm';
-import { MapPin, Trees, ArrowLeft } from 'lucide-react';
+import { MapPin, Trees, ArrowLeft, Coffee, Sun, Wind } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Link from 'next/link';
 
@@ -20,29 +20,36 @@ export default function TivonPage() {
   const tivonFaqs = [
     {
       question: "למה כדאי להגיע לטיפול בטבעון?",
-      answer: "הקליניקה בטבעון ממוקמת בלב הטבע הירוק, מה שמאפשר מרחב של שקט והתנתקות מהרעש החיצוני עוד לפני תחילת המפגש."
+      answer: "הקליניקה בטבעון ממוקמת בלב הטבע הירוק, מה שמאפשר מרחב של שקט והתנתקות מהרעש החיצוני עוד לפני תחילת המפגש. השקט הזה הוא חלק בלתי נפרד מהתהליך הטיפולי."
     },
     {
       question: "האם יש חניה בקרבת הקליניקה?",
       answer: "כן, יש חניה נוחה ובחינם ממש ליד הקליניקה לנוחיות המטופלים."
     },
     {
-      question: "אילו טיפולים ניתן לקבל בטבעון?",
-      answer: "בקליניקה בטבעון אני מקיימת פגישות פסיכותרפיה אישיות, טיפול רגשי חווייתי וליווי בתהליכי עומק."
+      question: "האם הקליניקה נגישה?",
+      answer: "הקליניקה נגישה ונוחה להגעה. אם יש דרישות נגישות ספציפיות, אנא צייני זאת בשיחת התיאום כדי שאוכל להיערך בהתאם."
     }
+  ];
+
+  const highlights = [
+    { title: "אווירה כפרית ושלווה", icon: <Trees size={24} />, desc: "מיקום שקט בלב הירוק של טבעון." },
+    { title: "מרחב בטוח ומכיל", icon: <Wind size={24} />, desc: "עיצוב מינימליסטי המשרה רוגע וביטחון." },
+    { title: "אירוח חם", icon: <Coffee size={24} />, desc: "פינת ישיבה נעימה ותה צמחים להרגעה." },
+    { title: "אור טבעי", icon: <Sun size={24} />, desc: "חלונות גדולים הפונים לצמחייה ירוקה." }
   ];
 
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="h-[70vh] relative flex items-center justify-center bg-stone-900 overflow-hidden pt-20">
-        <div className="absolute inset-0 grayscale brightness-[0.4]">
+      {/* Hero Section - Virtual Tour Entry */}
+      <section className="h-[80vh] relative flex items-center justify-center bg-stone-900 overflow-hidden pt-20">
+        <div className="absolute inset-0 grayscale brightness-[0.5]">
            {clinicImg && (
              <Image 
               src={clinicImg.imageUrl} 
-              alt="טיפול בטבעון - קליניקה ירוקה ומזמינה" 
+              alt="טיפול בטבעון - קליניקה ירוקה ומזמינה של מורן פז" 
               fill 
               className="object-cover"
               priority
@@ -50,40 +57,48 @@ export default function TivonPage() {
              />
            )}
         </div>
-        <div className="relative z-10 text-center px-6">
-           <SectionTitle subtitle="Tivon Clinic" title="טיפול בטבעון" isLight={true} />
-           <h1 className="text-2xl md:text-3xl font-headline italic text-white/90 mt-8 max-w-2xl mx-auto leading-relaxed">
+        <div className="relative z-10 text-center px-6 max-w-4xl">
+           <h1 className="text-5xl md:text-8xl font-headline text-white mb-8">סיור בקליניקה</h1>
+           <p className="text-2xl md:text-3xl font-headline italic text-white/90 leading-relaxed">
              מרחב בטוח לנשימה ושינוי - טיפול רגשי ופסיכותרפיה בטבעון בלב הירוק.
-           </h1>
+           </p>
         </div>
       </section>
       
-      {/* Main Content */}
-      <section className="py-32 px-6 md:px-20 bg-background relative">
+      {/* Clinic Highlights */}
+      <section className="py-32 px-6 md:px-20 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <SectionTitle subtitle="Virtual Tour" title="האווירה בקליניקה" className="flex flex-col items-center text-center" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-20">
+            {highlights.map((item, i) => (
+              <div key={i} className="flex flex-col items-center text-center space-y-6 p-8 bg-stone-50 border border-border/10 hover:shadow-lg transition-all duration-700">
+                <div className="text-primary p-4 bg-white rounded-full shadow-sm">{item.icon}</div>
+                <h3 className="text-2xl font-headline font-bold text-accent">{item.title}</h3>
+                <p className="text-lg font-light text-stone-500 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Deep Dive into Tivon Therapy */}
+      <section className="py-32 px-6 md:px-20 bg-background relative overflow-hidden">
          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="text-right order-2 lg:order-1">
-               <SectionTitle subtitle="Emotional Support" title="טיפול רגשי בטבעון" />
+               <h2 className="text-4xl md:text-6xl font-headline text-accent mb-12">למה טיפול בטבעון?</h2>
                <div className="space-y-8 boutique-para mb-12">
                   <p>
-                    הקליניקה בטבעון טובלת בירוק ומציעה מרחב שקט ומכיל. השילוב בין <strong>פסיכותרפיה בטבעון</strong> לאנרגיה המרגיעה של הסביבה יוצר קרקע פורייה לצמיחה אישית וריפוי רגשי עמוק.
+                    המרחב שבו מתקיים הטיפול הוא בעל משמעות אדירה. כשאנחנו יוצאים מהמרוץ של עמק יזרעאל או מהרעש של העיר ונכנסים אל תוך הירוק של טבעון, המערכת העצבית שלנו מתחילה להירגע עוד לפני שהחל המפגש.
                   </p>
                   <p>
-                    כאן, בין עצי האלון והאוויר הצלול, נוכל יחד לצלול אל עולמך הפנימי, לגלות את החלקים המבקשים ביטוי ולייצר שינוי משמעותי בחיי היום-יום.
+                    בקליניקה שלי, הושקעה מחשבה רבה ביצירת תחושה של "בית". השילוב בין פסיכותרפיה מקצועית לבין סביבה תומכת ושקטה מאפשר למטופלות שלי להרגיש בטוחות לחלוטין לצלול לעומק.
                   </p>
                </div>
                
-               <div className="space-y-8">
-                  <div className="flex items-center justify-end space-x-reverse space-x-6 border-r-8 border-primary pr-8 py-6 bg-white shadow-xl transition-all hover:scale-[1.02]">
-                     <div className="p-3 bg-secondary rounded-full text-primary">
-                        <Trees size={24} />
-                     </div>
-                     <p className="text-2xl font-headline font-bold text-accent">פגישות אישיות פנים-אל-פנים</p>
-                  </div>
-                  <div className="flex items-center justify-end space-x-reverse space-x-6 border-r-8 border-stone-200 pr-8 py-6 bg-white/50 shadow-sm transition-all hover:scale-[1.02]">
-                     <div className="p-3 bg-stone-100 rounded-full text-stone-400">
-                        <MapPin size={24} />
-                     </div>
-                     <p className="text-2xl font-headline font-bold text-stone-700">ליווי רגשי ממוקד צמיחה</p>
+               <div className="flex flex-col gap-6">
+                  <div className="flex items-center justify-end space-x-reverse space-x-6 border-r-8 border-primary pr-8 py-6 bg-white shadow-xl">
+                     <MapPin size={24} className="text-primary" />
+                     <p className="text-2xl font-headline font-bold text-accent">מיקום נגיש בלב טבעון</p>
                   </div>
                </div>
             </div>
@@ -93,9 +108,9 @@ export default function TivonPage() {
                   {clinicImg && (
                     <Image 
                       src={clinicImg.imageUrl} 
-                      alt="פסיכותרפיה בטבעון - מורן פז" 
+                      alt="פסיכותרפיה בטבעון - המרחב הטיפולי של מורן פז" 
                       fill 
-                      className="object-cover grayscale"
+                      className="object-cover"
                       data-ai-hint={clinicImg.imageHint}
                     />
                   )}
@@ -106,7 +121,7 @@ export default function TivonPage() {
 
       <TestimonialsSection />
 
-      <FaqSection items={tivonFaqs} title="שאלות נפוצות על טיפול בטבעון" subtitle="Tivon FAQ" />
+      <FaqSection items={tivonFaqs} title="שאלות נפוצות על טיפול בטבעון" subtitle="Tivon Clinic FAQ" />
 
       {/* CTA Section */}
       <section className="py-32 bg-stone-50 px-6 md:px-20" id="contact">
