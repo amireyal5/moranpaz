@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -21,24 +22,24 @@ export function Navbar() {
 
   const navItems = [
     { label: 'בית', href: '/' },
-    { label: 'התהליך', href: '/practice' },
-    { label: 'סדנת BEINME', href: '/workshop' },
-    { label: 'טבעון', href: '/tivon' },
+    { label: 'טיפול', href: '/practice' },
+    { label: 'קורס BEINME', href: '/workshop' },
+    { label: 'אודות', href: '/#about' },
   ];
 
   return (
     <nav className={cn(
-      "fixed w-full z-[100] transition-all duration-700 px-8 md:px-20 flex justify-between items-center py-6",
-      isScrolled ? 'bg-background/80 backdrop-blur-xl py-4 border-b border-border/40' : 'bg-transparent'
+      "fixed w-full z-[100] transition-all duration-700 px-8 md:px-20 flex justify-between items-center py-8",
+      isScrolled ? 'bg-background/90 backdrop-blur-xl py-4 border-b border-border/40' : 'bg-transparent'
     )}>
       <Link 
         href="/"
-        className="text-xl md:text-2xl font-headline tracking-[0.15em] font-light hover:opacity-70 transition-opacity"
+        className="text-xl md:text-2xl font-headline tracking-[0.2em] font-light hover:opacity-70 transition-opacity"
       >
         MORAN PAZ
       </Link>
       
-      <div className="hidden md:flex items-center space-x-reverse space-x-12 text-[10px] uppercase tracking-[0.3em] font-medium">
+      <div className="hidden md:flex items-center space-x-reverse space-x-12 text-[10px] uppercase tracking-[0.4em] font-bold">
         {navItems.map((item) => (
           <Link 
             key={item.href} 
@@ -53,7 +54,7 @@ export function Navbar() {
         ))}
         <Link 
           href="#contact" 
-          className="text-primary hover:text-accent transition-colors"
+          className="text-primary hover:text-accent transition-colors border border-primary px-6 py-2"
         >
           צור קשר
         </Link>
@@ -91,7 +92,7 @@ export function Navbar() {
           <Link 
             href="#contact" 
             onClick={() => setMobileMenuOpen(false)}
-            className="text-lg tracking-[0.4em] uppercase text-primary pt-10"
+            className="text-lg tracking-[0.4em] uppercase text-primary pt-10 border-t border-white/10 w-full text-center"
           >
             צור קשר
           </Link>
