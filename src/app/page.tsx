@@ -88,7 +88,7 @@ export default function Home() {
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
       
-      {/* Hero Section Redesign 2026 */}
+      {/* Hero Section Redesign 2026 - Ultra Luxury */}
       <section className="relative min-h-[90vh] md:min-h-screen w-full flex flex-col items-center justify-center px-6 pt-40 md:pt-48 overflow-hidden bg-white">
         <div className="absolute inset-0 z-0">
           {heroImg && (
@@ -105,40 +105,40 @@ export default function Home() {
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal max-w-7xl w-full px-4 flex flex-col items-center">
-           <span className="boutique-label text-primary block mb-10 text-sm md:text-lg tracking-[0.4em]">
-             מטפלת רגשית מוסמכת בטבעון
+           <span className="boutique-label text-primary block mb-12 text-sm md:text-lg tracking-[0.4em] font-medium">
+             מטפלת רגשית מוסמכת בטבעון ועמק יזרעאל
            </span>
            
-           <h1 className="mb-12 md:mb-20">
-             <div className="flex flex-wrap justify-center items-center gap-x-4 md:gap-x-10 gap-y-4 boutique-title !leading-[1.1] font-headline font-light">
-               <span className="inline-block">להתחבר</span>
-               <span className="text-primary/30 text-xl md:text-3xl select-none mx-1 md:mx-2">•</span>
-               <span className="inline-block">לגלות</span>
-               <span className="text-primary/30 text-xl md:text-3xl select-none mx-1 md:mx-2">•</span>
-               <span className="inline-block">להשתנות</span>
+           <h1 className="mb-16 md:mb-24">
+             <div className="flex flex-wrap justify-center items-center gap-x-6 md:gap-x-14 gap-y-4 text-5xl sm:text-7xl md:text-9xl font-bold tracking-normal leading-none font-['Amatic_SC'] text-foreground">
+               <span className="inline-block transition-transform hover:scale-105 duration-700">להתחבר</span>
+               <span className="text-primary/40 text-3xl md:text-5xl select-none">•</span>
+               <span className="inline-block transition-transform hover:scale-105 duration-700">לגלות</span>
+               <span className="text-primary/40 text-3xl md:text-5xl select-none">•</span>
+               <span className="inline-block transition-transform hover:scale-105 duration-700">להשתנות</span>
              </div>
            </h1>
            
-           <h2 className="text-xl md:text-2xl font-headline italic mb-16 text-accent/70 max-w-4xl mx-auto leading-relaxed font-medium">
-             פסיכותרפיה הוליסטית וליווי רגשי עמוק בטבעון, עמק יזרעאל ואונליין לישראלים בארץ ובעולם
+           <h2 className="text-xl md:text-3xl font-headline italic mb-16 text-accent/70 max-w-4xl mx-auto leading-relaxed font-medium">
+             פסיכותרפיה הוליסטית וליווי רגשי עמוק ליצירת עוגן פנימי וחוסן נפשי
            </h2>
            
-           <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full max-w-3xl">
+           <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full max-w-4xl">
              <a 
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="inline-flex w-full md:w-auto px-10 md:px-14 py-4 md:py-5 bg-primary !text-white boutique-label !text-base md:!text-lg hover:bg-accent transition-all duration-700 items-center justify-center gap-4 shadow-xl rounded-sm group overflow-hidden relative whitespace-nowrap !tracking-[0.2em]"
+               className="inline-flex w-full md:w-auto px-12 md:px-16 py-4 md:py-5 bg-primary !text-white boutique-label !text-sm md:!text-base hover:bg-accent transition-all duration-700 items-center justify-center gap-4 shadow-xl rounded-sm group overflow-hidden relative whitespace-nowrap !tracking-[0.2em]"
              >
                 <span className="relative z-10">תאום שיחת היכרות</span>
-                <ArrowLeft size={20} className="relative z-10 group-hover:-translate-x-2 transition-transform duration-500" />
+                <ArrowLeft size={18} className="relative z-10 group-hover:-translate-x-2 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-in-out"></div>
              </a>
              <Link 
-               href="/about"
+               href="/practice"
                className="inline-flex w-full md:w-auto px-10 md:px-12 py-4 md:py-5 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50/50 hover:border-foreground/30 transition-all duration-700 font-light items-center justify-center gap-4 tracking-widest uppercase text-xs md:text-sm"
              >
-                על הגישה שלי
+                התהליך הטיפולי
              </Link>
            </div>
         </div>
