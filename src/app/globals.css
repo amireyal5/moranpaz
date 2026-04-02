@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -99,7 +100,7 @@
 }
 
 .boutique-label {
-  @apply text-sm sm:text-base md:text-lg uppercase tracking-[0.4em] sm:tracking-[0.6em] font-bold;
+  @apply text-sm sm:text-base md:text-lg uppercase tracking-[0.4em] font-bold;
 }
 
 .boutique-title {

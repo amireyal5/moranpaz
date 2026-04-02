@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -88,7 +89,7 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section Redesign 2026 */}
-      <section className="relative min-h-screen w-full flex flex-col items-center justify-center px-6 pt-40 md:pt-56 overflow-hidden bg-white">
+      <section className="relative min-h-[90vh] md:min-h-screen w-full flex flex-col items-center justify-center px-6 pt-40 md:pt-48 overflow-hidden bg-white">
         <div className="absolute inset-0 z-0">
           {heroImg && (
             <Image 
@@ -104,38 +105,38 @@ export default function Home() {
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal max-w-7xl w-full px-4 flex flex-col items-center">
-           <span className="boutique-label text-primary block mb-12 text-sm md:text-xl tracking-[0.6em]">
+           <span className="boutique-label text-primary block mb-10 text-sm md:text-lg tracking-[0.4em]">
              מטפלת רגשית מוסמכת בטבעון
            </span>
            
-           <h1 className="mb-16 md:mb-24">
-             <div className="flex flex-wrap justify-center items-center gap-x-6 md:gap-x-12 gap-y-6 boutique-title !leading-[1.1] font-headline font-light">
+           <h1 className="mb-12 md:mb-20">
+             <div className="flex flex-wrap justify-center items-center gap-x-4 md:gap-x-10 gap-y-4 boutique-title !leading-[1.1] font-headline font-light">
                <span className="inline-block">להתחבר</span>
-               <span className="text-primary/30 text-xl md:text-4xl select-none mx-2">•</span>
+               <span className="text-primary/30 text-xl md:text-3xl select-none mx-1 md:mx-2">•</span>
                <span className="inline-block">לגלות</span>
-               <span className="text-primary/30 text-xl md:text-4xl select-none mx-2">•</span>
+               <span className="text-primary/30 text-xl md:text-3xl select-none mx-1 md:mx-2">•</span>
                <span className="inline-block">להשתנות</span>
              </div>
            </h1>
            
-           <h2 className="text-xl md:text-3xl font-headline italic mb-20 text-accent/70 max-w-5xl mx-auto leading-relaxed font-medium">
+           <h2 className="text-xl md:text-2xl font-headline italic mb-16 text-accent/70 max-w-4xl mx-auto leading-relaxed font-medium">
              פסיכותרפיה הוליסטית וליווי רגשי עמוק בטבעון, עמק יזרעאל ואונליין לישראלים בארץ ובעולם
            </h2>
            
-           <div className="flex flex-col md:flex-row items-center justify-center gap-8 w-full max-w-2xl">
+           <div className="flex flex-col md:flex-row items-center justify-center gap-6 w-full max-w-3xl">
              <a 
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="inline-flex w-full md:w-auto px-16 md:px-24 py-7 bg-primary !text-white boutique-label !text-lg md:!text-xl hover:bg-accent transition-all duration-1000 items-center justify-center gap-6 shadow-2xl rounded-sm group overflow-hidden relative"
+               className="inline-flex w-full md:w-auto px-10 md:px-14 py-4 md:py-5 bg-primary !text-white boutique-label !text-base md:!text-lg hover:bg-accent transition-all duration-700 items-center justify-center gap-4 shadow-xl rounded-sm group overflow-hidden relative whitespace-nowrap !tracking-[0.2em]"
              >
                 <span className="relative z-10">תאום שיחת היכרות</span>
-                <ArrowLeft size={24} className="relative z-10 group-hover:-translate-x-2 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-1000 ease-in-out"></div>
+                <ArrowLeft size={20} className="relative z-10 group-hover:-translate-x-2 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-in-out"></div>
              </a>
              <Link 
                href="/about"
-               className="inline-flex w-full md:w-auto px-12 md:px-16 py-7 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50/50 hover:border-foreground/30 transition-all duration-1000 font-light items-center justify-center gap-4 tracking-widest uppercase text-sm md:text-base"
+               className="inline-flex w-full md:w-auto px-10 md:px-12 py-4 md:py-5 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50/50 hover:border-foreground/30 transition-all duration-700 font-light items-center justify-center gap-4 tracking-widest uppercase text-xs md:text-sm"
              >
                 על הגישה שלי
              </Link>
