@@ -48,6 +48,9 @@ const siteContent = `
 
   ## צור קשר (Contact Information)
   מורן פועלת בעמק יזרעאל ובטבעון. ניתן לתאם שיחת ייעוץ ראשונית ללא עלות.
+  טלפון: 050-781-7338
+  מייל: moraniva5@gmail.com
+  פייסבוק: BeinMe - Moran Paz
 `;
 
 const faqPrompt = ai.definePrompt({

@@ -44,19 +44,19 @@ export default function Home() {
   const audiences = [
     {
       title: "מבוגרים",
-      icon: <Orbit size={120} strokeWidth={0.5} />,
+      icon: <Orbit size={180} strokeWidth={0.5} />,
       link: "/audience/adults",
       desc: "ליווי רגשי בצמתי חיים ומציאת עוגן פנימי."
     },
     {
       title: "נוער",
-      icon: <Infinity size={120} strokeWidth={0.5} />,
+      icon: <Infinity size={180} strokeWidth={0.5} />,
       link: "/audience/youth",
       desc: "מרחב בטוח לפיתוח חוסן רגשי וביטוי עצמי."
     },
     {
       title: "נשים",
-      icon: <Waves size={120} strokeWidth={0.5} />,
+      icon: <Waves size={180} strokeWidth={0.5} />,
       link: "/audience/women",
       desc: "חיבור עמוק לעולם הפנימי ומציאת הקול האותנטי."
     }
@@ -66,7 +66,7 @@ export default function Home() {
     {
       title: "שילוב גוף-נפש",
       icon: <Orbit size={32} strokeWidth={1} />,
-      desc: "פסיכותרפיה הוליסטית שרואה בך שלם. אנחנו עובדים עם הרגש, הגוף והמחשבה יחד לריפוי עמוק."
+      desc: "פסיכותרפיה הוליסטית שרואה בך שלם. אנחנו עובדת עם הרגש, הגוף והמחשבה יחד לריפוי עמוק."
     },
     {
       title: "כלים חווייתיים",
@@ -257,7 +257,7 @@ export default function Home() {
           
           <div className="mt-24 flex flex-col items-center">
             <a 
-              href="https://wa.me/972500000000" 
+              href="https://wa.me/972507817338" 
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-6 text-foreground hover:text-primary transition-colors boutique-label group text-xl"

@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MessageCircle, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MessageCircle, ExternalLink, Facebook, Instagram } from 'lucide-react';
 
 export function Footer() {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -37,13 +37,35 @@ export function Footer() {
              </nav>
           </div>
 
-          {/* Audience Section */}
+          {/* Social & Contact Section */}
           <div className="lg:col-span-2">
-             <h4 className="text-[11px] uppercase tracking-[0.3em] text-primary mb-6 font-bold opacity-80">קהלי יעד</h4>
-             <nav className="flex flex-col space-y-3 text-base font-light">
-                <Link href="/audience/adults" className="hover:text-primary transition-colors duration-500">מבוגרים</Link>
-                <Link href="/audience/youth" className="hover:text-primary transition-colors duration-500">נוער</Link>
-                <Link href="/audience/women" className="hover:text-primary transition-colors duration-500">נשים</Link>
+             <h4 className="text-[11px] uppercase tracking-[0.3em] text-primary mb-6 font-bold opacity-80">רשתות חברתיות</h4>
+             <nav className="flex flex-col space-y-4">
+                <a 
+                  href="https://www.facebook.com/profile.php?id=100063529346610" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-lg font-light hover:text-primary transition-colors duration-500"
+                >
+                  <Facebook size={18} strokeWidth={1} className="text-primary/60" />
+                  <span>BeinMe - Moran Paz</span>
+                </a>
+                <a 
+                  href="#" 
+                  className="flex items-center gap-3 text-lg font-light hover:text-primary transition-colors duration-500 opacity-40 cursor-not-allowed"
+                >
+                  <Instagram size={18} strokeWidth={1} className="text-primary/60" />
+                  <span>Instagram</span>
+                </a>
+                <a 
+                  href="https://wa.me/972507817338" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-lg font-light hover:text-primary transition-colors duration-500"
+                >
+                  <MessageCircle size={18} strokeWidth={1} className="text-primary/60" />
+                  <span>WhatsApp</span>
+                </a>
              </nav>
           </div>
 
@@ -51,13 +73,13 @@ export function Footer() {
           <div className="lg:col-span-4">
              <h4 className="text-[11px] uppercase tracking-[0.3em] text-primary mb-6 font-bold opacity-80">קשר וקישורים</h4>
              <div className="space-y-4">
-                <a href="mailto:contact@moranpaz.com" className="flex items-center justify-start space-x-reverse space-x-3 text-lg font-light hover:text-primary transition-colors duration-500">
+                <a href="mailto:moraniva5@gmail.com" className="flex items-center justify-start space-x-reverse space-x-3 text-lg font-light hover:text-primary transition-colors duration-500">
                   <Mail size={16} className="text-primary/60" />
-                  <span>contact@moranpaz.com</span>
+                  <span>moraniva5@gmail.com</span>
                 </a>
-                <a href="tel:0500000000" className="flex items-center justify-start space-x-reverse space-x-3 text-lg font-light hover:text-primary transition-colors duration-500">
+                <a href="tel:0507817338" className="flex items-center justify-start space-x-reverse space-x-3 text-lg font-light hover:text-primary transition-colors duration-500">
                   <Phone size={16} className="text-primary/60" />
-                  <span>050-000-0000</span>
+                  <span>050-781-7338</span>
                 </a>
                 
                 <div className="pt-4 border-t border-white/10 mt-6">
@@ -88,7 +110,7 @@ export function Footer() {
           <div className="flex items-center space-x-reverse space-x-4">
             <span className="opacity-40">BOUTIQUE HOLISTIC CARE</span>
             <a 
-              href="https://wa.me/972500000000" 
+              href="https://wa.me/972507817338" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="hover:text-white transition-colors flex items-center gap-2 text-primary"
