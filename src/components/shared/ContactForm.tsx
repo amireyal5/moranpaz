@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -19,7 +20,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
       {/* Google Maps Placeholder */}
       <div className="w-full h-[300px] sm:h-[400px] bg-stone-100 mb-16 md:mb-24 relative overflow-hidden group shadow-inner border border-stone-200">
         <div className="absolute inset-0 flex flex-col items-center justify-center opacity-40 group-hover:opacity-60 transition-opacity px-6 text-center">
-          <MapPin size={48} className="text-primary mb-4 animate-art-float" />
+          <MapPin size={48} strokeWidth={1} className="text-primary mb-4 animate-art-float" />
           <p className="text-xl sm:text-2xl font-headline italic">מיקום הקליניקה - טבעון / עמק יזרעאל</p>
           <span className="text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] mt-2">(שומר מקום למפת גוגל)</span>
         </div>
