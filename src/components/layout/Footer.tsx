@@ -18,7 +18,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 mb-20 text-right">
           
           {/* Brand Section */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-4">
             <h3 className="text-2xl font-headline tracking-[0.3em] font-light mb-6">MORAN PAZ</h3>
             <p className="text-stone-400 font-light leading-relaxed max-w-sm mr-0 text-lg">
               פסיכותרפיה הוליסטית וליווי רגשי חווייתי. מרחב בטוח לגילוי, ריפוי וחיבור אותנטי לעצמך בטבעון ובעמק יזרעאל.
@@ -26,14 +26,24 @@ export function Footer() {
           </div>
           
           {/* Navigation Section */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-2">
              <h4 className="text-[11px] uppercase tracking-[0.3em] text-primary mb-6 font-bold opacity-80">ניווט מהיר</h4>
              <nav className="flex flex-col space-y-3 text-base font-light">
                 <Link href="/" className="hover:text-primary transition-colors duration-500">דף הבית</Link>
                 <Link href="/about" className="hover:text-primary transition-colors duration-500">אודות</Link>
                 <Link href="/practice" className="hover:text-primary transition-colors duration-500">התהליך הטיפולי</Link>
                 <Link href="/workshop" className="hover:text-primary transition-colors duration-500">קורס BEINME</Link>
-                <Link href="/updates" className="hover:text-primary transition-colors duration-500">עדכונים</Link>
+                <Link href="/tivon" className="hover:text-primary transition-colors duration-500">טבעון</Link>
+             </nav>
+          </div>
+
+          {/* Audience Section */}
+          <div className="lg:col-span-2">
+             <h4 className="text-[11px] uppercase tracking-[0.3em] text-primary mb-6 font-bold opacity-80">קהלי יעד</h4>
+             <nav className="flex flex-col space-y-3 text-base font-light">
+                <Link href="/audience/adults" className="hover:text-primary transition-colors duration-500">מבוגרים</Link>
+                <Link href="/audience/youth" className="hover:text-primary transition-colors duration-500">נוער</Link>
+                <Link href="/audience/women" className="hover:text-primary transition-colors duration-500">נשים</Link>
              </nav>
           </div>
 
