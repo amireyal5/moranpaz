@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -159,7 +158,7 @@ export default function PracticePage() {
         </div>
       </section>
 
-      <FaqSection items={practiceFaqs} title="שאלות נפוצות על הטיפול" subtitle="Process FAQ" />
+      <FaqSection items={practiceFaqs} title="שאלות נפוצות על הטיפול" subtitle="Common Questions" />
 
       <section className="py-48 bg-stone-50 px-8 md:px-24" id="contact">
         <div className="max-w-4xl mx-auto">

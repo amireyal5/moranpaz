@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -124,7 +123,7 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      <FaqSection items={workshopFaqs} title="שאלות על הקורס" subtitle="Workshop FAQ" />
+      <FaqSection items={workshopFaqs} title="שאלות על הקורס" subtitle="Common Questions" />
 
       <section className="py-32 bg-stone-50 px-6 md:px-20" id="contact">
         <div className="max-w-4xl mx-auto">

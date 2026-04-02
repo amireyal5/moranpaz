@@ -117,7 +117,7 @@ export default function TivonPage() {
 
       <TestimonialsSection />
 
-      <FaqSection items={tivonFaqs} title="שאלות נפוצות על טיפול בטבעון" subtitle="Tivon Clinic FAQ" />
+      <FaqSection items={tivonFaqs} title="שאלות נפוצות על טיפול בטבעון" subtitle="Common Questions" />
 
       <section className="py-32 bg-stone-50 px-6 md:px-20" id="contact">
         <div className="max-w-4xl mx-auto text-center">

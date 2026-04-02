@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -224,7 +223,7 @@ export default function Home() {
 
       <TestimonialsSection />
       
-      <FaqSection items={homeFaqs} title="שאלות נפוצות על הטיפול" subtitle="SEO FAQ" />
+      <FaqSection items={homeFaqs} title="שאלות נפוצות על הטיפול" subtitle="Common Questions" />
 
       <section id="contact" className="py-32 md:py-56 px-6 bg-white border-t border-border/10">
         <div className="max-w-5xl mx-auto text-center">
