@@ -32,7 +32,7 @@ export default function Home() {
           {heroImg && (
             <Image 
               src={heroImg.imageUrl} 
-              alt={heroImg.description} 
+              alt="מורן פז - פסיכותרפיה וטיפול רגשי בטבעון" 
               fill
               className="object-cover opacity-20 grayscale"
               priority
@@ -42,7 +42,7 @@ export default function Home() {
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal max-w-5xl">
-           <span className="block text-[10px] uppercase tracking-[0.6em] text-primary mb-8 font-bold">מטפלת רגשית בעמק יזרעאל</span>
+           <span className="block text-[10px] uppercase tracking-[0.6em] text-primary mb-8 font-bold">מטפלת רגשית בעמק יזרעאל | פסיכותרפיה בטבעון</span>
            <h1 className="text-[10vw] md:text-[6vw] font-headline leading-[1.1] text-accent mb-12">
              להתחבר | לגלות | <span className="italic">להשתנות</span>
            </h1>
@@ -62,12 +62,12 @@ export default function Home() {
       <section id="about" className="py-40 px-8 md:px-24 bg-white border-y border-border/40">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
           <div ref={introReveal} className="lg:col-span-6 text-right reveal">
-             <SectionTitle subtitle="About" title="אודות" />
+             <SectionTitle subtitle="About Moran Paz" title="אודות" />
              <div className="space-y-10 text-lg md:text-xl font-light text-stone-600 leading-[1.8] max-w-xl mr-0">
-                <p>מורן פז היא פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. היא מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושבחירה קיימת לכל אדם בכל מצב.</p>
+                <p>מורן פז היא פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים המציעה <strong>טיפול רגשי בטבעון</strong> ובעמק יזרעאל. היא מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושבחירה קיימת לכל אדם בכל מצב.</p>
                 <p>בעשור האחרון עברה מסע אישי מרפא וכיום היא מלווה אנשים למצוא את הדרך שלהם פנימה – לחיבור העמוק והאותנטי עם עצמם – ולחיות את חייהם דרך אותו החיבור.</p>
                 <Link href="/practice" className="inline-block text-[10px] uppercase tracking-[0.3em] text-primary font-bold border-b border-primary/20 hover:border-primary transition-all pb-1">
-                  קראי עוד על התהליך
+                  קראי עוד על התהליך הטיפולי
                 </Link>
              </div>
           </div>
@@ -77,7 +77,7 @@ export default function Home() {
                 {portraitImg && (
                   <Image 
                     src={portraitImg.imageUrl} 
-                    alt={portraitImg.description} 
+                    alt="מורן פז - מטפלת רגשית ופסיכותרפיסטית" 
                     fill 
                     className="object-cover"
                     data-ai-hint={portraitImg.imageHint}
@@ -103,11 +103,11 @@ export default function Home() {
       <section className="py-40 px-8 md:px-24">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24">
-            <SectionTitle subtitle="Services" title="מה אני מציעה?" />
+            <SectionTitle subtitle="Therapy & Workshops" title="מה אני מציעה?" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-1px bg-border/40 border border-border/40">
             {[
-              { title: "התהליך הטיפולי", link: "/practice", desc: "מסע אישי לריפוי רגשי, חיזוק חוסן ומציאת שקט פנימי." },
+              { title: "התהליך הטיפולי", link: "/practice", desc: "מסע אישי לריפוי רגשי, חיזוק חוסן ומציאת שקט פנימי - פסיכותרפיה בטבעון." },
               { title: "קורס BeinMe", link: "/workshop", desc: "מרחב קבוצתי-טיפולי לנשים לחיבור אותנטי וכנה עם עצמך." }
             ].map((service, i) => (
               <Link key={i} href={service.link} className="bg-white p-20 hover:bg-stone-50 transition-all group flex flex-col justify-between aspect-video md:aspect-square">
@@ -128,7 +128,7 @@ export default function Home() {
       {/* Testimonials */}
       <section ref={testimonialsReveal} className="py-40 bg-stone-50 px-8 reveal">
         <div className="max-w-4xl mx-auto text-center">
-          <SectionTitle subtitle="Testimonials" title="לקוחות ממליצים" />
+          <SectionTitle subtitle="Success Stories" title="לקוחות ממליצים" />
           <div className="grid grid-cols-1 gap-12 mt-16">
             <div className="bg-white p-12 shadow-sm border border-border/40 italic text-stone-600 font-light text-xl leading-relaxed">
               "התהליך עם מורן פתח לי דלת לעצמי שמעולם לא ידעתי שקיימת. השקט שמצאתי מלווה אותי בכל יום."
@@ -142,7 +142,7 @@ export default function Home() {
       <section id="contact" className="py-40 px-8 bg-white border-t border-border/20">
         <div className="max-w-3xl mx-auto text-center">
           <SectionTitle subtitle="Connect" title="צרו קשר" />
-          <p className="text-stone-500 font-light mb-16 text-lg">בואי נדבר. אני כאן בשבילך לתאום שיחת הכרות ללא עלות וללא התחייבות.</p>
+          <p className="text-stone-500 font-light mb-16 text-lg">בואי נדבר. אני כאן בשבילך לתאום שיחת הכרות ללא עלות וללא התחייבות לטיפול רגשי בטבעון או בשיחת זום.</p>
           <ContactForm />
           
           <div className="mt-20 flex flex-col items-center gap-6">
@@ -172,4 +172,3 @@ export default function Home() {
     </main>
   );
 }
-

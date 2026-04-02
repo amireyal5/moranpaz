@@ -20,10 +20,25 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [mobileMenuOpen]);
+
+  // Close menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   const navItems = [
     { label: 'בית', href: '/' },
     { label: 'טיפול', href: '/practice' },
     { label: 'קורס BEINME', href: '/workshop' },
+    { label: 'טיפול בטבעון', href: '/tivon' },
     { label: 'אודות', href: '/#about' },
   ];
 
@@ -62,22 +77,17 @@ export function Navbar() {
 
       <button 
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-        className="md:hidden p-2 hover:opacity-50 transition-opacity"
+        className="md:hidden p-2 hover:opacity-50 transition-opacity z-[210] relative"
+        aria-label="תפריט"
       >
-        {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        {mobileMenuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
       </button>
 
       {/* Mobile Menu Overlay */}
       <div className={cn(
         "fixed inset-0 z-[200] bg-accent text-white transition-all duration-700 flex flex-col items-center justify-center",
-        mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
+        mobileMenuOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-full pointer-events-none invisible'
       )}>
-        <button 
-          onClick={() => setMobileMenuOpen(false)} 
-          className="absolute top-8 right-8 p-2"
-        >
-          <X size={30} strokeWidth={1} />
-        </button>
         <div className="flex flex-col items-center space-y-10">
           {navItems.map((item) => (
             <Link 

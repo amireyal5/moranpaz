@@ -22,7 +22,7 @@ export default function TivonPage() {
            {clinicImg && (
              <Image 
               src={clinicImg.imageUrl} 
-              alt={clinicImg.description} 
+              alt="טיפול בטבעון - קליניקה ירוקה ומזמינה" 
               fill 
               className="object-cover"
               data-ai-hint={clinicImg.imageHint}
@@ -30,19 +30,19 @@ export default function TivonPage() {
            )}
         </div>
         <div className="relative z-10 text-center px-6">
-           <SectionTitle subtitle="Clinic" title="טיפול בטבעון" number="L" isLight={true} />
-           <p className="text-2xl md:text-3xl font-headline italic text-white/90 mt-8 max-w-2xl mx-auto leading-relaxed">
-             מרחב בטוח לנשימה ושינוי בלב הירוק של טבעון.
-           </p>
+           <SectionTitle subtitle="Tivon Clinic" title="טיפול בטבעון" isLight={true} />
+           <h1 className="text-2xl md:text-3xl font-headline italic text-white/90 mt-8 max-w-2xl mx-auto leading-relaxed">
+             מרחב בטוח לנשימה ושינוי - טיפול רגשי ופסיכותרפיה בטבעון בלב הירוק.
+           </h1>
         </div>
       </section>
       
       <section className="py-32 px-6 md:px-20 bg-background relative">
          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="text-right order-2 lg:order-1">
-               <SectionTitle subtitle="The Setting" title="ריפוי בטבע" />
+               <SectionTitle subtitle="Emotional Support" title="טיפול רגשי בטבעון" />
                <p className="text-xl font-light text-stone-600 leading-relaxed mb-12">
-                  הקליניקה בטבעון טובלת בירוק ומציעה מרחב שקט ומכיל. השילוב בין פסיכותרפיה הוליסטית לאנרגיה המרגיעה של הסביבה יוצר קרקע פורייה לצמיחה אישית.
+                  הקליניקה בטבעון טובלת בירוק ומציעה מרחב שקט ומכיל. השילוב בין <strong>פסיכותרפיה בטבעון</strong> לאנרגיה המרגיעה של הסביבה יוצר קרקע פורייה לצמיחה אישית וריפוי רגשי עמוק.
                </p>
                
                <div className="space-y-8">
@@ -66,7 +66,7 @@ export default function TivonPage() {
                   {clinicImg && (
                     <Image 
                       src={clinicImg.imageUrl} 
-                      alt={clinicImg.description} 
+                      alt="פסיכותרפיה בטבעון - מורן פז" 
                       fill 
                       className="object-cover grayscale"
                       data-ai-hint={clinicImg.imageHint}
@@ -79,8 +79,8 @@ export default function TivonPage() {
 
       <section className="py-32 bg-stone-100 px-6 md:px-20" id="contact">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl md:text-5xl font-headline font-bold text-foreground mb-8">נפגש בקליניקה?</h2>
-          <p className="text-xl text-stone-600 mb-12">ניתן לתאם פגישת הכרות ללא עלות. השאירי פרטים ואחזור אלייך בהקדם.</p>
+          <h2 className="text-3xl md:text-5xl font-headline font-bold text-foreground mb-8">נפגש בקליניקה בטבעון?</h2>
+          <p className="text-xl text-stone-600 mb-12">ניתן לתאם פגישת הכרות ללא עלות עבור טיפול רגשי בטבעון. השאירי פרטים ואחזור אלייך בהקדם.</p>
           <div className="text-right">
             <ContactForm />
           </div>
