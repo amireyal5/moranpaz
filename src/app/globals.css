@@ -43,7 +43,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body text-xl;
+    @apply bg-background text-foreground font-body text-xl overflow-x-hidden w-full;
     direction: rtl;
     -webkit-font-smoothing: antialiased;
   }
@@ -101,15 +101,15 @@
 
 /* סגנון טיפוגרפי בוטיק */
 .boutique-label {
-  @apply text-[18px] uppercase tracking-[0.6em] font-bold text-primary;
+  @apply text-[14px] sm:text-[16px] md:text-[18px] uppercase tracking-[0.4em] sm:tracking-[0.6em] font-bold text-primary;
 }
 
 .boutique-title {
-  @apply text-6xl md:text-9xl font-headline font-light leading-[1.15] text-foreground;
+  @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-headline font-light leading-[1.15] text-foreground break-words;
 }
 
 .boutique-para {
-  @apply text-2xl md:text-3xl font-light text-stone-700 leading-[1.9];
+  @apply text-xl sm:text-2xl md:text-3xl font-light text-stone-700 leading-[1.7] sm:leading-[1.9];
 }
 
 /* אנימציית כתיבה ידנית */
@@ -140,9 +140,9 @@ body.menu-open {
   @apply overflow-hidden h-screen;
 }
 
-/* כרטיסיית בוטיק אמנותית בסגנון עמיר אייל */
+/* כרטיסיית בוטיק אמנותית */
 .boutique-card {
-  @apply bg-[#8a847e] text-white p-12 md:p-16 flex flex-col items-center text-center justify-center min-h-[450px] relative overflow-hidden transition-all duration-1000 border-none;
+  @apply bg-[#8a847e] text-white p-8 sm:p-12 md:p-16 flex flex-col items-center text-center justify-center min-h-[400px] sm:min-h-[450px] relative overflow-hidden transition-all duration-1000 border-none w-full max-w-full;
 }
 
 .boutique-card:hover {
@@ -150,5 +150,5 @@ body.menu-open {
 }
 
 .boutique-card .art-icon {
-  @apply absolute top-10 right-10 opacity-20 text-white animate-art-float;
+  @apply absolute top-6 right-6 sm:top-10 sm:right-10 opacity-20 text-white animate-art-float pointer-events-none;
 }
