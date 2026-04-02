@@ -42,7 +42,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body text-xl overflow-x-hidden w-full;
+    @apply bg-background text-foreground font-body text-lg sm:text-xl overflow-x-hidden w-full;
     direction: rtl;
     -webkit-font-smoothing: antialiased;
   }
@@ -100,15 +100,15 @@
 }
 
 .boutique-label {
-  @apply text-[12px] sm:text-[14px] uppercase tracking-[0.5em] font-bold;
+  @apply text-[11px] sm:text-[13px] uppercase tracking-[0.4em] sm:tracking-[0.6em] font-bold text-primary;
 }
 
 .boutique-title {
-  @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-headline font-light leading-[1.1] tracking-tighter text-foreground break-words;
+  @apply text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-headline font-light leading-[1.1] tracking-tighter text-foreground break-words;
 }
 
 .boutique-para {
-  @apply text-xl sm:text-2xl md:text-2xl font-light text-stone-700 leading-[1.7] sm:leading-[1.9];
+  @apply text-lg sm:text-xl md:text-2xl font-light text-stone-700 leading-[1.6] sm:leading-[1.8];
 }
 
 .handwriting-reveal {
@@ -139,7 +139,7 @@ body.menu-open {
 }
 
 .boutique-card {
-  @apply bg-[#8a847e] text-white p-8 sm:p-12 md:p-16 flex flex-col items-center text-center justify-center min-h-[400px] sm:min-h-[450px] relative overflow-hidden transition-all duration-1000 border-none w-full max-w-full;
+  @apply bg-[#8a847e] text-white p-8 sm:p-12 md:p-16 flex flex-col items-center text-center justify-center min-h-[350px] sm:min-h-[400px] relative overflow-hidden transition-all duration-1000 border-none w-full max-w-full;
 }
 
 .boutique-card:hover {
