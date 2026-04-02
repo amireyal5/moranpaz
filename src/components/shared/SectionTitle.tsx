@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -15,9 +16,9 @@ export function SectionTitle({ subtitle, title, isLight = false, className }: Se
   const revealRef = useReveal();
 
   return (
-    <div ref={revealRef} className={cn("mb-24 text-right reveal", className)}>
+    <div ref={revealRef} className={cn("mb-24 text-right reveal transition-all duration-1000", className)}>
       <span className={cn(
-        "boutique-label block mb-10 text-[14px] tracking-[0.7em]",
+        "boutique-label block mb-8 text-[14px] tracking-[0.7em] opacity-80",
         isLight ? 'text-primary/70' : 'text-primary'
       )}>
         {subtitle}
@@ -29,8 +30,8 @@ export function SectionTitle({ subtitle, title, isLight = false, className }: Se
         {title}
       </h2>
       <div className={cn(
-        "w-20 h-[1px] mt-12 mr-0",
-        isLight ? 'bg-primary/40' : 'bg-primary/20'
+        "w-24 h-[1px] mt-10 mr-0",
+        isLight ? 'bg-primary/40' : 'bg-primary/30'
       )}></div>
     </div>
   );

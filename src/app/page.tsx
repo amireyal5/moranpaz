@@ -45,19 +45,19 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative h-screen w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-50">
+      <section className="relative h-screen w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-white">
         <div className="absolute inset-0 z-0">
           {heroImg && (
             <Image 
               src={heroImg.imageUrl} 
               alt="מורן פז - פסיכותרפיה וטיפול רגשי בטבעון" 
               fill
-              className="object-cover opacity-20 grayscale-0"
+              className="object-cover opacity-60 grayscale-[0.1]"
               priority
               data-ai-hint={heroImg.imageHint}
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-background"></div>
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal max-w-6xl">
@@ -66,9 +66,9 @@ export default function Home() {
              להתחבר | לגלות | <span className="italic">להשתנות</span>
            </h1>
            <div className="flex flex-col md:flex-row items-center justify-center gap-12 mt-12 stagger-3">
-              <Link href="#contact" className="px-20 py-8 border border-foreground/10 text-foreground text-[16px] uppercase tracking-[0.5em] hover:bg-foreground hover:text-white transition-all font-bold flex items-center gap-6 group">
+              <Link href="#contact" className="px-24 py-10 bg-primary text-white text-[18px] uppercase tracking-[0.6em] hover:bg-accent transition-all duration-700 font-bold flex items-center gap-6 group shadow-2xl">
                 תאום שיחת היכרות
-                <ArrowLeft size={20} className="group-hover:-translate-x-2 transition-transform" />
+                <ArrowLeft size={22} className="group-hover:-translate-x-2 transition-transform" />
               </Link>
            </div>
         </div>
@@ -99,7 +99,7 @@ export default function Home() {
           </div>
           
           <div className="lg:col-span-5">
-             <div className="image-zoom-container aspect-[4/5] shadow-2xl">
+             <div className="image-zoom-container aspect-[4/5] shadow-2xl border-t-8 border-r-8 border-primary/10">
                 {portraitImg && (
                   <Image 
                     src={portraitImg.imageUrl} 
@@ -160,7 +160,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-6xl md:text-8xl font-headline text-foreground mb-16">מוכנה להתחיל את המסע פנימה?</h2>
           <p className="boutique-para mb-20">אני כאן ללוות אותך בכל שלב בדרך. בואי נתחיל בשיחה קצרה ללא עלות.</p>
-          <Link href="#contact" className="inline-block px-24 py-10 border border-primary text-primary text-[16px] uppercase tracking-[0.6em] hover:bg-primary hover:text-white transition-all font-bold">
+          <Link href="#contact" className="inline-block px-24 py-10 bg-primary text-white text-[18px] uppercase tracking-[0.6em] hover:bg-accent transition-all duration-700 font-bold shadow-xl">
             תאום שיחת היכרות
           </Link>
         </div>
