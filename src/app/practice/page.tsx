@@ -8,7 +8,7 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { FaqAssistant } from '@/components/shared/FaqAssistant';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
-import { CheckCircle2, ArrowLeft, Sparkles, Heart, Brain } from 'lucide-react';
+import { CheckCircle2, ArrowLeft, Orbit, Waves, Infinity, Compass } from 'lucide-react';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
@@ -41,26 +41,20 @@ export default function PracticePage() {
   ];
 
   const treatedIssues = [
-    { title: "חרדות וסטרס", icon: <Brain size={24} /> },
-    { title: "תקיעות בחיים", icon: <Sparkles size={24} /> },
-    { title: "מערכות יחסים", icon: <Heart size={24} /> },
-    { title: "דימוי עצמי", icon: <Sparkles size={24} /> },
-    { title: "צמתים בקריירה", icon: <Brain size={24} /> },
-    { title: "מציאת משמעות", icon: <Heart size={24} /> }
+    { title: "חרדות וסטרס", icon: <Orbit size={32} strokeWidth={1} /> },
+    { title: "תקיעות בחיים", icon: <Infinity size={32} strokeWidth={1} /> },
+    { title: "מערכות יחסים", icon: <Waves size={32} strokeWidth={1} /> },
+    { title: "דימוי עצמי", icon: <Compass size={32} strokeWidth={1} /> }
   ];
 
   const practiceFaqs = [
     {
       question: "מהי פסיכותרפיה הוליסטית?",
-      answer: "פסיכותרפיה הוליסטית רואה את האדם כשלם - גוף, נפש ורוח. הטיפול משלב שיחה יחד עם כלים חווייתיים כדי להגיע לרובד העמוק של הרגש ולא רק להישאר ברמה המחשבתית."
+      answer: "פסיכותרפיה הוליסטית רואה את האדם כשלם - גוף, נפש ורוח. הטיפול משלב שיחה יחד עם כלים חווייתיים כדי להגיע לרובד העמוק של הרגש."
     },
     {
       question: "במה פסיכותרפיה הוליסטית עוזרת?",
-      answer: "היא מסייעת בשחרור דפוסים מעכבים, ריפוי פצעי עבר דרך עבודת ילד פנימי, ופיתוח חוסן נפשי המאפשר התמודדות טובה יותר עם חרדות ומשברי חיים."
-    },
-    {
-      question: "האם הטיפול מתאים גם למי שלא חווה 'משבר'?",
-      answer: "בהחלט. הטיפול הוא כלי נפלא לצמיחה אישית, הכרות עמוקה עם עצמך ושיפור איכות החיים והביטוי האותנטי שלך בעולם."
+      answer: "היא מסייעת בשחרור דפוסים מעכבים, ריפוי פצעי עבר דרך עבודת ילד פנימי, ופיתוח חוסן נפשי המאפשר התמודדות טובה יותר עם חרדות."
     }
   ];
 
@@ -73,11 +67,11 @@ export default function PracticePage() {
           <SectionTitle subtitle="Holistic Psychotherapy" title="התהליך הטיפולי" />
           
           <div ref={introReveal} className="reveal mb-32 text-right">
-            <h1 className="text-4xl md:text-6xl font-headline italic text-accent mb-12 leading-tight stagger-1">
+            <h1 className="text-4xl md:text-6xl font-headline italic text-accent mb-12 leading-tight">
               המסע לריפוי רגשי מתחיל בך
             </h1>
-            <p className="max-w-3xl mr-0 boutique-para stagger-2">
-              פסיכותרפיה הוליסטית היא הזמנה להתבוננות פנימה, במרחב בטוח ומכיל, שבו נוכל יחד לגלות את הכוחות הטמונים בך ולרפא את הפצעים המבקשים הכרה.
+            <p className="max-w-3xl mr-0 boutique-para">
+              פסיכותרפיה הוליסטית היא הזמנה להתבוננות פנימה, במרחב בטוח ומכיל, שבו נוכל יחד לגלות את הכוחות הטמונים בך.
             </p>
           </div>
 
@@ -86,16 +80,16 @@ export default function PracticePage() {
             <div>
               <h2 className="text-3xl md:text-5xl font-headline text-accent mb-10">מה מיוחד בגישה ההוליסטית?</h2>
               <div className="space-y-6 text-xl font-light text-stone-600 leading-relaxed">
-                <p>בניגוד לגישות מסורתיות שמתמקדות רק בסימפטום או במחשבה, הגישה ההוליסטית רואה בך מערכת שלמה. אנחנו לא רק מדברים על הבעיה – אנחנו מרגישים אותה בגוף, מבינים את המקור הרגשי שלה ומשתמשים בכלים חווייתיים כדי לשחרר אותה.</p>
-                <p>השילוב בין <strong>מיינדפולנס, עבודת צללים, דמיון מודרך ושיטת הפוקוסינג</strong> מאפשר לנו לעקוף את "השומרים" של המיינד ולהגיע לריפוי אמיתי ושורשי.</p>
+                <p>בניגוד לגישות מסורתיות שמתמקדות רק בסימפטום, הגישה ההוליסטית רואה בך מערכת שלמה. אנחנו לא רק מדברים על הבעיה – אנחנו מרגישים אותה בגוף.</p>
+                <p>השילוב בין <strong>מיינדפולנס, עבודת צללים ופוקוסינג</strong> מאפשר לנו לעקוף את "השומרים" של המיינד ולהגיע לריפוי אמיתי.</p>
               </div>
             </div>
             <div>
               <h3 className="text-2xl font-headline font-bold text-primary mb-10">במה אני מטפלת?</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 {treatedIssues.map((issue, i) => (
-                  <div key={i} className="flex items-center space-x-reverse space-x-4 p-6 bg-stone-50 border border-border/10">
-                    <div className="text-primary">{issue.icon}</div>
+                  <div key={i} className="flex flex-col items-center p-8 bg-stone-50 border border-border/10 group hover:bg-white transition-all duration-700">
+                    <div className="text-primary mb-4 animate-art-float">{issue.icon}</div>
                     <span className="text-xl font-medium text-accent">{issue.title}</span>
                   </div>
                 ))}
@@ -152,9 +146,6 @@ export default function PracticePage() {
       <section className="py-48 bg-stone-50 px-8 md:px-24" id="contact">
         <div className="max-w-4xl mx-auto">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
-          <div className="text-center mb-16">
-            <p className="boutique-para">מוזמנת להשאיר פרטים לתיאום פגישה בטבעון או בזום.</p>
-          </div>
           <ContactForm />
         </div>
       </section>

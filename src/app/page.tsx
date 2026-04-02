@@ -13,15 +13,15 @@ import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ChevronDown, MessageCircle, ArrowLeft, Users, User, Heart, Star, Sparkles, ShieldCheck, Leaf, Eye } from 'lucide-react';
+import { ChevronDown, MessageCircle, ArrowLeft, Eye, Orbit, Waves, Infinity, Compass } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function Home() {
   const heroReveal = useReveal();
   const uniquenessReveal = useReveal();
-  const offeringsReveal = useReveal();
   const audienceReveal = useReveal();
   const tourReveal = useReveal();
+  const offeringsReveal = useReveal();
   
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-bg');
   const clinicImg = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
@@ -44,19 +44,19 @@ export default function Home() {
   const audiences = [
     {
       title: "מבוגרים",
-      icon: <User size={32} />,
+      icon: <Orbit size={48} className="animate-art-float" strokeWidth={1} />,
       link: "/audience/adults",
       desc: "ליווי רגשי בצמתי חיים, התמודדות עם חרדות ומציאת עוגן פנימי."
     },
     {
       title: "נוער",
-      icon: <Users size={32} />,
+      icon: <Infinity size={48} className="animate-art-float" strokeWidth={1} />,
       link: "/audience/youth",
       desc: "מרחב בטוח ומכיל לפיתוח חוסן רגשי, ביטוי עצמי ועיבוד חוויות בגובה העיניים."
     },
     {
       title: "נשים",
-      icon: <Heart size={32} />,
+      icon: <Waves size={48} className="animate-art-float" strokeWidth={1} />,
       link: "/audience/women",
       desc: "חיבור עמוק לעולם הפנימי, שחרור עומס רגשי ומציאת הקול האותנטי שלך."
     }
@@ -65,22 +65,22 @@ export default function Home() {
   const uniquenessPoints = [
     {
       title: "שילוב גוף-נפש",
-      icon: <Sparkles className="text-primary" size={28} />,
+      icon: <Orbit className="text-primary animate-art-float" size={32} strokeWidth={1.5} />,
       desc: "פסיכותרפיה הוליסטית שרואה בך שלם. אנחנו עובדים עם הרגש, הגוף והמחשבה יחד לריפוי עמוק."
     },
     {
       title: "כלים חווייתיים עמוקים",
-      icon: <Star className="text-primary" size={28} />,
+      icon: <Infinity className="text-primary animate-art-float" size={32} strokeWidth={1.5} />,
       desc: "עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס – כלים המאפשרים לצלול לעומק העולם הפנימי."
     },
     {
       title: "מרחב בטוח בטבע",
-      icon: <Leaf className="text-primary" size={28} />,
+      icon: <Waves className="text-primary animate-art-float" size={32} strokeWidth={1.5} />,
       desc: "הקליניקה בטבעון מציעה שקט חיצוני שמאפשר להקשיב לשקט הפנימי, בסביבה מכילה ועוטפת."
     },
     {
       title: "ידע וניסיון עשיר",
-      icon: <ShieldCheck className="text-primary" size={28} />,
+      icon: <Compass className="text-primary animate-art-float" size={32} strokeWidth={1.5} />,
       desc: "תואר שני (MA) בייעוץ ארגוני ובוגרת פסיכותרפיה הוליסטית. שילוב של מקצועיות וגישה אנושית."
     }
   ];
@@ -89,7 +89,7 @@ export default function Home() {
     <main className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Hero Section - SEO focused H1 */}
+      {/* Hero Section */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-white">
         <div className="absolute inset-0 z-0">
           {heroImg && (
@@ -123,14 +123,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Uniqueness Section - SEO focused H2 */}
+      {/* Uniqueness Section */}
       <section ref={uniquenessReveal} className="py-32 md:py-56 px-8 md:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Unique Approach" title="מה מייחד את הגישה שלי?" className="flex flex-col items-center" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-20">
             {uniquenessPoints.map((point, i) => (
-              <div key={i} className={cn("space-y-6 text-right", `stagger-${i+1}`)}>
-                <div className="mb-6">{point.icon}</div>
+              <div key={i} className={cn("space-y-6 text-right group", `stagger-${i+1}`)}>
+                <div className="mb-6 p-4 bg-stone-50 inline-block rounded-full shadow-sm group-hover:shadow-md transition-all duration-700">
+                  {point.icon}
+                </div>
                 <h3 className="text-2xl font-headline font-bold text-accent">{point.title}</h3>
                 <p className="text-xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
               </div>
@@ -169,13 +171,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Clinic Tour Section - SEO "סיור באזורי" concept */}
+      {/* Clinic Tour Section */}
       <section ref={tourReveal} className="py-32 md:py-56 px-8 md:px-24 reveal bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="order-2 lg:order-1 text-right">
             <SectionTitle subtitle="The Clinic" title="סיור בקליניקה בטבעון" />
             <p className="boutique-para mb-12">
-              הקליניקה ממוקמת בלב הטבע של טבעון, מוקפת בירוק ושקט. כאן מתקיים מרחב בטוח המאפשר נשימה עמוקה וניתוק מרעשי היום-יום, עוד לפני שהתחלנו לדבר.
+              הקליניקה ממוקמת בלב הטבע של טבעון, מוקפת בירוק ושקט. כאן מתקיים מרחב בטוח המאפשר נשימה עמוקה וניתוק מרעשי היום-יום.
             </p>
             <Link href="/tivon" className="inline-flex items-center gap-4 boutique-label text-primary border-b border-primary/20 hover:border-primary transition-all pb-2 group">
               בואו לראות איפה הכל קורה
@@ -187,7 +189,7 @@ export default function Home() {
               {clinicImg && (
                 <Image 
                   src={clinicImg.imageUrl} 
-                  alt="הקליניקה של מורן פז בטבעון - טיפול רגשי באווירה שלווה" 
+                  alt="הקליניקה של מורן פז בטבעון" 
                   fill 
                   className="object-cover grayscale-[0.3]"
                   data-ai-hint={clinicImg.imageHint}

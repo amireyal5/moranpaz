@@ -8,7 +8,7 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Sparkles, Star, Leaf, ShieldCheck } from 'lucide-react';
+import { Orbit, Waves, Infinity, Compass } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
@@ -19,22 +19,22 @@ export default function AboutPage() {
   const uniquenessPoints = [
     {
       title: "חיבור הוליסטי עמוק",
-      icon: <Sparkles className="text-primary" size={24} />,
+      icon: <Orbit className="text-primary animate-art-float" size={32} strokeWidth={1} />,
       desc: "אני מאמינה שהאדם הוא שלם. הגישה שלי משלבת שיחה עם עבודה רגשית חווייתית שנוגעת בגוף ובנשמה."
     },
     {
-      title: "כלים מהעולם החדש והעתיק",
-      icon: <Star className="text-primary" size={24} />,
+      title: "כלים מהעולם החדש",
+      icon: <Infinity className="text-primary animate-art-float" size={32} strokeWidth={1} />,
       desc: "עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס – כלים המאפשרים גישה ישירה לרובד הרגשי העמוק."
     },
     {
-      title: "מרחב של שקט בטבעון",
-      icon: <Leaf className="text-primary" size={24} />,
+      title: "מרחב של שקט",
+      icon: <Waves className="text-primary animate-art-float" size={32} strokeWidth={1} />,
       desc: "הקליניקה ממוקמת בלב הירוק של טבעון, מרחב שמאפשר ניתוק מהרעש החיצוני וחיבור שקט לעצמך."
     },
     {
-      title: "ליווי מקצועי ומוסמך",
-      icon: <ShieldCheck className="text-primary" size={24} />,
+      title: "ליווי מקצועי מוסמך",
+      icon: <Compass className="text-primary animate-art-float" size={32} strokeWidth={1} />,
       desc: "שילוב של תואר שני (MA) בייעוץ ארגוני מאוניברסיטת חיפה עם הכשרה מעמיקה בפסיכותרפיה הוליסטית."
     }
   ];
@@ -62,17 +62,16 @@ export default function AboutPage() {
                   <p className="stagger-2">
                     פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. 
                     אני מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושהבחירה קיימת לכל אדם בכל מצב. 
-                    אני מאמינה בפוטנציאל הנשמתי של כל אדם לממש את עצמו ולהעניק לעולם את המתנות שלו.
                   </p>
                   <p className="stagger-3">
                     בוגרת תואר שני בייעוץ ארגוני מאוניברסיטת חיפה ובוגרת מסלול פסיכותרפיה הוליסטית. 
                     לכל אדם יש את הקצב והמסע שלו ואני כאן ללוות מתוך כבוד ואמונה באדם ובדרך.
                   </p>
                   <p className="stagger-4">
-                    בעשור האחרון עברתי מסע אישי מרפא וכיום אני מלווה אנשים למצוא את הדרך שלהם פנימה – לחיבור העמוק והאותנטי עם עצמם – ולחיות את חייהם דרך אותו החיבור. 
+                    בעשור האחרון עברתי מסע אישי מרפא וכיום אני מלווה אנשים למצוא את הדרך שלהם פנימה – לחיבור העמוק והאותנטי עם עצמם.
                   </p>
                   <p className="stagger-5 font-medium text-accent">
-                    מה זה נותן? פחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, קבלת החלטות בהירה ויעילה יותר, ביטוי אותנטי, בריאות נפשית ופיזית גבוהה יותר ובכללי – תחושת רווחה ואושר גבוהה יותר מהחיים שלך.
+                    מה זה נותן? פחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, קבלת החלטות בהירה ויעילה יותר, ביטוי אותנטי ותחושת רווחה גבוהה יותר מהחיים שלך.
                   </p>
                 </div>
              </div>
@@ -94,14 +93,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Uniqueness Section in About */}
+      {/* Uniqueness Section */}
       <section ref={uniquenessReveal} className="py-32 md:py-48 px-8 md:px-24 bg-stone-50 reveal">
         <div className="max-w-5xl mx-auto">
           <SectionTitle subtitle="My Philosophy" title="מה מייחד את הגישה שלי?" className="flex flex-col items-center" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-20">
             {uniquenessPoints.map((point, i) => (
-              <div key={i} className={cn("flex items-start space-x-reverse space-x-6 text-right", `stagger-${i+1}`)}>
-                <div className="mt-2 text-primary">{point.icon}</div>
+              <div key={i} className={cn("flex items-start space-x-reverse space-x-6 text-right group", `stagger-${i+1}`)}>
+                <div className="mt-2 p-3 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all duration-700">
+                  {point.icon}
+                </div>
                 <div className="space-y-4">
                   <h4 className="text-2xl font-headline font-bold text-accent">{point.title}</h4>
                   <p className="text-xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
@@ -116,4 +117,3 @@ export default function AboutPage() {
     </main>
   );
 }
-
