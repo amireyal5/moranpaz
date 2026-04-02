@@ -3,14 +3,13 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Laptop, ShieldCheck, Heart, Clock, ArrowLeft, Orbit, Waves, Infinity } from 'lucide-react';
+import { Laptop, ShieldCheck, Clock, ArrowLeft, Orbit, Globe, Heart, Infinity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function OnlineTherapyPage() {
@@ -21,22 +20,22 @@ export default function OnlineTherapyPage() {
 
   const benefits = [
     {
-      title: "נגישות מלאה מכל מקום",
-      desc: "בין אם את גרה בעמק יזרעאל, במרכז או בחו\"ל – הטיפול זמין עבורך ללא צורך בנסיעות.",
-      icon: <Orbit size={32} strokeWidth={1} />
+      title: "לישראלים בחו\"ל",
+      desc: "טיפול רגשי עמוק ומקצועי בשפת האם שלך, המגשר על פערי תרבות ומרחק פיזי.",
+      icon: <Globe size={32} strokeWidth={1} />
     },
     {
-      title: "מרחב בטוח ומוכר",
+      title: "מרחב בטוח מהבית",
       desc: "היכולת לעבור תהליך רגשי עמוק מהנוחות והביטחון של הבית שלך, בפינה השקטה שלך.",
       icon: <ShieldCheck size={32} strokeWidth={1} />
     },
     {
-      title: "גמישות וחיסכון בזמן",
-      desc: "שילוב הטיפול בלו\"ז העמוס שלך בקלות, ללא זמן חיפוש חניה או נסיעות בדרכים.",
+      title: "גמישות גלובלית",
+      desc: "שילוב הטיפול בלו\"ז שלך, ללא תלות באזורי זמן או צורך בנסיעות מעייפות.",
       icon: <Clock size={32} strokeWidth={1} />
     },
     {
-      title: "אותה איכות טיפולית",
+      title: "פסיכותרפיה הוליסטית",
       desc: "הקשר הרגשי והכלים החווייתיים עוברים דרך המסך בצורה מלאה, אינטימית ומקצועית.",
       icon: <Infinity size={32} strokeWidth={1} />
     }
@@ -46,25 +45,30 @@ export default function OnlineTherapyPage() {
     <main className="min-h-screen bg-background text-right">
       <Navbar />
       
-      {/* Header SEO Optimized Section */}
       <section className="pt-56 pb-32 px-8 md:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div ref={introReveal} className="lg:col-span-7 reveal">
-            <span className="boutique-label block mb-6">Online Therapy Services</span>
+            <span className="boutique-label block mb-6 text-primary">Global Online Therapy</span>
             <h1 className="boutique-title mb-10">
-              טיפול אונליין: <span className="italic">חיבור עמוק</span> מכל מקום
+              טיפול רגשי אונליין: <span className="italic">בית פנימי</span> מכל מקום בעולם
             </h1>
-            <p className="boutique-para mb-12">
-              פסיכותרפיה הוליסטית אונליין מאפשרת לנו להיפגש בתוך מרחב דיגיטלי בטוח ומכיל. הטיפול מיועד לנשים, מבוגרים ונוער המעוניינים בליווי רגשי מקצועי מהנוחות של הבית, מבלי להתפשר על עומק התהליך.
-            </p>
+            <div className="boutique-para mb-12 space-y-6">
+              <p>
+                פסיכותרפיה הוליסטית אונליין מאפשרת לנו להיפגש בתוך מרחב דיגיטלי בטוח ומכיל. הטיפול מיועד לנשים, מבוגרים ונוער המעוניינים בליווי רגשי מקצועי מהנוחות של הבית.
+              </p>
+              <h2 className="text-2xl font-headline text-accent font-bold">טיפול בעברית לישראלים בחו"ל</h2>
+              <p>
+                אני מלווה ישראלים ורילוקיישניסטים ברחבי העולם בתהליכי עומק רגשיים בשפת האם, תוך הבנה עמוקה של אתגרי המרחק, הזהות והבדידות.
+              </p>
+            </div>
             <a 
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-6 px-12 py-6 bg-primary text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl"
+              className="inline-flex items-center gap-6 px-12 py-5 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm"
             >
               תאום פגישה בווידאו
-              <ArrowLeft size={20} />
+              <ArrowLeft size={18} />
             </a>
           </div>
           
@@ -73,7 +77,7 @@ export default function OnlineTherapyPage() {
               {onlineImg && (
                 <Image 
                   src={onlineImg.imageUrl} 
-                  alt="טיפול אונליין - פסיכותרפיה הוליסטית מרחוק עם מורן פז" 
+                  alt="טיפול רגשי אונליין בעברית לישראלים בחו"ל עם מורן פז" 
                   fill 
                   className="object-cover grayscale-[0.2]"
                   data-ai-hint={onlineImg.imageHint}
@@ -84,12 +88,11 @@ export default function OnlineTherapyPage() {
         </div>
       </section>
 
-      {/* Benefits Grid - Artistic Cards */}
       <section ref={benefitsReveal} className="py-32 bg-stone-50 px-8 md:px-24 reveal">
         <div className="max-w-7xl mx-auto">
           <SectionTitle 
             subtitle="The Advantages" 
-            title="למה כדאי לבחור בטיפול אונליין?" 
+            title="למה לבחור בטיפול אונליין?" 
             className="flex flex-col items-center text-center"
           />
           
@@ -109,44 +112,48 @@ export default function OnlineTherapyPage() {
         </div>
       </section>
 
-      {/* How it Works Section */}
       <section className="py-32 px-8 md:px-24 bg-white overflow-hidden">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="order-2 lg:order-1 text-right">
-            <h2 className="text-4xl md:text-6xl font-headline text-accent mb-12">איך זה עובד?</h2>
+            <h2 className="text-4xl md:text-6xl font-headline text-accent mb-12">איך מתחילים?</h2>
             <div className="space-y-10 boutique-para">
               <div className="flex items-start gap-6 border-r-4 border-primary/20 pr-6 py-2">
                 <span className="text-primary font-bold">01</span>
-                <p>שיחת הכרות ראשונית ללא עלות לבדיקת התאמה.</p>
+                <div>
+                  <h3 className="text-xl font-bold">שיחת הכרות</h3>
+                  <p className="text-lg opacity-70">שיחה ראשונית ללא עלות לבדיקת התאמה והבנת הצרכים שלך.</p>
+                </div>
               </div>
               <div className="flex items-start gap-6 border-r-4 border-primary/20 pr-6 py-2">
                 <span className="text-primary font-bold">02</span>
-                <p>תיאום מועד נוח וקבלת לינק מאובטח לזום.</p>
+                <div>
+                  <h3 className="text-xl font-bold">תיאום זמן</h3>
+                  <p className="text-lg opacity-70">תיאום מועד נוח וקבלת לינק מאובטח לזום.</p>
+                </div>
               </div>
               <div className="flex items-start gap-6 border-r-4 border-primary/20 pr-6 py-2">
                 <span className="text-primary font-bold">03</span>
-                <p>מפגש טיפולי באורך 50 דקות באווירה שקטה ומכילה.</p>
+                <div>
+                  <h3 className="text-xl font-bold">התהליך מתחיל</h3>
+                  <p className="text-lg opacity-70">מפגש טיפולי באורך 50 דקות באווירה שקטה ומכילה.</p>
+                </div>
               </div>
             </div>
-            <p className="mt-16 text-xl font-light text-stone-500 italic">
-              * כל מה שצריך זה חיבור יציב לאינטרנט ופינה שקטה שבה תרגישי בנוח לדבר.
-            </p>
           </div>
           
           <div className="order-1 lg:order-2">
              <div className="flex justify-center animate-art-float">
-                <Laptop size={300} strokeWidth={0.3} className="text-primary/10" />
+                <Laptop size={280} strokeWidth={0.2} className="text-primary/15" />
              </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
       <section id="contact" className="py-32 bg-stone-50 px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionTitle subtitle="Connect Online" title="מתחילה את המסע מהבית" className="flex flex-col items-center" />
+          <SectionTitle subtitle="Connect Worldwide" title="מתחילים את המסע - מכל מקום" className="flex flex-col items-center" />
           <p className="text-center boutique-para mb-16">
-            אני מזמינה אותך ליצור קשר לשיחת ייעוץ ראשונית ללא עלות על טיפול רגשי אונליין.
+            אני מזמינה אותך ליצור קשר לשיחת ייעוץ ראשונית ללא עלות על טיפול רגשי אונליין, בישראל או בחו"ל.
           </p>
           <ContactForm />
         </div>
