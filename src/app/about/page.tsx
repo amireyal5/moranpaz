@@ -8,10 +8,36 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Sparkles, Star, Leaf, ShieldCheck } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
   const introReveal = useReveal();
+  const uniquenessReveal = useReveal();
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
+
+  const uniquenessPoints = [
+    {
+      title: "חיבור הוליסטי עמוק",
+      icon: <Sparkles className="text-primary" size={24} />,
+      desc: "אני מאמינה שהאדם הוא שלם. הגישה שלי משלבת שיחה עם עבודה רגשית חווייתית שנוגעת בגוף ובנשמה."
+    },
+    {
+      title: "כלים מהעולם החדש והעתיק",
+      icon: <Star className="text-primary" size={24} />,
+      desc: "עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס – כלים המאפשרים גישה ישירה לרובד הרגשי העמוק."
+    },
+    {
+      title: "מרחב של שקט בטבעון",
+      icon: <Leaf className="text-primary" size={24} />,
+      desc: "הקליניקה ממוקמת בלב הירוק של טבעון, מרחב שמאפשר ניתוק מהרעש החיצוני וחיבור שקט לעצמך."
+    },
+    {
+      title: "ליווי מקצועי ומוסמך",
+      icon: <ShieldCheck className="text-primary" size={24} />,
+      desc: "שילוב של תואר שני (MA) בייעוץ ארגוני מאוניברסיטת חיפה עם הכשרה מעמיקה בפסיכותרפיה הוליסטית."
+    }
+  ];
 
   return (
     <main className="min-h-screen bg-background">
@@ -68,7 +94,26 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Uniqueness Section in About */}
+      <section ref={uniquenessReveal} className="py-32 md:py-48 px-8 md:px-24 bg-stone-50 reveal">
+        <div className="max-w-5xl mx-auto">
+          <SectionTitle subtitle="My Philosophy" title="מה מייחד את הגישה שלי?" className="flex flex-col items-center" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mt-20">
+            {uniquenessPoints.map((point, i) => (
+              <div key={i} className={cn("flex items-start space-x-reverse space-x-6 text-right", `stagger-${i+1}`)}>
+                <div className="mt-2 text-primary">{point.icon}</div>
+                <div className="space-y-4">
+                  <h4 className="text-2xl font-headline font-bold text-accent">{point.title}</h4>
+                  <p className="text-xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </main>
   );
 }
+

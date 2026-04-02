@@ -13,11 +13,12 @@ import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ChevronDown, MessageCircle, ArrowLeft, Users, User, Heart } from 'lucide-react';
+import { ChevronDown, MessageCircle, ArrowLeft, Users, User, Heart, Star, Sparkles, ShieldCheck, Leaf } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function Home() {
   const heroReveal = useReveal();
+  const uniquenessReveal = useReveal();
   const offeringsReveal = useReveal();
   const audienceReveal = useReveal();
   
@@ -26,11 +27,15 @@ export default function Home() {
   const homeFaqs = [
     {
       question: "למי מתאים הטיפול הרגשי?",
-      answer: "הטיפול מתאים למי שחווה עומס רגשי, חרדה, תקיעות בחיים או רצון עמוק לחיבור אותנטי לעצמו."
+      answer: "הטיפול מתאים למי שחווה עומס רגשי, חרדה, תקיעות בחיים או רצון עמוק לחיבור אותנטי לעצמו. אני עובדת עם מבוגרים, נוער ונשים."
     },
     {
       question: "איפה מתקיימות הפגישות?",
-      answer: "הפגישות מתקיימות בקליניקה בטבעון או בשיחות וידאו (זום) מכל מקום."
+      answer: "הפגישות מתקיימות בקליניקה שלווה בטבעון הטובלת בירוק, או בשיחות וידאו (זום) מכל מקום."
+    },
+    {
+      question: "מה מייחד את הגישה שלך?",
+      answer: "אני משלבת פסיכותרפיה הוליסטית עם כלים חווייתיים כמו עבודת צללים, ילדה פנימית ומיינדפולנס. השילוב בין ידע אקדמי (MA) לבין הקשבה עמוקה מאפשר תהליך ריפוי שלם."
     }
   ];
 
@@ -52,6 +57,29 @@ export default function Home() {
       icon: <Heart size={32} />,
       link: "/audience/women",
       desc: "חיבור עמוק לעולם הפנימי, שחרור עומס רגשי ומציאת הקול האותנטי שלך."
+    }
+  ];
+
+  const uniquenessPoints = [
+    {
+      title: "שילוב גוף-נפש",
+      icon: <Sparkles className="text-primary" size={28} />,
+      desc: "פסיכותרפיה הוליסטית שרואה בך שלם, ולא רק את הסימפטומים. אנחנו עובדים עם הרגש, הגוף והמחשבה יחד."
+    },
+    {
+      title: "כלים חווייתיים עמוקים",
+      icon: <Star className="text-primary" size={28} />,
+      desc: "עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס – כלים המאפשרים לצלול לעומק העולם הפנימי ולחולל שינוי אמיתי."
+    },
+    {
+      title: "מרחב בטוח בלב הטבע",
+      icon: <Leaf className="text-primary" size={28} />,
+      desc: "הקליניקה בטבעון מציעה שקט חיצוני שמאפשר להקשיב לשקט הפנימי, בסביבה מכילה, עוטפת ודיסקרטית לחלוטין."
+    },
+    {
+      title: "ידע אקדמי וניסיון עשיר",
+      icon: <ShieldCheck className="text-primary" size={28} />,
+      desc: "תואר שני (MA) בייעוץ ארגוני ובוגרת פסיכותרפיה הוליסטית. שילוב של מקצועיות בלתי מתפשרת עם גישה אנושית ורגישה."
     }
   ];
 
@@ -88,6 +116,22 @@ export default function Home() {
         
         <div className="absolute bottom-16 left-1/2 -translate-x-1/2 animate-bounce opacity-30">
           <ChevronDown size={32} />
+        </div>
+      </section>
+
+      {/* Uniqueness Section */}
+      <section ref={uniquenessReveal} className="py-32 md:py-56 px-8 md:px-24 bg-white reveal">
+        <div className="max-w-7xl mx-auto">
+          <SectionTitle subtitle="Why work with me" title="מה מייחד את הגישה שלי?" className="flex flex-col items-center" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-20">
+            {uniquenessPoints.map((point, i) => (
+              <div key={i} className={cn("space-y-6 text-right", `stagger-${i+1}`)}>
+                <div className="mb-6">{point.icon}</div>
+                <h3 className="text-2xl font-headline font-bold text-accent">{point.title}</h3>
+                <p className="text-xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -177,3 +221,4 @@ export default function Home() {
     </main>
   );
 }
+
