@@ -9,19 +9,24 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Laptop, ShieldCheck, Clock, ArrowLeft, Orbit, Globe, Heart, Infinity } from 'lucide-react';
+import { Laptop, ShieldCheck, Clock, ArrowLeft, Globe, Infinity } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+/**
+ * @fileOverview Landing page for Online Therapy services.
+ * Optimized for SEO: "Online therapy in Hebrew", "Israelis abroad therapy".
+ */
 
 export default function OnlineTherapyPage() {
   const introReveal = useReveal();
   const benefitsReveal = useReveal();
   const onlineImg = PlaceHolderImages.find(img => img.id === 'online-therapy-bg');
-  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20מעוניין%20בפרטים%20על%20טיפול%20אונליין";
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20אשמח%20לפרטים%20על%20טיפול%20אונליין%20לישראלים%20בחו%22ל";
 
   const benefits = [
     {
       title: "לישראלים בחו\"ל",
-      desc: "טיפול רגשי עמוק ומקצועי בשפת האם שלך, המגשר על פערי תרבות ומרחק פיזי.",
+      desc: "טיפול רגשי עמוק ומקצועי בשפת האם שלך, המגשר על פערי תרבות ומרחק פיזי עבור רילוקיישניסטים.",
       icon: <Globe size={32} strokeWidth={1} />
     },
     {
@@ -42,7 +47,7 @@ export default function OnlineTherapyPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-background text-right">
+    <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
       
       <section className="pt-56 pb-32 px-8 md:px-24">
@@ -56,9 +61,9 @@ export default function OnlineTherapyPage() {
               <p>
                 פסיכותרפיה הוליסטית אונליין מאפשרת לנו להיפגש בתוך מרחב דיגיטלי בטוח ומכיל. הטיפול מיועד לנשים, מבוגרים ונוער המעוניינים בליווי רגשי מקצועי מהנוחות של הבית.
               </p>
-              <h2 className="text-2xl font-headline text-accent font-bold">טיפול בעברית לישראלים בחו"ל</h2>
+              <h2 className="text-2xl md:text-4xl font-headline text-accent font-bold">טיפול בעברית לישראלים בחו&quot;ל</h2>
               <p>
-                אני מלווה ישראלים ורילוקיישניסטים ברחבי העולם בתהליכי עומק רגשיים בשפת האם, תוך הבנה עמוקה של אתגרי המרחק, הזהות והבדידות.
+                אני מלווה ישראלים ורילוקיישניסטים ברחבי העולם בתהליכי עומק רגשיים בשפת האם, תוך הבנה עמוקה של אתגרי המרחק, הזהות והבדידות במדינות זרות.
               </p>
             </div>
             <a 
@@ -67,7 +72,7 @@ export default function OnlineTherapyPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-6 px-12 py-5 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm"
             >
-              תאום פגישה בווידאו
+              תאום פגישת היכרות אונליין
               <ArrowLeft size={18} />
             </a>
           </div>
@@ -77,7 +82,7 @@ export default function OnlineTherapyPage() {
               {onlineImg && (
                 <Image 
                   src={onlineImg.imageUrl} 
-                  alt="טיפול רגשי אונליין בעברית לישראלים בחו"ל עם מורן פז" 
+                  alt="טיפול רגשי אונליין בעברית לישראלים בחו ל עם מורן פז" 
                   fill 
                   className="object-cover grayscale-[0.2]"
                   data-ai-hint={onlineImg.imageHint}
@@ -115,7 +120,7 @@ export default function OnlineTherapyPage() {
       <section className="py-32 px-8 md:px-24 bg-white overflow-hidden">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="order-2 lg:order-1 text-right">
-            <h2 className="text-4xl md:text-6xl font-headline text-accent mb-12">איך מתחילים?</h2>
+            <h2 className="text-4xl md:text-6xl font-headline text-accent mb-12 italic">איך מתחילים?</h2>
             <div className="space-y-10 boutique-para">
               <div className="flex items-start gap-6 border-r-4 border-primary/20 pr-6 py-2">
                 <span className="text-primary font-bold">01</span>
@@ -153,7 +158,7 @@ export default function OnlineTherapyPage() {
         <div className="max-w-4xl mx-auto">
           <SectionTitle subtitle="Connect Worldwide" title="מתחילים את המסע - מכל מקום" className="flex flex-col items-center" />
           <p className="text-center boutique-para mb-16">
-            אני מזמינה אותך ליצור קשר לשיחת ייעוץ ראשונית ללא עלות על טיפול רגשי אונליין, בישראל או בחו"ל.
+            אני מזמינה אותך ליצור קשר לשיחת ייעוץ ראשונית ללא עלות על טיפול רגשי אונליין, בישראל או בחו&quot;ל.
           </p>
           <ContactForm />
         </div>

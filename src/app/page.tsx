@@ -24,7 +24,7 @@ export default function Home() {
   
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-bg');
   const clinicImg = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
-  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20מעוניינת%20לקבל%20פרטים%20על%20תיאום%20פגישת%20היכרות";
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20שלך%20מעוניין%20לקבל%20פרטים%20נוספים%20תודה";
 
   const homeFaqs = [
     {
@@ -112,7 +112,7 @@ export default function Home() {
            </span>
            
            <h1 className="mb-12 md:mb-20">
-             <div className="flex flex-wrap justify-center items-center gap-x-4 md:gap-x-10 gap-y-2 boutique-title !leading-[1.1] !font-light">
+             <div className="flex flex-wrap justify-center items-center gap-x-4 md:gap-x-10 gap-y-4 boutique-title !leading-[1.1] !font-light">
                <span className="inline-block">להתחבר</span>
                <span className="text-primary/20 text-2xl md:text-5xl select-none mx-2">•</span>
                <span className="inline-block">לגלות</span>
@@ -121,7 +121,7 @@ export default function Home() {
              </div>
            </h1>
            
-           <h2 className="text-xl md:text-4xl font-headline italic mb-16 text-accent/70 max-w-5xl mx-auto leading-relaxed font-medium">
+           <h2 className="text-xl md:text-3xl font-headline italic mb-16 text-accent/70 max-w-5xl mx-auto leading-relaxed font-medium">
              פסיכותרפיה הוליסטית וליווי רגשי עמוק בטבעון, עמק יזרעאל ואונליין לישראלים בארץ ובעולם
            </h2>
            
@@ -130,7 +130,7 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="inline-flex w-full md:w-auto px-12 md:px-24 py-5 md:py-7 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-1000 items-center justify-center gap-6 shadow-[0_20px_50px_rgba(138,132,126,0.3)] rounded-sm group overflow-hidden relative"
+               className="inline-flex w-full md:w-auto px-12 md:px-24 py-5 md:py-6 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-1000 items-center justify-center gap-6 shadow-[0_20px_50px_rgba(138,132,126,0.3)] rounded-sm group overflow-hidden relative"
              >
                 <span className="relative z-10">תאום שיחת היכרות</span>
                 <ArrowLeft size={22} className="relative z-10 group-hover:-translate-x-2 transition-transform duration-500" />
@@ -138,7 +138,7 @@ export default function Home() {
              </a>
              <Link 
                href="/about"
-               className="inline-flex w-full md:w-auto px-10 md:px-16 py-5 md:py-7 bg-transparent border border-foreground/15 text-foreground/80 text-lg hover:bg-stone-50/50 hover:border-foreground/30 transition-all duration-1000 font-light items-center justify-center gap-4 tracking-widest uppercase text-sm"
+               className="inline-flex w-full md:w-auto px-10 md:px-16 py-5 md:py-6 bg-transparent border border-foreground/15 text-foreground/80 text-lg hover:bg-stone-50/50 hover:border-foreground/30 transition-all duration-1000 font-light items-center justify-center gap-4 tracking-widest uppercase text-sm"
              >
                 על הגישה שלי
              </Link>
