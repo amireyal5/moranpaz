@@ -16,7 +16,7 @@ export default function UpdatesPage() {
           <div className="space-y-16 mt-12">
             <div className="border-b border-border pb-12">
               <span className="boutique-label text-primary">מרץ 2024</span>
-              <h3 className="text-3xl font-headline mt-4 mb-6">פתיחת מחזור אביב של קורס BeinMe</h3>
+              <h3 className="text-3xl font-headline mt-4 mb-6">פתיחת מחזור אביב של קורס ©BeinMe</h3>
               <p className="boutique-para">ההרשמה למחזור הקרוב בעיצומה. הצטרפי למסע של גילוי עצמי במרחב נשי תומך.</p>
             </div>
             <div className="border-b border-border pb-12">

@@ -3,7 +3,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
@@ -34,7 +33,7 @@ export default function WorkshopPage() {
 
   const workshopFaqs = [
     {
-      question: "למי מיועד קורס BeinMe?",
+      question: "למי מיועד קורס ©BeinMe?",
       answer: "הקורס מיועד לנשים שרוצות לעצור את המרוץ, להקשיב לעצמן ולגלות את העולם הפנימי שלהן בתוך מרחב קבוצתי מכיל ותומך."
     },
     {
@@ -53,13 +52,13 @@ export default function WorkshopPage() {
       
       <section className="pt-44 pb-32 px-6 md:px-20">
         <div className="max-w-6xl mx-auto">
-          <SectionTitle subtitle="The Workshop" title="קורס BeinMe" />
+          <SectionTitle subtitle="The Workshop" title="קורס ©BeinMe" />
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div ref={contentReveal} className="lg:col-span-7 reveal">
               <h3 className="text-4xl md:text-6xl font-headline italic mb-10 text-accent leading-tight">להיות אני בתוכי</h3>
               <div className="space-y-8 text-xl font-light text-stone-700 leading-relaxed">
-                <p>BeinMe הוא מרחב קבוצתי – טיפולי לנשים, שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו, ולחוות אותו בכנות ואותנטיות.</p>
+                <p>©BeinMe הוא מרחב קבוצתי – טיפולי לנשים, שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו, ולחוות אותו בכנות ואותנטיות.</p>
                 <div className="italic text-accent font-medium border-r-4 border-primary/40 pr-8 py-4 bg-stone-50 rounded-sm">
                   <p>"אם לא תכירי את העולם הפנימי שלך – הוא ינהל אותך ואת תקראי לזה גורל."</p>
                 </div>
@@ -143,4 +142,3 @@ export default function WorkshopPage() {
     </main>
   );
 }
-
