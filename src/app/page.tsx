@@ -79,10 +79,17 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-56 px-8 md:px-24 bg-white">
+      <section id="about" className="py-56 px-8 md:px-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-32 items-center">
           <div ref={introReveal} className="lg:col-span-7 text-right reveal">
-             <SectionTitle subtitle="About Moran Paz" title="נעים מאוד, מורן פז" />
+             <div className="mb-24">
+               <span className="boutique-label block mb-8">About Moran Paz</span>
+               <h2 className="boutique-title handwriting-reveal">
+                 נעים מאוד, מורן פז
+               </h2>
+               <div className="w-24 h-[1px] mt-10 mr-0 bg-primary/30"></div>
+             </div>
+             
              <div className="space-y-12 boutique-para max-w-2xl mr-0">
                 <p className="stagger-1 text-4xl font-headline text-foreground italic">"אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה."</p>
                 <p className="stagger-2">

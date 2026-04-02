@@ -97,15 +97,39 @@
 
 /* סגנון טיפוגרפי בוטיק */
 .boutique-label {
-  @apply text-[14px] uppercase tracking-[0.6em] font-bold text-primary;
+  @apply text-[18px] uppercase tracking-[0.6em] font-bold text-primary;
 }
 
 .boutique-title {
-  @apply text-5xl md:text-8xl font-headline font-light leading-[1.15] text-foreground;
+  @apply text-6xl md:text-9xl font-headline font-light leading-[1.15] text-foreground;
 }
 
 .boutique-para {
-  @apply text-xl md:text-2xl font-light text-stone-700 leading-[1.9];
+  @apply text-2xl md:text-3xl font-light text-stone-700 leading-[1.9];
+}
+
+/* אנימציית כתיבה ידנית מודרנית */
+.handwriting-reveal {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.handwriting-reveal::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: hsl(var(--background));
+  animation: write-reveal 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 1;
+}
+
+@keyframes write-reveal {
+  0% { width: 100%; }
+  100% { width: 0%; }
 }
 
 /* מניעת גלילה כשתפריט פתוח */
