@@ -1,12 +1,12 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* פלטת צבעים יוקרתית מעודנת: פחם, לבן וזהב-ברונזה */
-    --background: 30 20% 98%; /* קרם בהיר מאוד */
-    --foreground: 20 10% 15%; /* שחור-פחם יוקרתי */
+    --background: 30 20% 98%;
+    --foreground: 20 10% 15%;
     
     --card: 0 0% 100%;
     --card-foreground: 20 10% 15%;
@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 20 10% 15%;
     
-    --primary: 35 35% 45%; /* זהב-ברונזה אלגנטי */
+    --primary: 35 35% 45%;
     --primary-foreground: 30 20% 98%;
     
     --secondary: 20 15% 92%;
@@ -23,7 +23,7 @@
     --muted: 30 10% 90%;
     --muted-foreground: 20 10% 40%;
     
-    --accent: 20 10% 10%; /* שחור עמוק */
+    --accent: 20 10% 10%;
     --accent-foreground: 30 20% 98%;
     
     --destructive: 0 84.2% 60.2%;
@@ -50,12 +50,10 @@
     @apply font-headline font-light tracking-tight;
   }
   sup {
-    @apply text-[0.6em] leading-none ml-0.5;
-    vertical-align: super;
+    @apply text-[0.45em] leading-none ml-0.5 align-top inline-block mt-[-0.2em];
   }
 }
 
-/* אנימציות יוקרה בסגנון Soke */
 .reveal {
   opacity: 0;
   transform: translateY(20px);
@@ -74,7 +72,6 @@
 .stagger-4 { transition-delay: 0.4s; }
 .stagger-5 { transition-delay: 0.5s; }
 
-/* אנימציית ציפה אמנותית לאיורים */
 @keyframes art-float {
   0% { transform: translateY(0px) rotate(0deg); }
   50% { transform: translateY(-15px) rotate(3deg); }
@@ -102,20 +99,18 @@
   @apply scale-105 grayscale-0;
 }
 
-/* סגנון טיפוגרפי בוטיק */
 .boutique-label {
-  @apply text-[14px] sm:text-[16px] md:text-[18px] uppercase tracking-[0.4em] font-bold;
+  @apply text-[12px] sm:text-[14px] uppercase tracking-[0.5em] font-bold;
 }
 
 .boutique-title {
-  @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-headline font-light leading-[1.15] text-foreground break-words;
+  @apply text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-headline font-light leading-[1.1] tracking-tighter text-foreground break-words;
 }
 
 .boutique-para {
-  @apply text-xl sm:text-2xl md:text-3xl font-light text-stone-700 leading-[1.7] sm:leading-[1.9];
+  @apply text-xl sm:text-2xl md:text-2xl font-light text-stone-700 leading-[1.7] sm:leading-[1.9];
 }
 
-/* אנימציית כתיבה ידנית */
 .handwriting-reveal {
   position: relative;
   display: inline-block;
@@ -143,7 +138,6 @@ body.menu-open {
   @apply overflow-hidden h-screen;
 }
 
-/* כרטיסיית בוטיק אמנותית */
 .boutique-card {
   @apply bg-[#8a847e] text-white p-8 sm:p-12 md:p-16 flex flex-col items-center text-center justify-center min-h-[400px] sm:min-h-[450px] relative overflow-hidden transition-all duration-1000 border-none w-full max-w-full;
 }
