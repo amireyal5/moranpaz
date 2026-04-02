@@ -3,7 +3,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
@@ -50,15 +49,15 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
           <div ref={introReveal} className="lg:col-span-7 reveal">
              <div className="mb-16">
-               <span className="boutique-label block mb-6">About Moran Paz</span>
-               <h1 className="boutique-title handwriting-reveal">
+               <span className="boutique-label block mb-6 text-primary">About Moran Paz</span>
+               <h1 className="text-6xl md:text-9xl font-['Amatic_SC'] font-bold text-foreground leading-none">
                  נעים מאוד, מורן פז
                </h1>
                <div className="w-24 h-[1px] mt-8 mr-0 bg-primary/30"></div>
              </div>
              
              <div className="space-y-10 boutique-para">
-                <p className="stagger-1 text-3xl font-headline text-foreground italic border-r-4 border-primary/20 pr-8">
+                <p className="stagger-1 text-3xl md:text-4xl font-headline text-foreground italic border-r-4 border-primary/20 pr-8 font-light">
                   "אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה."
                 </p>
                 <div className="space-y-8">
@@ -74,7 +73,7 @@ export default function AboutPage() {
                     בעשור האחרון עברתי מסע אישי מרפא וכיום אני מלווה אנשים למצוא את הדרך שלהם פנימה – לחיבור העמוק והאותנטי עם עצמם.
                   </p>
                   <p className="stagger-5 font-medium text-accent">
-                    מה זה נותן? פחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, קבלת החלטות בהירה ויעילה יותר, ביטוי אותנטי ותחושת רווחה גבוהה יותר מהחיים שלך.
+                    מה זה נותן? פחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, קבלת החלטות בהירה ויעילה יותר, ביטוי אותנטי ותחושת רווחה גבוהה יותר.
                   </p>
                 </div>
                 
@@ -83,7 +82,7 @@ export default function AboutPage() {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-6 px-12 py-6 bg-accent text-white boutique-label hover:bg-primary transition-all duration-700 shadow-xl rounded-sm"
+                    className="inline-flex items-center gap-6 px-12 py-5 bg-accent !text-white boutique-label hover:bg-primary transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap"
                   >
                     תאום שיחת היכרות אישית
                     <ArrowLeft size={18} />
@@ -119,7 +118,7 @@ export default function AboutPage() {
                   {point.icon}
                 </div>
                 <div className="space-y-4">
-                  <h4 className="text-2xl font-headline font-bold text-accent">{point.title}</h4>
+                  <h4 className="text-3xl font-headline font-bold text-accent">{point.title}</h4>
                   <p className="text-xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
                 </div>
               </div>
@@ -139,4 +138,3 @@ export default function AboutPage() {
     </main>
   );
 }
-

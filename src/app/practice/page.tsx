@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -67,7 +68,7 @@ export default function PracticePage() {
           <SectionTitle subtitle="Holistic Psychotherapy" title="התהליך הטיפולי" />
           
           <div ref={introReveal} className="reveal mb-32">
-            <h1 className="text-4xl md:text-6xl font-headline italic text-accent mb-12 leading-tight">
+            <h1 className="text-6xl md:text-9xl font-['Amatic_SC'] font-bold text-accent mb-12 leading-none">
               המסע לריפוי רגשי מתחיל בך
             </h1>
             <p className="max-w-3xl mr-0 boutique-para">
@@ -78,7 +79,7 @@ export default function PracticePage() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-6 px-12 py-6 bg-primary !text-white boutique-label !text-lg md:!text-xl hover:bg-accent transition-all duration-700 shadow-xl rounded-sm"
+                className="inline-flex items-center gap-6 px-12 py-5 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap"
               >
                 תאום שיחת היכרות
                 <ArrowLeft size={18} />
@@ -88,7 +89,7 @@ export default function PracticePage() {
 
           <div ref={holisticReveal} className="reveal grid grid-cols-1 lg:grid-cols-2 gap-24 mb-48 bg-white p-12 md:p-24 shadow-sm border border-stone-100">
             <div>
-              <h2 className="text-3xl md:text-5xl font-headline text-accent mb-10">מה מיוחד בגישה ההוליסטית?</h2>
+              <h2 className="text-4xl md:text-5xl font-headline text-accent mb-10 font-light">מה מיוחד בגישה ההוליסטית?</h2>
               <div className="space-y-6 text-xl font-light text-stone-600 leading-relaxed">
                 <p>בניגוד לגישות מסורתיות שמתמקדות רק בסימפטום, הגישה ההוליסטית רואה בך מערכת שלמה. אנחנו לא רק מדברים על הבעיה – אנחנו מרגישים אותה בגוף.</p>
                 <p>השילוב בין <strong>מיינדפולנס, עבודת צללים ופוקוסינג</strong> מאפשר לנו לעקוף את "השומרים" של המיינד ולהגיע לריפוי אמיתי.</p>
@@ -111,7 +112,7 @@ export default function PracticePage() {
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
              <div ref={stepsReveal} className="lg:col-span-8 space-y-12 reveal">
-                <h2 className="text-3xl font-headline text-accent mb-12">שלבי התהליך</h2>
+                <h2 className="text-4xl font-headline text-accent mb-12 font-light">שלבי התהליך</h2>
                 {steps.map((step, i) => (
                   <div key={step.id} className={cn("p-12 bg-white border border-border/30 hover:border-primary/30 transition-all duration-1000 group shadow-sm", `stagger-${i+1}`)}>
                     <div className="flex items-center space-x-reverse space-x-6 mb-8">
@@ -147,7 +148,7 @@ export default function PracticePage() {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-12 inline-flex items-center gap-4 boutique-label !text-lg text-primary hover:text-white transition-all group"
+                    className="mt-12 inline-flex items-center gap-4 boutique-label text-primary hover:text-white transition-all group whitespace-nowrap"
                    >
                      תאום פגישת היכרות
                      <ArrowLeft size={14} className="group-hover:-translate-x-2 transition-transform" />
