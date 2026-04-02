@@ -25,6 +25,7 @@ export default function Home() {
   
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-bg');
   const clinicImg = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20הגעתי%20מהאתר%20שלך%20מעוניין%20לקבל%20פרטים%20נוספים%20תודה";
 
   const homeFaqs = [
     {
@@ -111,10 +112,15 @@ export default function Home() {
              להתחבר | לגלות | <span className="italic">להשתנות</span>
            </h1>
            <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-             <Link href="#contact" className="inline-flex px-12 md:px-24 py-6 md:py-10 bg-primary text-white text-lg md:text-[18px] uppercase tracking-[0.4em] md:tracking-[0.6em] hover:bg-accent transition-all duration-700 font-bold items-center gap-6 shadow-2xl">
-                תאום שיחת היכרות
-                <ArrowLeft size={22} />
-             </Link>
+             <a 
+               href={whatsappLink} 
+               target="_blank" 
+               rel="noopener noreferrer"
+               className="inline-flex px-16 md:px-32 py-8 md:py-12 bg-primary text-white text-xl md:text-[22px] uppercase tracking-[0.4em] md:tracking-[0.6em] hover:bg-accent transition-all duration-700 font-bold items-center gap-8 shadow-2xl"
+             >
+                תאום שיחת היכרות בוואטסאפ
+                <ArrowLeft size={28} />
+             </a>
            </div>
         </div>
         
@@ -133,8 +139,8 @@ export default function Home() {
                 <div className="mb-6 p-4 bg-stone-50 inline-block rounded-full shadow-sm group-hover:shadow-md transition-all duration-700 text-primary animate-art-float">
                   {point.icon}
                 </div>
-                <h3 className="text-2xl font-headline font-bold text-accent">{point.title}</h3>
-                <p className="text-xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
+                <h3 className="text-3xl font-headline font-bold text-accent">{point.title}</h3>
+                <p className="text-2xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
               </div>
             ))}
           </div>
@@ -160,10 +166,10 @@ export default function Home() {
                 <div className="art-icon">
                   {item.icon}
                 </div>
-                <h3 className="text-4xl md:text-5xl font-headline mb-6 group-hover:scale-105 transition-transform duration-700">{item.title}</h3>
-                <p className="text-xl font-light opacity-80 leading-relaxed max-w-[280px]">{item.desc}</p>
-                <div className="mt-10 boutique-label text-[12px] text-white/50 group-hover:text-white transition-all flex items-center gap-2">
-                  למידע נוסף <ArrowLeft size={12} />
+                <h3 className="text-5xl md:text-6xl font-headline mb-6 group-hover:scale-105 transition-transform duration-700">{item.title}</h3>
+                <p className="text-2xl font-light opacity-80 leading-relaxed max-w-[280px]">{item.desc}</p>
+                <div className="mt-10 boutique-label text-[14px] text-white/50 group-hover:text-white transition-all flex items-center gap-2">
+                  למידע נוסף <ArrowLeft size={16} />
                 </div>
               </Link>
             ))}
@@ -177,11 +183,11 @@ export default function Home() {
           <div className="order-2 lg:order-1">
             <SectionTitle subtitle="The Clinic" title="סיור בקליניקה בטבעון" />
             <p className="boutique-para mb-12">
-              הקליניקה ממוקמת בלב הטבע של טבעון, מוקפת בירוק ושקט. כאן מתקיים מרחב בטוח המאפשר נשימה עמוקה וניתוק מרעשי היום-יום.
+              הקליניקה ממוקמת בלב הטבע של טבעון, ממוקמת בלב הירוק של טבעון. כאן מתקיים מרחב בטוח המאפשר נשימה עמוקה וניתוק מרעשי היום-יום.
             </p>
-            <Link href="/tivon" className="inline-flex items-center gap-4 boutique-label text-primary border-b border-primary/20 hover:border-primary transition-all pb-2 group">
+            <Link href="/tivon" className="inline-flex items-center gap-4 boutique-label text-primary border-b border-primary/20 hover:border-primary transition-all pb-2 group text-2xl">
               בואו לראות איפה הכל קורה
-              <Eye size={16} className="group-hover:scale-110 transition-transform" />
+              <Eye size={24} className="group-hover:scale-110 transition-transform" />
             </Link>
           </div>
           <div className="order-1 lg:order-2">
@@ -234,9 +240,9 @@ export default function Home() {
                 </div>
                 <div className="z-10">
                   <span className="boutique-label text-white/40 block mb-6">0{i+1}</span>
-                  <h3 className="text-4xl md:text-6xl font-headline mb-8 group-hover:italic transition-all duration-700">{service.title}</h3>
-                  <p className="opacity-80 font-light text-xl md:text-2xl leading-relaxed mb-10 max-w-sm mx-auto">{service.desc}</p>
-                  <div className="w-12 h-[1px] bg-white/30 mx-auto group-hover:w-24 transition-all duration-700"></div>
+                  <h3 className="text-5xl md:text-7xl font-headline mb-8 group-hover:italic transition-all duration-700">{service.title}</h3>
+                  <p className="opacity-80 font-light text-2xl md:text-3xl leading-relaxed mb-10 max-w-sm mx-auto">{service.desc}</p>
+                  <div className="w-16 h-[1px] bg-white/30 mx-auto group-hover:w-32 transition-all duration-700"></div>
                 </div>
               </Link>
             ))}
@@ -257,13 +263,13 @@ export default function Home() {
           
           <div className="mt-24 flex flex-col items-center">
             <a 
-              href="https://wa.me/972507817338" 
+              href={whatsappLink} 
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-6 text-foreground hover:text-primary transition-colors boutique-label group text-xl"
+              className="flex items-center gap-8 text-foreground hover:text-primary transition-colors boutique-label group text-2xl font-bold border border-primary/20 px-12 py-6"
             >
-              <MessageCircle size={40} className="group-hover:rotate-12 transition-transform text-primary" />
-              דברי איתי ב-WHATSAPP
+              <MessageCircle size={48} className="group-hover:rotate-12 transition-transform text-primary" />
+              שלחו הודעה בוואטסאפ
             </a>
           </div>
         </div>
