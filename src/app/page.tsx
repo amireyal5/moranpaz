@@ -44,49 +44,49 @@ export default function Home() {
   const audiences = [
     {
       title: "מבוגרים",
-      icon: <Orbit size={48} className="animate-art-float" strokeWidth={1} />,
+      icon: <Orbit size={120} strokeWidth={0.5} />,
       link: "/audience/adults",
-      desc: "ליווי רגשי בצמתי חיים, התמודדות עם חרדות ומציאת עוגן פנימי."
+      desc: "ליווי רגשי בצמתי חיים ומציאת עוגן פנימי."
     },
     {
       title: "נוער",
-      icon: <Infinity size={48} className="animate-art-float" strokeWidth={1} />,
+      icon: <Infinity size={120} strokeWidth={0.5} />,
       link: "/audience/youth",
-      desc: "מרחב בטוח ומכיל לפיתוח חוסן רגשי, ביטוי עצמי ועיבוד חוויות בגובה העיניים."
+      desc: "מרחב בטוח לפיתוח חוסן רגשי וביטוי עצמי."
     },
     {
       title: "נשים",
-      icon: <Waves size={48} className="animate-art-float" strokeWidth={1} />,
+      icon: <Waves size={120} strokeWidth={0.5} />,
       link: "/audience/women",
-      desc: "חיבור עמוק לעולם הפנימי, שחרור עומס רגשי ומציאת הקול האותנטי שלך."
+      desc: "חיבור עמוק לעולם הפנימי ומציאת הקול האותנטי."
     }
   ];
 
   const uniquenessPoints = [
     {
       title: "שילוב גוף-נפש",
-      icon: <Orbit className="text-primary animate-art-float" size={32} strokeWidth={1.5} />,
+      icon: <Orbit size={32} strokeWidth={1} />,
       desc: "פסיכותרפיה הוליסטית שרואה בך שלם. אנחנו עובדים עם הרגש, הגוף והמחשבה יחד לריפוי עמוק."
     },
     {
-      title: "כלים חווייתיים עמוקים",
-      icon: <Infinity className="text-primary animate-art-float" size={32} strokeWidth={1.5} />,
+      title: "כלים חווייתיים",
+      icon: <Infinity size={32} strokeWidth={1} />,
       desc: "עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס – כלים המאפשרים לצלול לעומק העולם הפנימי."
     },
     {
       title: "מרחב בטוח בטבע",
-      icon: <Waves className="text-primary animate-art-float" size={32} strokeWidth={1.5} />,
+      icon: <Waves size={32} strokeWidth={1} />,
       desc: "הקליניקה בטבעון מציעה שקט חיצוני שמאפשר להקשיב לשקט הפנימי, בסביבה מכילה ועוטפת."
     },
     {
       title: "ידע וניסיון עשיר",
-      icon: <Compass className="text-primary animate-art-float" size={32} strokeWidth={1.5} />,
+      icon: <Compass size={32} strokeWidth={1} />,
       desc: "תואר שני (MA) בייעוץ ארגוני ובוגרת פסיכותרפיה הוליסטית. שילוב של מקצועיות וגישה אנושית."
     }
   ];
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background text-right">
       <Navbar />
       
       {/* Hero Section */}
@@ -126,11 +126,11 @@ export default function Home() {
       {/* Uniqueness Section */}
       <section ref={uniquenessReveal} className="py-32 md:py-56 px-8 md:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
-          <SectionTitle subtitle="Unique Approach" title="מה מייחד את הגישה שלי?" className="flex flex-col items-center" />
+          <SectionTitle subtitle="Unique Approach" title="מה מייחד את הגישה שלי?" className="flex flex-col items-center text-center" />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-20">
             {uniquenessPoints.map((point, i) => (
-              <div key={i} className={cn("space-y-6 text-right group", `stagger-${i+1}`)}>
-                <div className="mb-6 p-4 bg-stone-50 inline-block rounded-full shadow-sm group-hover:shadow-md transition-all duration-700">
+              <div key={i} className={cn("space-y-6 group", `stagger-${i+1}`)}>
+                <div className="mb-6 p-4 bg-stone-50 inline-block rounded-full shadow-sm group-hover:shadow-md transition-all duration-700 text-primary animate-art-float">
                   {point.icon}
                 </div>
                 <h3 className="text-2xl font-headline font-bold text-accent">{point.title}</h3>
@@ -141,11 +141,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Audience Section */}
+      {/* Audience Section - ARTISTIC CARDS */}
       <section ref={audienceReveal} className="py-32 md:py-48 px-8 md:px-24 bg-stone-50 reveal">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24">
-            <SectionTitle subtitle="Audiences" title="עם מי אני עובדת?" className="flex flex-col items-center" />
+            <SectionTitle subtitle="Audiences" title="עם מי אני עובדת?" className="flex flex-col items-center text-center" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {audiences.map((item, i) => (
@@ -153,18 +153,18 @@ export default function Home() {
                 key={i} 
                 href={item.link}
                 className={cn(
-                  "bg-white p-12 border border-border/20 shadow-sm hover:shadow-xl transition-all duration-700 group flex flex-col items-center text-center space-y-8",
+                  "boutique-card group",
                   `stagger-${i+1}`
                 )}
               >
-                <div className="text-primary transition-transform duration-700 group-hover:scale-110">
+                <div className="art-icon">
                   {item.icon}
                 </div>
-                <h3 className="text-3xl font-headline font-bold text-accent group-hover:text-primary transition-colors">{item.title}</h3>
-                <p className="text-xl font-light text-stone-500 leading-relaxed">{item.desc}</p>
-                <span className="boutique-label text-[12px] opacity-40 group-hover:opacity-100 transition-all inline-flex items-center gap-2">
+                <h3 className="text-4xl md:text-5xl font-headline mb-6 group-hover:scale-105 transition-transform duration-700">{item.title}</h3>
+                <p className="text-xl font-light opacity-80 leading-relaxed max-w-[280px]">{item.desc}</p>
+                <div className="mt-10 boutique-label text-[12px] text-white/50 group-hover:text-white transition-all flex items-center gap-2">
                   למידע נוסף <ArrowLeft size={12} />
-                </span>
+                </div>
               </Link>
             ))}
           </div>
@@ -174,7 +174,7 @@ export default function Home() {
       {/* Clinic Tour Section */}
       <section ref={tourReveal} className="py-32 md:py-56 px-8 md:px-24 reveal bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-          <div className="order-2 lg:order-1 text-right">
+          <div className="order-2 lg:order-1">
             <SectionTitle subtitle="The Clinic" title="סיור בקליניקה בטבעון" />
             <p className="boutique-para mb-12">
               הקליניקה ממוקמת בלב הטבע של טבעון, מוקפת בירוק ושקט. כאן מתקיים מרחב בטוח המאפשר נשימה עמוקה וניתוק מרעשי היום-יום.
@@ -200,25 +200,43 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Offerings Section */}
+      {/* Offerings Section - ARTISTIC CARDS */}
       <section ref={offeringsReveal} className="py-32 md:py-56 px-8 md:px-24 reveal bg-stone-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24">
-            <SectionTitle subtitle="Therapy & Workshops" title="מה אני מציעה?" className="flex flex-col items-center" />
+            <SectionTitle subtitle="Therapy & Workshops" title="מה אני מציעה?" className="flex flex-col items-center text-center" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/20 border border-border/20 shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {[
-              { title: "התהליך הטיפולי", link: "/practice", desc: "פסיכותרפיה הוליסטית - מסע אישי לריפוי רגשי, חיזוק חוסן ומציאת שקט פנימי בטבעון או בזום." },
-              { title: "קורס BeinMe", link: "/workshop", desc: "מרחב קבוצתי-טיפולי לנשים לחיבור אותנטי וכנה עם עצמך דרך עבודת עומק חווייתית." }
+              { 
+                title: "התהליך הטיפולי", 
+                link: "/practice", 
+                desc: "פסיכותרפיה הוליסטית - מסע אישי לריפוי רגשי, חיזוק חוסן ומציאת שקט פנימי בטבעון או בזום.",
+                icon: <Orbit size={180} strokeWidth={0.3} />
+              },
+              { 
+                title: "קורס BeinMe", 
+                link: "/workshop", 
+                desc: "מרחב קבוצתי-טיפולי לנשים לחיבור אותנטי וכנה עם עצמך דרך עבודת עומק חווייתית.",
+                icon: <Waves size={180} strokeWidth={0.3} />
+              }
             ].map((service, i) => (
-              <Link key={i} href={service.link} className={cn("bg-white p-12 md:p-20 hover:bg-stone-50 transition-all group flex flex-col justify-between h-auto min-h-[400px]", `stagger-${i+1}`)}>
-                <div>
-                  <span className="boutique-label block mb-8">0{i+1}</span>
-                  <h3 className="text-4xl md:text-6xl font-headline text-foreground group-hover:italic transition-all duration-700">{service.title}</h3>
+              <Link 
+                key={i} 
+                href={service.link} 
+                className={cn(
+                  "boutique-card group", 
+                  `stagger-${i+1}`
+                )}
+              >
+                <div className="art-icon !top-1/2 !-translate-y-1/2 !right-0 opacity-10">
+                  {service.icon}
                 </div>
-                <div className="mt-8">
-                  <p className="text-stone-500 font-light text-xl md:text-2xl leading-relaxed mb-8">{service.desc}</p>
-                  <span className="block w-12 h-[1px] bg-primary group-hover:w-24 transition-all duration-700"></span>
+                <div className="z-10">
+                  <span className="boutique-label text-white/40 block mb-6">0{i+1}</span>
+                  <h3 className="text-4xl md:text-6xl font-headline mb-8 group-hover:italic transition-all duration-700">{service.title}</h3>
+                  <p className="opacity-80 font-light text-xl md:text-2xl leading-relaxed mb-10 max-w-sm mx-auto">{service.desc}</p>
+                  <div className="w-12 h-[1px] bg-white/30 mx-auto group-hover:w-24 transition-all duration-700"></div>
                 </div>
               </Link>
             ))}
@@ -233,8 +251,8 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-32 md:py-56 px-8 bg-white border-t border-border/20">
         <div className="max-w-4xl mx-auto text-center">
-          <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
-          <p className="boutique-para mb-20 text-center">אני כאן בשבילך לתאום שיחת הכרות ללא עלות. בואי נתחיל את המסע שלך יחד.</p>
+          <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center text-center" />
+          <p className="boutique-para mb-20">אני כאן בשבילך לתאום שיחת הכרות ללא עלות. בואי נתחיל את המסע שלך יחד.</p>
           <ContactForm />
           
           <div className="mt-24 flex flex-col items-center">

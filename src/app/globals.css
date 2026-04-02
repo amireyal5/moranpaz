@@ -74,12 +74,12 @@
 /* אנימציית ציפה אמנותית לאיורים */
 @keyframes art-float {
   0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-10px) rotate(2deg); }
+  50% { transform: translateY(-15px) rotate(3deg); }
   100% { transform: translateY(0px) rotate(0deg); }
 }
 
 .animate-art-float {
-  animation: art-float 6s ease-in-out infinite;
+  animation: art-float 8s ease-in-out infinite;
 }
 
 .hover-gold {
@@ -138,4 +138,17 @@
 
 body.menu-open {
   @apply overflow-hidden h-screen;
+}
+
+/* כרטיסיית בוטיק אמנותית בסגנון עמיר אייל */
+.boutique-card {
+  @apply bg-[#8a847e] text-white p-12 md:p-16 flex flex-col items-center text-center justify-center min-h-[450px] relative overflow-hidden transition-all duration-1000 border-none;
+}
+
+.boutique-card:hover {
+  @apply bg-[#7a746e];
+}
+
+.boutique-card .art-icon {
+  @apply absolute top-10 right-10 opacity-20 text-white animate-art-float;
 }
