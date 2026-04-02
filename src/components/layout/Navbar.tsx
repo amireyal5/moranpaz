@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -14,13 +13,12 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -29,7 +27,6 @@ export function Navbar() {
     }
   }, [mobileMenuOpen]);
 
-  // Close menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
@@ -44,23 +41,23 @@ export function Navbar() {
 
   return (
     <nav className={cn(
-      "fixed w-full z-[100] transition-all duration-700 px-8 md:px-20 flex justify-between items-center py-8",
-      isScrolled ? 'bg-background/90 backdrop-blur-xl py-4 border-b border-border/40' : 'bg-transparent'
+      "fixed w-full z-[200] transition-all duration-1000 px-8 md:px-24 flex justify-between items-center py-10",
+      isScrolled ? 'bg-background/95 backdrop-blur-md py-6 border-b border-border/30' : 'bg-transparent'
     )}>
       <Link 
         href="/"
-        className="text-xl md:text-2xl font-headline tracking-[0.2em] font-light hover:opacity-70 transition-opacity"
+        className="text-2xl md:text-3xl font-headline tracking-[0.3em] font-light hover:opacity-50 transition-all duration-700"
       >
         MORAN PAZ
       </Link>
       
-      <div className="hidden md:flex items-center space-x-reverse space-x-12 text-[10px] uppercase tracking-[0.4em] font-bold">
+      <div className="hidden lg:flex items-center space-x-reverse space-x-16 boutique-label">
         {navItems.map((item) => (
           <Link 
             key={item.href} 
             href={item.href} 
             className={cn(
-              "hover-gold relative py-1",
+              "hover-gold relative py-1 transition-all duration-700",
               pathname === item.href ? "text-primary" : "text-foreground"
             )}
           >
@@ -69,7 +66,7 @@ export function Navbar() {
         ))}
         <Link 
           href="#contact" 
-          className="text-primary hover:text-accent transition-colors border border-primary px-6 py-2"
+          className="text-primary hover:text-accent transition-all duration-700 border border-primary/40 px-8 py-3 hover:bg-primary/5"
         >
           צור קשר
         </Link>
@@ -77,24 +74,28 @@ export function Navbar() {
 
       <button 
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-        className="md:hidden p-2 hover:opacity-50 transition-opacity z-[210] relative"
+        className="lg:hidden p-3 hover:opacity-50 transition-opacity z-[220] relative"
         aria-label="תפריט"
       >
-        {mobileMenuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
+        {mobileMenuOpen ? <X size={28} strokeWidth={1} /> : <Menu size={28} strokeWidth={1} />}
       </button>
 
       {/* Mobile Menu Overlay */}
       <div className={cn(
-        "fixed inset-0 z-[200] bg-accent text-white transition-all duration-700 flex flex-col items-center justify-center",
+        "fixed inset-0 z-[210] bg-accent text-white transition-all duration-1000 ease-in-out flex flex-col items-center justify-center",
         mobileMenuOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-full pointer-events-none invisible'
       )}>
-        <div className="flex flex-col items-center space-y-10">
-          {navItems.map((item) => (
+        <div className="flex flex-col items-center space-y-12">
+          {navItems.map((item, i) => (
             <Link 
               key={item.href} 
               href={item.href} 
               onClick={() => setMobileMenuOpen(false)}
-              className="text-3xl font-headline font-light tracking-widest hover:text-primary transition-colors"
+              className={cn(
+                "text-4xl font-headline font-light tracking-[0.2em] hover:text-primary transition-all duration-700",
+                mobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0",
+                `transition-delay-[${i * 100}ms]`
+              )}
             >
               {item.label}
             </Link>
@@ -102,7 +103,7 @@ export function Navbar() {
           <Link 
             href="#contact" 
             onClick={() => setMobileMenuOpen(false)}
-            className="text-lg tracking-[0.4em] uppercase text-primary pt-10 border-t border-white/10 w-full text-center"
+            className="boutique-label text-primary pt-16 border-t border-white/10 w-48 text-center"
           >
             צור קשר
           </Link>

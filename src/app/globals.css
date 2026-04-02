@@ -33,7 +33,7 @@
     --input: 20 10% 85%;
     --ring: 35 35% 45%;
     
-    --radius: 0.2rem; /* פינות חדות יותר למראה מודרני */
+    --radius: 0rem; /* פינות חדות למראה מודרני ויוקרתי */
   }
 }
 
@@ -51,11 +51,12 @@
   }
 }
 
-/* אנימציות עדינות של Soke */
+/* אנימציות יוקרה בסגנון Soke */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(20px);
+  transition: opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1), transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-visible {
@@ -63,25 +64,45 @@
   transform: translateY(0);
 }
 
+/* כניסה מדורגת */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+
 .hover-gold {
-  @apply transition-colors duration-500 hover:text-primary;
+  @apply transition-colors duration-700 hover:text-primary;
 }
 
 .image-zoom-container {
-  @apply overflow-hidden;
+  @apply overflow-hidden relative;
 }
 
 .image-zoom-container img {
-  @apply transition-transform ease-out;
-  transition-duration: 2000ms;
+  @apply transition-transform ease-out grayscale;
+  transition-duration: 3000ms;
 }
 
 .image-zoom-container:hover img {
-  @apply scale-110;
+  @apply scale-105 grayscale-0;
 }
 
 /* Custom selection color */
 ::selection {
   background-color: hsl(var(--primary) / 0.2);
   color: hsl(var(--accent));
+}
+
+/* סגנון טיפוגרפי בוטיק */
+.boutique-label {
+  @apply text-[9px] uppercase tracking-[0.6em] font-bold text-primary;
+}
+
+.boutique-title {
+  @apply text-4xl md:text-7xl font-headline font-light leading-[1.1] text-accent;
+}
+
+.boutique-para {
+  @apply text-lg md:text-xl font-light text-stone-600 leading-[1.8];
 }

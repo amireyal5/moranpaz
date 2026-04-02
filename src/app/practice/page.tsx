@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -9,6 +8,7 @@ import { FaqAssistant } from '@/components/shared/FaqAssistant';
 import { useReveal } from '@/hooks/use-reveal';
 import { CheckCircle2 } from 'lucide-react';
 import { ContactForm } from '@/components/shared/ContactForm';
+import { cn } from '@/lib/utils';
 
 export default function PracticePage() {
   const introReveal = useReveal();
@@ -31,30 +31,30 @@ export default function PracticePage() {
     <main className="min-h-screen bg-background">
       <Navbar />
       
-      <section className="pt-44 pb-32 px-6 md:px-20">
+      <section className="pt-56 pb-48 px-8 md:px-24">
         <div className="max-w-6xl mx-auto">
           <SectionTitle subtitle="Therapy" title="התהליך הטיפולי" />
           
-          <div ref={introReveal} className="reveal mb-20 text-right">
-            <h3 className="text-3xl md:text-5xl font-headline italic text-accent mb-8 leading-tight">
+          <div ref={introReveal} className="reveal mb-32 text-right">
+            <h3 className="text-4xl md:text-6xl font-headline italic text-accent mb-12 leading-tight stagger-1">
               המסע לריפוי רגשי מתחיל בך
             </h3>
-            <p className="max-w-3xl mr-0 text-xl text-stone-600 font-light leading-relaxed">
+            <p className="max-w-3xl mr-0 boutique-para stagger-2">
               התהליך הוא הזמנה להתבוננות פנימה, במרחב בטוח ומכיל, שבו נוכל יחד לגלות את הכוחות הטמונים בך ולרפא את הפצעים המבקשים הכרה.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-             <div className="lg:col-span-8 space-y-8 text-right">
-                {steps.map((step) => (
-                  <div key={step.id} className="reveal p-8 bg-white rounded-sm border border-border/40 hover:border-primary/40 transition-all group shadow-sm">
-                    <div className="flex items-center space-x-reverse space-x-4 mb-6">
-                      <span className="w-10 h-10 border border-primary text-primary flex items-center justify-center font-bold text-lg group-hover:bg-primary group-hover:text-white transition-colors">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
+             <div className="lg:col-span-8 space-y-12 text-right">
+                {steps.map((step, i) => (
+                  <div key={step.id} className={cn("reveal p-12 bg-white border border-border/30 hover:border-primary/30 transition-all duration-1000 group shadow-sm", `stagger-${i+1}`)}>
+                    <div className="flex items-center space-x-reverse space-x-6 mb-8">
+                      <span className="w-12 h-12 border border-primary text-primary flex items-center justify-center font-bold text-xl group-hover:bg-primary group-hover:text-white transition-all duration-700">
                         {step.id}
                       </span>
-                      <h4 className="text-2xl font-headline font-bold text-foreground">{step.title}</h4>
+                      <h4 className="text-3xl font-headline font-bold text-accent">{step.title}</h4>
                     </div>
-                    <p className="text-lg text-stone-600 leading-relaxed pr-14">
+                    <p className="boutique-para pr-16">
                       {step.desc}
                     </p>
                   </div>
@@ -62,26 +62,26 @@ export default function PracticePage() {
              </div>
              
              <div className="lg:col-span-4">
-                <div className="bg-accent text-white p-10 rounded-sm shadow-2xl sticky top-32">
-                   <h4 className="text-2xl font-headline font-bold mb-8 border-b border-white/10 pb-4 text-primary">הטיפול מתאים לך אם...</h4>
-                   <ul className="space-y-6 text-right">
+                <div className="bg-accent text-white p-12 shadow-2xl sticky top-48">
+                   <h4 className="text-2xl font-headline font-bold mb-10 border-b border-white/10 pb-6 text-primary">הטיפול מתאים לך אם...</h4>
+                   <ul className="space-y-8 text-right">
                       {fits.map((item, i) => (
-                        <li key={i} className="flex items-start space-x-reverse space-x-4 text-stone-300">
-                           <CheckCircle2 size={18} className="text-primary mt-1 flex-shrink-0" />
-                           <span className="text-base leading-relaxed">{item}</span>
+                        <li key={i} className="flex items-start space-x-reverse space-x-6 text-stone-300">
+                           <CheckCircle2 size={20} className="text-primary mt-1 flex-shrink-0" />
+                           <span className="text-lg leading-relaxed">{item}</span>
                         </li>
                       ))}
                    </ul>
-                   <p className="mt-10 text-xs text-primary/60 italic">לא בטוחים אם הטיפול יכול לסייע? מוזמנים להתייעץ איתי ללא התחייבות.</p>
+                   <p className="mt-12 text-xs text-primary/60 italic leading-relaxed">לא בטוחים אם הטיפול יכול לסייע? מוזמנים להתייעץ איתי ללא התחייבות.</p>
                 </div>
              </div>
           </div>
         </div>
       </section>
 
-      <section className="py-32 bg-stone-50 px-6 md:px-20" id="contact">
+      <section className="py-48 bg-stone-50 px-8 md:px-24" id="contact">
         <div className="max-w-4xl mx-auto">
-          <SectionTitle subtitle="Connect" title="מוכנים להתחיל?" />
+          <SectionTitle subtitle="Connect" title="מוכנים להתחיל?" className="flex flex-col items-center" />
           <ContactForm />
         </div>
       </section>
@@ -91,4 +91,3 @@ export default function PracticePage() {
     </main>
   );
 }
-
