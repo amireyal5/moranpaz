@@ -8,20 +8,20 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
-import Link from 'next/link';
 
 export default function AdultsPage() {
   const contentReveal = useReveal();
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אני%20פונה%20לגבי%20טיפול%20למבוגרים";
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background text-right">
       <Navbar />
       
       <section className="pt-56 pb-32 px-8 md:px-24">
         <div className="max-w-5xl mx-auto">
           <SectionTitle subtitle="Audience" title="טיפול למבוגרים" />
           
-          <div ref={contentReveal} className="reveal space-y-12 text-right">
+          <div ref={contentReveal} className="reveal space-y-12">
             <h3 className="text-4xl md:text-6xl font-headline italic text-accent mb-12 leading-tight">
               למצוא עוגן בתוך סערות החיים
             </h3>
@@ -52,10 +52,15 @@ export default function AdultsPage() {
             </div>
 
             <div className="text-center pt-16">
-              <Link href="#contact" className="inline-flex px-16 py-8 bg-accent text-white boutique-label hover:bg-primary transition-all duration-700 items-center gap-6">
+              <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex px-16 py-8 bg-accent text-white boutique-label hover:bg-primary transition-all duration-700 items-center gap-6 rounded-sm shadow-2xl"
+              >
                 תאום שיחת היכרות
                 <ArrowLeft size={18} />
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -72,3 +77,4 @@ export default function AdultsPage() {
     </main>
   );
 }
+

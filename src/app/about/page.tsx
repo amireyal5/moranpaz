@@ -3,18 +3,21 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
+import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Orbit, Waves, Infinity, Compass } from 'lucide-react';
+import { Orbit, Waves, Infinity, Compass, ArrowLeft } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
   const introReveal = useReveal();
   const uniquenessReveal = useReveal();
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20קראתי%20עליך%20באתר%20ואשמח%20לפרטים%20על%20תהליך%20טיפולי";
 
   const uniquenessPoints = [
     {
@@ -40,12 +43,12 @@ export default function AboutPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background text-right">
       <Navbar />
       
       <section className="pt-56 pb-32 px-8 md:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
-          <div ref={introReveal} className="lg:col-span-7 text-right reveal">
+          <div ref={introReveal} className="lg:col-span-7 reveal">
              <div className="mb-16">
                <span className="boutique-label block mb-6">About Moran Paz</span>
                <h1 className="boutique-title handwriting-reveal">
@@ -73,6 +76,18 @@ export default function AboutPage() {
                   <p className="stagger-5 font-medium text-accent">
                     מה זה נותן? פחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, קבלת החלטות בהירה ויעילה יותר, ביטוי אותנטי ותחושת רווחה גבוהה יותר מהחיים שלך.
                   </p>
+                </div>
+                
+                <div className="pt-12 stagger-6">
+                  <a 
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-6 px-12 py-6 bg-accent text-white boutique-label hover:bg-primary transition-all duration-700 shadow-xl rounded-sm"
+                  >
+                    תאום שיחת היכרות אישית
+                    <ArrowLeft size={18} />
+                  </a>
                 </div>
              </div>
           </div>
@@ -113,7 +128,15 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section id="contact" className="py-32 bg-white px-8">
+        <div className="max-w-4xl mx-auto">
+          <SectionTitle subtitle="Connect" title="מוזמנת ליצור קשר" className="flex flex-col items-center" />
+          <ContactForm />
+        </div>
+      </section>
+
       <Footer />
     </main>
   );
 }
+

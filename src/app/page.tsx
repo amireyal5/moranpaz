@@ -25,7 +25,7 @@ export default function Home() {
   
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-bg');
   const clinicImg = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
-  const whatsappLink = "https://wa.me/972507817338?text=היי%20הגעתי%20מהאתר%20שלך%20מעוניין%20לקבל%20פרטים%20נוספים%20תודה";
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20מעוניינת%20לקבל%20פרטים%20על%20תיאום%20פגישת%20היכרות";
 
   const homeFaqs = [
     {
@@ -98,12 +98,12 @@ export default function Home() {
               src={heroImg.imageUrl} 
               alt="מורן פז - טיפול רגשי ופסיכותרפיה בטבעון" 
               fill
-              className="object-cover opacity-60 grayscale-[0.1]"
+              className="object-cover opacity-70 grayscale-[0.1]"
               priority
               data-ai-hint={heroImg.imageHint}
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-background"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-background"></div>
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal max-w-6xl w-full px-4">
@@ -116,11 +116,17 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="inline-flex w-full md:w-auto px-8 md:px-32 py-6 md:py-12 bg-primary text-white text-lg md:text-[22px] uppercase tracking-[0.2em] md:tracking-[0.6em] hover:bg-accent transition-all duration-700 font-bold items-center justify-center gap-4 md:gap-8 shadow-2xl"
+               className="inline-flex w-full md:w-auto px-8 md:px-32 py-6 md:py-10 bg-primary text-white text-lg md:text-[22px] uppercase tracking-[0.2em] md:tracking-[0.4em] hover:bg-accent transition-all duration-700 font-bold items-center justify-center gap-4 md:gap-6 shadow-2xl rounded-sm"
              >
                 תאום שיחת היכרות
-                <ArrowLeft size={24} className="md:size-28" />
+                <ArrowLeft size={24} />
              </a>
+             <Link 
+               href="/about"
+               className="inline-flex w-full md:w-auto px-8 md:px-24 py-6 md:py-10 bg-transparent border border-foreground/20 text-foreground text-lg md:text-[20px] hover:bg-stone-50 transition-all duration-700 font-light items-center justify-center gap-4 shadow-sm"
+             >
+                על הגישה שלי
+             </Link>
            </div>
         </div>
         
@@ -143,6 +149,11 @@ export default function Home() {
                 <p className="text-lg md:text-2xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
               </div>
             ))}
+          </div>
+          <div className="mt-24 text-center">
+            <Link href="/practice" className="boutique-label text-primary border-b border-primary/20 hover:border-primary transition-all pb-2 text-xl md:text-2xl">
+              איך עובד התהליך הטיפולי?
+            </Link>
           </div>
         </div>
       </section>
@@ -174,6 +185,22 @@ export default function Home() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Intermediate CTA */}
+      <section className="py-24 bg-accent text-white px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-5xl font-headline italic mb-10 leading-relaxed">זמן לעצור לרגע, לנשום עמוק ולהתחיל להקשיב לעצמך.</h2>
+          <a 
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-6 px-12 py-6 bg-primary text-white boutique-label hover:bg-white hover:text-accent transition-all duration-700 shadow-2xl"
+          >
+            בואי נדבר
+            <ArrowLeft size={18} />
+          </a>
         </div>
       </section>
 
@@ -266,10 +293,10 @@ export default function Home() {
               href={whatsappLink} 
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 md:gap-8 text-foreground hover:text-primary transition-colors boutique-label group text-xl md:text-2xl font-bold border border-primary/20 px-8 md:px-12 py-4 md:py-6 w-full md:w-auto justify-center"
+              className="flex items-center gap-4 md:gap-8 text-foreground hover:text-primary transition-colors boutique-label group text-xl md:text-2xl font-bold border border-primary/20 px-8 md:px-12 py-4 md:py-6 w-full md:w-auto justify-center rounded-sm"
             >
               <MessageCircle size={32} className="md:size-[48px] group-hover:rotate-12 transition-transform text-primary" />
-              שלחו הודעה בוואטסאפ
+              שלחי הודעה בוואטסאפ
             </a>
           </div>
         </div>
@@ -280,3 +307,4 @@ export default function Home() {
     </main>
   );
 }
+

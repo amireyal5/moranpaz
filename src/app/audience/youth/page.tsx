@@ -8,27 +8,27 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { ArrowLeft, Heart } from 'lucide-react';
-import Link from 'next/link';
 
 export default function YouthPage() {
   const contentReveal = useReveal();
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אני%20פונה%20לגבי%20טיפול%20לנוער";
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background text-right">
       <Navbar />
       
       <section className="pt-56 pb-32 px-8 md:px-24">
         <div className="max-w-5xl mx-auto">
           <SectionTitle subtitle="Audience" title="טיפול לנוער" />
           
-          <div ref={contentReveal} className="reveal space-y-12 text-right">
+          <div ref={contentReveal} className="reveal space-y-12">
             <h3 className="text-4xl md:text-6xl font-headline italic text-accent mb-12 leading-tight">
               מקום בטוח להיות מי שאת/ה
             </h3>
             
             <div className="boutique-para space-y-8">
               <p>
-                גיל ההתבגרות הוא תקופה של שינויים מרגשים אך גם מאתגרים מאוד. זהו שלב של חיפוש זהות, התמודדות עם לחץ חברתי, לימודי ורגשי, ולפעמים תחושה שאף אחד לא באמת מבין.
+                גיל ההתבגרות הוא תקופה של שינויים מרגשים אך גם מאתגרים מאוד. זהו שלב של חיפוש זהות, התמודדות עם לחץ חברתי, לימודי ורגשי, ולפעמות תחושה שאף אחד לא באמת מבין.
               </p>
               <p>
                 בטיפול רגשי לנוער, אני מציעה מרחב שבו אפשר לדבר על הכל – בלי שיפוטיות, בגובה העיניים ובסודיות מלאה. נשתמש בכלים יצירתיים וחווייתיים כדי לעזור לנער או לנערה למצוא את הכוחות הפנימיים שלהם.
@@ -47,10 +47,15 @@ export default function YouthPage() {
             </div>
 
             <div className="text-center pt-16">
-              <Link href="#contact" className="inline-flex px-16 py-8 bg-primary text-white boutique-label hover:bg-accent transition-all duration-700 items-center gap-6">
-                פנייה לשיחת ייעוץ (להורים/נוער)
+              <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex px-16 py-8 bg-primary text-white boutique-label hover:bg-accent transition-all duration-700 items-center gap-6 rounded-sm shadow-2xl"
+              >
+                פנייה לשיחת ייעוץ
                 <ArrowLeft size={18} />
-              </Link>
+              </a>
             </div>
           </div>
         </div>
@@ -68,3 +73,4 @@ export default function YouthPage() {
     </main>
   );
 }
+

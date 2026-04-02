@@ -16,6 +16,7 @@ import Link from 'next/link';
 export default function PracticePage() {
   const introReveal = useReveal();
   const holisticReveal = useReveal();
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20התהליך%20הטיפולי%20ההוליסטי";
 
   const steps = [
     { 
@@ -73,6 +74,17 @@ export default function PracticePage() {
             <p className="max-w-3xl mr-0 boutique-para">
               פסיכותרפיה הוליסטית היא הזמנה להתבוננות פנימה, במרחב בטוח ומכיל, שבו נוכל יחד לגלות את הכוחות הטמונים בך.
             </p>
+            <div className="mt-12">
+               <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-6 px-12 py-6 bg-primary text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm"
+              >
+                תאום שיחת היכרות
+                <ArrowLeft size={18} />
+              </a>
+            </div>
           </div>
 
           {/* Detailed Holistic Psychotherapy Section - ARTISTIC STYLE */}
@@ -133,10 +145,15 @@ export default function PracticePage() {
                         </li>
                       ))}
                    </ul>
-                   <Link href="#contact" className="mt-12 inline-flex items-center gap-4 boutique-label text-primary hover:text-white transition-all group">
+                   <a 
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-12 inline-flex items-center gap-4 boutique-label text-primary hover:text-white transition-all group"
+                   >
                      תאום פגישת היכרות
                      <ArrowLeft size={14} className="group-hover:-translate-x-2 transition-transform" />
-                   </Link>
+                   </a>
                 </div>
              </div>
           </div>
@@ -147,7 +164,8 @@ export default function PracticePage() {
 
       <section className="py-48 bg-stone-50 px-8 md:px-24" id="contact">
         <div className="max-w-4xl mx-auto">
-          <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center text-center" />
+          <SectionTitle subtitle="Connect" title="מוכנה להתחיל את המסע?" className="flex flex-col items-center text-center" />
+          <p className="text-center boutique-para mb-16">השאירי פרטים ואחזור אלייך לשיחת ייעוץ ראשונית.</p>
           <ContactForm />
         </div>
       </section>
@@ -157,3 +175,4 @@ export default function PracticePage() {
     </main>
   );
 }
+
