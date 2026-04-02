@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -8,35 +7,30 @@ import { cn } from '@/lib/utils';
 interface SectionTitleProps {
   subtitle: string;
   title: string;
-  number?: string;
   isLight?: boolean;
 }
 
-export function SectionTitle({ subtitle, title, number, isLight = false }: SectionTitleProps) {
+export function SectionTitle({ subtitle, title, isLight = false }: SectionTitleProps) {
   const revealRef = useReveal();
 
   return (
-    <div ref={revealRef} className="mb-12 md:mb-20 text-right reveal relative">
-      {number && (
-        <span className={cn(
-          "absolute -right-6 -top-8 text-[70px] md:text-[130px] font-headline select-none leading-none -z-10 opacity-10",
-          isLight ? 'text-stone-400' : 'text-primary'
-        )}>
-          {number}
-        </span>
-      )}
+    <div ref={revealRef} className="mb-16 text-right reveal">
       <span className={cn(
-        "block text-[10px] uppercase tracking-[0.5em] mb-4 font-bold",
-        isLight ? 'text-stone-300' : 'text-primary'
+        "block text-[9px] uppercase tracking-[0.6em] mb-6 font-bold",
+        isLight ? 'text-primary/60' : 'text-primary'
       )}>
         {subtitle}
       </span>
       <h2 className={cn(
-        "text-4xl md:text-[6vw] font-light font-headline tracking-tighter leading-tight",
-        isLight ? 'text-white' : 'text-foreground'
+        "text-4xl md:text-6xl font-headline font-light leading-tight",
+        isLight ? 'text-white' : 'text-accent'
       )}>
         {title}
       </h2>
+      <div className={cn(
+        "w-12 h-[1px] mt-8 mr-0",
+        isLight ? 'bg-primary/40' : 'bg-primary/20'
+      )}></div>
     </div>
   );
 }

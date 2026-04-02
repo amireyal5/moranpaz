@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -12,11 +11,9 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  const isHome = pathname === '/';
-
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -24,41 +21,31 @@ export function Navbar() {
 
   const navItems = [
     { label: 'בית', href: '/' },
-    { label: 'התהליך הטיפולי', href: '/practice' },
+    { label: 'התהליך', href: '/practice' },
     { label: 'סדנת BEINME', href: '/workshop' },
-    { label: 'טיפול בטבעון', href: '/tivon' },
+    { label: 'טבעון', href: '/tivon' },
   ];
-
-  const handleLinkClick = () => {
-    setMobileMenuOpen(false);
-  };
 
   return (
     <nav className={cn(
-      "fixed w-full z-[100] transition-all duration-500 px-6 md:px-16 flex justify-between items-center",
-      isScrolled || !isHome ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-8'
+      "fixed w-full z-[100] transition-all duration-700 px-8 md:px-20 flex justify-between items-center py-6",
+      isScrolled ? 'bg-background/80 backdrop-blur-xl py-4 border-b border-border/40' : 'bg-transparent'
     )}>
       <Link 
         href="/"
-        className={cn(
-          "text-xl md:text-2xl font-headline tracking-tighter font-bold uppercase transition-colors",
-          isScrolled || !isHome ? 'text-foreground' : 'text-white'
-        )}
+        className="text-xl md:text-2xl font-headline tracking-[0.15em] font-light hover:opacity-70 transition-opacity"
       >
         MORAN PAZ
       </Link>
       
-      <div className={cn(
-        "hidden md:flex items-center space-x-reverse space-x-8 text-xs uppercase tracking-[0.2em] font-bold",
-        isScrolled || !isHome ? 'text-foreground' : 'text-stone-100'
-      )}>
+      <div className="hidden md:flex items-center space-x-reverse space-x-12 text-[10px] uppercase tracking-[0.3em] font-medium">
         {navItems.map((item) => (
           <Link 
             key={item.href} 
             href={item.href} 
             className={cn(
-              "nav-link relative after:absolute after:bottom-[-4px] after:right-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300",
-              pathname === item.href ? "after:w-full" : "after:w-0"
+              "hover-gold relative py-1",
+              pathname === item.href ? "text-primary" : "text-foreground"
             )}
           >
             {item.label}
@@ -66,12 +53,7 @@ export function Navbar() {
         ))}
         <Link 
           href="#contact" 
-          className={cn(
-            "px-6 py-2 rounded-full border transition-all",
-            isScrolled || !isHome 
-              ? 'border-primary text-primary hover:bg-primary hover:text-white' 
-              : 'border-white/40 text-white hover:bg-white hover:text-foreground'
-          )}
+          className="text-primary hover:text-accent transition-colors"
         >
           צור קשר
         </Link>
@@ -79,40 +61,37 @@ export function Navbar() {
 
       <button 
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
-        className={cn(
-          "md:hidden p-2 rounded-full transition-colors",
-          isScrolled || !isHome ? 'text-foreground bg-secondary' : 'text-white bg-black/20'
-        )}
+        className="md:hidden p-2 hover:opacity-50 transition-opacity"
       >
-        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       {/* Mobile Menu Overlay */}
       <div className={cn(
-        "fixed inset-0 z-[200] bg-white transition-all duration-500 flex flex-col items-center justify-center space-y-8",
+        "fixed inset-0 z-[200] bg-accent text-white transition-all duration-700 flex flex-col items-center justify-center",
         mobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
       )}>
         <button 
           onClick={() => setMobileMenuOpen(false)} 
-          className="absolute top-8 right-8 p-2 text-foreground"
+          className="absolute top-8 right-8 p-2"
         >
-          <X size={32} />
+          <X size={30} strokeWidth={1} />
         </button>
-        <div className="flex flex-col items-center space-y-8">
+        <div className="flex flex-col items-center space-y-10">
           {navItems.map((item) => (
             <Link 
               key={item.href} 
               href={item.href} 
-              onClick={handleLinkClick}
-              className="text-3xl font-headline hover:italic transition-all uppercase text-foreground"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-3xl font-headline font-light tracking-widest hover:text-primary transition-colors"
             >
               {item.label}
             </Link>
           ))}
           <Link 
             href="#contact" 
-            onClick={handleLinkClick}
-            className="text-3xl font-headline hover:italic transition-all uppercase text-primary font-bold"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-lg tracking-[0.4em] uppercase text-primary pt-10"
           >
             צור קשר
           </Link>

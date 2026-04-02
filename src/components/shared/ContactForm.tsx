@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -12,48 +11,51 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
     <div 
       ref={revealRef} 
       className={cn(
-        "max-w-4xl mx-auto text-right reveal p-6 md:p-12 rounded-3xl border transition-all duration-500",
-        isLight ? 'bg-stone-800/80 border-stone-700 backdrop-blur-sm shadow-2xl' : 'bg-white border-primary/10 shadow-xl'
+        "max-w-4xl mx-auto text-right reveal transition-all duration-700",
+        isLight ? 'text-white' : 'text-accent'
       )}
     >
-      <form className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="border-b border-stone-300 focus-within:border-primary transition-colors pb-2">
-          <label className={cn("block text-[10px] uppercase mb-2", isLight ? 'text-stone-400' : 'text-primary')}>שם מלא</label>
+      <form className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="border-b border-border focus-within:border-primary transition-colors pb-4">
+          <label className="block text-[9px] uppercase tracking-widest mb-3 opacity-60">שם מלא</label>
           <input 
             type="text" 
             required
-            className={cn("bg-transparent w-full focus:outline-none text-lg font-headline", isLight ? 'text-white' : 'text-foreground')} 
+            className="bg-transparent w-full focus:outline-none text-xl font-headline font-light placeholder:opacity-20" 
             placeholder="השם שלך" 
           />
         </div>
-        <div className="border-b border-stone-300 focus-within:border-primary transition-colors pb-2">
-          <label className={cn("block text-[10px] uppercase mb-2", isLight ? 'text-stone-400' : 'text-primary')}>טלפון</label>
+        <div className="border-b border-border focus-within:border-primary transition-colors pb-4">
+          <label className="block text-[9px] uppercase tracking-widest mb-3 opacity-60">טלפון</label>
           <input 
             type="tel" 
             required
-            className={cn("bg-transparent w-full focus:outline-none text-lg font-headline", isLight ? 'text-white' : 'text-foreground')} 
-            placeholder="050-0000000" 
+            className="bg-transparent w-full focus:outline-none text-xl font-headline font-light placeholder:opacity-20" 
+            placeholder="050 000 0000" 
           />
         </div>
-        <div className="md:col-span-2 border-b border-stone-300 focus-within:border-primary transition-colors pb-2">
-          <label className={cn("block text-[10px] uppercase mb-2", isLight ? 'text-stone-400' : 'text-primary')}>מייל</label>
+        <div className="md:col-span-2 border-b border-border focus-within:border-primary transition-colors pb-4">
+          <label className="block text-[9px] uppercase tracking-widest mb-3 opacity-60">הודעה (אופציונלי)</label>
           <input 
-            type="email" 
-            required
-            className={cn("bg-transparent w-full focus:outline-none text-lg font-headline", isLight ? 'text-white' : 'text-foreground')} 
-            placeholder="email@example.com" 
+            type="text" 
+            className="bg-transparent w-full focus:outline-none text-xl font-headline font-light placeholder:opacity-20" 
+            placeholder="ספרי לי קצת..." 
           />
         </div>
-        <div className="md:col-span-2 flex items-center space-x-reverse space-x-3">
-           <input type="checkbox" className="w-4 h-4 accent-primary rounded cursor-pointer" id="mkt" />
-           <label htmlFor="mkt" className={cn("text-xs cursor-pointer", isLight ? 'text-stone-300' : 'text-stone-600')}>אני מאשר/ת קבלת חומר שיווקי ממורן פז</label>
+        
+        <div className="md:col-span-2 flex items-center space-x-reverse space-x-4 opacity-60">
+           <input type="checkbox" className="w-4 h-4 accent-primary cursor-pointer border-border" id="mkt" />
+           <label htmlFor="mkt" className="text-[10px] uppercase tracking-wider cursor-pointer">אני מאשר/ת קבלת עדכונים</label>
         </div>
-        <div className="md:col-span-2 text-center pt-4">
+        
+        <div className="md:col-span-2 text-center pt-8">
           <button 
             type="submit"
             className={cn(
-              "px-16 py-4 text-xs uppercase tracking-widest font-bold rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg",
-              isLight ? 'bg-white text-stone-900 hover:bg-stone-100' : 'bg-primary text-white hover:bg-primary/90'
+              "px-16 py-5 text-[10px] uppercase tracking-[0.4em] font-bold transition-all border",
+              isLight 
+                ? 'border-white text-white hover:bg-white hover:text-accent' 
+                : 'border-accent text-accent hover:bg-accent hover:text-white'
             )}
           >
             שלחי הודעה
