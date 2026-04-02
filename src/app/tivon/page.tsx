@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -6,7 +5,6 @@ import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
-import { FaqAssistant } from '@/components/shared/FaqAssistant';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { ContactForm } from '@/components/shared/ContactForm';
@@ -130,7 +128,7 @@ export default function TivonPage() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-4 px-12 py-5 bg-primary !text-white boutique-label hover:bg-accent transition-all rounded-sm shadow-xl"
+              className="inline-flex items-center gap-4 px-12 py-6 bg-primary !text-white boutique-label !text-lg md:!text-xl hover:bg-accent transition-all rounded-sm shadow-xl"
             >
               תאום פגישה בטבעון
               <ArrowLeft size={18} />
@@ -141,7 +139,6 @@ export default function TivonPage() {
       </section>
 
       <Footer />
-      <FaqAssistant />
     </main>
   );
 }

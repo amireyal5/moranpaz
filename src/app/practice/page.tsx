@@ -1,11 +1,9 @@
-
 "use client";
 
 import React from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
-import { FaqAssistant } from '@/components/shared/FaqAssistant';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { CheckCircle2, ArrowLeft, Orbit, Waves, Infinity, Compass } from 'lucide-react';
@@ -17,7 +15,7 @@ export default function PracticePage() {
   const introReveal = useReveal();
   const holisticReveal = useReveal();
   const stepsReveal = useReveal();
-  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20התהליך%20הטיפולי%20ההוליסטי";
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20התהליך%20הטיפול%20ההוליסטי";
 
   const steps = [
     { 
@@ -80,7 +78,7 @@ export default function PracticePage() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-6 px-12 py-6 bg-primary text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm"
+                className="inline-flex items-center gap-6 px-12 py-6 bg-primary !text-white boutique-label !text-lg md:!text-xl hover:bg-accent transition-all duration-700 shadow-xl rounded-sm"
               >
                 תאום שיחת היכרות
                 <ArrowLeft size={18} />
@@ -149,7 +147,7 @@ export default function PracticePage() {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-12 inline-flex items-center gap-4 boutique-label text-primary hover:text-white transition-all group"
+                    className="mt-12 inline-flex items-center gap-4 boutique-label !text-lg text-primary hover:text-white transition-all group"
                    >
                      תאום פגישת היכרות
                      <ArrowLeft size={14} className="group-hover:-translate-x-2 transition-transform" />
@@ -171,7 +169,6 @@ export default function PracticePage() {
       </section>
 
       <Footer />
-      <FaqAssistant />
     </main>
   );
 }

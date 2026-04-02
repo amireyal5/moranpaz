@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
-import { FaqAssistant } from '@/components/shared/FaqAssistant';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { ContactForm } from '@/components/shared/ContactForm';
@@ -68,7 +67,7 @@ export default function WorkshopPage() {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-6 px-12 py-6 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm"
+                    className="inline-flex items-center gap-6 px-12 py-6 bg-primary !text-white boutique-label !text-lg md:!text-xl hover:bg-accent transition-all duration-700 shadow-xl rounded-sm"
                   >
                     הרשמה למחזור הקרוב
                     <ArrowLeft size={18} />
@@ -116,9 +115,9 @@ export default function WorkshopPage() {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-6 px-12 py-6 bg-primary !text-white boutique-label hover:bg-white hover:!text-accent transition-all duration-700 shadow-2xl rounded-sm"
+            className="inline-flex items-center gap-6 px-12 py-7 bg-primary !text-white boutique-label !text-xl hover:bg-white hover:!text-accent transition-all duration-700 shadow-2xl rounded-sm"
           >
-            <MessageCircle size={20} />
+            <MessageCircle size={24} />
             שלחי הודעה לבירור פרטים
           </a>
         </div>
@@ -137,7 +136,6 @@ export default function WorkshopPage() {
       </section>
 
       <Footer />
-      <FaqAssistant />
     </main>
   );
 }

@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -8,7 +7,6 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
-import { FaqAssistant } from '@/components/shared/FaqAssistant';
 import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
@@ -129,15 +127,15 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="inline-flex w-full md:w-auto px-16 md:px-24 py-6 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-1000 items-center justify-center gap-6 shadow-2xl rounded-sm group overflow-hidden relative"
+               className="inline-flex w-full md:w-auto px-16 md:px-24 py-7 bg-primary !text-white boutique-label !text-lg md:!text-xl hover:bg-accent transition-all duration-1000 items-center justify-center gap-6 shadow-2xl rounded-sm group overflow-hidden relative"
              >
                 <span className="relative z-10">תאום שיחת היכרות</span>
-                <ArrowLeft size={22} className="relative z-10 group-hover:-translate-x-2 transition-transform duration-500" />
+                <ArrowLeft size={24} className="relative z-10 group-hover:-translate-x-2 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-1000 ease-in-out"></div>
              </a>
              <Link 
                href="/about"
-               className="inline-flex w-full md:w-auto px-12 md:px-16 py-6 bg-transparent border border-foreground/15 text-foreground/80 text-lg hover:bg-stone-50/50 hover:border-foreground/30 transition-all duration-1000 font-light items-center justify-center gap-4 tracking-widest uppercase text-sm"
+               className="inline-flex w-full md:w-auto px-12 md:px-16 py-7 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50/50 hover:border-foreground/30 transition-all duration-1000 font-light items-center justify-center gap-4 tracking-widest uppercase text-sm md:text-base"
              >
                 על הגישה שלי
              </Link>
@@ -238,7 +236,7 @@ export default function Home() {
               href={whatsappLink} 
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-8 md:gap-12 text-foreground hover:text-primary transition-all duration-700 boutique-label group text-2xl md:text-4xl font-bold border border-primary/15 px-12 md:px-20 py-8 md:py-10 w-full md:w-auto justify-center rounded-sm shadow-sm hover:shadow-xl hover:bg-stone-50/50"
+              className="flex items-center gap-8 md:gap-12 text-foreground hover:text-primary transition-all duration-700 boutique-label !text-2xl md:!text-4xl group font-bold border border-primary/15 px-12 md:px-20 py-8 md:py-10 w-full md:w-auto justify-center rounded-sm shadow-sm hover:shadow-xl hover:bg-stone-50/50"
             >
               <MessageCircle size={48} className="md:size-[64px] group-hover:rotate-12 transition-transform text-primary" />
               שלחי הודעה בוואטסאפ
@@ -248,7 +246,6 @@ export default function Home() {
       </section>
 
       <Footer />
-      <FaqAssistant />
     </main>
   );
 }
