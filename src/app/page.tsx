@@ -21,7 +21,6 @@ export default function Home() {
   const uniquenessReveal = useReveal();
   const audienceReveal = useReveal();
   const tourReveal = useReveal();
-  const offeringsReveal = useReveal();
   
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-bg');
   const clinicImg = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
@@ -45,19 +44,19 @@ export default function Home() {
   const audiences = [
     {
       title: "מבוגרים",
-      icon: <Orbit size={180} strokeWidth={0.3} />,
+      icon: <Orbit size={120} strokeWidth={0.5} />,
       link: "/audience/adults",
       desc: "ליווי רגשי בצמתי חיים ומציאת עוגן פנימי."
     },
     {
       title: "נוער",
-      icon: <Infinity size={180} strokeWidth={0.3} />,
+      icon: <Infinity size={120} strokeWidth={0.5} />,
       link: "/audience/youth",
       desc: "מרחב בטוח לפיתוח חוסן רגשי וביטוי עצמי."
     },
     {
       title: "נשים",
-      icon: <Waves size={180} strokeWidth={0.3} />,
+      icon: <Waves size={120} strokeWidth={0.5} />,
       link: "/audience/women",
       desc: "חיבור עמוק לעולם הפנימי ומציאת הקול האותנטי."
     }
@@ -106,11 +105,22 @@ export default function Home() {
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal max-w-6xl w-full px-4">
-           <span className="boutique-label text-primary block mb-6 md:mb-10">מטפלת רגשית מוסמכת בטבעון</span>
-           <h1 className="boutique-title mb-10 md:mb-16">
-             להתחבר | לגלות | <span className="italic">להשתנות</span>
+           {/* SEO Focused H1: Combines visual hook with primary keyword */}
+           <h1 className="flex flex-col items-center">
+             <span className="boutique-label text-primary block mb-6 md:mb-10 text-sm md:text-lg">מטפלת רגשית מוסמכת בטבעון</span>
+             <div className="boutique-title mb-10 md:mb-16 flex flex-wrap justify-center items-center gap-x-6 md:gap-x-12">
+               <span>להתחבר</span>
+               <span className="text-primary/30 text-3xl md:text-6xl select-none">•</span>
+               <span>לגלות</span>
+               <span className="text-primary/30 text-3xl md:text-6xl select-none">•</span>
+               <span className="italic">להשתנות</span>
+             </div>
            </h1>
-           <h2 className="text-2xl md:text-3xl font-headline italic mb-12 text-accent/80">פסיכותרפיה הוליסטית וליווי רגשי עמוק בעמק יזרעאל ואונליין</h2>
+           
+           <h2 className="text-xl md:text-3xl font-headline italic mb-12 text-accent/80 max-w-4xl mx-auto leading-relaxed">
+             פסיכותרפיה הוליסטית וליווי רגשי עמוק בעמק יזרעאל, טבעון ואונליין לישראלים בארץ ובעולם
+           </h2>
+           
            <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
              <a 
                href={whatsappLink} 
