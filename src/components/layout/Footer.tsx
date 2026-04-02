@@ -33,7 +33,7 @@ export function Footer() {
                 <Link href="/about" className="hover:text-primary transition-colors duration-500">אודות</Link>
                 <Link href="/practice" className="hover:text-primary transition-colors duration-500">התהליך הטיפולי</Link>
                 <Link href="/online-therapy" className="hover:text-primary transition-colors duration-500">טיפול אונליין</Link>
-                <Link href="/workshop" className="hover:text-primary transition-colors duration-500">קורס ©BEINME</Link>
+                <Link href="/workshop" className="hover:text-primary transition-colors duration-500">קורס BeinMe©</Link>
                 <Link href="/tivon" className="hover:text-primary transition-colors duration-500">טבעון</Link>
              </nav>
           </div>

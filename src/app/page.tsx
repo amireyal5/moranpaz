@@ -248,7 +248,7 @@ export default function Home() {
                 icon: <Orbit size={180} strokeWidth={0.3} />
               },
               { 
-                title: "קורס ©BeinMe", 
+                title: "קורס BeinMe©", 
                 link: "/workshop", 
                 desc: "מרחב קבוצתי-טיפולי לנשים לחיבור אותנטי וכנה עם עצמך דרך עבודת עומק חווייתית.",
                 icon: <Waves size={180} strokeWidth={0.3} />

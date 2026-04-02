@@ -16,6 +16,7 @@ import Link from 'next/link';
 export default function PracticePage() {
   const introReveal = useReveal();
   const holisticReveal = useReveal();
+  const stepsReveal = useReveal();
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20התהליך%20הטיפולי%20ההוליסטי";
 
   const steps = [
@@ -87,7 +88,6 @@ export default function PracticePage() {
             </div>
           </div>
 
-          {/* Detailed Holistic Psychotherapy Section - ARTISTIC STYLE */}
           <div ref={holisticReveal} className="reveal grid grid-cols-1 lg:grid-cols-2 gap-24 mb-48 bg-white p-12 md:p-24 shadow-sm border border-stone-100">
             <div>
               <h2 className="text-3xl md:text-5xl font-headline text-accent mb-10">מה מיוחד בגישה ההוליסטית?</h2>
@@ -112,10 +112,10 @@ export default function PracticePage() {
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-24">
-             <div className="lg:col-span-8 space-y-12">
+             <div ref={stepsReveal} className="lg:col-span-8 space-y-12 reveal">
                 <h2 className="text-3xl font-headline text-accent mb-12">שלבי התהליך</h2>
                 {steps.map((step, i) => (
-                  <div key={step.id} className={cn("reveal p-12 bg-white border border-border/30 hover:border-primary/30 transition-all duration-1000 group shadow-sm", `stagger-${i+1}`)}>
+                  <div key={step.id} className={cn("p-12 bg-white border border-border/30 hover:border-primary/30 transition-all duration-1000 group shadow-sm", `stagger-${i+1}`)}>
                     <div className="flex items-center space-x-reverse space-x-6 mb-8">
                       <span className="w-12 h-12 border border-primary text-primary flex items-center justify-center font-bold text-xl group-hover:bg-primary group-hover:text-white transition-all duration-700">
                         {step.id}
@@ -175,4 +175,3 @@ export default function PracticePage() {
     </main>
   );
 }
-

@@ -38,7 +38,7 @@ export function Navbar() {
     { label: 'אודות', href: '/about' },
     { label: 'טיפול', href: '/practice' },
     { label: 'אונליין', href: '/online-therapy' },
-    { label: 'קורס ©BEINME', href: '/workshop' },
+    { label: 'קורס BeinMe©', href: '/workshop' },
     { label: 'טבעון', href: '/tivon' },
   ];
 
