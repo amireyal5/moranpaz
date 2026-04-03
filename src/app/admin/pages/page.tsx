@@ -17,7 +17,7 @@ import { useToast } from '@/hooks/use-toast';
 import { 
   Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, 
   Plus, Trash2, Layout, Settings, MousePointer2, Box, Heart, Sparkles, 
-  Orbit, Compass, Users, Star, Search, Palette, MessageSquare, HelpCircle 
+  Orbit, Compass, Users, Star, Palette, MessageSquare, HelpCircle 
 } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -176,7 +176,6 @@ export default function PageManagement() {
     }
   };
 
-  // Helper arrays update functions
   const addArrayItem = (key: keyof typeof content, newItem: any) => {
     setContent(prev => ({ ...prev, [key]: [...(prev[key] as any[]), newItem] }));
   };
@@ -261,7 +260,6 @@ export default function PageManagement() {
         ) : (
           <form onSubmit={handleSave} className="space-y-12">
             
-            {/* SEO & THEME SECTION */}
             <Card className="border-none shadow-xl rounded-none overflow-hidden">
               <CardHeader className="bg-primary/5 border-b border-stone-100">
                 <CardTitle className="font-headline text-2xl flex items-center gap-4">
@@ -391,7 +389,6 @@ export default function PageManagement() {
                   </CardContent>
                 </Card>
 
-                {/* TESTIMONIALS MANAGER */}
                 <Card className="border-none shadow-xl rounded-none">
                   <CardHeader className="bg-stone-50/50 border-b border-stone-100">
                     <CardTitle className="font-headline text-2xl flex items-center gap-4">
@@ -430,7 +427,6 @@ export default function PageManagement() {
                   </CardContent>
                 </Card>
 
-                {/* FAQ MANAGER */}
                 <Card className="border-none shadow-xl rounded-none">
                   <CardHeader className="bg-stone-50/50 border-b border-stone-100">
                     <CardTitle className="font-headline text-2xl flex items-center gap-4">
@@ -463,7 +459,6 @@ export default function PageManagement() {
                   </CardContent>
                 </Card>
 
-                {/* FEATURE BLOCKS MANAGER */}
                 <Card className="border-none shadow-xl rounded-none">
                   <CardHeader className="bg-stone-50/50 border-b border-stone-100">
                     <CardTitle className="font-headline text-2xl flex items-center gap-4">

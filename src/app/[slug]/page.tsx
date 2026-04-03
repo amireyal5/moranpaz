@@ -51,9 +51,6 @@ export default function DynamicPage() {
     <main className="min-h-screen bg-background text-right overflow-x-hidden" style={{ '--primary': pageContent?.primaryColor } as any}>
       <Navbar />
       
-      {/* Dynamic Metadata Hint - Title tag handled by NextJS is harder on client, 
-          but we ensure the content reflects the brand */}
-      
       {/* Hero Section */}
       <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
