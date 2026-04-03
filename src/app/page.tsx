@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -28,7 +29,7 @@ export default function Home() {
   const homeFaqs = [
     {
       question: "למי מתאים הטיפול הרגשי?",
-      answer: "הטיפול מתאים לנשים ונוער החווים עומס רגשי, חרדה, תקיעות בחיים או רצון עמוק לחיבור אותנטי לעצמם. אני עובדת בטבעון ובאונליין."
+      answer: "הטיפול מתאים לנשים, גברים ונוער החווים עומס רגשי, חרדה, תקיעות בחיים או רצון עמוק לחיבור אותנטי לעצמם. אני עובדת בטבעון ובאונליין."
     },
     {
       question: "מהי פסיכותרפיה הוליסטית ואיך היא עוזרת?",
@@ -36,7 +37,7 @@ export default function Home() {
     },
     {
       question: "איך מתחילים?",
-      answer: "הצעד הראשון הוא שיחת היכרות קצרה שבה נבדוק את ההתאמה ונבין מה המטרה שלך בתהליך."
+      answer: "הצעד הראשון הוא שיחת היכרות קצרה שבה נבדוק את ההתאמה ונבין מה המטרה שלכם בתהליך."
     }
   ];
 
@@ -80,7 +81,7 @@ export default function Home() {
            <span className="boutique-label text-white/90 mb-6 sm:mb-8 block drop-shadow-md">Moran Paz • BeinMe</span>
            
            <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-[110px] font-bold leading-none font-handwriting text-white mb-6 sm:mb-8 hero-title-shadow">
-             להאיר את עצמך
+             להאיר את עצמכם
            </h1>
            
            <h2 className="text-base md:text-2xl lg:text-3xl font-headline italic mb-10 sm:mb-12 text-white/95 font-light max-w-3xl leading-relaxed hero-para-shadow">
@@ -132,7 +133,7 @@ export default function Home() {
                   אני מאמינה ששינוי מתחיל במפגש וקבלה של חלקי העצמי. הרגשות הם המצפן שלנו ולכל אחד מאיתנו יש את מפת הדרכים הפנימית שלו לחייו.
                 </p>
                 <p>
-                  המטרה שלי לעזור לך לגלות את עצמך, לקבל את הסיפור שאת מספרת לעצמך, ולהתחבר לסמכות הפנימית שבך – המקום שבו נמצאות התשובות והחופש האמיתי.
+                  המטרה שלי היא לעזור לכם לגלות את עצמכם, לקבל את הסיפור שאתם מספרים לעצמכם, ולהתחבר לסמכות הפנימית שבכם – המקום שבו נמצאות התשובות והחופש האמיתי.
                 </p>
               </div>
               
@@ -178,7 +179,7 @@ export default function Home() {
               הזמנה למפגש אמיתי
             </h3>
             <p className="boutique-para !text-lg sm:!text-2xl font-light leading-relaxed">
-              בכל טיפת חושך ניתן לשפוך אור. אני כאן כדי להחזיק את הפנס בזמן שאת מגלה את הדרך שלך.
+              בכל טיפת חושך ניתן לשפוך אור. אני כאן כדי להחזיק את הפנס בזמן שאתם מגלים את הדרך שלכם.
             </p>
           </div>
           <div className="shrink-0 w-full md:w-auto">
@@ -200,7 +201,7 @@ export default function Home() {
       <section id="contact" className="py-20 md:py-32 px-6 bg-white border-t border-stone-100">
         <div className="max-w-4xl mx-auto text-center">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
-          <p className="boutique-para mb-10 sm:mb-16 font-medium !text-lg">אני כאן בשבילך לתאום שיחת הכרות ללא עלות.</p>
+          <p className="boutique-para mb-10 sm:mb-16 font-medium !text-lg">אני כאן בשבילכם לתיאום שיחת היכרות ללא עלות.</p>
           <ContactForm />
         </div>
       </section>

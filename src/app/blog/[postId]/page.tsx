@@ -26,6 +26,15 @@ export default function BlogPostPage() {
   const { data: posts, loading } = useCollection<any>(postQuery);
   const post = posts?.[0];
 
+  const formatDisplayDate = (dateStr: string) => {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+    return dateStr;
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-50">
@@ -92,7 +101,7 @@ export default function BlogPostPage() {
           <div className="flex flex-wrap items-center gap-6 mb-16 pb-8 border-b border-stone-100 text-stone-400 boutique-label !text-[10px] sm:!text-[11px]">
              <div className="flex items-center gap-2">
                 <Calendar size={14} />
-                <span>{post.date}</span>
+                <span>{formatDisplayDate(post.date)}</span>
              </div>
              <div className="flex items-center gap-2">
                 <Tag size={14} />
@@ -122,9 +131,9 @@ export default function BlogPostPage() {
              <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
                 <ArrowRight size={32} />
              </div>
-             <h4 className="text-5xl md:text-6xl font-handwriting text-accent">תודה שקראת. יש לך שאלות נוספות?</h4>
-             <p className="text-xl md:text-2xl font-headline font-light text-stone-500 max-w-xl">אני מזמינה אותך לפנות אליי לשיחת היכרות אישית ולגלות את הדרך שלך פנימה.</p>
-             <Button onClick={() => router.push('/contact')} className="bg-accent hover:bg-primary text-white h-14 px-16 boutique-label rounded-none shadow-xl transition-all duration-700 text-base">צרי קשר אישי</Button>
+             <h4 className="text-5xl md:text-6xl font-handwriting text-accent">תודה שקראתם. יש לכם שאלות נוספות?</h4>
+             <p className="text-xl md:text-2xl font-headline font-light text-stone-500 max-w-xl">אני מזמינה אתכם לפנות אליי לשיחת היכרות אישית ולגלות את הדרך שלכם פנימה.</p>
+             <Button onClick={() => router.push('/contact')} className="bg-accent hover:bg-primary text-white h-14 px-16 boutique-label rounded-none shadow-xl transition-all duration-700 text-base">צרו קשר אישי</Button>
           </div>
         </div>
       </article>

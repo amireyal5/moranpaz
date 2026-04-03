@@ -25,7 +25,7 @@ export function FloatingWhatsApp() {
         className="group-hover:rotate-12 transition-transform text-slate-400" 
       />
       <span className="absolute left-full ml-4 bg-white/90 backdrop-blur-sm text-accent px-4 py-2 rounded-sm text-[10px] font-bold tracking-widest whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-xl pointer-events-none hidden sm:block border border-primary/10">
-        דברי איתי בוואטסאפ
+        דברו איתי בוואטסאפ
       </span>
     </a>
   );

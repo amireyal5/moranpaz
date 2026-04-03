@@ -142,7 +142,7 @@ export default function BlogManagementPage() {
   };
 
   const handleDelete = (id: string) => {
-    if (!db || !confirm("האם את בטוחה שברצונך למחוק את המאמר?")) return;
+    if (!db || !confirm("האם למחוק את המאמר?")) return;
     deleteDoc(doc(db, 'blogPosts', id))
       .then(() => toast({ title: "מאמר נמחק." }))
       .catch(async (error) => {

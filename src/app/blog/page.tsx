@@ -22,6 +22,15 @@ export default function BlogPage() {
   const postsQuery = db ? query(collection(db, 'blogPosts'), orderBy('createdAt', 'desc')) : null;
   const { data: posts, loading } = useCollection(postsQuery);
 
+  const formatDisplayDate = (dateStr: string) => {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+    return dateStr;
+  };
+
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
@@ -104,7 +113,7 @@ export default function BlogPage() {
                      <div className="absolute top-4 right-4 boutique-label text-[10px] bg-white px-3 py-1 shadow-sm">{post.category}</div>
                   </div>
                   <div className="space-y-4">
-                    <span className="boutique-label text-stone-400 block">{post.date}</span>
+                    <span className="boutique-label text-stone-400 block">{formatDisplayDate(post.date)}</span>
                     <h3 className="text-2xl md:text-3xl font-headline font-bold text-accent group-hover:text-primary transition-colors leading-tight">{post.title}</h3>
                     <p className="text-lg font-light text-stone-500 leading-relaxed line-clamp-3 font-headline italic">
                       {post.summary || post.subtitle || "לחצו לקריאת המאמר המלא..."}

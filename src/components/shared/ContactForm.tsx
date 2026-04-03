@@ -48,7 +48,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
         </div>
         <h3 className="text-6xl md:text-8xl font-handwriting text-accent mb-8">ההודעה נשלחה בהצלחה!</h3>
         <p className="boutique-para text-2xl font-light mb-12 max-w-lg mx-auto leading-relaxed">
-          תודה שפנית אליי. קיבלתי את הפרטים שלך ואחזור אלייך בהקדם האפשרי לתיאום שיחה.
+          תודה שפניתם אליי. קיבלתי את הפרטים שלכם ואחזור אליכם בהקדם האפשרי לתיאום שיחה.
         </p>
         <button 
           onClick={() => setStatus('idle')}
@@ -95,7 +95,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
             name="name"
             required
             className="bg-transparent w-full focus:outline-none text-xl sm:text-2xl font-headline font-light placeholder:opacity-10 py-1" 
-            placeholder="השם שלך" 
+            placeholder="השם שלכם" 
           />
         </div>
         <div className="border-b border-border focus-within:border-primary transition-colors pb-4">
@@ -126,7 +126,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
             required
             rows={4}
             className="bg-transparent w-full focus:outline-none text-xl sm:text-2xl font-headline font-light placeholder:opacity-10 py-1 resize-none" 
-            placeholder="ספרי לי קצת..." 
+            placeholder="ספרו לי קצת..." 
           />
         </div>
         
@@ -144,7 +144,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
         {status === 'error' && (
           <div className="md:col-span-2 flex items-center gap-4 text-destructive bg-destructive/5 p-4 rounded-sm animate-in fade-in">
             <AlertCircle size={20} />
-            <p className="text-sm font-medium">סליחה, אירעה שגיאה בשליחה. אנא נסה שוב או פנה אליי בוואטסאפ.</p>
+            <p className="text-sm font-medium">סליחה, אירעה שגיאה בשליחה. אנא נסו שוב או פנו אליי בוואטסאפ.</p>
           </div>
         )}
         
