@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -44,9 +45,9 @@ export function Navbar() {
   return (
     <>
       <nav className={cn(
-        "fixed w-full z-[200] transition-all duration-700 px-6 md:px-12 xl:px-24 flex justify-between items-center py-4 md:py-8",
+        "fixed w-full z-[200] transition-all duration-700 px-4 md:px-12 xl:px-24 flex justify-between items-center py-4 md:py-6",
         isScrolled 
-          ? 'bg-background/95 backdrop-blur-xl py-3 md:py-4 border-b border-border/30 shadow-sm' 
+          ? 'bg-background/95 backdrop-blur-xl py-3 border-b border-border/30 shadow-sm' 
           : 'bg-transparent'
       )}>
         <NextLink 
@@ -54,13 +55,13 @@ export function Navbar() {
           className="flex flex-col items-start z-[220] group shrink-0"
         >
           <span className={cn(
-            "text-xl sm:text-2xl md:text-3xl font-headline tracking-[0.2em] font-light transition-all duration-700",
+            "text-lg sm:text-2xl md:text-3xl font-headline tracking-[0.2em] font-light transition-all duration-700",
             isScrolled ? "text-foreground" : "text-white drop-shadow-md"
           )}>
             MORAN PAZ
           </span>
           <span className={cn(
-            "text-base sm:text-lg md:text-xl font-handwriting tracking-widest transition-all duration-700 mt-0.5",
+            "text-sm sm:text-lg md:text-xl font-handwriting tracking-widest transition-all duration-700 mt-0.5",
             isScrolled ? "text-accent" : "text-white drop-shadow-sm"
           )}>
             BeinMe — להיות אני בתוכי
@@ -68,13 +69,13 @@ export function Navbar() {
         </NextLink>
         
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center space-x-reverse space-x-6 xl:space-x-10 boutique-label">
+        <div className="hidden lg:flex items-center gap-6 xl:gap-10 boutique-label">
           {navItems.map((item) => (
             <NextLink 
               key={item.href} 
               href={item.href} 
               className={cn(
-                "relative py-1 transition-all duration-700 text-[12px] xl:text-[14px] tracking-[0.1em] font-medium",
+                "relative py-1 transition-all duration-700 text-[11px] xl:text-[13px] tracking-[0.1em] font-medium whitespace-nowrap",
                 isScrolled 
                   ? (pathname === item.href ? "text-primary" : "text-foreground/80 hover:text-primary") 
                   : (pathname === item.href ? "text-white" : "text-white/90 hover:text-white drop-shadow-sm")
@@ -94,7 +95,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "px-6 xl:px-10 py-2.5 transition-all duration-700 text-[11px] xl:text-[13px] tracking-[0.15em] font-bold shadow-lg rounded-sm !text-white flex items-center gap-2",
+              "px-5 xl:px-8 py-2 transition-all duration-700 text-[10px] xl:text-[12px] tracking-[0.15em] font-bold shadow-lg rounded-sm !text-white flex items-center gap-2 whitespace-nowrap",
               isScrolled 
                 ? "bg-primary hover:bg-accent" 
                 : "bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white hover:!text-primary"
@@ -116,7 +117,7 @@ export function Navbar() {
           <Menu 
             strokeWidth={1} 
             className={cn(
-              "size-8 md:size-10 transition-colors duration-700",
+              "size-8 transition-colors duration-700",
               isScrolled ? "text-foreground" : "text-white drop-shadow-md"
             )} 
           />
