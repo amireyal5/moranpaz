@@ -3,7 +3,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MessageCircle, ExternalLink, Facebook, Instagram } from 'lucide-react';
+import { Mail, Phone, ExternalLink, Facebook, Instagram } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/shared/WhatsAppIcon';
 
 export function Footer() {
   const [year, setYear] = useState(new Date().getFullYear());
@@ -32,7 +33,7 @@ export function Footer() {
           
           {/* Navigation Section */}
           <div className="lg:col-span-2">
-             <h4 className="boutique-label text-white border-b border-white/20 pb-2 mb-10 inline-block opacity-100">ניווט מהיר</h4>
+             <h4 className="boutique-label !text-white border-b border-white/20 pb-2 mb-10 inline-block opacity-100">ניווט מהיר</h4>
              <nav className="flex flex-col space-y-4 text-lg font-light">
                 <Link href="/" className="text-white/90 hover:text-white transition-colors duration-500">דף הבית</Link>
                 <Link href="/about" className="text-white/90 hover:text-white transition-colors duration-500">אודות</Link>
@@ -44,7 +45,7 @@ export function Footer() {
 
           {/* Social Section */}
           <div className="lg:col-span-2">
-             <h4 className="boutique-label text-white border-b border-white/20 pb-2 mb-10 inline-block opacity-100">רשתות חברתיות</h4>
+             <h4 className="boutique-label !text-white border-b border-white/20 pb-2 mb-10 inline-block opacity-100">רשתות חברתיות</h4>
              <nav className="flex flex-col space-y-6">
                 <a 
                   href="https://www.facebook.com/profile.php?id=100063529346610" 
@@ -69,7 +70,7 @@ export function Footer() {
 
           {/* Contact Section */}
           <div className="lg:col-span-3">
-             <h4 className="boutique-label text-white border-b border-white/20 pb-2 mb-10 inline-block opacity-100">יצירת קשר</h4>
+             <h4 className="boutique-label !text-white border-b border-white/20 pb-2 mb-10 inline-block opacity-100">יצירת קשר</h4>
              <div className="space-y-6">
                 <a href="mailto:moraniva5@gmail.com" className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light text-white/90 hover:text-white transition-colors duration-500">
                   <Mail size={18} className="opacity-80" />
@@ -115,7 +116,7 @@ export function Footer() {
                 rel="noopener noreferrer" 
                 className="text-white hover:opacity-70 transition-opacity flex items-center gap-2"
               >
-                <MessageCircle size={16} /> WHATSAPP
+                <WhatsAppIcon size={18} className="text-slate-400" /> WHATSAPP
               </a>
               <a 
                 href={wazeLink} 

@@ -6,6 +6,7 @@ import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { WhatsAppIcon } from '@/components/shared/WhatsAppIcon';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,8 +53,8 @@ export function Navbar() {
             MORAN PAZ
           </span>
           <span className={cn(
-            "text-lg sm:text-xl font-handwriting tracking-widest transition-all duration-700 mt-1",
-            isScrolled ? "text-accent opacity-100" : "text-white opacity-90 drop-shadow-sm"
+            "text-xl sm:text-2xl font-handwriting tracking-widest transition-all duration-700 mt-1",
+            isScrolled ? "text-accent" : "text-white drop-shadow-sm"
           )}>
             BeinMe — להיות אני בתוכי
           </span>
@@ -86,7 +87,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "px-10 py-3.5 transition-all duration-700 text-[13px] tracking-[0.2em] font-bold shadow-xl rounded-sm !text-white",
+              "px-10 py-3.5 transition-all duration-700 text-[13px] tracking-[0.2em] font-bold shadow-xl rounded-sm !text-white flex items-center gap-2",
               isScrolled 
                 ? "bg-primary hover:bg-accent" 
                 : "bg-white/20 backdrop-blur-md border border-white/40 hover:bg-white hover:!text-primary"
@@ -144,8 +145,9 @@ export function Navbar() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center bg-primary text-white py-6 rounded-sm boutique-label text-base tracking-[0.3em] font-bold shadow-2xl"
+              className="inline-flex w-full items-center justify-center gap-4 bg-primary text-white py-6 rounded-sm boutique-label text-base tracking-[0.3em] font-bold shadow-2xl"
             >
+              <WhatsAppIcon size={24} className="text-slate-400" />
               תיאום פגישה
             </a>
           </div>
