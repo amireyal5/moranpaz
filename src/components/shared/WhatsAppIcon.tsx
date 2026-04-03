@@ -14,7 +14,7 @@ export function WhatsAppIcon({ size = 24, className = "" }: WhatsAppIconProps) {
       viewBox="0 0 512 512" 
       xmlns="http://www.w3.org/2000/svg"
       className={className}
-      style={{ filter: 'drop-shadow(0 0 5px rgba(255, 255, 255, 0.6))' }}
+      style={{ filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.5))' }}
       aria-hidden="true"
     >
       <path 

@@ -19,7 +19,7 @@ export function FloatingWhatsApp() {
       )}
       aria-label="WhatsApp"
     >
-      <WhatsAppIcon size={56} className="group-hover:rotate-12 transition-transform text-slate-500" />
+      <WhatsAppIcon size={56} className="group-hover:rotate-12 transition-transform text-slate-400" />
       <span className="absolute right-full mr-4 bg-white text-accent px-4 py-2 rounded-sm text-xs font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-lg pointer-events-none hidden sm:block">
         דברי איתי בוואטסאפ
       </span>
