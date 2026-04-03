@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -10,6 +11,7 @@ import { useReveal } from '@/hooks/use-reveal';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowLeft, MessageCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function WorkshopPage() {
   const contentReveal = useReveal();
@@ -45,45 +47,55 @@ export default function WorkshopPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-background text-right">
+    <main className="min-h-screen bg-background text-right overflow-x-hidden w-full relative">
       <Navbar />
       
-      <section className="pt-44 pb-32 px-6 md:px-20">
-        <div className="max-w-6xl mx-auto">
-          <SectionTitle subtitle="The Workshop" title="קורס BeinMe©" />
+      {/* Hero Section */}
+      <section className="pt-48 md:pt-64 pb-32 px-8 md:px-24 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <SectionTitle subtitle="The Workshop" title="BeinMe© קורס" className="mb-24" />
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            <div ref={contentReveal} className="lg:col-span-7 reveal">
-              <h3 className="text-6xl md:text-9xl font-['Amatic_SC'] font-bold mb-10 text-accent leading-none">להיות אני בתוכי</h3>
-              <div className="space-y-8 text-xl font-light text-stone-700 leading-relaxed">
-                <p>BeinMe<sup>©</sup> הוא מרחב קבוצתי – טיפולי לנשים, שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו, ולחוות אותו בכנות ואותנטיות.</p>
-                <div className="italic text-accent font-medium border-r-4 border-primary/40 pr-8 py-4 bg-stone-50 rounded-sm">
-                  <p className="font-headline text-2xl md:text-3xl font-light">"אם לא תכירי את העולם הפנימי שלך – הוא ינהל אותך ואת תקראי לזה גורל."</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-start">
+            <div ref={contentReveal} className="lg:col-span-7 reveal space-y-12">
+              <h1 className="text-7xl md:text-9xl font-['Amatic_SC'] font-bold text-foreground leading-none mb-10">
+                להיות אני בתוכי
+              </h1>
+              
+              <div className="space-y-8 boutique-para text-stone-600">
+                <p>
+                  BeinMe<sup className="text-[0.45em]">©</sup> הוא מרחב קבוצתי – טיפולי לנשים, שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו, ולחוות אותו בכנות ואותנטיות.
+                </p>
+                <div className="italic text-accent border-r-4 border-primary/20 pr-8 py-6 bg-stone-50">
+                  <p className="text-2xl md:text-3xl font-headline font-light leading-relaxed">
+                    "אם לא תכירי את העולם הפנימי שלך – הוא ינהל אותך ואת תקראי לזה גורל."
+                  </p>
                 </div>
-                <p>האמת שלנו ומפת הדרכים לחיינו נמצאת בתוכנו – לא מחוצה לנו. כאן אפשר לעצור, לנשום ולהרגיש, ולחזור לבית הפנימי שלנו יחד עם נשים אחרות.</p>
-                
-                <div className="pt-8">
-                  <a 
-                    href={whatsappLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-6 px-12 py-5 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap"
-                  >
-                    הרשמה למחזור הקרוב
-                    <ArrowLeft size={18} />
-                  </a>
-                </div>
+                <p>
+                  האמת שלנו ומפת הדרכים לחיינו נמצאת בתוכנו – לא מחוצה לנו. כאן אפשר לעצור, לנשום ולהרגיש, ולחזור לבית הפנימי שלנו יחד עם נשים אחרות.
+                </p>
+              </div>
+              
+              <div className="pt-10">
+                <a 
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-6 px-12 py-4 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap"
+                >
+                  הרשמה למחזור הקרוב
+                  <ArrowLeft size={18} />
+                </a>
               </div>
             </div>
             
-            <div className="lg:col-span-5 relative">
-               <div className="aspect-[4/5] rounded-sm overflow-hidden grayscale shadow-2xl border border-border/20">
+            <div className="lg:col-span-5 relative group">
+               <div className="image-zoom-container aspect-[3/4] shadow-2xl rounded-sm overflow-hidden border border-border/20">
                   {workshopImg && (
                     <Image 
                       src={workshopImg.imageUrl} 
-                      alt={workshopImg.description} 
+                      alt="סדנת נשים BeinMe עם מורן פז" 
                       fill 
-                      className="object-cover"
+                      className="object-cover grayscale"
                       data-ai-hint={workshopImg.imageHint}
                     />
                   )}
@@ -93,44 +105,50 @@ export default function WorkshopPage() {
         </div>
       </section>
       
-      <section className="py-32 bg-white px-6 md:px-20 border-t border-border/20">
+      {/* Fit Section */}
+      <section className="py-32 md:py-48 bg-stone-50 px-8 md:px-24">
          <div className="max-w-5xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-headline mb-16 text-accent font-light">הקורס מתאים לך אם...</h2>
-            <div ref={listReveal} className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 reveal">
+            <SectionTitle subtitle="The Connection" title="האם הקורס מתאים לך?" className="flex flex-col items-center text-center" />
+            <div ref={listReveal} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 mt-20 reveal">
                {fits.map((text, i) => (
-                 <div key={i} className="flex items-start space-x-reverse space-x-6 p-6 border-b border-border/20 hover:bg-stone-50 transition-all">
+                 <div key={i} className="flex items-start space-x-reverse space-x-6 p-6 border-b border-primary/10 hover:bg-white transition-all duration-700 group">
                     <span className="text-primary font-headline text-2xl font-bold opacity-30 mt-1">0{i+1}</span>
-                    <p className="text-lg text-stone-700 font-light leading-relaxed">{text}</p>
+                    <p className="text-xl text-stone-600 font-light leading-relaxed">{text}</p>
                  </div>
                ))}
             </div>
          </div>
       </section>
 
-      {/* Intermediate CTA */}
-      <section className="py-24 bg-accent text-white px-6">
+      {/* Quote CTA */}
+      <section className="py-32 bg-accent text-white px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-5xl md:text-7xl font-['Amatic_SC'] font-bold mb-10 leading-none">מוכנה לצאת למסע קבוצתי מרפא?</h2>
-          <a 
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-6 px-12 py-5 bg-primary !text-white boutique-label hover:bg-white hover:!text-accent transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap"
-          >
-            <MessageCircle size={24} />
-            שלחי הודעה לבירור פרטים
-          </a>
+          <h2 className="text-6xl md:text-8xl font-['Amatic_SC'] font-bold mb-12 leading-none">
+            מוכנה לצאת למסע קבוצתי מרפא?
+          </h2>
+          <div className="flex justify-center">
+            <a 
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-6 px-12 py-5 bg-primary !text-white boutique-label hover:bg-white hover:!text-accent transition-all duration-700 shadow-2xl rounded-sm"
+            >
+              <MessageCircle size={22} />
+              שלחי הודעה לבירור פרטים
+            </a>
+          </div>
         </div>
       </section>
 
       <FaqSection items={workshopFaqs} title="שאלות על הקורס" subtitle="Common Questions" />
 
-      <section className="py-32 bg-stone-50 px-6 md:px-20" id="contact">
+      {/* Contact Section */}
+      <section id="contact" className="py-32 md:py-48 bg-white px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionTitle subtitle="Register" title="צרי קשר להרשמה" className="flex flex-col items-center" />
-          <div className="text-center mb-16">
-            <p className="boutique-para">השאירי פרטים ואחזור אלייך עם כל המידע על הקורס הקרוב.</p>
-          </div>
+          <SectionTitle subtitle="Register" title="צרי קשר להרשמה" className="flex flex-col items-center text-center" />
+          <p className="text-center boutique-para mb-16">
+            השאירי פרטים ואחזור אלייך עם כל המידע על המחזור הקרוב של BeinMe<sup className="text-[0.45em]">©</sup>.
+          </p>
           <ContactForm />
         </div>
       </section>
