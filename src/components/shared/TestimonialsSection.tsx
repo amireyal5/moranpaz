@@ -12,7 +12,7 @@ interface Testimonial {
   location: string;
 }
 
-const testimonials: Testimonial[] = [
+const DEFAULT_TESTIMONIALS: Testimonial[] = [
   {
     text: "התהליך עם מורן פתח לי דלת לעצמי שמעולם לא ידעתי שקיימת. השקט שמצאתי מלווה אותי בכל יום. מורן היא מטפלת רגשית בחסד עליון.",
     author: "א.מ",
@@ -30,8 +30,15 @@ const testimonials: Testimonial[] = [
   }
 ];
 
-export function TestimonialsSection() {
+interface TestimonialsSectionProps {
+  customTestimonials?: Testimonial[];
+}
+
+export function TestimonialsSection({ customTestimonials }: TestimonialsSectionProps) {
   const revealRef = useReveal();
+  const displayItems = customTestimonials || DEFAULT_TESTIMONIALS;
+
+  if (displayItems.length === 0) return null;
 
   return (
     <section className="py-32 md:py-48 bg-stone-50 px-8">
@@ -41,10 +48,9 @@ export function TestimonialsSection() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-20">
-          {testimonials.map((t, i) => (
+          {displayItems.map((t, i) => (
             <div key={i} className="bg-white p-12 shadow-sm border border-border/10 flex flex-col justify-between h-full hover:shadow-xl transition-all duration-700 text-center">
               <div>
-                {/* Centered Stars */}
                 <div className="flex justify-center mb-8 space-x-reverse space-x-1">
                   {[...Array(5)].map((_, starI) => (
                     <Star key={starI} size={16} className="fill-primary text-primary" />

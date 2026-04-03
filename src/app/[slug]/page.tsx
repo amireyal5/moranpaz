@@ -8,11 +8,12 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { CtaButtons } from '@/components/shared/CtaButtons';
+import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
+import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { Loader2, Heart, Sparkles, Orbit, Compass, Users, Star } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 const ICON_MAP: Record<string, any> = {
   Heart, Sparkles, Orbit, Compass, Users, Star
@@ -47,8 +48,11 @@ export default function DynamicPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background text-right overflow-x-hidden">
+    <main className="min-h-screen bg-background text-right overflow-x-hidden" style={{ '--primary': pageContent?.primaryColor } as any}>
       <Navbar />
+      
+      {/* Dynamic Metadata Hint - Title tag handled by NextJS is harder on client, 
+          but we ensure the content reflects the brand */}
       
       {/* Hero Section */}
       <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
@@ -102,7 +106,7 @@ export default function DynamicPage() {
               )}
             </div>
 
-            {/* Structured Features Grid (The Cubes) */}
+            {/* Structured Features Grid */}
             {pageContent?.features?.length > 0 && (
               <div ref={featuresReveal} className="reveal grid grid-cols-1 md:grid-cols-3 gap-8 mt-24">
                 {pageContent.features.map((feat: any, i: number) => {
@@ -124,6 +128,16 @@ export default function DynamicPage() {
           </div>
         </div>
       </section>
+
+      {/* Dynamic Testimonials */}
+      {pageContent?.testimonials?.length > 0 && (
+        <TestimonialsSection customTestimonials={pageContent.testimonials} />
+      )}
+
+      {/* Dynamic FAQs */}
+      {pageContent?.faqs?.length > 0 && (
+        <FaqSection items={pageContent.faqs} />
+      )}
 
       <Footer />
     </main>

@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 155 20% 15%;
     
-    --primary: 155 15% 45%; /* Sage Green */
+    --primary: 155 15% 45%; /* Sage Green - Overriden by style attribute if set */
     --primary-foreground: 60 10% 98%;
     
     --secondary: 155 10% 92%;
@@ -109,7 +109,6 @@
 
 .image-zoom-container img {
   transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: grayscale(0.05);
 }
 
 .image-zoom-container:hover img {
@@ -131,7 +130,6 @@
 /* Rich Text Content Container */
 .blog-content-container {
   @apply text-lg md:text-xl lg:text-2xl leading-[1.8] text-stone-700 text-right;
-  /* Prevent words from breaking in the middle */
   word-break: normal;
   overflow-wrap: break-word;
 }

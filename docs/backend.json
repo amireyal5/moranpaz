@@ -25,15 +25,16 @@
       "description": "Dynamic content for specific site pages.",
       "type": "object",
       "properties": {
-        "pageId": { "type": "string", "description": "Unique ID for the page (e.g., 'home', 'about', 'global')." },
+        "pageId": { "type": "string", "description": "Unique ID for the page." },
         "heroTitle": { "type": "string" },
         "heroSubtitle": { "type": "string" },
         "introTitle": { "type": "string" },
         "introContent": { "type": "string" },
         "heroImageUrlDesktop": { "type": "string" },
         "heroImageUrlMobile": { "type": "string" },
-        "siteName": { "type": "string" },
-        "siteSubtitle": { "type": "string" },
+        "primaryColor": { "type": "string", "description": "Primary theme color in HSL format (e.g., '155 15% 45%')." },
+        "metaTitle": { "type": "string" },
+        "metaDescription": { "type": "string" },
         "navItems": { "type": "array" },
         "ctaButtons": { 
           "type": "array",
@@ -48,13 +49,33 @@
         },
         "features": {
           "type": "array",
-          "description": "Grid of content blocks (cubes).",
           "items": {
             "type": "object",
             "properties": {
               "title": { "type": "string" },
               "description": { "type": "string" },
-              "icon": { "type": "string", "enum": ["Heart", "Sparkles", "Orbit", "Compass", "Users", "Star"] }
+              "icon": { "type": "string" }
+            }
+          }
+        },
+        "testimonials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "text": { "type": "string" },
+              "author": { "type": "string" },
+              "location": { "type": "string" }
+            }
+          }
+        },
+        "faqs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": { "type": "string" },
+              "answer": { "type": "string" }
             }
           }
         },
@@ -68,11 +89,11 @@
   "firestore": {
     "/blogPosts/{postId}": {
       "schema": { "$ref": "#/entities/BlogPost" },
-      "description": "Public Blog Posts. Rules: allow read: if true; allow write: if request.auth != null;"
+      "description": "Public Blog Posts."
     },
     "/siteContent/{pageId}": {
       "schema": { "$ref": "#/entities/PageContent" },
-      "description": "Dynamic content for site pages. Rules: allow read: if true; allow write: if request.auth != null;"
+      "description": "Dynamic content for site pages."
     }
   }
 }
