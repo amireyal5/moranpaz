@@ -56,34 +56,30 @@
 
 .reveal {
   opacity: 0;
-  transform: translateY(40px) scale(0.98);
-  filter: blur(10px);
-  transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1), 
-              transform 1.6s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 1.6s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform, filter;
+  transform: translateY(30px);
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+              transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
+  transform: translateY(0);
 }
 
-.stagger-1 { transition-delay: 0.15s; }
-.stagger-2 { transition-delay: 0.3s; }
-.stagger-3 { transition-delay: 0.45s; }
-.stagger-4 { transition-delay: 0.6s; }
-.stagger-5 { transition-delay: 0.75s; }
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
 
 @keyframes art-float {
   0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-15px) rotate(3deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
   100% { transform: translateY(0px) rotate(0deg); }
 }
 
 .animate-art-float {
-  animation: art-float 8s ease-in-out infinite;
+  animation: art-float 6s ease-in-out infinite;
 }
 
 .hover-gold {
@@ -104,29 +100,25 @@
 }
 
 .boutique-label {
-  @apply text-sm sm:text-base md:text-lg uppercase tracking-[0.4em] font-bold;
+  @apply text-[11px] sm:text-xs uppercase tracking-[0.5em] font-bold opacity-60;
 }
 
 .boutique-title {
-  @apply text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-headline font-light leading-[1.1] tracking-tighter text-foreground break-words;
+  @apply text-4xl sm:text-6xl md:text-7xl font-headline font-light leading-[1.2] tracking-tighter text-foreground;
 }
 
 .boutique-para {
-  @apply text-lg sm:text-xl md:text-2xl font-light text-stone-700 leading-[1.6] sm:leading-[1.8];
-}
-
-body.menu-open {
-  @apply overflow-hidden h-screen;
+  @apply text-lg sm:text-xl font-light text-stone-700 leading-relaxed;
 }
 
 .boutique-card {
-  @apply bg-[#8a847e] text-white p-8 sm:p-12 md:p-16 flex flex-col items-center text-center justify-center min-h-[350px] sm:min-h-[400px] relative overflow-hidden transition-all duration-1000 border-none w-full max-w-full;
+  @apply bg-stone-100 text-foreground p-8 sm:p-12 flex flex-col items-center text-center justify-center min-h-[350px] relative overflow-hidden transition-all duration-1000 border border-stone-200/50;
 }
 
 .boutique-card:hover {
-  @apply bg-[#7a746e];
+  @apply bg-stone-200/50 shadow-xl;
 }
 
 .boutique-card .art-icon {
-  @apply absolute top-6 right-6 sm:top-10 sm:right-10 opacity-20 text-white animate-art-float pointer-events-none;
+  @apply absolute top-6 right-6 opacity-5 text-primary animate-art-float pointer-events-none;
 }
