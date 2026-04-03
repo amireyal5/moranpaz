@@ -94,9 +94,9 @@ export default function BlogPostPage() {
         </div>
       </section>
 
-      {/* Content Section */}
-      <article className="py-16 md:py-24 lg:py-32 px-6 bg-white">
-        <div className="max-w-3xl mx-auto">
+      {/* Content Section - Added flex and items-center for forced centering */}
+      <article className="py-16 md:py-24 lg:py-32 px-6 bg-white flex flex-col items-center">
+        <div className="max-w-3xl w-full mx-auto">
           {/* Metadata Bar */}
           <div className="flex flex-col items-center gap-4 md:gap-6 mb-12 md:mb-16 pb-6 md:pb-8 border-b border-stone-100 text-stone-400 boutique-label !text-[10px] md:!text-[11px]">
              <div className="flex items-center gap-6 md:gap-8">
@@ -125,7 +125,7 @@ export default function BlogPostPage() {
 
           {/* Main Content Body */}
           <div 
-            className="blog-content-container font-headline text-stone-700"
+            className="blog-content-container font-headline text-stone-700 w-full"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
           
