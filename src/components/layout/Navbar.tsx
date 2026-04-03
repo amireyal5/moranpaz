@@ -4,10 +4,16 @@
 import React, { useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useFirestore, useDoc } from '@/firebase';
+import { doc } from 'firebase/firestore';
 
 export function Navbar() {
+  const db = useFirestore();
+  const settingsRef = db ? doc(db, 'siteContent', 'global') : null;
+  const { data: globalSettings } = useDoc<any>(settingsRef);
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -58,17 +64,17 @@ export function Navbar() {
             "text-base sm:text-xl lg:text-2xl font-headline tracking-[0.2em] font-light transition-all duration-700",
             isScrolled ? "text-foreground" : "text-white drop-shadow-md"
           )}>
-            MORAN PAZ
+            {globalSettings?.siteName || "MORAN PAZ"}
           </span>
           <span className={cn(
             "text-xs sm:text-base lg:text-lg font-handwriting tracking-widest transition-all duration-700 mt-0",
             isScrolled ? "text-accent" : "text-white drop-shadow-sm"
           )}>
-            BeinMe — להיות אני בתוכי
+            {globalSettings?.siteSubtitle || "BeinMe — להיות אני בתוכי"}
           </span>
         </NextLink>
         
-        {/* Desktop Menu - Adjust gap for responsiveness */}
+        {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-4 xl:gap-8 boutique-label">
           {navItems.map((item) => (
             <NextLink 
@@ -160,7 +166,9 @@ export function Navbar() {
           
           <div className="mt-auto pt-16 text-center w-full px-6">
             <div className="mashrabiya-divider opacity-10 mb-4 max-w-[100px] mx-auto"></div>
-            <span className="boutique-label text-white/40 tracking-[0.4em] text-[9px]">MORAN PAZ • BEINME</span>
+            <span className="boutique-label text-white/40 tracking-[0.4em] text-[9px]">
+              {globalSettings?.siteName || "MORAN PAZ"} • {globalSettings?.siteSubtitle || "BEINME"}
+            </span>
           </div>
         </div>
       </div>

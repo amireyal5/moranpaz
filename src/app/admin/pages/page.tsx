@@ -14,12 +14,13 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, ChevronRight } from 'lucide-react';
+import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
 
 const PAGES = [
+  { id: 'global', name: 'הגדרות כלליות (ניווט)' },
   { id: 'home', name: 'דף הבית' },
   { id: 'about', name: 'אודות' },
   { id: 'practice', name: 'התהליך הטיפולי' },
@@ -41,7 +42,11 @@ export default function PageManagement() {
     heroTitle: '',
     heroSubtitle: '',
     introTitle: '',
-    introContent: ''
+    introContent: '',
+    heroImageUrlDesktop: '',
+    heroImageUrlMobile: '',
+    siteName: '',
+    siteSubtitle: ''
   });
 
   useEffect(() => {
@@ -64,10 +69,23 @@ export default function PageManagement() {
           heroTitle: data.heroTitle || '',
           heroSubtitle: data.heroSubtitle || '',
           introTitle: data.introTitle || '',
-          introContent: data.introContent || ''
+          introContent: data.introContent || '',
+          heroImageUrlDesktop: data.heroImageUrlDesktop || '',
+          heroImageUrlMobile: data.heroImageUrlMobile || '',
+          siteName: data.siteName || '',
+          siteSubtitle: data.siteSubtitle || ''
         });
       } else {
-        setContent({ heroTitle: '', heroSubtitle: '', introTitle: '', introContent: '' });
+        setContent({ 
+          heroTitle: '', 
+          heroSubtitle: '', 
+          introTitle: '', 
+          introContent: '',
+          heroImageUrlDesktop: '',
+          heroImageUrlMobile: '',
+          siteName: '',
+          siteSubtitle: ''
+        });
       }
     } catch (e) {
       console.error(e);
@@ -104,7 +122,7 @@ export default function PageManagement() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
           <div>
             <Button variant="ghost" onClick={() => router.push('/admin/dashboard')} className="mb-4 text-stone-400 p-0 hover:text-primary">
-              <ChevronRight className="mr-2" /> חזרה ללוח הבקרה
+              <ChevronRight className="ml-2" /> חזרה ללוח הבקרה
             </Button>
             <h1 className="text-6xl font-handwriting text-accent">עריכת תוכן דפים</h1>
           </div>
@@ -126,40 +144,77 @@ export default function PageManagement() {
           <div className="flex justify-center py-20"><Loader2 className="animate-spin text-stone-300 size-12" /></div>
         ) : (
           <form onSubmit={handleSave} className="space-y-12">
-            <Card className="border-none shadow-xl rounded-none">
-              <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">Hero Section</CardTitle></CardHeader>
-              <CardContent className="pt-8 space-y-8">
-                <div className="space-y-3">
-                  <Label className="boutique-label text-stone-400">כותרת ראשית (Hero)</Label>
-                  <Input value={content.heroTitle} onChange={e => setContent({...content, heroTitle: e.target.value})} className="h-14 text-xl font-headline" />
-                </div>
-                <div className="space-y-3">
-                  <Label className="boutique-label text-stone-400">כותרת משנית (Hero Subtitle)</Label>
-                  <Input value={content.heroSubtitle} onChange={e => setContent({...content, heroSubtitle: e.target.value})} className="h-14 text-xl font-headline italic" />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-xl rounded-none">
-              <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">Core Content</CardTitle></CardHeader>
-              <CardContent className="pt-8 space-y-8">
-                <div className="space-y-3">
-                  <Label className="boutique-label text-stone-400">כותרת פתיחה (Intro Title)</Label>
-                  <Input value={content.introTitle} onChange={e => setContent({...content, introTitle: e.target.value})} className="h-14 text-xl font-headline" />
-                </div>
-                <div className="space-y-3">
-                  <Label className="boutique-label text-stone-400">תוכן מרכזי (Rich Text)</Label>
-                  <div className="prose-editor">
-                    <ReactQuill 
-                      theme="snow"
-                      value={content.introContent}
-                      onChange={val => setContent({...content, introContent: val})}
-                      className="bg-white"
-                    />
+            
+            {selectedPage === 'global' ? (
+              <Card className="border-none shadow-xl rounded-none">
+                <CardHeader className="bg-stone-50/50 border-b border-stone-100">
+                  <CardTitle className="font-headline text-2xl flex items-center gap-4">
+                    <Globe size={24} className="text-primary" /> הגדרות מותג (Navbar)
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-8 space-y-8">
+                  <div className="space-y-3">
+                    <Label className="boutique-label text-stone-400">שם המותג (למשל: MORAN PAZ)</Label>
+                    <Input value={content.siteName} onChange={e => setContent({...content, siteName: e.target.value})} className="h-14 text-xl font-headline" placeholder="MORAN PAZ" />
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                  <div className="space-y-3">
+                    <Label className="boutique-label text-stone-400">תיאור המותג (למשל: BeinMe — להיות אני בתוכי)</Label>
+                    <Input value={content.siteSubtitle} onChange={e => setContent({...content, siteSubtitle: e.target.value})} className="h-14 text-xl font-headline italic" placeholder="BeinMe — להיות אני בתוכי" />
+                  </div>
+                </CardContent>
+              </Card>
+            ) : (
+              <>
+                <Card className="border-none shadow-xl rounded-none">
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">Hero Section</CardTitle></CardHeader>
+                  <CardContent className="pt-8 space-y-8">
+                    <div className="space-y-3">
+                      <Label className="boutique-label text-stone-400">כותרת ראשית (Hero)</Label>
+                      <Input value={content.heroTitle} onChange={e => setContent({...content, heroTitle: e.target.value})} className="h-14 text-xl font-headline" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="boutique-label text-stone-400">כותרת משנית (Hero Subtitle)</Label>
+                      <Input value={content.heroSubtitle} onChange={e => setContent({...content, heroSubtitle: e.target.value})} className="h-14 text-xl font-headline italic" />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                      <div className="space-y-3">
+                        <Label className="boutique-label text-stone-400 flex items-center gap-2">
+                          <Monitor size={14} /> תמונת רקע דסקטופ (URL)
+                        </Label>
+                        <Input value={content.heroImageUrlDesktop} onChange={e => setContent({...content, heroImageUrlDesktop: e.target.value})} className="font-sans" placeholder="https://..." />
+                      </div>
+                      <div className="space-y-3">
+                        <Label className="boutique-label text-stone-400 flex items-center gap-2">
+                          <Smartphone size={14} /> תמונת רקע מובייל (URL)
+                        </Label>
+                        <Input value={content.heroImageUrlMobile} onChange={e => setContent({...content, heroImageUrlMobile: e.target.value})} className="font-sans" placeholder="https://..." />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-none shadow-xl rounded-none">
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">Core Content</CardTitle></CardHeader>
+                  <CardContent className="pt-8 space-y-8">
+                    <div className="space-y-3">
+                      <Label className="boutique-label text-stone-400">כותרת פתיחה (Intro Title)</Label>
+                      <Input value={content.introTitle} onChange={e => setContent({...content, introTitle: e.target.value})} className="h-14 text-xl font-headline" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="boutique-label text-stone-400">תוכן מרכזי (Rich Text)</Label>
+                      <div className="prose-editor">
+                        <ReactQuill 
+                          theme="snow"
+                          value={content.introContent}
+                          onChange={val => setContent({...content, introContent: val})}
+                          className="bg-white"
+                        />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </>
+            )}
 
             <Button type="submit" disabled={isSaving} className="w-full bg-primary h-16 text-white text-xl boutique-label rounded-none shadow-2xl">
               {isSaving ? <Loader2 className="animate-spin" /> : <><Save className="mr-4" /> שמירת כל השינויים</>}

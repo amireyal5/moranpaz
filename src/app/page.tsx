@@ -20,22 +20,21 @@ import { doc } from 'firebase/firestore';
 export default function Home() {
   const db = useFirestore();
   const contentRef = db ? doc(db, 'siteContent', 'home') : null;
-  const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
+  const { data: pageContent } = useDoc<any>(contentRef);
 
   const heroReveal = useReveal();
   const introReveal = useReveal();
   const uniquenessReveal = useReveal();
-  const ctaReveal = useReveal();
   
-  const heroDesktop = PlaceHolderImages.find(img => img.id === 'hero-home-desktop');
-  const heroMobile = PlaceHolderImages.find(img => img.id === 'hero-home-mobile');
+  const heroDesktopFallback = PlaceHolderImages.find(img => img.id === 'hero-home-desktop');
+  const heroMobileFallback = PlaceHolderImages.find(img => img.id === 'hero-home-mobile');
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20BeinMe%20ואשמח%20לפרטים%20נוספים";
 
   const homeFaqs = [
     {
       question: "למי מתאים הטיפול הרגשי?",
-      answer: "הטיפול מתאים לנשים, גברים ונוער החווים עומס רגשי, חרדה, תקיעות בחיים או רצון עמוק לחיבור אותנטי לעצמם. אני עובדת בטבעון ובאונליין."
+      answer: "הטיפול מתאים לנשים ונוער החווים עומס רגשי, חרדה, תקיעות בחיים או רצון עמוק לחיבור אותנטי לעצמם. אני עובדת בטבעון ובאונליין."
     },
     {
       question: "מהי פסיכותרפיה הוליסטית ואיך היא עוזרת?",
@@ -54,28 +53,26 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden bg-stone-900">
         <div className="absolute inset-0 z-0">
-          {heroDesktop && (
-            <div className="hidden md:block absolute inset-0">
-              <Image 
-                src={heroDesktop.imageUrl} 
-                alt="BeinMe - Moran Paz" 
-                fill
-                className="object-cover opacity-60 brightness-[0.75]"
-                priority
-              />
-            </div>
-          )}
-          {heroMobile && (
-            <div className="md:hidden absolute inset-0">
-              <Image 
-                src={heroMobile.imageUrl} 
-                alt="BeinMe - Moran Paz" 
-                fill
-                className="object-cover opacity-60 brightness-[0.75]"
-                priority
-              />
-            </div>
-          )}
+          {/* Desktop Hero */}
+          <div className="hidden md:block absolute inset-0">
+            <Image 
+              src={pageContent?.heroImageUrlDesktop || heroDesktopFallback?.imageUrl || ""} 
+              alt="BeinMe - Moran Paz" 
+              fill
+              className="object-cover opacity-60 brightness-[0.75]"
+              priority
+            />
+          </div>
+          {/* Mobile Hero */}
+          <div className="md:hidden absolute inset-0">
+            <Image 
+              src={pageContent?.heroImageUrlMobile || heroMobileFallback?.imageUrl || ""} 
+              alt="BeinMe - Moran Paz" 
+              fill
+              className="object-cover opacity-60 brightness-[0.75]"
+              priority
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-background/20"></div>
         </div>
         
@@ -129,15 +126,15 @@ export default function Home() {
                   <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
                 ) : (
                   <>
-                    <p>אני מאמינה ששינוי מתחיל במפגש וקבלה של חלקי העצמי. הרגשות הם המצפן שלנו ולכל אחד מאיתנו יש את מפת הדרכים הפנימית שלו לחייו.</p>
-                    <p>המטרה שלי היא לעזור לכם לגלות את עצמכם, לקבל את הסיפור שאתם מספרים לעצמכם, ולהתחבר לסמכות הפנימית שבכם.</p>
+                    <p>אנחנו מאמינים ששינוי מתחיל במפגש וקבלה של חלקי העצמי. הרגשות הם המצפן שלנו ולכל אחד מאיתנו יש את מפת הדרכים הפנימית שלו לחייו.</p>
+                    <p>המטרה שלנו היא לעזור לכם לגלות את עצמכם, לקבל את הסיפור שאתם מספרים לעצמכם, ולהתחבר לסמכות הפנימית שבכם.</p>
                   </>
                 )}
               </div>
               
               <div className="pt-4">
                 <Link href="/about" className="inline-flex items-center gap-4 boutique-label text-primary/70 border-b border-primary/20 hover:border-primary transition-all pb-2 font-bold text-sm sm:text-base">
-                  עלי ועל הגישה הטיפולית
+                  עלינו ועל הגישה הטיפולית
                 </Link>
               </div>
             </div>
@@ -174,7 +171,7 @@ export default function Home() {
       <section id="contact" className="py-20 md:py-32 px-6 bg-white border-t border-stone-100">
         <div className="max-w-4xl mx-auto text-center">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
-          <p className="boutique-para mb-10 sm:mb-16 font-medium !text-lg">אני כאן בשבילכם לתיאום שיחת היכרות ללא עלות.</p>
+          <p className="boutique-para mb-10 sm:mb-16 font-medium !text-lg">אנחנו כאן בשבילכם לתיאום שיחת היכרות ללא עלות.</p>
           <ContactForm />
         </div>
       </section>

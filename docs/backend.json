@@ -25,11 +25,15 @@
       "description": "Dynamic content for specific site pages.",
       "type": "object",
       "properties": {
-        "pageId": { "type": "string", "description": "Unique ID for the page (e.g., 'home', 'about')." },
+        "pageId": { "type": "string", "description": "Unique ID for the page (e.g., 'home', 'about', 'global')." },
         "heroTitle": { "type": "string" },
         "heroSubtitle": { "type": "string" },
         "introTitle": { "type": "string" },
         "introContent": { "type": "string" },
+        "heroImageUrlDesktop": { "type": "string" },
+        "heroImageUrlMobile": { "type": "string" },
+        "siteName": { "type": "string", "description": "Brand name used in Navbar." },
+        "siteSubtitle": { "type": "string", "description": "Brand slogan used in Navbar." },
         "updatedAt": { "type": "number" }
       }
     }
