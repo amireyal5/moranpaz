@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -38,7 +39,7 @@ export default function TivonPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
       
       <section className="h-[75vh] relative flex items-center justify-center bg-stone-900 overflow-hidden pt-20">
@@ -55,9 +56,9 @@ export default function TivonPage() {
            )}
         </div>
         <div className="relative z-10 text-center px-6 max-w-4xl">
-           <span className="boutique-label text-primary/80 mb-6 block">Tivon Clinic Tour</span>
-           <h1 className="text-5xl md:text-8xl font-headline text-white mb-8">סיור בקליניקה בטבעון</h1>
-           <p className="text-2xl md:text-3xl font-headline italic text-white/90 leading-relaxed">
+           <span className="boutique-label text-primary/80 mb-6 block uppercase">Tivon Clinic Tour</span>
+           <h1 className="text-5xl md:text-8xl font-headline text-white mb-8 font-light">סיור בקליניקה בטבעון</h1>
+           <p className="text-2xl md:text-3xl font-headline italic text-white/90 leading-relaxed font-light">
              פסיכותרפיה הוליסטית בלב הטבע - מרחב בטוח לנשימה ושינוי בעמק יזרעאל.
            </p>
         </div>
@@ -81,7 +82,7 @@ export default function TivonPage() {
       <section className="py-32 px-6 md:px-20 bg-background relative overflow-hidden">
          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="text-right order-2 lg:order-1">
-               <h2 className="text-4xl md:text-6xl font-headline text-accent mb-12 italic">למה טיפול בטבעון?</h2>
+               <h2 className="text-4xl md:text-6xl font-headline text-accent mb-12 italic font-light">למה טיפול בטבעון?</h2>
                <div className="space-y-8 boutique-para mb-12">
                   <p>
                     המרחב שבו מתקיים הטיפול הוא בעל משמעות אדירה. כשאנחנו יוצאים מהמרוץ של עמק יזרעאל ונכנסים אל תוך הירוק של טבעון, המערכת העצבית שלנו מתחילה להירגע עוד לפני שהחל המפגש.
@@ -92,7 +93,8 @@ export default function TivonPage() {
                </div>
                
                <div className="flex flex-col gap-6">
-                  <div className="flex items-center justify-end space-x-reverse space-x-6 border-r-8 border-primary pr-8 py-6 bg-white shadow-xl">
+                  {/* Fixed alignment to the right for Hebrew RTL */}
+                  <div className="flex items-center justify-start space-x-reverse space-x-6 border-r-8 border-primary pr-8 py-6 bg-white shadow-xl w-fit mr-0">
                      <MapPin size={24} className="text-primary" />
                      <p className="text-2xl font-headline font-bold text-accent">מיקום נגיש בלב טבעון והסביבה</p>
                   </div>
@@ -117,7 +119,7 @@ export default function TivonPage() {
 
       <TestimonialsSection />
 
-      <FaqSection items={tivonFaqs} title="שאלות נפוצות על טיפול בטבעון" subtitle="Common Questions" />
+      <FaqSection items={tivonFaqs} title="שאלות נפוצות" subtitle="Common Questions" />
 
       <section className="py-32 bg-stone-50 px-6 md:px-20" id="contact">
         <div className="max-w-4xl mx-auto text-center">
@@ -128,7 +130,7 @@ export default function TivonPage() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-4 px-12 py-6 bg-primary !text-white boutique-label !text-lg md:!text-xl hover:bg-accent transition-all rounded-sm shadow-xl"
+              className="inline-flex items-center gap-6 px-12 py-4 bg-primary text-white boutique-label !text-sm hover:bg-accent transition-all rounded-sm shadow-xl"
             >
               תאום פגישה בטבעון
               <ArrowLeft size={18} />
