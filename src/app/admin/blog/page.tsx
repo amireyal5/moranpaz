@@ -14,9 +14,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Plus, LogOut, ArrowRight, Monitor, Smartphone, Trash2, Edit, FileText } from 'lucide-react';
+import { Loader2, Plus, LogOut, ArrowRight, Monitor, Smartphone, Trash2, Edit } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Import Quill styles
 import 'react-quill-new/dist/quill.snow.css';
@@ -33,7 +34,9 @@ export default function BlogManagementPage() {
   const auth = useAuth();
   const router = useRouter();
   const { toast } = useToast();
+  const isMobile = useIsMobile();
   
+  const [mounted, setMounted] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
@@ -58,6 +61,7 @@ export default function BlogManagementPage() {
   const { data: posts, loading: postsLoading } = useCollection(postsQuery);
 
   useEffect(() => {
+    setMounted(true);
     if (!authLoading && !user) {
       router.push('/admin/login');
     }
@@ -170,11 +174,36 @@ export default function BlogManagementPage() {
     });
   };
 
-  if (authLoading) {
+  if (!mounted || authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-50">
         <Loader2 className="animate-spin text-primary size-12" />
       </div>
+    );
+  }
+
+  if (isMobile) {
+    return (
+      <main className="min-h-screen flex items-center justify-center p-8 text-center bg-stone-50">
+        <div className="max-w-md space-y-8 animate-in fade-in zoom-in duration-700">
+          <div className="p-6 bg-white rounded-full w-fit mx-auto shadow-xl">
+            <Monitor className="size-16 text-primary" strokeWidth={1} />
+          </div>
+          <div className="space-y-4">
+            <h2 className="text-4xl font-handwriting font-bold text-accent">אזור זה ניתן לשימוש מהמחשב בלבד</h2>
+            <p className="text-lg font-headline text-stone-500 leading-relaxed">
+              בשל מורכבות ניהול התוכן, עריכת המאמרים והעיצוב, אזור הניהול מותאם לעבודה נוחה עם מסך רחב ומקלדת. אנא התחברי מהמחשב האישי שלך להמשך עבודה.
+            </p>
+          </div>
+          <Button 
+            onClick={() => router.push('/admin/dashboard')} 
+            variant="outline" 
+            className="boutique-label h-12 px-8 border-stone-200"
+          >
+            חזרה ללוח הבקרה
+          </Button>
+        </div>
+      </main>
     );
   }
 
