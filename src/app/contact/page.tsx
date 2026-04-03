@@ -66,7 +66,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="boutique-label text-stone-400 mb-1">מייל</h4>
-                    <p className="text-xl sm:text-2xl md:text-[30px] font-headline text-accent font-bold break-all">moraniva5@gmail.com</p>
+                    <p className="text-lg sm:text-xl md:text-[30px] font-headline text-accent font-bold break-words">moraniva5@gmail.com</p>
                   </div>
                 </a>
 
