@@ -1,35 +1,36 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 30 20% 98%;
-    --foreground: 20 10% 15%;
+    --background: 155 10% 98%;
+    --foreground: 155 20% 15%;
     
     --card: 0 0% 100%;
-    --card-foreground: 20 10% 15%;
+    --card-foreground: 155 20% 15%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 20 10% 15%;
+    --popover-foreground: 155 20% 15%;
     
     --primary: 155 15% 35%; /* Sage Green */
-    --primary-foreground: 30 20% 98%;
+    --primary-foreground: 155 10% 98%;
     
     --secondary: 155 10% 92%;
-    --secondary-foreground: 20 10% 15%;
+    --secondary-foreground: 155 20% 15%;
     
-    --muted: 30 10% 90%;
-    --muted-foreground: 20 10% 40%;
+    --muted: 155 10% 90%;
+    --muted-foreground: 155 15% 40%;
     
-    --accent: 155 20% 15%; /* Darker Sage */
-    --accent-foreground: 30 20% 98%;
+    --accent: 155 25% 20%; /* Darker Sage */
+    --accent-foreground: 155 10% 98%;
     
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     
-    --border: 20 10% 88%;
-    --input: 20 10% 88%;
+    --border: 155 15% 88%;
+    --input: 155 15% 88%;
     --ring: 155 15% 35%;
     
     --radius: 0rem;
@@ -90,7 +91,7 @@
 }
 
 .image-zoom-container img {
-  @apply transition-transform ease-out grayscale-[0.2];
+  @apply transition-transform ease-out grayscale-[0.1];
   transition-duration: 3000ms;
 }
 
@@ -111,13 +112,14 @@
 }
 
 .boutique-card {
-  @apply bg-stone-100 text-foreground p-8 sm:p-12 flex flex-col items-center text-center justify-center min-h-[350px] relative overflow-hidden transition-all duration-1000 border border-stone-200/50;
+  @apply bg-white text-foreground p-8 sm:p-12 flex flex-col items-center text-center justify-center min-h-[350px] relative overflow-hidden transition-all duration-1000 border border-primary/5;
 }
 
 .boutique-card:hover {
-  @apply bg-stone-200/50 shadow-xl;
+  @apply bg-stone-50 shadow-2xl border-primary/20;
 }
 
 .boutique-card .art-icon {
-  @apply absolute top-6 right-6 opacity-5 text-primary animate-art-float pointer-events-none;
+  @apply absolute top-6 right-6 opacity-10 text-primary animate-art-float pointer-events-none;
 }
+
