@@ -26,6 +26,9 @@ export default function AboutPage() {
   const heroMobileFallback = PlaceHolderImages.find(img => img.id === 'hero-about-mobile');
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
 
+  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroDesktopFallback?.imageUrl;
+  const heroMobileSrc = pageContent?.heroImageUrlMobile || heroMobileFallback?.imageUrl;
+
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
@@ -34,25 +37,29 @@ export default function AboutPage() {
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
           {/* Desktop Hero */}
-          <div className="hidden md:block absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlDesktop || heroDesktopFallback?.imageUrl || ""} 
-              alt="About Moran Paz" 
-              fill 
-              className="object-cover opacity-60"
-              priority
-            />
-          </div>
+          {heroDesktopSrc && (
+            <div className="hidden md:block absolute inset-0">
+              <Image 
+                src={heroDesktopSrc} 
+                alt="About Moran Paz" 
+                fill 
+                className="object-cover opacity-60"
+                priority
+              />
+            </div>
+          )}
           {/* Mobile Hero */}
-          <div className="md:hidden absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlMobile || heroMobileFallback?.imageUrl || ""} 
-              alt="About Moran Paz" 
-              fill 
-              className="object-cover opacity-60"
-              priority
-            />
-          </div>
+          {heroMobileSrc && (
+            <div className="md:hidden absolute inset-0">
+              <Image 
+                src={heroMobileSrc} 
+                alt="About Moran Paz" 
+                fill 
+                className="object-cover opacity-60"
+                priority
+              />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
@@ -61,7 +68,7 @@ export default function AboutPage() {
              {pageContent?.heroTitle || "הלב מאחורי הקליניקה"}
            </h1>
            <p className="text-2xl md:text-4xl xl:text-5xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
-             {pageContent?.heroSubtitle || "להדליק את האור בתוך המרחב הטיפולי"}
+             {pageContent?.heroSubtitle || "להדליק את האור בתוך המרחב הטיפול"}
            </p>
         </div>
       </section>
@@ -72,7 +79,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-32 items-start">
             <div className="lg:col-span-5">
                <div className="image-zoom-container aspect-[3/4] shadow-2xl rounded-sm overflow-hidden border-8 border-background">
-                  {portraitImg && (
+                  {portraitImg?.imageUrl && (
                     <Image 
                       src={portraitImg.imageUrl} 
                       alt="מורן פז" 

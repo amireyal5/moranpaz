@@ -23,6 +23,9 @@ export default function AdultsPage() {
   const heroImgFallback = PlaceHolderImages.find(img => img.id === 'hero-practice');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אני%20פונה%20לגבי%20טיפול%20למבוגרים";
 
+  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
+  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
+
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
@@ -30,24 +33,28 @@ export default function AdultsPage() {
       {/* Hero Section */}
       <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          <div className="hidden md:block absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl || ""} 
-              alt="Therapy for Adults" 
-              fill 
-              className="object-cover opacity-60 brightness-[0.7]"
-              priority
-            />
-          </div>
-          <div className="md:hidden absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl || ""} 
-              alt="Therapy for Adults Mobile" 
-              fill 
-              className="object-cover opacity-60 brightness-[0.7]"
-              priority
-            />
-          </div>
+          {heroDesktopSrc && (
+            <div className="hidden md:block absolute inset-0">
+              <Image 
+                src={heroDesktopSrc} 
+                alt="Therapy for Adults" 
+                fill 
+                className="object-cover opacity-60 brightness-[0.7]"
+                priority
+              />
+            </div>
+          )}
+          {heroMobileSrc && (
+            <div className="md:hidden absolute inset-0">
+              <Image 
+                src={heroMobileSrc} 
+                alt="Therapy for Adults Mobile" 
+                fill 
+                className="object-cover opacity-60 brightness-[0.7]"
+                priority
+              />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center">

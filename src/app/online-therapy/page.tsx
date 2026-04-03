@@ -24,6 +24,9 @@ export default function OnlineTherapyPage() {
   const onlineAtmoImg = PlaceHolderImages.find(img => img.id === 'hero-main');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20אשמח%20לפרטים%20על%20טיפול%20אונליין%20לישראלים%20בחו%22ל";
 
+  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
+  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
+
   const benefits = [
     {
       title: "לישראלים בחו\"ל",
@@ -54,24 +57,28 @@ export default function OnlineTherapyPage() {
       {/* Dynamic Hero */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          <div className="hidden md:block absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl || ""} 
-              alt="Online Therapy" 
-              fill 
-              className="object-cover opacity-60 brightness-[0.7]"
-              priority
-            />
-          </div>
-          <div className="md:hidden absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl || ""} 
-              alt="Online Therapy" 
-              fill 
-              className="object-cover opacity-60 brightness-[0.7]"
-              priority
-            />
-          </div>
+          {heroDesktopSrc && (
+            <div className="hidden md:block absolute inset-0">
+              <Image 
+                src={heroDesktopSrc} 
+                alt="Online Therapy" 
+                fill 
+                className="object-cover opacity-60 brightness-[0.7]"
+                priority
+              />
+            </div>
+          )}
+          {heroMobileSrc && (
+            <div className="md:hidden absolute inset-0">
+              <Image 
+                src={heroMobileSrc} 
+                alt="Online Therapy" 
+                fill 
+                className="object-cover opacity-60 brightness-[0.7]"
+                priority
+              />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
@@ -114,7 +121,7 @@ export default function OnlineTherapyPage() {
           
           <div className="lg:col-span-5">
             <div className="image-zoom-container aspect-square shadow-2xl border-t-8 border-r-8 border-primary/10 bg-white p-4 relative overflow-hidden">
-               {onlineAtmoImg && (
+               {onlineAtmoImg?.imageUrl && (
                  <Image 
                    src={onlineAtmoImg.imageUrl} 
                    alt="Atmosphere of peace" 

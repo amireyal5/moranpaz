@@ -21,6 +21,9 @@ export default function EmeqIzraelPage() {
   const heroEmeqFallback = PlaceHolderImages.find(img => img.id === 'hero-emeq');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אני%20פונה%20לגבי%20טיפול%20רגשי%20בעמק%20יזרעאל";
 
+  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroEmeqFallback?.imageUrl;
+  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroEmeqFallback?.imageUrl;
+
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
@@ -29,25 +32,29 @@ export default function EmeqIzraelPage() {
       <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
           {/* Desktop Hero */}
-          <div className="hidden md:block absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlDesktop || heroEmeqFallback?.imageUrl || ""} 
-              alt="טיפול רגשי בעמק יזרעאל - מורן פז" 
-              fill 
-              className="object-cover opacity-60 brightness-[0.7]"
-              priority
-            />
-          </div>
+          {heroDesktopSrc && (
+            <div className="hidden md:block absolute inset-0">
+              <Image 
+                src={heroDesktopSrc} 
+                alt="טיפול רגשי בעמק יזרעאל - מורן פז" 
+                fill 
+                className="object-cover opacity-60 brightness-[0.7]"
+                priority
+              />
+            </div>
+          )}
           {/* Mobile Hero */}
-          <div className="md:hidden absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroEmeqFallback?.imageUrl || ""} 
-              alt="טיפול רגשי בעמק יזרעאל - מורן פז" 
-              fill 
-              className="object-cover opacity-60 brightness-[0.7]"
-              priority
-            />
-          </div>
+          {heroMobileSrc && (
+            <div className="md:hidden absolute inset-0">
+              <Image 
+                src={heroMobileSrc} 
+                alt="טיפול רגשי בעמק יזרעאל - מורן פז" 
+                fill 
+                className="object-cover opacity-60 brightness-[0.7]"
+                priority
+              />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center max-w-5xl">
@@ -93,12 +100,14 @@ export default function EmeqIzraelPage() {
           </div>
           
           <div className="relative aspect-square shadow-2xl border-r-8 border-primary/10">
-            <Image 
-              src={pageContent?.heroImageUrlDesktop || heroEmeqFallback?.imageUrl || ""} 
-              alt="אווירה טיפולית בעמק" 
-              fill 
-              className="object-cover opacity-80"
-            />
+            {heroDesktopSrc && (
+              <Image 
+                src={heroDesktopSrc} 
+                alt="אווירה טיפולית בעמק" 
+                fill 
+                className="object-cover opacity-80"
+              />
+            )}
             <div className="absolute -bottom-10 -left-10 bg-accent text-white p-12 space-y-4 shadow-2xl hidden md:block">
                <MapPin className="text-primary mb-4" size={32} />
                <p className="text-xl font-bold">זמינות ביישובי העמק:</p>

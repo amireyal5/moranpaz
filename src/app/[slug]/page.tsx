@@ -52,6 +52,9 @@ export default function DynamicPage() {
     );
   }
 
+  const heroDesktopSrc = pageContent?.heroImageUrlDesktop;
+  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop;
+
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden" style={{ '--primary': pageContent?.primaryColor } as any}>
       <Navbar />
@@ -59,28 +62,28 @@ export default function DynamicPage() {
       {/* Hero Section */}
       <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          <div className="hidden md:block absolute inset-0">
-            {pageContent?.heroImageUrlDesktop && (
+          {heroDesktopSrc && (
+            <div className="hidden md:block absolute inset-0">
               <Image 
-                src={pageContent.heroImageUrlDesktop} 
+                src={heroDesktopSrc} 
                 alt={pageContent?.heroTitle || "Hero"} 
                 fill 
                 className="object-cover opacity-60 brightness-[0.7]"
                 priority
               />
-            )}
-          </div>
-          <div className="md:hidden absolute inset-0">
-            {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop) && (
+            </div>
+          )}
+          {heroMobileSrc && (
+            <div className="md:hidden absolute inset-0">
               <Image 
-                src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop} 
+                src={heroMobileSrc} 
                 alt={pageContent?.heroTitle || "Hero Mobile"} 
                 fill 
                 className="object-cover opacity-60 brightness-[0.7]"
                 priority
               />
-            )}
-          </div>
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center">

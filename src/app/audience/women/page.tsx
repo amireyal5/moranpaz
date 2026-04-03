@@ -23,6 +23,9 @@ export default function WomenPage() {
   const heroImgFallback = PlaceHolderImages.find(img => img.id === 'hero-women') || PlaceHolderImages.find(img => img.id === 'hero-about-desktop');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20ליווי%20רגשי%20לנשים";
 
+  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
+  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
+
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
@@ -30,24 +33,28 @@ export default function WomenPage() {
       {/* Hero Section */}
       <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          <div className="hidden md:block absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl || ""} 
-              alt="Therapy for Women" 
-              fill 
-              className="object-cover opacity-60 brightness-[0.7]"
-              priority
-            />
-          </div>
-          <div className="md:hidden absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl || ""} 
-              alt="Therapy for Women Mobile" 
-              fill 
-              className="object-cover opacity-60 brightness-[0.7]"
-              priority
-            />
-          </div>
+          {heroDesktopSrc && (
+            <div className="hidden md:block absolute inset-0">
+              <Image 
+                src={heroDesktopSrc} 
+                alt="Therapy for Women" 
+                fill 
+                className="object-cover opacity-60 brightness-[0.7]"
+                priority
+              />
+            </div>
+          )}
+          {heroMobileSrc && (
+            <div className="md:hidden absolute inset-0">
+              <Image 
+                src={heroMobileSrc} 
+                alt="Therapy for Women Mobile" 
+                fill 
+                className="object-cover opacity-60 brightness-[0.7]"
+                priority
+              />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center">
@@ -93,7 +100,7 @@ export default function WomenPage() {
         <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
           <h3 className="text-6xl md:text-8xl font-handwriting text-accent leading-none">הגיע הזמן לפגוש את עצמך</h3>
           <p className="boutique-para text-2xl font-light leading-relaxed">
-            אני כאן כדי לספק לך את המקום בו תוכלי להניח הכל ולחזור לעצמך. פני אליי לשיחת היכרות אישית ונתחיל את המסע שלך פנימה.
+            אנשים כאן כדי לספק לך את המקום בו תוכלי להניח הכל ולחזור לעצמך. פני אליי לשיחת היכרות אישית ונתחיל את המסע שלך פנימה.
           </p>
           <div className="pt-8">
             <a 

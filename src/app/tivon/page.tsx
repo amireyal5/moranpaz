@@ -23,6 +23,10 @@ export default function TivonPage() {
   const heroTivonFallback = PlaceHolderImages.find(img => img.id === 'hero-tivon');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20טיפול%20בקליניקה%20בטבעון";
 
+  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroTivonFallback?.imageUrl;
+  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroTivonFallback?.imageUrl;
+  const clinicImgSrc = pageContent?.heroImageUrlDesktop || clinicImgFallback?.imageUrl;
+
   const tivonFaqs = [
     {
       question: "למה כדאי להגיע לטיפול בטבעון?",
@@ -48,24 +52,28 @@ export default function TivonPage() {
       {/* Dynamic Hero */}
       <section className="h-[75vh] relative flex items-center justify-center bg-stone-900 overflow-hidden pt-20">
         <div className="absolute inset-0">
-           <div className="hidden md:block absolute inset-0">
-             <Image 
-              src={pageContent?.heroImageUrlDesktop || heroTivonFallback?.imageUrl || ""} 
-              alt="טיפול רגשי בטבעון" 
-              fill 
-              className="object-cover opacity-60 brightness-[0.7]"
-              priority
-             />
-           </div>
-           <div className="md:hidden absolute inset-0">
-             <Image 
-              src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroTivonFallback?.imageUrl || ""} 
-              alt="טיפול רגשי בטבעון" 
-              fill 
-              className="object-cover opacity-60 brightness-[0.7]"
-              priority
-             />
-           </div>
+           {heroDesktopSrc && (
+             <div className="hidden md:block absolute inset-0">
+               <Image 
+                src={heroDesktopSrc} 
+                alt="טיפול רגשי בטבעון" 
+                fill 
+                className="object-cover opacity-60 brightness-[0.7]"
+                priority
+               />
+             </div>
+           )}
+           {heroMobileSrc && (
+             <div className="md:hidden absolute inset-0">
+               <Image 
+                src={heroMobileSrc} 
+                alt="טיפול רגשי בטבעון" 
+                fill 
+                className="object-cover opacity-60 brightness-[0.7]"
+                priority
+               />
+             </div>
+           )}
            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center px-6 max-w-4xl">
@@ -116,12 +124,14 @@ export default function TivonPage() {
             
             <div className="order-1 lg:order-2">
                <div className="image-zoom-container aspect-[4/5] shadow-2xl relative border-8 border-white">
-                  <Image 
-                    src={pageContent?.heroImageUrlDesktop || clinicImgFallback?.imageUrl || ""} 
-                    alt="פסיכותרפיה בטבעון" 
-                    fill 
-                    className="object-cover"
-                  />
+                  {clinicImgSrc && (
+                    <Image 
+                      src={clinicImgSrc} 
+                      alt="פסיכותרפיה בטבעון" 
+                      fill 
+                      className="object-cover"
+                    />
+                  )}
                </div>
             </div>
          </div>
