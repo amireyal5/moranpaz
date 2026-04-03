@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, Plus, Trash2, LayoutTextWindow, Settings, MousePointer2 } from 'lucide-react';
+import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, Plus, Trash2, Layout, Settings, MousePointer2 } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
@@ -330,7 +330,7 @@ export default function PageManagement() {
                 <Card className="border-none shadow-xl rounded-none">
                   <CardHeader className="bg-stone-50/50 border-b border-stone-100">
                     <CardTitle className="font-headline text-2xl flex items-center gap-4">
-                      <LayoutTextWindow size={24} className="text-primary" /> עיצוב ותוכן העמוד
+                      <Layout size={24} className="text-primary" /> עיצוב ותוכן העמוד
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-8 space-y-8">
