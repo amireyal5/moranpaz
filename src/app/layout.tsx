@@ -2,6 +2,8 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { FloatingWhatsApp } from '@/components/shared/FloatingWhatsApp';
+import { FirebaseClientProvider } from '@/firebase';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: {
@@ -56,8 +58,11 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased bg-background text-foreground selection:bg-primary/20 overflow-x-hidden">
-        {children}
-        <FloatingWhatsApp />
+        <FirebaseClientProvider>
+          {children}
+          <FloatingWhatsApp />
+          <Toaster />
+        </FirebaseClientProvider>
       </body>
     </html>
   );
