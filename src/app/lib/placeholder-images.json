@@ -54,6 +54,12 @@
       "description": "Portrait of Moran Paz",
       "imageUrl": "https://res.cloudinary.com/dcdadfrpi/image/upload/v1775213284/WhatsApp_Image_2026-04-03_at_13.24.34_fks4kw.jpg",
       "imageHint": "moran portrait"
+    },
+    {
+      "id": "hero-online",
+      "description": "Serene connection via laptop with soft lighting and a plant",
+      "imageUrl": "https://images.unsplash.com/photo-1516302752625-fbb3ad59c34f?q=80&w=1920&auto=format&fit=crop",
+      "imageHint": "serene connection"
     }
   ]
 }

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -57,12 +58,12 @@ export default function OnlineTherapyPage() {
               data-ai-hint={heroImg.imageHint}
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block">Global Connection</span>
-           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold">בית פנימי מכל מקום</h1>
-           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">טיפול רגשי אונליין לישראלים בארץ ובעולם</p>
+           <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">Global Connection</span>
+           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">בית פנימי מכל מקום</h1>
+           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">טיפול רגשי אונליין לישראלים בארץ ובעולם</p>
         </div>
       </section>
 
