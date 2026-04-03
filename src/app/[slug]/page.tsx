@@ -11,7 +11,12 @@ import { CtaButtons } from '@/components/shared/CtaButtons';
 import { useReveal } from '@/hooks/use-reveal';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Heart, Sparkles, Orbit, Compass, Users, Star } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+const ICON_MAP: Record<string, any> = {
+  Heart, Sparkles, Orbit, Compass, Users, Star
+};
 
 export default function DynamicPage() {
   const { slug } = useParams();
@@ -20,6 +25,7 @@ export default function DynamicPage() {
   const { data: pageContent, loading } = useDoc<any>(contentRef);
 
   const contentReveal = useReveal();
+  const featuresReveal = useReveal();
 
   if (loading) {
     return (
@@ -95,6 +101,24 @@ export default function DynamicPage() {
                 <p className="text-center italic opacity-30">אין תוכן להצגה בעמוד זה.</p>
               )}
             </div>
+
+            {/* Structured Features Grid (The Cubes) */}
+            {pageContent?.features?.length > 0 && (
+              <div ref={featuresReveal} className="reveal grid grid-cols-1 md:grid-cols-3 gap-8 mt-24">
+                {pageContent.features.map((feat: any, i: number) => {
+                  const Icon = ICON_MAP[feat.icon] || Heart;
+                  return (
+                    <div key={i} className="boutique-card group border border-stone-100 hover:border-primary/20">
+                      <div className="text-primary mb-6 group-hover:scale-110 transition-transform">
+                        <Icon size={40} strokeWidth={0.2} />
+                      </div>
+                      <h3 className="text-2xl font-headline font-bold text-accent mb-4">{feat.title}</h3>
+                      <p className="text-lg font-light text-stone-600 leading-relaxed">{feat.description}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
 
             <CtaButtons buttons={pageContent?.ctaButtons} />
           </div>

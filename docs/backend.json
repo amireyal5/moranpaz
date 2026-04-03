@@ -32,18 +32,29 @@
         "introContent": { "type": "string" },
         "heroImageUrlDesktop": { "type": "string" },
         "heroImageUrlMobile": { "type": "string" },
-        "siteName": { "type": "string", "description": "Brand name used in Navbar." },
-        "siteSubtitle": { "type": "string", "description": "Brand slogan used in Navbar." },
-        "navItems": { "type": "array", "description": "Ordered list of navbar links." },
+        "siteName": { "type": "string" },
+        "siteSubtitle": { "type": "string" },
+        "navItems": { "type": "array" },
         "ctaButtons": { 
-          "type": "array", 
-          "description": "List of action buttons for the page.",
+          "type": "array",
           "items": {
             "type": "object",
             "properties": {
               "label": { "type": "string" },
               "href": { "type": "string" },
               "variant": { "type": "string", "enum": ["primary", "outline"] }
+            }
+          }
+        },
+        "features": {
+          "type": "array",
+          "description": "Grid of content blocks (cubes).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "icon": { "type": "string", "enum": ["Heart", "Sparkles", "Orbit", "Compass", "Users", "Star"] }
             }
           }
         },
