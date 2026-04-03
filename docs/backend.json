@@ -35,6 +35,18 @@
         "siteName": { "type": "string", "description": "Brand name used in Navbar." },
         "siteSubtitle": { "type": "string", "description": "Brand slogan used in Navbar." },
         "navItems": { "type": "array", "description": "Ordered list of navbar links." },
+        "ctaButtons": { 
+          "type": "array", 
+          "description": "List of action buttons for the page.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": { "type": "string" },
+              "href": { "type": "string" },
+              "variant": { "type": "string", "enum": ["primary", "outline"] }
+            }
+          }
+        },
         "updatedAt": { "type": "number" }
       }
     }

@@ -7,11 +7,11 @@ import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
+import { CtaButtons } from '@/components/shared/CtaButtons';
 import { useReveal } from '@/hooks/use-reveal';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
 import { Loader2 } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function DynamicPage() {
   const { slug } = useParams();
@@ -20,7 +20,6 @@ export default function DynamicPage() {
   const { data: pageContent, loading } = useDoc<any>(contentRef);
 
   const contentReveal = useReveal();
-  const heroImgFallback = PlaceHolderImages.find(img => img.id === 'hero-practice');
 
   if (loading) {
     return (
@@ -30,7 +29,6 @@ export default function DynamicPage() {
     );
   }
 
-  // If no content found for this slug, we can redirect or show 404
   if (!pageContent && slug) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center text-right p-8">
@@ -97,6 +95,8 @@ export default function DynamicPage() {
                 <p className="text-center italic opacity-30">אין תוכן להצגה בעמוד זה.</p>
               )}
             </div>
+
+            <CtaButtons buttons={pageContent?.ctaButtons} />
           </div>
         </div>
       </section>

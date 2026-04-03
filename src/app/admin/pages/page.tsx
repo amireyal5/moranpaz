@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useUser, useFirestore } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, Plus, Trash2, LayoutTextWindow, Settings, FilePlus } from 'lucide-react';
+import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, Plus, Trash2, LayoutTextWindow, Settings, MousePointer2 } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
@@ -41,7 +41,7 @@ export default function PageManagement() {
   const [customPageId, setCustomPageId] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
-  const [existingPages, setExistingPages] = useState<{id: string, name: string}[]>(DEFAULT_PAGES);
+  const [existingPages] = useState<{id: string, name: string}[]>(DEFAULT_PAGES);
 
   const [content, setContent] = useState({
     heroTitle: '',
@@ -52,7 +52,8 @@ export default function PageManagement() {
     heroImageUrlMobile: '',
     siteName: '',
     siteSubtitle: '',
-    navItems: [] as { label: string, href: string }[]
+    navItems: [] as { label: string, href: string }[],
+    ctaButtons: [] as { label: string, href: string, variant: 'primary' | 'outline' }[]
   });
 
   useEffect(() => {
@@ -80,7 +81,8 @@ export default function PageManagement() {
           heroImageUrlMobile: data.heroImageUrlMobile || '',
           siteName: data.siteName || '',
           siteSubtitle: data.siteSubtitle || '',
-          navItems: data.navItems || []
+          navItems: data.navItems || [],
+          ctaButtons: data.ctaButtons || []
         });
       } else {
         setContent({ 
@@ -92,7 +94,8 @@ export default function PageManagement() {
           heroImageUrlMobile: '',
           siteName: '',
           siteSubtitle: '',
-          navItems: []
+          navItems: [],
+          ctaButtons: []
         });
       }
     } catch (e) {
@@ -159,6 +162,35 @@ export default function PageManagement() {
     updated[index] = updated[targetIndex];
     updated[targetIndex] = temp;
     setContent({ ...content, navItems: updated });
+  };
+
+  const addCtaButton = () => {
+    setContent({
+      ...content,
+      ctaButtons: [...content.ctaButtons, { label: '', href: '', variant: 'primary' }]
+    });
+  };
+
+  const removeCtaButton = (index: number) => {
+    const updated = [...content.ctaButtons];
+    updated.splice(index, 1);
+    setContent({ ...content, ctaButtons: updated });
+  };
+
+  const updateCtaButton = (index: number, field: string, value: string) => {
+    const updated = [...content.ctaButtons];
+    (updated[index] as any)[field] = value;
+    setContent({ ...content, ctaButtons: updated });
+  };
+
+  const moveCtaButton = (index: number, direction: 'up' | 'down') => {
+    const updated = [...content.ctaButtons];
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= updated.length) return;
+    const temp = updated[index];
+    updated[index] = updated[targetIndex];
+    updated[targetIndex] = temp;
+    setContent({ ...content, ctaButtons: updated });
   };
 
   if (authLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-primary" /></div>;
@@ -316,8 +348,50 @@ export default function PageManagement() {
                           className="bg-white"
                         />
                       </div>
-                      <p className="text-xs text-stone-400 mt-2 italic">כאן תוכלי להשתמש בכותרות, רשימות ותמונות כדי לעצב את העמוד כפי שאת רוצה.</p>
                     </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-none shadow-xl rounded-none">
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100">
+                    <CardTitle className="font-headline text-2xl flex items-center gap-4">
+                      <MousePointer2 size={24} className="text-primary" /> ניהול כפתורי הנעה לפעולה (CTA)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-8 space-y-6">
+                    <p className="text-xs text-stone-400 italic mb-4">תוכלי להוסיף כפתורים שיובילו לדפים בתוך האתר או ללינקים חיצוניים.</p>
+                    {content.ctaButtons.map((btn, index) => (
+                      <div key={index} className="flex gap-4 items-end bg-stone-50 p-6 border border-stone-100 rounded-sm">
+                        <div className="flex flex-col gap-1">
+                          <Button type="button" variant="ghost" size="sm" onClick={() => moveCtaButton(index, 'up')} disabled={index === 0}>▲</Button>
+                          <Button type="button" variant="ghost" size="sm" onClick={() => moveCtaButton(index, 'down')} disabled={index === content.ctaButtons.length - 1}>▼</Button>
+                        </div>
+                        <div className="flex-[2] space-y-2">
+                          <Label className="text-[10px] uppercase font-bold text-stone-400">כיתוב על הכפתור</Label>
+                          <Input value={btn.label} onChange={e => updateCtaButton(index, 'label', e.target.value)} className="bg-white border-none" />
+                        </div>
+                        <div className="flex-[3] space-y-2">
+                          <Label className="text-[10px] uppercase font-bold text-stone-400">קישור (URL פנימי או חיצוני)</Label>
+                          <Input value={btn.href} onChange={e => updateCtaButton(index, 'href', e.target.value)} className="bg-white border-none font-sans" />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <Label className="text-[10px] uppercase font-bold text-stone-400">עיצוב</Label>
+                          <Select value={btn.variant} onValueChange={(val) => updateCtaButton(index, 'variant', val)}>
+                            <SelectTrigger className="bg-white border-none"><SelectValue /></SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="primary">מלא (בולט)</SelectItem>
+                              <SelectItem value="outline">מסגרת (מעודן)</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <Button type="button" variant="ghost" onClick={() => removeCtaButton(index)} className="text-destructive">
+                          <Trash2 size={18} />
+                        </Button>
+                      </div>
+                    ))}
+                    <Button type="button" onClick={addCtaButton} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary">
+                      <Plus className="mr-2" size={18} /> הוספת כפתור חדש
+                    </Button>
                   </CardContent>
                 </Card>
               </>
