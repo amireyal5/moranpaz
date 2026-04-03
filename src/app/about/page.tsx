@@ -8,7 +8,7 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Orbit, Waves, Infinity, Compass, Quote } from 'lucide-react';
+import { Orbit, Waves, Infinity, Compass, Quote, GraduationCap, Briefcase } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
@@ -19,26 +19,16 @@ export default function AboutPage() {
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20קראתי%20עליך%20באתר%20ואשמח%20לפרטים%20על%20תהליך%20טיפולי";
 
-  const uniquenessPoints = [
+  const credentials = [
     {
-      title: "חיבור הוליסטי עמוק",
-      icon: <Orbit size={32} strokeWidth={0.5} />,
-      desc: "אני מאמינה שהאדם הוא שלם. הגישה שלי משלבת שיחה עם עבודה רגשית חווייתית שנוגעת בגוף ובנשמה."
+      title: "M.A ייעוץ ארגוני",
+      subtitle: "אוניברסיטת חיפה",
+      icon: <GraduationCap size={24} />
     },
     {
-      title: "כלים מהעולם החדש",
-      icon: <Infinity size={32} strokeWidth={0.5} />,
-      desc: "עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס – כלים המאפשרים גישה ישירה לרובד הרגשי העמוק."
-    },
-    {
-      title: "מרחב של שקט",
-      icon: <Waves size={32} strokeWidth={0.5} />,
-      desc: "הקליניקה ממוקמת בלב הירוק של טבעון, מרחב שמאפשר ניתוק מהרעש החיצוני וחיבור שקט לעצמך."
-    },
-    {
-      title: "ליווי מקצועי מוסמך",
-      icon: <Compass size={32} strokeWidth={0.5} />,
-      desc: "שילוב של תואר שני (MA) בייעוץ ארגוני מאוניברסיטת חיפה עם הכשרה מעמיקה בפסיכותרפיה הוליסטית."
+      title: "פסיכותרפיה הוליסטית",
+      subtitle: "הכשרה מקצועית מעמיקה",
+      icon: <Briefcase size={24} />
     }
   ];
 
@@ -62,9 +52,9 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block">About the practice</span>
+           <span className="boutique-label text-white/80 mb-8 block">About Moran Paz</span>
            <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold">נעים מאוד, מורן פז</h1>
-           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">למצוא את הדרך חזרה אל הבית הפנימי שלך</p>
+           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">להיות אני בתוכי — לגלות את הסמכות הפנימית שלך</p>
         </div>
       </section>
 
@@ -91,7 +81,7 @@ export default function AboutPage() {
                   <Quote className="absolute -top-10 -right-4 text-primary/5 w-48 h-48 rotate-180 pointer-events-none" />
                   <div className="border-r-[3px] border-primary/20 pr-10 py-1">
                     <p className="text-3xl md:text-5xl font-headline text-accent italic font-light leading-snug relative z-10">
-                      אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה.
+                      שינוי מתחיל מפגישה וקבלה של חלקים שבנו.
                     </p>
                   </div>
                </div>
@@ -101,12 +91,20 @@ export default function AboutPage() {
                     אני מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושהבחירה קיימת לכל אדם בכל מצב. 
                   </p>
                   <p>
-                    בוגרת תואר שני בייעוץ ארגוני מאוניברסיטת חיפה ובוגרת מסלול פסיכותרפיה הוליסטית. 
-                    לכל אדם יש את הקצב והמסע שלו ואני כאן ללוות מתוך כבוד ואמונה באדם ובדרך.
+                    בעבודתי אני משלבת הכרות מעמיקה עם מגוון אוכלוסיות יחד עם גישה אנושית חמה ובגובה העיניים. אני כאן ללוות אותך במסע לגילוי מפת הדרכים הפנימית שלך.
                   </p>
-                  <p className="font-medium text-accent border-r-2 border-primary/10 pr-6 py-2">
-                    התהליך מביא לפחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, וביטוי אותנטי.
-                  </p>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-6">
+                    {credentials.map((item, i) => (
+                      <div key={i} className="flex items-center gap-4 p-6 bg-stone-50 border border-stone-100">
+                        <div className="text-primary">{item.icon}</div>
+                        <div>
+                          <h4 className="font-bold text-accent">{item.title}</h4>
+                          <p className="text-sm opacity-60">{item.subtitle}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                </div>
                
                <div className="pt-12">
@@ -124,52 +122,27 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Personal Invitation Section */}
-      <section ref={personalInviteReveal} className="py-24 bg-stone-50 reveal border-y border-stone-200/50">
-        <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
-           <h3 className="text-6xl md:text-8xl font-handwriting text-accent">בואי נתחיל ללכת יחד...</h3>
-           <p className="boutique-para text-2xl font-light">
-             אני כאן כדי לספק לך את המרחב הבטוח לו את זקוקה. אם את מרגישה שהגיע הזמן לשינוי, אני מזמינה אותך לפנות אליי לשיחה ראשונית.
-           </p>
-           <div className="pt-6">
-              <a 
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-20 py-5 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100 min-w-[280px] justify-center"
-              >
-                שלחי לי הודעה אישית
-              </a>
-           </div>
-        </div>
-      </section>
-
       {/* Philosophy Section */}
-      <section ref={uniquenessReveal} className="py-32 md:py-56 px-8 md:px-24 bg-white reveal">
+      <section ref={uniquenessReveal} className="py-32 md:py-56 px-8 md:px-24 bg-stone-50 reveal border-y border-stone-100">
         <div className="max-w-6xl mx-auto">
-          <SectionTitle subtitle="My Philosophy" title="מה מייחד את הגישה שלי?" className="flex flex-col items-center text-center" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-24 mt-32">
-            {uniquenessPoints.map((point, i) => (
-              <div key={i} className={cn("flex flex-col items-start gap-8 group", `stagger-${i+1}`)}>
+          <SectionTitle subtitle="Philosophy" title="השילוב בין גוף, נפש ורוח" className="flex flex-col items-center text-center" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-32">
+            {[
+              { title: "גוף", icon: <Orbit />, desc: "הקשבה לתחושות הפיזיות כפתח לעולם הרגשי." },
+              { title: "נפש", icon: <Heart />, desc: "עיבוד רגשות, דפוסים והסיפור שאנחנו מספרים לעצמנו." },
+              { title: "רוח", icon: <Sparkles />, desc: "חיבור לסמכות הפנימית, למודעות ולאור שבתוכנו." }
+            ].map((point, i) => (
+              <div key={i} className="flex flex-col items-center text-center gap-8 group">
                 <div className="text-primary group-hover:scale-110 transition-transform duration-700">
-                  {point.icon}
+                   {React.cloneElement(point.icon as React.ReactElement, { size: 48, strokeWidth: 0.2 })}
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <h4 className="text-3xl font-headline font-bold text-accent">{point.title}</h4>
                   <p className="text-xl font-light text-stone-500 leading-relaxed">{point.desc}</p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-32 bg-stone-50 px-8">
-        <div className="max-w-4xl mx-auto">
-          <SectionTitle subtitle="Connect" title="מוזמנת ליצור קשר" className="flex flex-col items-center text-center" />
-          <p className="text-center boutique-para mb-20 leading-relaxed">אני כאן בשבילך לכל שאלה או לתיאום פגישה ראשונית.</p>
-          <ContactForm />
         </div>
       </section>
 

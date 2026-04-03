@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -11,7 +10,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const whatsappLink = "https://wa.me/972507817338?text=היי%20הגעתי%20מהאתר%20שלך%20מעוניין%20לקבל%20פרטים%20נוספים%20תודה";
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20שלך%20מעוניין%20לקבל%20פרטים%20נוספים%20תודה";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,9 +35,8 @@ export function Navbar() {
   const navItems = [
     { label: 'בית', href: '/' },
     { label: 'אודות', href: '/about' },
-    { label: 'טיפול', href: '/practice' },
-    { label: 'אונליין', href: '/online-therapy' },
-    { label: 'BeinMe', href: '/workshop', hasCopyright: true },
+    { label: 'התהליך הטיפולי', href: '/practice' },
+    { label: 'טיפול אונליין', href: '/online-therapy' },
     { label: 'טבעון', href: '/tivon' },
   ];
 
@@ -50,9 +48,12 @@ export function Navbar() {
       )}>
         <NextLink 
           href="/"
-          className="text-xl sm:text-2xl md:text-3xl font-headline tracking-[0.25em] font-light hover:opacity-50 transition-all duration-700 z-[220]"
+          className="flex flex-col items-start z-[220] group"
         >
-          MORAN PAZ
+          <span className="text-xl sm:text-2xl md:text-3xl font-headline tracking-[0.25em] font-light hover:opacity-50 transition-all duration-700">
+            MORAN PAZ
+          </span>
+          <span className="text-[10px] font-handwriting tracking-widest text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-700">BeinMe — להיות אני בתוכי</span>
         </NextLink>
         
         {/* Desktop Menu */}
@@ -66,7 +67,7 @@ export function Navbar() {
                 pathname === item.href ? "text-primary" : "text-foreground/80"
               )}
             >
-              {item.label}{item.hasCopyright && <sup>©</sup>}
+              {item.label}
             </NextLink>
           ))}
           <a 
@@ -116,7 +117,7 @@ export function Navbar() {
               )}
               style={{ transitionDelay: `${i * 75}ms` }}
             >
-              {item.label}{item.hasCopyright && <sup>©</sup>}
+              {item.label}
             </NextLink>
           ))}
           

@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -7,7 +6,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
-import { Orbit, Waves, Infinity, Compass } from 'lucide-react';
+import { Orbit, Waves, Infinity, Compass, Heart, Sparkles } from 'lucide-react';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
@@ -18,28 +17,28 @@ export default function PracticePage() {
   const stepsReveal = useReveal();
   const practiceInviteReveal = useReveal();
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-practice');
-  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20התהליך%20הטיפול%20ההוליסטי";
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20התהליך%20הטיפולי";
 
   const steps = [
     { 
       id: "01", 
       title: "פגישת הכרות", 
-      desc: "נפגש לשיחה ראשונית (בקליניקה או בזום), נכיר אותך ואת מה שמעסיק אותך. נתאם ציפיות." 
+      desc: "נפגש לשיחה ראשונית להכרות ותיאום ציפיות. זהו הצעד הראשון לגילוי המפה הפנימית שלך." 
     },
     { 
       id: "02", 
       title: "מרחב בטוח", 
-      desc: "בפגישות הראשונות נעמיק בבניית אמון. זהו מרחב שבו אפשר להביא את עצמך כפי שאת/ה – בלי מסכות." 
+      desc: "בניית אמון עמוק ומרחב ללא שיפוטיות שבו אפשר לפגוש את כל החלקים שבנו." 
     },
     {
       id: "03",
       title: "עבודה חווייתית",
-      desc: "נשתמש בכלים מגוונים כמו מיינדפולנס, עבודת צללים, דמיון מודרך וילד/ה פנימית."
+      desc: "שימוש בכלים כמו מיינדפולנס, עבודת צללים, דמיון מודרך וילד/ה פנימית לחיבור גוף-נפש-רוח."
     },
     {
       id: "04",
       title: "הטמעה ושינוי",
-      desc: "בסיום התהליך תוכל/י לחוות הקלה בתחושות מתח וחרדה ולחיות כבימאי/ת של חייך."
+      desc: "הקלה במתח וחרדה, הגברת ערך עצמי וביטוי אותנטי כבימאי/ת של חייך."
     }
   ];
 
@@ -63,51 +62,41 @@ export default function PracticePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block">Holistic Therapy</span>
+           <span className="boutique-label text-white/80 mb-8 block">BeinMe Approach</span>
            <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold">המסע לריפוי רגשי</h1>
-           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">לגלות את הכוחות הטמונים בך במרחב בטוח ומכיל</p>
+           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">לגלות את מפת הדרכים הפנימית שלך</p>
         </div>
       </section>
 
       <section className="py-32 md:py-48 px-8 md:px-24">
         <div className="max-w-6xl mx-auto">
           <div ref={introReveal} className="reveal mb-32">
-            <span className="boutique-label text-primary mb-8 block">Process Overview</span>
+            <span className="boutique-label text-primary mb-8 block">Holistic Path</span>
             <p className="max-w-4xl boutique-para text-3xl leading-relaxed">
-              פסיכותרפיה הוליסטית היא הזמנה להתבוננות פנימה, שבה נוכל יחד לגלות את המפה הרגשית שלך וליצור שינוי עמוק ויציב.
+              פסיכותרפיה הוליסטית היא הזמנה להתבוננות פנימה, שבה נוכל יחד לשפוך את אור המודעות על כל פינה ולמצוא את הסמכות הפנימית שלך.
             </p>
-            <div className="mt-16">
-               <a 
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-16 py-4 bg-primary text-white boutique-label !opacity-100 hover:bg-accent transition-all rounded-sm shadow-2xl min-w-[220px] justify-center"
-              >
-                תאום שיחת היכרות
-              </a>
-            </div>
           </div>
 
           <div ref={holisticReveal} className="reveal grid grid-cols-1 lg:grid-cols-2 gap-24 mb-48 bg-white p-16 md:p-32 shadow-2xl border border-stone-100">
             <div>
               <h2 className="text-4xl md:text-5xl font-headline text-accent mb-12 font-bold">הגישה ההוליסטית</h2>
-              <div className="space-y-10 boutique-para !text-xl leading-relaxed">
-                <p>בניגוד לגישות מסורתיות שמתמקדות רק בסימפטום, הגישה ההוליסטית רואה בך מערכת שלמה של גוף, נפש ורוח.</p>
-                <p>השילוב בין <strong>מיינדפולנס, עבודת צללים ופוקוסינג</strong> מאפשר לנו להגיע לשורש הדברים וליצור ריפוי אמיתי שנובע מבפנים.</p>
+              <div className="space-y-10 boutique-para !text-xl leading-relaxed text-stone-600">
+                <p>בניגוד לגישות מסורתיות שמתמקדות רק בסימפטום, גישת BeinMe רואה בך מערכת שלמה של <strong>גוף, נפש ורוח</strong>.</p>
+                <p>השילוב בין מיינדפולנס, עבודת צללים ופוקוסינג מאפשר לנו להכיר את החלקים שבנו, לקבל אותם, ומשם ליצור שינוי אמיתי ונוכח.</p>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-8">
               {[
-                { title: "חרדות", icon: <Orbit /> },
-                { title: "תקיעות", icon: <Infinity /> },
-                { title: "יחסים", icon: <Waves /> },
-                { title: "דימוי", icon: <Compass /> }
+                { title: "נפש", icon: <Heart /> },
+                { title: "גוף", icon: <Orbit /> },
+                { title: "רוח", icon: <Sparkles /> },
+                { title: "בחירה", icon: <Compass /> }
               ].map((issue, i) => (
                 <div key={i} className="bg-stone-50 p-10 flex flex-col items-center justify-center text-center border border-stone-100 hover:bg-white transition-all duration-700 hover:shadow-2xl hover:border-primary/20 group relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-700"></div>
                   <span className="text-2xl font-headline font-bold text-primary block mb-8 relative z-10">{issue.title}</span>
                   <div className="text-primary/60 group-hover:text-primary group-hover:scale-110 transition-all duration-700 flex justify-center relative z-10">
-                    {React.cloneElement(issue.icon as React.ReactElement, { size: 56, strokeWidth: 0.5 })}
+                    {React.cloneElement(issue.icon as React.ReactElement, { size: 56, strokeWidth: 0.2 })}
                   </div>
                 </div>
               ))}
@@ -120,9 +109,9 @@ export default function PracticePage() {
                 <Orbit size={400} />
              </div>
              <div className="relative z-10 space-y-12">
-                <h3 className="text-6xl md:text-8xl font-handwriting">מפת הדרכים שלך כבר כאן</h3>
+                <h3 className="text-6xl md:text-8xl font-handwriting">מפת הדרכים שלך מחכה לך</h3>
                 <p className="text-2xl md:text-3xl font-light opacity-90 leading-relaxed max-w-3xl italic">
-                  "כל מסע גדול מתחיל בצעד אחד קטן של אומץ. אני כאן כדי להחזיק עבורך את המרחב וללכת לצידך."
+                  "בכל טיפת חושך אפשר לשפוך את אור המודעות ולהאיר את עצמנו. בואי נתחיל ללכת יחד."
                 </p>
                 <div className="pt-6">
                    <a 
@@ -151,13 +140,6 @@ export default function PracticePage() {
               ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="py-32 bg-stone-50 px-8" id="contact">
-        <div className="max-w-4xl mx-auto text-center">
-          <SectionTitle subtitle="Connect" title="מוכנה להתחיל את המסע?" className="flex flex-col items-center" />
-          <ContactForm />
         </div>
       </section>
 

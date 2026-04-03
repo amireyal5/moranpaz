@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -19,9 +18,10 @@ export function Footer() {
           
           {/* Brand Section */}
           <div className="lg:col-span-4">
-            <h3 className="text-2xl font-headline tracking-[0.3em] font-light mb-6">MORAN PAZ</h3>
+            <h3 className="text-2xl font-headline tracking-[0.3em] font-light mb-2">MORAN PAZ</h3>
+            <span className="text-primary font-handwriting text-2xl block mb-6">BeinMe — להיות אני בתוכי</span>
             <p className="text-stone-400 font-light leading-relaxed max-w-sm mr-0 text-lg">
-              פסיכותרפיה הוליסטית וליווי רגשי חווייתי. מרחב בטוח לגילוי, ריפוי וחיבור אותנטי לעצמך בטבעון, עמק יזרעאל ואונליין.
+              פסיכותרפיה הוליסטית וליווי רגשי חווייתי המשלב גוף, נפש ורוח. מרחב בטוח לגילוי, ריפוי וחיבור לסמכות הפנימית בטבעון ובאונליין.
             </p>
           </div>
           
@@ -33,7 +33,6 @@ export function Footer() {
                 <Link href="/about" className="hover:text-primary transition-colors duration-500">אודות</Link>
                 <Link href="/practice" className="hover:text-primary transition-colors duration-500">התהליך הטיפולי</Link>
                 <Link href="/online-therapy" className="hover:text-primary transition-colors duration-500">טיפול אונליין</Link>
-                <Link href="/workshop" className="hover:text-primary transition-colors duration-500">קורס BeinMe©</Link>
                 <Link href="/tivon" className="hover:text-primary transition-colors duration-500">טבעון</Link>
              </nav>
           </div>
@@ -102,7 +101,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-[10px] uppercase tracking-[0.2em] text-stone-500 font-bold">
-          <p>© {year} MORAN PAZ — כל הזכויות שמורות</p>
+          <p>© {year} BEINME — מורן פז — כל הזכויות שמורות</p>
           
           <div className="flex items-center space-x-reverse space-x-8">
             <Link href="/privacy" className="hover:text-white transition-colors">פרטיות</Link>

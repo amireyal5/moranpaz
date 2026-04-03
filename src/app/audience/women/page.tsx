@@ -6,34 +6,67 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
-import { Sparkles } from 'lucide-react';
-import Link from 'next/link';
+import { Sparkles, Heart, Quote } from 'lucide-react';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function WomenPage() {
   const contentReveal = useReveal();
   const personalAppealReveal = useReveal();
+  const heroImg = PlaceHolderImages.find(img => img.id === 'hero-women');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20ליווי%20רגשי%20לנשים";
 
   return (
-    <main className="min-h-screen bg-background text-right">
+    <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
       
-      <section className="pt-56 pb-32 px-8 md:px-24">
+      {/* Hero Section */}
+      <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
+        <div className="absolute inset-0">
+          {heroImg && (
+            <Image 
+              src={heroImg.imageUrl} 
+              alt="Therapy for Women" 
+              fill 
+              className="object-cover opacity-60 brightness-[0.7]"
+              priority
+              data-ai-hint={heroImg.imageHint}
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
+        </div>
+        <div className="relative z-10 text-center">
+           <span className="boutique-label text-white/80 mb-8 block">Women & Adults</span>
+           <h1 className="text-7xl md:text-9xl font-handwriting text-white mb-8 font-bold">ליווי רגשי לנשים</h1>
+           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">לחזור אל הבית הפנימי שלך</p>
+        </div>
+      </section>
+
+      <section className="pt-32 pb-32 px-8 md:px-24">
         <div className="max-w-5xl mx-auto">
-          <SectionTitle subtitle="Audience" title="טיפול וליווי לנשים" />
+          <SectionTitle subtitle="Audience" title="טיפול וליווי לנשים ומבוגרים" />
           
           <div ref={contentReveal} className="reveal space-y-12">
             <h3 className="text-4xl md:text-6xl font-headline italic text-accent mb-12 leading-tight">
-              לחזור אל הבית הפנימי שלך
+              הקול שלך ראוי להישמע
             </h3>
             
-            <div className="boutique-para space-y-8">
+            <div className="boutique-para space-y-8 text-stone-600">
               <p>
-                נשים רבות חוות עומס רגשי ופיזי כבד, כשהן מתמרנות בין שלל תפקידים ומנסות "להחזיק הכל". בתוך המרוץ הזה, הקול הפנימי שלנו לפעמים נחלש או נעלם לגמרי.
+                נשים רבות חוות עומס רגשי ופיזי כבד, כשהן מתמרנות בין שלל תפקידים ומנסות להחזיק הכל. בתוך המרוץ הזה, הקול הפנימי שלנו לפעמים נחלש או נעלם לגמרי.
               </p>
               <p>
                 הטיפול והליווי לנשים בקליניקה הוא הזמנה לעצור. להקשיב למה שמבקש ביטוי בתוכך, לזהות את החלקים השונים בך – המבקרים, המפוחדים וגם העוצמתיים – ולחיות מתוך חיבור אותנטי וכנה לעצמך.
               </p>
+            </div>
+
+            <div className="relative pr-12 py-12 my-16">
+              <Quote className="absolute -top-10 -right-4 text-primary/5 w-48 h-48 rotate-180 pointer-events-none" />
+              <div className="border-r-[3px] border-primary/20 pr-10 py-1">
+                <p className="text-3xl md:text-5xl font-headline text-accent italic font-light leading-snug relative z-10">
+                  הרגשות הם המצפן שלנו ולכל אחת מאיתנו יש את מפת הדרכים הפנימית שלה לחייה.
+                </p>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border/20 border border-border/20 shadow-xl mt-16">
@@ -52,12 +85,6 @@ export default function WomenPage() {
                 </div>
               ))}
             </div>
-
-            <div className="text-center pt-24">
-              <Link href="/workshop" className="boutique-label text-primary border-b border-primary/30 pb-2 hover:border-primary transition-all text-2xl font-bold">
-                אולי קורס BeinMe<sup className="text-[0.5em] mr-1">©</sup> הקבוצתי יתאים לך?
-              </Link>
-            </div>
           </div>
         </div>
       </section>
@@ -65,7 +92,7 @@ export default function WomenPage() {
       {/* Women Personal Appeal */}
       <section ref={personalAppealReveal} className="py-24 bg-stone-50 reveal border-y border-stone-200/50">
         <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
-          <h3 className="text-6xl md:text-8xl font-handwriting text-accent leading-none">הקול שלך ראוי להישמע</h3>
+          <h3 className="text-6xl md:text-8xl font-handwriting text-accent leading-none">הגיע הזמן לפגוש את עצמך</h3>
           <p className="boutique-para text-2xl font-light leading-relaxed">
             אני כאן כדי לספק לך את המקום בו תוכלי להניח הכל ולחזור לעצמך. פני אליי לשיחת היכרות אישית ונתחיל את המסע שלך פנימה.
           </p>
@@ -79,13 +106,6 @@ export default function WomenPage() {
               תאום פגישת היכרות לנשים
             </a>
           </div>
-        </div>
-      </section>
-
-      <section id="contact" className="py-32 bg-white px-8">
-        <div className="max-w-4xl mx-auto">
-          <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
-          <ContactForm />
         </div>
       </section>
 

@@ -1,22 +1,22 @@
-
 import type { Metadata } from 'next';
 import './globals.css';
 import { FloatingWhatsApp } from '@/components/shared/FloatingWhatsApp';
 
 export const metadata: Metadata = {
   title: {
-    default: 'מורן פז | פסיכותרפיה הוליסטית וטיפול רגשי בטבעון ועמק יזרעאל',
-    template: '%s | מורן פז'
+    default: 'BeinMe - מורן פז | להיות אני בתוכי | פסיכותרפיה הוליסטית בטבעון',
+    template: '%s | BeinMe - מורן פז'
   },
-  description: 'מורן פז - פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים-חווייתיים. מומחית בטיפול בחרדות, סטרס וצמיחה אישית. קליניקה בטבעון וטיפול אונליין לישראלים בארץ ובעולם.',
+  description: 'מורן פז - פסיכותרפיסטית הוליסטית בגישת BeinMe. ליווי רגשי לנשים ונוער בטבעון ובאונליין. שילוב גוף, נפש ורוח לריפוי עמוק וחיבור לסמכות הפנימית.',
   keywords: [
     'פסיכותרפיה הוליסטית',
     'טיפול רגשי בטבעון',
+    'טיפול למבוגרים',
     'טיפול בחרדות',
     'מטפלת רגשית עמק יזרעאל',
     'טיפול אונליין בעברית',
-    'טיפול לישראלים בחו"ל',
-    'קורס BeinMe©',
+    'BeinMe',
+    'להיות אני בתוכי',
     'עבודת צללים',
     'פוקוסינג',
     'מיינדפולנס',
@@ -32,23 +32,12 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: 'מורן פז | פסיכותרפיה הוליסטית וטיפול רגשי',
+    title: 'BeinMe - מורן פז | להיות אני בתוכי',
     description: 'מרחב בטוח לצמיחה וריפוי רגשי בטבעון ובאונליין.',
     url: 'https://moranpaz.com',
-    siteName: 'מורן פז - פסיכותרפיה הוליסטית',
+    siteName: 'BeinMe - מורן פז',
     locale: 'he_IL',
     type: 'website',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
 };
 

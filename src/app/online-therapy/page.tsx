@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -6,7 +5,6 @@ import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
-import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Globe, ShieldCheck, Clock, Infinity } from 'lucide-react';
@@ -22,23 +20,23 @@ export default function OnlineTherapyPage() {
   const benefits = [
     {
       title: "לישראלים בחו\"ל",
-      desc: "טיפול רגשי עמוק ומקצועי בשפת האם שלך, המגשר על פערי תרבות ומרחק פיזי עבור רילוקיישניסטים.",
-      icon: <Globe size={40} strokeWidth={0.3} />
+      desc: "טיפול רגשי עמוק בשפת האם שלך, המגשר על פערי תרבות ומרחק עבור רילוקיישניסטים.",
+      icon: <Globe size={40} strokeWidth={0.2} />
+    },
+    {
+      title: "60 דקות טיפול",
+      desc: "מפגש מלא ומעמיק של שעה שלמה המוקדשת כולה לך ולמסע שלך פנימה.",
+      icon: <Clock size={40} strokeWidth={0.2} />
     },
     {
       title: "מרחב בטוח מהבית",
-      desc: "היכולת לעבור תהליך רגשי עמוק מהנוחות והביטחון של הבית שלך, בפינה השקטה שלך.",
-      icon: <ShieldCheck size={40} strokeWidth={0.3} />
-    },
-    {
-      title: "גמישות גלובלית",
-      desc: "שילוב הטיפול בלו\"ז שלך, ללא תלות באזורי זמן או צורך בנסיעות מעייפות.",
-      icon: <Clock size={40} strokeWidth={0.3} />
+      desc: "היכולת לעבור תהליך רגשי עמוק מהנוחות והביטחון של הפינה השקטה שלך.",
+      icon: <ShieldCheck size={40} strokeWidth={0.2} />
     },
     {
       title: "פסיכותרפיה הוליסטית",
-      desc: "הקשר הרגשי והכלים החווייתיים עוברים דרך המסך בצורה מלאה, אינטימית ומקצועית.",
-      icon: <Infinity size={40} strokeWidth={0.3} />
+      desc: "הקשר הרגשי והכלים החווייתיים עוברים דרך המסך בצורה מלאה ואינטימית.",
+      icon: <Infinity size={40} strokeWidth={0.2} />
     }
   ];
 
@@ -75,12 +73,12 @@ export default function OnlineTherapyPage() {
             <h2 className="text-5xl md:text-7xl font-headline text-accent mb-12 font-bold leading-tight">
               טיפול בעברית לישראלים בחו&quot;ל
             </h2>
-            <div className="boutique-para mb-16 space-y-10 leading-relaxed text-xl">
+            <div className="boutique-para mb-16 space-y-10 leading-relaxed text-xl text-stone-600">
               <p>
                 פסיכותרפיה הוליסטית אונליין מאפשרת לנו להיפגש בתוך מרחב דיגיטלי בטוח ומכיל, המגשר על פערי מרחק ושפה.
               </p>
               <p>
-                אני מלווה ישראלים ורילוקיישניסטים ברחבי העולם בתהליכי עומק רגשיים, תוך הבנה עמוקה של אתגרי הזהות והבדידות במדינות זרות. המרחק הפיזי אינו מונע מאיתנו ליצור קשר עמוק ומשמעותי.
+                אני מלווה ישראלים ורילוקיישניסטים ברחבי העולם בתהליכי עומק רגשיים של <strong>60 דקות</strong>, תוך הבנה עמוקה של אתגרי הזהות והבדידות במדינות זרות.
               </p>
             </div>
             <a 
@@ -130,16 +128,6 @@ export default function OnlineTherapyPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="contact" className="py-32 bg-white px-8">
-        <div className="max-w-4xl mx-auto">
-          <SectionTitle subtitle="Connect Worldwide" title="מתחילים את המסע - מכל מקום" className="flex flex-col items-center" />
-          <p className="text-center boutique-para mb-20 leading-relaxed">
-            אני מזמינה אותך ליצור קשר לשיחת ייעוץ ראשונית ללא עלות על טיפול רגשי אונליין.
-          </p>
-          <ContactForm />
         </div>
       </section>
 
