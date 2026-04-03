@@ -22,13 +22,17 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    setMobileMenuOpen(false);
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [pathname, mobileMenuOpen]);
+  }, [mobileMenuOpen]);
+
+  // Close menu on navigation
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   const navItems = [
     { label: 'בית', href: '/' },
@@ -102,27 +106,28 @@ export function Navbar() {
         </div>
 
         {/* Mobile Menu Trigger */}
-        {!mobileMenuOpen && (
-          <button 
-            onClick={() => setMobileMenuOpen(true)} 
-            className="lg:hidden p-2 z-[230] relative"
-            aria-label="Menu"
-          >
-            <Menu 
-              strokeWidth={1} 
-              className={cn(
-                "size-10 transition-colors duration-700",
-                isScrolled ? "text-foreground" : "text-white drop-shadow-md"
-              )} 
-            />
-          </button>
-        )}
+        <button 
+          onClick={() => setMobileMenuOpen(true)} 
+          className={cn(
+            "lg:hidden p-2 z-[230] relative",
+            mobileMenuOpen && "hidden"
+          )}
+          aria-label="Menu"
+        >
+          <Menu 
+            strokeWidth={1} 
+            className={cn(
+              "size-10 transition-colors duration-700",
+              isScrolled ? "text-foreground" : "text-white drop-shadow-md"
+            )} 
+          />
+        </button>
       </nav>
 
       {/* Mobile Menu Overlay */}
       <div className={cn(
         "fixed inset-0 z-[300] bg-accent/98 backdrop-blur-2xl text-white transition-all duration-700 ease-in-out flex flex-col items-center justify-center h-screen w-full",
-        mobileMenuOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-full pointer-events-none invisible'
+        mobileMenuOpen ? 'opacity-100 translate-y-0 visible pointer-events-auto' : 'opacity-0 -translate-y-full pointer-events-none invisible'
       )}>
         <button 
           onClick={() => setMobileMenuOpen(false)}
@@ -136,7 +141,6 @@ export function Navbar() {
             <NextLink 
               key={item.href} 
               href={item.href} 
-              onClick={() => setMobileMenuOpen(false)}
               className={cn(
                 "text-3xl font-headline font-light tracking-[0.15em] transition-all duration-500 hover:text-primary",
                 pathname === item.href ? "text-primary font-medium" : "text-white/90"
