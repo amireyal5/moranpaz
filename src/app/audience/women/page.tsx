@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -7,7 +6,7 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
-import { ArrowLeft, Sparkles, Heart } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export default function WomenPage() {
@@ -75,11 +74,9 @@ export default function WomenPage() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-10 px-16 py-6 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+              className="inline-flex items-center px-16 py-6 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100 min-w-[280px] justify-center"
             >
-              <Heart size={24} className="text-primary/60" />
               תאום פגישת היכרות לנשים
-              <ArrowLeft size={16} />
             </a>
           </div>
         </div>

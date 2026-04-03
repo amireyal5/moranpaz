@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -9,7 +8,7 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Orbit, Waves, Infinity, Compass, ArrowLeft, Quote, Heart } from 'lucide-react';
+import { Orbit, Waves, Infinity, Compass, Quote } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
@@ -115,10 +114,9 @@ export default function AboutPage() {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-8 px-16 py-4 bg-primary text-white boutique-label hover:bg-accent transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+                    className="inline-flex items-center px-16 py-4 bg-primary text-white boutique-label hover:bg-accent transition-all duration-700 shadow-2xl rounded-sm !opacity-100 min-w-[220px] justify-center"
                   >
                     תאום שיחת היכרות
-                    <ArrowLeft size={16} />
                   </a>
                </div>
             </div>
@@ -138,11 +136,9 @@ export default function AboutPage() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-10 px-20 py-5 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+                className="inline-flex items-center px-20 py-5 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100 min-w-[280px] justify-center"
               >
-                <Heart size={20} className="text-primary/60" />
                 שלחי לי הודעה אישית
-                <ArrowLeft size={16} />
               </a>
            </div>
         </div>

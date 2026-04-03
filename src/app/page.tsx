@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -12,7 +11,7 @@ import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { MessageCircle, ArrowLeft, Eye, Orbit, Waves, Infinity, Compass, Quote, Sparkles } from 'lucide-react';
+import { Orbit, Waves, Infinity, Compass, Quote } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function Home() {
@@ -86,7 +85,7 @@ export default function Home() {
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal flex flex-col items-center w-full max-w-7xl mx-auto px-4">
-           <span className="boutique-label text-white/80 mb-12 block tracking-[0.4em]">Moran Paz • Holistic Care</span>
+           <span className="boutique-label text-white/80 mb-12 block">Moran Paz • Holistic Care</span>
            
            <h1 className="text-7xl sm:text-9xl md:text-[140px] font-bold leading-none font-handwriting text-white mb-12">
              להתחבר • לגלות • להשתנות
@@ -101,14 +100,13 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="px-16 py-4 bg-primary text-white boutique-label !text-[12px] hover:bg-white hover:text-accent transition-all duration-700 shadow-2xl rounded-sm flex items-center gap-6 group min-w-[280px] justify-center whitespace-nowrap !opacity-100"
+               className="px-16 py-4 bg-primary text-white boutique-label !text-[12px] hover:bg-white hover:text-accent transition-all duration-700 shadow-2xl rounded-sm flex items-center justify-center whitespace-nowrap !opacity-100 min-w-[240px]"
              >
                 תיאום שיחת היכרות
-                <ArrowLeft size={16} />
              </a>
              <Link 
                href="/practice"
-               className="px-12 py-4 bg-transparent border border-white/30 text-white hover:bg-white/10 transition-all duration-700 boutique-label !text-[10px] min-w-[220px] text-center"
+               className="px-12 py-4 bg-transparent border border-white/30 text-white hover:bg-white/10 transition-all duration-700 boutique-label !text-[10px] min-w-[200px] text-center"
              >
                 התהליך הטיפולי
              </Link>
@@ -163,7 +161,6 @@ export default function Home() {
               <div className="pt-6">
                 <Link href="/about" className="inline-flex items-center gap-4 boutique-label text-primary border-b border-primary/20 hover:border-primary transition-all pb-2 font-bold text-sm">
                   להכיר אותי לעומק
-                  <ArrowLeft size={16} />
                 </Link>
               </div>
             </div>
@@ -187,11 +184,9 @@ export default function Home() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-10 px-16 py-5 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100"
+              className="inline-flex items-center px-16 py-5 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100 min-w-[280px] justify-center"
             >
-              <Sparkles size={24} className="text-primary/60" />
-              תאום שיחת הכרות ללא עלות
-              <ArrowLeft size={16} />
+              תאום שיחת היכרות אישית
             </a>
           </div>
         </div>
@@ -233,7 +228,7 @@ export default function Home() {
                 <h3 className="text-6xl font-headline mb-8 group-hover:translate-y-[-5px] transition-transform duration-700">{item.title}</h3>
                 <p className="text-xl font-light opacity-80 max-w-[280px] leading-relaxed">{item.desc}</p>
                 <div className="mt-16 boutique-label !opacity-40 group-hover:!opacity-100 transition-all flex items-center gap-4 text-sm">
-                  למידע נוסף <ArrowLeft size={16} />
+                  למידע נוסף
                 </div>
               </Link>
             ))}
@@ -251,7 +246,6 @@ export default function Home() {
             </p>
             <Link href="/tivon" className="inline-flex items-center gap-6 boutique-label text-primary !opacity-100 border-b border-primary/20 hover:border-primary transition-all pb-2 group text-xl font-bold">
               לראות איפה הכל קורה
-              <Eye size={24} strokeWidth={1} />
             </Link>
           </div>
           <div className="order-1 lg:order-2">
@@ -284,9 +278,8 @@ export default function Home() {
               href={whatsappLink} 
               target="_blank"
               rel="noopener noreferrer"
-              className="px-16 py-5 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100 flex items-center gap-8"
+              className="px-16 py-5 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100 flex items-center justify-center min-w-[240px]"
             >
-              <MessageCircle size={24} />
               שלחי הודעה בוואטסאפ
             </a>
           </div>

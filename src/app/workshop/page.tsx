@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -7,9 +6,8 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
-import { ContactForm } from '@/components/shared/ContactForm';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowLeft, MessageCircle, Quote, Sparkles } from 'lucide-react';
+import { Quote } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function WorkshopPage() {
@@ -77,10 +75,9 @@ export default function WorkshopPage() {
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-16 py-4 bg-primary text-white boutique-label !text-[13px] hover:bg-accent transition-all rounded-sm flex items-center gap-8 group w-fit shadow-2xl !opacity-100"
+                  className="px-16 py-4 bg-primary text-white boutique-label !text-[13px] hover:bg-accent transition-all rounded-sm flex items-center justify-center w-fit shadow-2xl !opacity-100 min-w-[220px]"
                 >
                   הרשמה למחזור הקרוב
-                  <ArrowLeft size={16} />
                 </a>
               </div>
             </div>
@@ -113,11 +110,9 @@ export default function WorkshopPage() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-10 px-16 py-6 bg-accent text-white boutique-label !text-[14px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+                className="inline-flex items-center px-16 py-6 bg-accent text-white boutique-label !text-[14px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100 min-w-[280px] justify-center"
               >
-                <Sparkles size={24} className="text-primary/60" />
                 תאום הרשמה ושיחת התאמה
-                <ArrowLeft size={18} />
               </a>
             </div>
          </div>
@@ -150,9 +145,8 @@ export default function WorkshopPage() {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-16 py-5 bg-primary text-white boutique-label !text-[14px] hover:bg-white hover:text-accent transition-all rounded-sm inline-flex items-center gap-10 shadow-2xl !opacity-100"
+            className="px-16 py-5 bg-primary text-white boutique-label !text-[14px] hover:bg-white hover:text-accent transition-all rounded-sm inline-flex items-center justify-center shadow-2xl !opacity-100 min-w-[240px]"
           >
-            <MessageCircle size={28} />
             לפרטים והרשמה אישית
           </a>
         </div>

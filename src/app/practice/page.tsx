@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -6,9 +5,8 @@ import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
-import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
-import { CheckCircle2, ArrowLeft, Orbit, Waves, Infinity, Compass, Sparkles } from 'lucide-react';
+import { Orbit, Waves, Infinity, Compass } from 'lucide-react';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
@@ -82,10 +80,9 @@ export default function PracticePage() {
                 href={whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-6 px-16 py-4 bg-primary text-white boutique-label !opacity-100 hover:bg-accent transition-all rounded-sm shadow-2xl"
+                className="inline-flex items-center px-16 py-4 bg-primary text-white boutique-label !opacity-100 hover:bg-accent transition-all rounded-sm shadow-2xl min-w-[220px] justify-center"
               >
                 תאום שיחת היכרות
-                <ArrowLeft size={16} />
               </a>
             </div>
           </div>
@@ -128,11 +125,9 @@ export default function PracticePage() {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-10 px-16 py-5 bg-primary text-white boutique-label !text-[13px] hover:bg-white hover:text-accent transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+                    className="inline-flex items-center px-16 py-5 bg-primary text-white boutique-label !text-[13px] hover:bg-white hover:text-accent transition-all duration-700 shadow-2xl rounded-sm !opacity-100 min-w-[280px] justify-center"
                   >
-                    <Sparkles size={24} />
                     בואי נתחיל את המסע שלך
-                    <ArrowLeft size={16} />
                   </a>
                 </div>
              </div>
