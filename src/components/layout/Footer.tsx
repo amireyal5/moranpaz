@@ -85,19 +85,31 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-[11px] uppercase tracking-[0.3em] text-white/60 font-bold">
-          <p>© {year} BEINME — מורן פז — כל הזכויות שמורות</p>
+        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center space-y-10 md:space-y-0 text-[11px] uppercase tracking-[0.3em] text-white/60 font-bold text-center md:text-right">
+          <p className="order-1">© {year} BEINME — מורן פז — כל הזכויות שמורות</p>
           
-          <div className="flex items-center space-x-reverse space-x-12">
-            <Link href="/privacy" className="hover:text-white transition-colors">פרטיות</Link>
-            <Link href="/terms" className="hover:text-white transition-colors">תנאים</Link>
-            <Link href="/accessibility" className="hover:text-white transition-colors">נגישות</Link>
-            <Link href="/admin/login" className="hover:text-white transition-colors flex items-center gap-2">
-              <Lock size={10} /> ניהול
+          <div className="order-2 flex flex-col items-center gap-6">
+            {/* Mobile-only prominent management link, placed above legal links */}
+            <Link 
+              href="/admin/login" 
+              className="md:hidden flex items-center gap-2 px-6 py-2 bg-white/5 border border-white/10 rounded-sm hover:bg-white/10 transition-all text-white/80"
+            >
+              <Lock size={12} />
+              <span>כניסת ניהול</span>
             </Link>
+
+            <div className="flex items-center space-x-reverse space-x-8 md:space-x-12">
+              <Link href="/privacy" className="hover:text-white transition-colors">פרטיות</Link>
+              <Link href="/terms" className="hover:text-white transition-colors">תנאים</Link>
+              <Link href="/accessibility" className="hover:text-white transition-colors">נגישות</Link>
+              {/* Desktop-only management link */}
+              <Link href="/admin/login" className="hidden md:flex hover:text-white transition-colors items-center gap-2">
+                <Lock size={10} /> ניהול
+              </Link>
+            </div>
           </div>
 
-          <div className="flex items-center space-x-reverse space-x-6">
+          <div className="order-3 flex items-center space-x-reverse space-x-6">
             <span className="opacity-80 hidden sm:block">BOUTIQUE HOLISTIC CARE</span>
             <a href={wazeLink} target="_blank" rel="noopener noreferrer" className="text-white hover:opacity-70 transition-opacity flex items-center gap-2">
               WAZE
