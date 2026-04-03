@@ -1,10 +1,10 @@
-
 "use client";
 
 import React from 'react';
 import { SectionTitle } from './SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
 import { Star } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface Testimonial {
   text: string;
@@ -41,27 +41,30 @@ export function TestimonialsSection({ customTestimonials }: TestimonialsSectionP
   if (displayItems.length === 0) return null;
 
   return (
-    <section className="py-32 md:py-48 bg-stone-50 px-8">
-      <div ref={revealRef} className="max-w-6xl mx-auto reveal">
-        <div className="text-center mb-20">
+    <section className="py-32 md:py-64 bg-stone-50 px-8 border-y border-stone-100">
+      <div ref={revealRef} className="max-w-7xl mx-auto reveal">
+        <div className="text-center mb-24 md:mb-32">
           <SectionTitle subtitle="Success Stories" title="לקוחות ממליצים" className="flex flex-col items-center" />
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20 mt-20 md:mt-32">
           {displayItems.map((t, i) => (
-            <div key={i} className="bg-white p-12 shadow-sm border border-border/10 flex flex-col justify-between h-full hover:shadow-xl transition-all duration-700 text-center">
+            <div key={i} className={cn(
+              "bg-white p-12 lg:p-16 shadow-sm border border-border/5 flex flex-col justify-between h-full hover:shadow-2xl transition-all duration-1000 text-center rounded-sm",
+              `stagger-${i+1}`
+            )}>
               <div>
-                <div className="flex justify-center mb-8 space-x-reverse space-x-1">
+                <div className="flex justify-center mb-10 space-x-reverse space-x-1.5 opacity-60">
                   {[...Array(5)].map((_, starI) => (
                     <Star key={starI} size={16} className="fill-primary text-primary" />
                   ))}
                 </div>
-                <p className="italic text-stone-600 font-light text-xl leading-relaxed mb-8">
+                <p className="italic text-stone-600 font-light text-xl lg:text-2xl leading-relaxed mb-10">
                   "{t.text}"
                 </p>
               </div>
-              <div className="border-t border-stone-100 pt-6">
-                <span className="block boutique-label text-primary text-sm tracking-widest">— {t.author}, {t.location}</span>
+              <div className="border-t border-stone-50 pt-8">
+                <span className="block boutique-label text-primary text-xs lg:text-sm tracking-[0.3em] font-bold">— {t.author}, {t.location}</span>
               </div>
             </div>
           ))}

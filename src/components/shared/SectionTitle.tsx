@@ -15,21 +15,21 @@ export function SectionTitle({ subtitle, title, isLight = false, className }: Se
   const revealRef = useReveal();
 
   return (
-    <div ref={revealRef} className={cn("mb-8 sm:mb-12 text-right reveal transition-all duration-1000", className)}>
+    <div ref={revealRef} className={cn("mb-12 sm:mb-16 text-right reveal transition-all duration-1000", className)}>
       <span className={cn(
-        "boutique-label block mb-3 sm:mb-4",
+        "boutique-label block mb-4 sm:mb-6 stagger-1",
         isLight ? 'text-primary/50' : 'text-primary/70'
       )}>
         {subtitle}
       </span>
       <h2 className={cn(
-        "boutique-title !text-3xl sm:!text-5xl lg:!text-6xl",
+        "boutique-title !text-3xl sm:!text-5xl lg:!text-7xl stagger-2",
         isLight ? 'text-white' : 'text-foreground'
       )}>
         {title}
       </h2>
       <div className={cn(
-        "w-10 sm:w-12 h-[1px] mt-4 sm:mt-6 mr-0",
+        "w-12 sm:w-20 h-[1px] mt-6 sm:mt-10 mr-0 stagger-3",
         isLight ? 'bg-primary/40' : 'bg-primary/30'
       )}></div>
     </div>

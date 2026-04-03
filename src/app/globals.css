@@ -52,11 +52,12 @@
   }
 }
 
+/* Luxury Reveal Animations */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
-              transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(30px);
+  transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1), 
+              transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 
@@ -65,23 +66,25 @@
   transform: translateY(0);
 }
 
+/* Stagger Delays for Grid Items */
 .stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-.stagger-4 { transition-delay: 0.4s; }
+.stagger-2 { transition-delay: 0.25s; }
+.stagger-3 { transition-delay: 0.4s; }
+.stagger-4 { transition-delay: 0.55s; }
+.stagger-5 { transition-delay: 0.7s; }
 
 .mashrabiya-divider {
   width: 100%;
   height: 40px;
-  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(circle, currentColor 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
   opacity: 0.15;
   @apply text-primary;
 }
 
 .boutique-label {
   font-size: 10px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   @apply sm:text-xs uppercase font-bold;
 }
 
@@ -107,23 +110,23 @@
 }
 
 .image-zoom-container img {
-  transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .image-zoom-container:hover img {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .boutique-card {
-  @apply bg-white/80 backdrop-blur-sm text-foreground p-6 sm:p-10 flex flex-col items-center text-center justify-center min-h-[250px] sm:min-h-[320px] relative overflow-hidden transition-all duration-700 border border-primary/10 shadow-sm rounded-sm;
+  @apply bg-white/80 backdrop-blur-sm text-foreground p-8 sm:p-12 flex flex-col items-center text-center justify-center min-h-[300px] relative overflow-hidden transition-all duration-1000 border border-primary/5 shadow-sm rounded-sm;
 }
 
 .boutique-card:hover {
-  @apply bg-stone-50 shadow-xl border-primary/20 -translate-y-1;
+  @apply bg-white shadow-2xl border-primary/20 -translate-y-2;
 }
 
 .art-icon {
-  @apply absolute top-6 right-6 opacity-20 text-primary;
+  @apply absolute top-8 right-8 opacity-10 text-primary transition-all duration-1000 group-hover:opacity-30 group-hover:scale-110;
 }
 
 /* Rich Text Content Container - Strictly enforcing fonts */
@@ -134,13 +137,13 @@
 }
 
 .blog-content-container p {
-  @apply mb-8 md:mb-10 font-headline font-light;
+  @apply mb-10 md:mb-12 font-headline font-light;
 }
 
 .blog-content-container h1, 
 .blog-content-container h2, 
 .blog-content-container h3 {
-  @apply text-accent font-bold mt-12 md:mt-16 mb-6 md:mb-8 leading-tight text-center font-headline;
+  @apply text-accent font-bold mt-16 md:mt-24 mb-8 md:mb-10 leading-tight text-center font-headline;
 }
 
 .blog-content-container h1 { @apply text-3xl md:text-4xl lg:text-5xl; }
@@ -149,7 +152,7 @@
 
 .blog-content-container ul, 
 .blog-content-container ol {
-  @apply mb-10 md:mb-12 pr-6 md:pr-8 space-y-3 md:space-y-4 font-headline;
+  @apply mb-12 md:mb-16 pr-8 md:pr-10 space-y-4 md:space-y-6 font-headline;
 }
 
 .blog-content-container ul {
@@ -165,7 +168,7 @@
 }
 
 .blog-content-container blockquote {
-  @apply border-r-4 border-primary/20 pr-6 md:pr-8 my-10 md:my-12 italic text-2xl md:text-4xl lg:text-5xl text-stone-500 text-center font-handwriting;
+  @apply border-r-4 border-primary/20 pr-8 md:pr-12 my-12 md:my-20 italic text-2xl md:text-4xl lg:text-5xl text-stone-500 text-center font-handwriting;
   line-height: 1.4;
 }
 
@@ -173,7 +176,7 @@
 .prose-editor .ql-container {
   font-family: 'Assistant', sans-serif !important;
   font-size: 1.125rem !important;
-  min-height: 400px;
+  min-height: 450px;
   border-color: #f5f5f4 !important;
 }
 
