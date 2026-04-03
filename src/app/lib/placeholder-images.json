@@ -32,6 +32,12 @@
       "imageHint": "bookshelf detail"
     },
     {
+      "id": "hero-practice-mobile",
+      "description": "Moran Paz Practice page Hero Mobile",
+      "imageUrl": "https://res.cloudinary.com/dcdadfrpi/image/upload/v1775213394/WhatsApp_Image_2026-04-03_at_13.24.35_2_oqmxij.jpg",
+      "imageHint": "moran inspiration mobile"
+    },
+    {
       "id": "hero-blog-desktop",
       "description": "Serene tea corner with a green plant and soft light",
       "imageUrl": "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=1920&auto=format&fit=crop",
