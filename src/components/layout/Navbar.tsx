@@ -6,7 +6,6 @@ import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { WhatsAppIcon } from '@/components/shared/WhatsAppIcon';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -24,7 +23,12 @@ export function Navbar() {
 
   useEffect(() => {
     setMobileMenuOpen(false);
-  }, [pathname]);
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [pathname, mobileMenuOpen]);
 
   const navItems = [
     { label: 'בית', href: '/' },
@@ -117,40 +121,35 @@ export function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div className={cn(
-        "fixed inset-0 z-[300] bg-accent text-white transition-all duration-700 ease-in-out flex flex-col items-center justify-center h-screen w-full",
+        "fixed inset-0 z-[300] bg-accent/98 backdrop-blur-2xl text-white transition-all duration-700 ease-in-out flex flex-col items-center justify-center h-screen w-full",
         mobileMenuOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-full pointer-events-none invisible'
       )}>
         <button 
           onClick={() => setMobileMenuOpen(false)}
-          className="absolute top-12 left-12 p-2"
+          className="absolute top-8 left-8 p-4"
         >
-          <X strokeWidth={1} className="size-10 text-white/70 hover:text-white" />
+          <X strokeWidth={1} className="size-10 text-white/70 hover:text-white transition-colors" />
         </button>
 
-        <div className="flex flex-col items-center space-y-12 text-center w-full max-w-sm">
+        <div className="flex flex-col items-center space-y-8 text-center w-full px-6">
           {navItems.map((item, i) => (
             <NextLink 
               key={item.href} 
               href={item.href} 
               onClick={() => setMobileMenuOpen(false)}
-              className="text-5xl font-headline font-light tracking-[0.2em] hover:text-primary transition-all duration-700"
-              style={{ transitionDelay: `${i * 100}ms` }}
+              className={cn(
+                "text-3xl font-headline font-light tracking-[0.15em] transition-all duration-500 hover:text-primary",
+                pathname === item.href ? "text-primary font-medium" : "text-white/90"
+              )}
+              style={{ transitionDelay: `${i * 70}ms` }}
             >
               {item.label}
             </NextLink>
           ))}
-          
-          <div className="pt-16 w-full px-12">
-            <a 
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-full items-center justify-center gap-4 bg-primary text-white py-6 rounded-sm boutique-label text-base tracking-[0.3em] font-bold shadow-2xl"
-            >
-              <WhatsAppIcon size={24} className="text-slate-400" />
-              תיאום פגישה
-            </a>
-          </div>
+        </div>
+        
+        <div className="absolute bottom-12 text-center">
+          <span className="boutique-label text-white/40 tracking-[0.4em] text-[10px]">MORAN PAZ • BEINME</span>
         </div>
       </div>
     </>

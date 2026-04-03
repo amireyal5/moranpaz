@@ -9,6 +9,7 @@ import { WhatsAppIcon } from '@/components/shared/WhatsAppIcon';
 export function Footer() {
   const [year, setYear] = useState(new Date().getFullYear());
   const wazeLink = "https://waze.com/ul?ll=32.723342373686044,35.14095372397462&navigate=yes";
+  const facebookLink = "https://www.facebook.com/share/18MjZEfzgv/?mibextid=wwXIfr";
 
   useEffect(() => {
     setYear(new Date().getFullYear());
@@ -25,7 +26,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-5">
             <h3 className="text-3xl font-headline tracking-[0.4em] font-light mb-4 text-white">MORAN PAZ</h3>
-            <span className="text-white font-handwriting text-5xl block mb-8 opacity-100">BeinMe — להיות אני בתוכי</span>
+            <span className="text-white font-handwriting text-6xl block mb-8">BeinMe — להיות אני בתוכי</span>
             <p className="text-white/80 font-light leading-relaxed max-w-md mr-0 text-xl">
               פסיכותרפיה הוליסטית וליווי רגשי המשלב גוף, נפש ורוח. מרחב בטוח לגילוי, ריפוי וחיבור לסמכות הפנימית בטבעון ובאונליין.
             </p>
@@ -33,7 +34,7 @@ export function Footer() {
           
           {/* Navigation Section */}
           <div className="lg:col-span-2">
-             <h4 className="boutique-label !text-white border-b border-white/20 pb-2 mb-10 inline-block opacity-100">ניווט מהיר</h4>
+             <h4 className="boutique-label text-white border-b border-white/20 pb-2 mb-10 inline-block">ניווט מהיר</h4>
              <nav className="flex flex-col space-y-4 text-lg font-light">
                 <Link href="/" className="text-white/90 hover:text-white transition-colors duration-500">דף הבית</Link>
                 <Link href="/about" className="text-white/90 hover:text-white transition-colors duration-500">אודות</Link>
@@ -45,10 +46,10 @@ export function Footer() {
 
           {/* Social Section */}
           <div className="lg:col-span-2">
-             <h4 className="boutique-label !text-white border-b border-white/20 pb-2 mb-10 inline-block opacity-100">רשתות חברתיות</h4>
+             <h4 className="boutique-label text-white border-b border-white/20 pb-2 mb-10 inline-block">רשתות חברתיות</h4>
              <nav className="flex flex-col space-y-6">
                 <a 
-                  href="https://www.facebook.com/share/18MjZEfzgv/?mibextid=wwXIfr" 
+                  href={facebookLink} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 text-xl font-light text-white/90 hover:text-white transition-colors duration-500"
@@ -70,7 +71,7 @@ export function Footer() {
 
           {/* Contact Section */}
           <div className="lg:col-span-3">
-             <h4 className="boutique-label !text-white border-b border-white/20 pb-2 mb-10 inline-block opacity-100">יצירת קשר</h4>
+             <h4 className="boutique-label text-white border-b border-white/20 pb-2 mb-10 inline-block">יצירת קשר</h4>
              <div className="space-y-6">
                 <a href="mailto:moraniva5@gmail.com" className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light text-white/90 hover:text-white transition-colors duration-500">
                   <Mail size={18} className="opacity-80" />
@@ -116,7 +117,7 @@ export function Footer() {
                 rel="noopener noreferrer" 
                 className="text-white hover:opacity-70 transition-opacity flex items-center gap-2"
               >
-                <WhatsAppIcon size={18} className="text-slate-400" variant="outline" /> WHATSAPP
+                <WhatsAppIcon size={18} variant="outline" className="text-slate-400" /> WHATSAPP
               </a>
               <a 
                 href={wazeLink} 
