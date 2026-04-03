@@ -50,7 +50,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto">
           <div ref={introReveal} className="reveal text-center mb-24">
             <span className="boutique-label block mb-8 text-primary">About Moran Paz</span>
-            <h1 className="text-7xl md:text-9xl font-handwriting font-bold text-foreground leading-none mb-10">
+            <h1 className="text-7xl md:text-[140px] font-handwriting font-bold text-foreground leading-none mb-10">
               נעים מאוד, מורן פז
             </h1>
             <div className="w-24 h-[1px] bg-primary/30 mx-auto"></div>
@@ -58,7 +58,7 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-center">
             <div className="lg:col-span-5 order-2 lg:order-1">
-               <div className="image-zoom-container aspect-[3/4] shadow-2xl rounded-sm overflow-hidden">
+               <div className="image-zoom-container aspect-[3/4] shadow-2xl rounded-sm overflow-hidden border-8 border-white">
                   {portraitImg && (
                     <Image 
                       src={portraitImg.imageUrl} 
@@ -71,11 +71,11 @@ export default function AboutPage() {
                </div>
             </div>
 
-            <div className="lg:col-span-7 order-1 lg:order-2 space-y-10">
-               <div className="relative pr-12 py-4">
-                  <Quote className="absolute -top-10 -right-4 text-primary/5 w-40 h-40 rotate-180 pointer-events-none" />
+            <div className="lg:col-span-7 order-1 lg:order-2 space-y-12">
+               <div className="relative pr-12 py-2">
+                  <Quote className="absolute -top-6 -right-2 text-primary/5 w-32 h-32 rotate-180 pointer-events-none" />
                   <div className="border-r-[3px] border-primary/20 pr-10 py-1">
-                    <p className="text-3xl md:text-4xl font-headline text-accent italic font-light leading-relaxed relative z-10">
+                    <p className="text-3xl md:text-5xl font-headline text-accent italic font-light leading-snug relative z-10">
                       אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה.
                     </p>
                   </div>
@@ -90,7 +90,7 @@ export default function AboutPage() {
                     לכל אדם יש את הקצב והמסע שלו ואני כאן ללוות מתוך כבוד ואמונה באדם ובדרך.
                   </p>
                   <p className="font-medium text-accent">
-                    מה זה נותן? פחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, קבלת החלטות בהירה ויעילה יותר, ביטוי אותנטי ותחושת רווחה גבוהה יותר.
+                    התהליך מביא לפחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, קבלת החלטות בהירה ויעילה יותר, וביטוי אותנטי.
                   </p>
                </div>
                
@@ -99,10 +99,10 @@ export default function AboutPage() {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-6 px-12 py-3 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !opacity-100"
+                    className="inline-flex items-center gap-8 px-16 py-4 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !opacity-100"
                   >
                     תאום שיחת היכרות
-                    <ArrowLeft size={18} />
+                    <ArrowLeft size={16} />
                   </a>
                </div>
             </div>
@@ -114,10 +114,10 @@ export default function AboutPage() {
       <section ref={uniquenessReveal} className="py-32 md:py-48 px-8 md:px-24 bg-stone-50 reveal">
         <div className="max-w-6xl mx-auto">
           <SectionTitle subtitle="My Philosophy" title="מה מייחד את הגישה שלי?" className="flex flex-col items-center text-center" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 mt-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-20 mt-24">
             {uniquenessPoints.map((point, i) => (
-              <div key={i} className={cn("flex items-start space-x-reverse space-x-8 text-right group", `stagger-${i+1}`)}>
-                <div className="mt-2 p-4 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all duration-700 animate-art-float">
+              <div key={i} className={cn("flex flex-col sm:flex-row items-center sm:items-start gap-8 text-center sm:text-right group", `stagger-${i+1}`)}>
+                <div className="flex-shrink-0 p-5 bg-white rounded-full shadow-sm group-hover:shadow-md transition-all duration-700 animate-art-float">
                   {point.icon}
                 </div>
                 <div className="space-y-4">

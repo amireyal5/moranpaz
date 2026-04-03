@@ -27,20 +27,20 @@ export default function WorkshopPage() {
           <div ref={introReveal} className="reveal grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-7">
               <span className="boutique-label text-primary mb-6 block uppercase">
-                BeinMe<sup className="text-[0.5em] ml-0.5 opacity-60">©</sup> קורס
+                BeinMe<sup className="text-[0.45em] ml-0.5 opacity-60">©</sup> קורס
               </span>
-              <h1 className="text-6xl md:text-9xl font-handwriting text-foreground leading-none mb-10">
+              <h1 className="text-7xl md:text-[140px] font-handwriting text-foreground leading-none mb-10">
                 להיות אני בתוכי
               </h1>
               
-              <div className="space-y-8 boutique-para text-stone-600">
+              <div className="space-y-12 boutique-para text-stone-600">
                 <p>
-                  קורס BeinMe<sup className="text-[0.6em] opacity-60">©</sup> הוא מרחב קבוצתי שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו ולחוות אותו בכנות.
+                  קורס BeinMe<sup className="text-[0.55em] opacity-60">©</sup> הוא מרחב קבוצתי שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו ולחוות אותו בכנות.
                 </p>
-                <div className="relative pr-12 py-4">
-                  <Quote className="absolute -top-10 -right-4 text-primary/5 w-40 h-40 rotate-180 pointer-events-none" />
+                <div className="relative pr-12 py-2">
+                  <Quote className="absolute -top-6 -right-2 text-primary/5 w-32 h-32 rotate-180 pointer-events-none" />
                   <div className="border-r-[3px] border-primary/20 pr-10 py-1 bg-stone-50/50">
-                    <p className="text-2xl font-headline font-light italic text-accent leading-relaxed relative z-10">האמת שלנו ומפת הדרכים לחיינו נמצאת בתוכנו – לא מחוצה לנו.</p>
+                    <p className="text-3xl md:text-5xl font-headline font-light italic text-accent leading-snug relative z-10">האמת שלנו ומפת הדרכים לחיינו נמצאת בתוכנו – לא מחוצה לנו.</p>
                   </div>
                 </div>
               </div>
@@ -50,7 +50,7 @@ export default function WorkshopPage() {
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-12 py-3 bg-primary text-white boutique-label !text-[13px] !opacity-100 hover:bg-accent transition-all rounded-sm flex items-center gap-4 group w-fit shadow-xl"
+                  className="px-16 py-4 bg-primary text-white boutique-label !text-[13px] !opacity-100 hover:bg-accent transition-all rounded-sm flex items-center gap-6 group w-fit shadow-xl"
                 >
                   הרשמה למחזור הקרוב
                   <ArrowLeft size={16} />
@@ -59,7 +59,7 @@ export default function WorkshopPage() {
             </div>
             
             <div className="lg:col-span-5">
-               <div className="image-zoom-container aspect-[3/4] shadow-2xl border border-stone-100">
+               <div className="image-zoom-container aspect-[3/4] shadow-2xl border-8 border-white">
                   {workshopImg && (
                     <Image 
                       src={workshopImg.imageUrl} 
@@ -84,9 +84,9 @@ export default function WorkshopPage() {
                  "את רוצה לשחרר שליטה ואחיזה ולהישען יותר",
                  "את רוצה להכיר לעומק את העולם הרגשי שלך"
                ].map((text, i) => (
-                 <div key={i} className="p-8 bg-white border border-stone-100 hover:shadow-lg transition-all flex items-start gap-6">
-                    <span className="text-primary font-bold text-xl opacity-30">0{i+1}</span>
-                    <p className="text-lg font-light text-stone-600">{text}</p>
+                 <div key={i} className="p-10 bg-white border border-stone-100 hover:shadow-xl transition-all duration-700 flex items-start gap-8">
+                    <span className="text-primary font-bold text-2xl opacity-20">0{i+1}</span>
+                    <p className="text-xl font-light text-stone-600">{text}</p>
                  </div>
                ))}
             </div>
@@ -95,14 +95,14 @@ export default function WorkshopPage() {
 
       <section className="py-32 bg-accent text-white px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-6xl md:text-8xl font-handwriting mb-10 leading-none">מוכנה לצאת למסע?</h2>
+          <h2 className="text-7xl md:text-[120px] font-handwriting mb-10 leading-none">מוכנה לצאת למסע?</h2>
           <a 
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-12 py-3 bg-primary text-white boutique-label !text-[13px] !opacity-100 hover:bg-white hover:text-accent transition-all rounded-sm inline-flex items-center gap-4 shadow-2xl"
+            className="px-16 py-4 bg-primary text-white boutique-label !text-[13px] !opacity-100 hover:bg-white hover:text-accent transition-all rounded-sm inline-flex items-center gap-8 shadow-2xl"
           >
-            <MessageCircle size={20} />
+            <MessageCircle size={24} />
             לפרטים והרשמה
           </a>
         </div>

@@ -106,14 +106,14 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="px-12 py-3 bg-primary text-white text-[12px] tracking-[0.2em] font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm flex items-center gap-4 group min-w-[240px] justify-center whitespace-nowrap !opacity-100"
+               className="px-16 py-4 bg-primary text-white text-[12px] tracking-[0.2em] font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm flex items-center gap-6 group min-w-[280px] justify-center whitespace-nowrap !opacity-100"
              >
                 תיאום שיחת היכרות
                 <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
              </a>
              <Link 
                href="/practice"
-               className="px-10 py-3 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50 transition-all duration-700 text-[10px] tracking-[0.3em] uppercase font-bold"
+               className="px-12 py-4 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50 transition-all duration-700 text-[10px] tracking-[0.3em] uppercase font-bold min-w-[220px] text-center"
              >
                 התהליך הטיפולי
              </Link>
@@ -142,20 +142,20 @@ export default function Home() {
             <div className="lg:col-span-7 order-1 lg:order-2 space-y-12">
               <div>
                 <span className="boutique-label text-primary mb-6 block">About Moran Paz</span>
-                <h2 className="text-7xl md:text-9xl font-handwriting font-bold text-foreground leading-none mb-4">
+                <h2 className="text-7xl md:text-[140px] font-handwriting font-bold text-foreground leading-none mb-4">
                   נעים מאוד, מורן פז
                 </h2>
                 <div className="w-20 h-[1px] bg-primary/30"></div>
               </div>
               
-              <div className="space-y-8 boutique-para text-stone-600">
+              <div className="space-y-12 boutique-para text-stone-600">
                 <p>
                   אני פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. אני מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושהבחירה קיימת לכל אדם בכל מצב.
                 </p>
-                <div className="relative pr-12 py-4">
-                  <Quote className="absolute -top-8 -right-4 text-primary/5 w-32 h-32 rotate-180 pointer-events-none" />
+                <div className="relative pr-12 py-2">
+                  <Quote className="absolute -top-6 -right-2 text-primary/5 w-32 h-32 rotate-180 pointer-events-none" />
                   <div className="border-r-[3px] border-primary/20 pr-10 py-1">
-                    <p className="font-headline italic text-2xl text-accent/80 leading-relaxed relative z-10">
+                    <p className="font-headline italic text-3xl md:text-4xl text-accent/80 leading-relaxed relative z-10">
                       התהליך מביא לפחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, וביטוי אותנטי.
                     </p>
                   </div>
@@ -263,7 +263,7 @@ export default function Home() {
               href={whatsappLink} 
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-6 px-12 py-3 bg-primary text-white text-[13px] tracking-[0.2em] uppercase font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !opacity-100"
+              className="inline-flex items-center gap-10 px-16 py-4 bg-primary text-white text-[13px] tracking-[0.2em] uppercase font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !opacity-100"
             >
               <MessageCircle size={24} />
               שלחי הודעה בוואטסאפ
