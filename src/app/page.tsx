@@ -73,7 +73,8 @@ export default function Home() {
               />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background"></div>
+          {/* Gradient overlay - adjusted bottom color to be less white */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/30"></div>
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal flex flex-col items-center w-full max-w-5xl mx-auto px-4">
