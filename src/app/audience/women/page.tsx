@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -13,7 +14,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 export default function WomenPage() {
   const contentReveal = useReveal();
   const personalAppealReveal = useReveal();
-  const heroImg = PlaceHolderImages.find(img => img.id === 'hero-women');
+  const heroImg = PlaceHolderImages.find(img => img.id === 'hero-women') || PlaceHolderImages.find(img => img.id === 'hero-about-desktop');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20ליווי%20רגשי%20לנשים";
 
   return (
@@ -36,7 +37,7 @@ export default function WomenPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block">Women & Adults</span>
+           <span className="boutique-label text-white/80 mb-8 block uppercase tracking-[0.4em]">Women Empowerment</span>
            <h1 className="text-7xl md:text-9xl font-handwriting text-white mb-8 font-bold">ליווי רגשי לנשים</h1>
            <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">לחזור אל הבית הפנימי שלך</p>
         </div>
@@ -44,7 +45,7 @@ export default function WomenPage() {
 
       <section className="pt-32 pb-32 px-8 md:px-24">
         <div className="max-w-5xl mx-auto">
-          <SectionTitle subtitle="Audience" title="טיפול וליווי לנשים ומבוגרים" />
+          <SectionTitle subtitle="Audience" title="טיפול וליווי לנשים" />
           
           <div ref={contentReveal} className="reveal space-y-12">
             <h3 className="text-4xl md:text-6xl font-headline italic text-accent mb-12 leading-tight">
@@ -53,10 +54,10 @@ export default function WomenPage() {
             
             <div className="boutique-para space-y-8 text-stone-600">
               <p>
-                נשים רבות חוות עומס רגשי ופיזי כבד, כשהן מתמרנות בין שלל תפקידים ומנסות להחזיק הכל. בתוך המרוץ הזה, הקול הפנימי שלנו לפעמים נחלש או נעלם לגמרי.
+                כאישה, את ודאי חווה עומס רגשי ופיזי כבד, כשאת מתמרנת בין שלל תפקידים ומנסה להחזיק הכל. בתוך המרוץ הזה, הקול הפנימי שלך לפעמים נחלש או נעלם לגמרי.
               </p>
               <p>
-                הטיפול והליווי לנשים בקליניקה הוא הזמנה לעצור. להקשיב למה שמבקש ביטוי בתוכך, לזהות את החלקים השונים בך – המבקרים, המפוחדים וגם העוצמתיים – ולחיות מתוך חיבור אותנטי וכנה לעצמך.
+                הטיפול והליווי לנשים בקליניקה שלי הוא הזמנה עבורך לעצור. להקשיב למה שמבקש ביטוי בתוכך, לזהות את החלקים השונים בך – המבקרים, המפוחדים וגם העוצמתיים – ולחיות מתוך חיבור אותנטי וכנה לעצמך.
               </p>
             </div>
 
@@ -64,7 +65,7 @@ export default function WomenPage() {
               <Quote className="absolute -top-10 -right-4 text-primary/5 w-48 h-48 rotate-180 pointer-events-none" />
               <div className="border-r-[3px] border-primary/20 pr-10 py-1">
                 <p className="text-3xl md:text-5xl font-headline text-accent italic font-light leading-snug relative z-10">
-                  הרגשות הם המצפן שלנו ולכל אחת מאיתנו יש את מפת הדרכים הפנימית שלה לחייה.
+                  הרגשות שלך הם המצפן ולכל אחת מאיתנו יש את מפת הדרכים הפנימית שלה לחייה.
                 </p>
               </div>
             </div>

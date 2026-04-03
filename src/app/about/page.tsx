@@ -3,12 +3,13 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { GraduationCap, Briefcase, Sparkles, Heart, Orbit } from 'lucide-react';
+import { GraduationCap, Briefcase, Sparkles, Heart, Orbit, Users, Star, ArrowLeft } from 'lucide-react';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
 
@@ -18,7 +19,9 @@ export default function AboutPage() {
   const { data: pageContent } = useDoc<any>(contentRef);
 
   const introReveal = useReveal();
+  const servicesReveal = useReveal();
   const uniquenessReveal = useReveal();
+  
   const heroDesktopFallback = PlaceHolderImages.find(img => img.id === 'hero-about-desktop');
   const heroMobileFallback = PlaceHolderImages.find(img => img.id === 'hero-about-mobile');
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
@@ -63,7 +66,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Personal Text Section */}
+      {/* Personal Text Section - Updated to 1st Person Female */}
       <section className="py-32 md:py-56 px-8 md:px-24 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-32 items-start">
@@ -83,7 +86,7 @@ export default function AboutPage() {
             <div ref={introReveal} className="lg:col-span-7 reveal space-y-12">
                <div className="relative pr-12 border-r-[3px] border-primary/20">
                   <h3 className="text-3xl md:text-5xl font-headline text-accent italic font-light leading-snug">
-                    {pageContent?.introTitle || "אנחנו מאמינים ששינוי – כל שינוי – מתחיל קודם כל במפגש. מפגש אמיץ וחשוף עם כל אותם חלקים המרכיבים אותנו."}
+                    {pageContent?.introTitle || "אני מאמינה ששינוי – כל שינוי – מתחיל קודם כל במפגש. מפגש אמיץ וחשוף עם כל אותם חלקים המרכיבים אותנו."}
                   </h3>
                </div>
                
@@ -92,8 +95,8 @@ export default function AboutPage() {
                     <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
                   ) : (
                     <>
-                      <p>בתוך המרחב הטיפולי, המטרה שלנו היא לעזור לכם להדליק את האור. בכל מקום שבו קיימת טיפת חושך, ניתן לשפוך את אור המודעות ולהאיר את עצמנו מחדש.</p>
-                      <p>הרגשות שלנו הם המצפן. לכל אחד מאיתנו יש מפת דרכים פנימית ייחודית לחייו, ולעיתים כל מה שנדרש הוא מישהו שיחזיק את הפנס בזמן שאנחנו מגלים אותה מחדש.</p>
+                      <p>בתוך המרחב הטיפולי, המטרה שלי היא לעזור לך להדליק את האור. בכל מקום שבו קיימת טיפת חושך, ניתן לשפוך את אור המודעות ולהאיר את עצמנו מחדש.</p>
+                      <p>הרגשות שלנו הם המצפן. לכל אחד מאיתנו יש מפת דרכים פנימית ייחודית לחייו, ולעיתים כל מה שנדרש הוא מישהי שתחזיק את הפנס בזמן שאת מגלה אותה מחדש.</p>
                     </>
                   )}
                </div>
@@ -119,15 +122,66 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Expertise Cards Section */}
+      <section ref={servicesReveal} className="py-32 md:py-48 px-8 md:px-24 bg-stone-50 border-y border-stone-100 reveal">
+        <div className="max-w-7xl mx-auto">
+          <SectionTitle subtitle="How I Help" title="מרחבי הטיפול והליווי שלי" className="flex flex-col items-center text-center" />
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-24">
+            {/* Women Card */}
+            <Link href="/audience/women" className="group">
+              <div className="bg-white p-12 border border-stone-100 shadow-sm group-hover:shadow-2xl transition-all duration-700 h-full flex flex-col items-center text-center">
+                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                  <Heart size={32} strokeWidth={1} />
+                </div>
+                <h3 className="text-3xl font-headline text-accent mb-6 font-bold">ליווי רגשי לנשים</h3>
+                <p className="text-stone-500 font-light mb-8 leading-relaxed">מרחב בטוח לחזור אל הבית הפנימי שלך, לשחרר עומסים ולמצוא את הקול האותנטי.</p>
+                <div className="mt-auto flex items-center gap-3 text-primary boutique-label font-bold text-xs opacity-60 group-hover:opacity-100 transition-opacity">
+                  לפרטים נוספים <ArrowLeft size={14} />
+                </div>
+              </div>
+            </Link>
+
+            {/* Youth Card */}
+            <Link href="/audience/youth" className="group">
+              <div className="bg-white p-12 border border-stone-100 shadow-sm group-hover:shadow-2xl transition-all duration-700 h-full flex flex-col items-center text-center">
+                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                  <Users size={32} strokeWidth={1} />
+                </div>
+                <h3 className="text-3xl font-headline text-accent mb-6 font-bold">טיפול רגשי לנוער</h3>
+                <p className="text-stone-500 font-light mb-8 leading-relaxed">ליווי בגובה העיניים לפיתוח חוסן רגשי, ביטוי עצמי והתמודדות עם אתגרי גיל ההתבגרות.</p>
+                <div className="mt-auto flex items-center gap-3 text-primary boutique-label font-bold text-xs opacity-60 group-hover:opacity-100 transition-opacity">
+                  לפרטים נוספים <ArrowLeft size={14} />
+                </div>
+              </div>
+            </Link>
+
+            {/* Workshop Card */}
+            <Link href="/blog" className="group">
+              <div className="bg-white p-12 border border-stone-100 shadow-sm group-hover:shadow-2xl transition-all duration-700 h-full flex flex-col items-center text-center">
+                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                  <Star size={32} strokeWidth={1} />
+                </div>
+                <h3 className="text-3xl font-headline text-accent mb-6 font-bold">סדנת BeinMe</h3>
+                <p className="text-stone-500 font-light mb-8 leading-relaxed">מסע קבוצתי של גילוי עצמי, שילוב גוף-נפש-רוח וחיבור עמוק לסמכות הפנימית.</p>
+                <div className="mt-auto flex items-center gap-3 text-primary boutique-label font-bold text-xs opacity-60 group-hover:opacity-100 transition-opacity">
+                  לפרטים בבלוג <ArrowLeft size={14} />
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Philosophy Section */}
-      <section ref={uniquenessReveal} className="py-32 md:py-56 px-8 md:px-24 bg-stone-50 reveal border-y border-stone-100">
+      <section ref={uniquenessReveal} className="py-32 md:py-56 px-8 md:px-24 bg-white reveal">
         <div className="max-w-6xl mx-auto">
-          <SectionTitle subtitle="Unique Approach" title="מה מיוחד בגישה שלנו?" className="flex flex-col items-center text-center" />
+          <SectionTitle subtitle="Unique Approach" title="מה מיוחד בגישה שלי?" className="flex flex-col items-center text-center" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-32">
             {[
-              { title: "שילוב גוף-נפש-רוח", icon: <Orbit />, desc: "עובדים עם הרגש, הגוף והרוח יחד לריפוי עמוק וחיבור למשמעות." },
-              { title: "כלים חווייתיים", icon: <Sparkles />, desc: "עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס." },
-              { title: "גישה אנושית", icon: <Heart />, desc: "שילוב של מקצועיות אקדמית (M.A) וחיבור אנושי חם בגובה העיניים." }
+              { title: "שילוב גוף-נפש-רוח", icon: <Orbit />, desc: "אני עובדת עם הרגש, הגוף והרוח יחד לריפוי עמוק וחיבור למשמעות." },
+              { title: "כלים חווייתיים", icon: <Sparkles />, desc: "אני משלבת עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס בטיפול." },
+              { title: "גישה אנושית", icon: <Heart />, desc: "אני משלבת מקצועיות אקדמית (M.A) יחד עם חיבור אנושי חם בגובה העיניים." }
             ].map((point, i) => (
               <div key={i} className="flex flex-col items-center text-center gap-10">
                 <div className="text-primary">{React.cloneElement(point.icon as React.ReactElement, { size: 56, strokeWidth: 0.2 })}</div>
