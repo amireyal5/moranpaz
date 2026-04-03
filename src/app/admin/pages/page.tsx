@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, Plus, Trash2 } from 'lucide-react';
+import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, Plus, Trash2, LayoutTextWindow } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
@@ -26,7 +26,10 @@ const PAGES = [
   { id: 'practice', name: 'התהליך הטיפולי' },
   { id: 'online', name: 'טיפול אונליין' },
   { id: 'tivon', name: 'טבעון' },
-  { id: 'emeq-izrael', name: 'עמק יזרעאל' }
+  { id: 'emeq-izrael', name: 'עמק יזרעאל' },
+  { id: 'women', name: 'טיפול בנשים' },
+  { id: 'youth', name: 'טיפול בנוער' },
+  { id: 'adults', name: 'טיפול במבוגרים' }
 ];
 
 export default function PageManagement() {
@@ -247,14 +250,16 @@ export default function PageManagement() {
                 </Card>
 
                 <Card className="border-none shadow-xl rounded-none">
-                  <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">Core Content</CardTitle></CardHeader>
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">תוכן העמוד (Cubes & Sections)</CardTitle></CardHeader>
                   <CardContent className="pt-8 space-y-8">
                     <div className="space-y-3">
                       <Label className="boutique-label text-stone-400">כותרת פתיחה (Intro Title)</Label>
                       <Input value={content.introTitle} onChange={e => setContent({...content, introTitle: e.target.value})} className="h-14 text-xl font-headline" />
                     </div>
                     <div className="space-y-3">
-                      <Label className="boutique-label text-stone-400">תוכן מרכזי (Rich Text)</Label>
+                      <Label className="boutique-label text-stone-400 flex items-center gap-2">
+                        <LayoutTextWindow size={16} /> גוף העמוד (ניתן להוסיף רשימות, תמונות ועיצוב)
+                      </Label>
                       <div className="prose-editor">
                         <ReactQuill 
                           theme="snow"
@@ -263,6 +268,7 @@ export default function PageManagement() {
                           className="bg-white"
                         />
                       </div>
+                      <p className="text-xs text-stone-400 mt-2 italic">טיפ: תוכלי להשתמש בעורך כדי ליצור את המבנה של "קוביות" המידע או להוסיף תמונות נוספות בתוך הטקסט.</p>
                     </div>
                   </CardContent>
                 </Card>
