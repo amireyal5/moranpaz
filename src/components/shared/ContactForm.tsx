@@ -74,7 +74,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
     >
       <div className="w-full h-[300px] sm:h-[450px] bg-stone-100 mb-12 sm:mb-20 relative overflow-hidden group shadow-inner border border-stone-200">
         <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53711.02646947229!2d35.12536055!3d32.71424450000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151dadfff9f521db%3A0x377c729195dd381f!2z16fXqNeZ16og15jXkdei15XXnw!5e0!3m2!1siw!2sil!4v1775196670523!5m2!1siw!2sil" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3356.5967185150766!2d35.14095372397462!3d32.723342373686044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151db3dc82aa8355%3A0x440bbae69a04c650!2z16fXodedINeU16jXmdek15XXmQ!5e0!3m2!1siw!2sil!4v1775216405358!5m2!1siw!2sil" 
           width="100%" 
           height="100%" 
           style={{ border: 0 }} 
@@ -86,9 +86,6 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
         ></iframe>
       </div>
 
-      {/* Note: data-netlify and netlify attributes are intentionally omitted from this React form 
-          to comply with Netlify's Next.js Runtime v5 requirements. The form is defined in 
-          public/__forms.html for build-time detection. */}
       <form 
         name="contact" 
         method="POST" 
