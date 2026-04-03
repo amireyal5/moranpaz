@@ -6,18 +6,25 @@ import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
-import { useFirestore, useDoc } from '@/firebase';
-import { doc } from 'firebase/firestore';
+import { useFirestore, useCollection } from '@/firebase';
+import { collection, query, where, limit } from 'firebase/firestore';
 import { Loader2, ArrowRight, Calendar, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function BlogPostPage() {
-  const { postId } = useParams();
+  const { postId } = useParams(); // This will be the slug
   const router = useRouter();
   const db = useFirestore();
   
-  const postRef = postId ? doc(db!, 'blogPosts', postId as string) : null;
-  const { data: post, loading } = useDoc<any>(postRef);
+  // Query by slug
+  const postQuery = postId ? query(
+    collection(db!, 'blogPosts'), 
+    where('slug', '==', postId),
+    limit(1)
+  ) : null;
+  
+  const { data: posts, loading } = useCollection<any>(postQuery);
+  const post = posts?.[0];
 
   if (loading) {
     return (
@@ -43,7 +50,6 @@ export default function BlogPostPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {/* Desktop Image */}
           <div className="hidden md:block absolute inset-0">
             <Image 
               src={post.heroImageUrlDesktop} 
@@ -53,7 +59,6 @@ export default function BlogPostPage() {
               priority
             />
           </div>
-          {/* Mobile Image */}
           <div className="md:hidden absolute inset-0">
             <Image 
               src={post.heroImageUrlMobile} 

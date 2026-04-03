@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { collection, addDoc, serverTimestamp, query, orderBy, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useAuth, useUser, useFirestore, useCollection } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -30,6 +30,7 @@ export default function BlogManagementPage() {
   const [newPost, setNewPost] = useState({
     title: '',
     subtitle: '',
+    slug: '',
     content: '',
     heroImageUrlDesktop: '',
     heroImageUrlMobile: '',
@@ -69,7 +70,6 @@ export default function BlogManagementPage() {
     const newContent = text.substring(0, start) + formatted + text.substring(end);
     setNewPost({ ...newPost, content: newContent });
     
-    // Maintain focus
     setTimeout(() => {
       if (textareaRef.current) {
         textareaRef.current.focus();
@@ -83,24 +83,27 @@ export default function BlogManagementPage() {
     e.preventDefault();
     if (!db) return;
 
+    const postData = {
+      ...newPost,
+      slug: newPost.slug.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
+      updatedAt: Date.now()
+    };
+
     if (editingId) {
-      updateDoc(doc(db, 'blogPosts', editingId), {
-        ...newPost,
-        updatedAt: Date.now()
-      }).then(() => {
+      updateDoc(doc(db, 'blogPosts', editingId), postData).then(() => {
         toast({ title: "מאמר עודכן בהצלחה!" });
         resetForm();
       }).catch(async (error) => {
         const permissionError = new FirestorePermissionError({
           path: `blogPosts/${editingId}`,
           operation: 'update',
-          requestResourceData: newPost
+          requestResourceData: postData
         });
         errorEmitter.emit('permission-error', permissionError);
       });
     } else {
       addDoc(collection(db, 'blogPosts'), {
-        ...newPost,
+        ...postData,
         createdAt: Date.now()
       }).then(() => {
         toast({ title: "מאמר נשמר בהצלחה!" });
@@ -109,7 +112,7 @@ export default function BlogManagementPage() {
         const permissionError = new FirestorePermissionError({
           path: 'blogPosts',
           operation: 'create',
-          requestResourceData: newPost
+          requestResourceData: postData
         });
         errorEmitter.emit('permission-error', permissionError);
       });
@@ -120,6 +123,7 @@ export default function BlogManagementPage() {
     setNewPost({
       title: post.title,
       subtitle: post.subtitle,
+      slug: post.slug || '',
       content: post.content,
       heroImageUrlDesktop: post.heroImageUrlDesktop,
       heroImageUrlMobile: post.heroImageUrlMobile,
@@ -144,6 +148,7 @@ export default function BlogManagementPage() {
     setNewPost({
       title: '',
       subtitle: '',
+      slug: '',
       content: '',
       heroImageUrlDesktop: '',
       heroImageUrlMobile: '',
@@ -206,6 +211,16 @@ export default function BlogManagementPage() {
                     />
                   </div>
                   <div className="space-y-3">
+                    <Label className="boutique-label text-stone-400">Slug (URL באנגלית)</Label>
+                    <Input 
+                      value={newPost.slug} 
+                      onChange={e => setNewPost({...newPost, slug: e.target.value})} 
+                      required 
+                      className="h-12 border-stone-100 bg-stone-50"
+                      placeholder="my-post-title"
+                    />
+                  </div>
+                  <div className="space-y-3 md:col-span-2">
                     <Label className="boutique-label text-stone-400">כותרת משנית</Label>
                     <Input 
                       value={newPost.subtitle} 
@@ -323,6 +338,7 @@ export default function BlogManagementPage() {
                   <div className="flex-1">
                     <span className="boutique-label text-stone-300 text-[10px] mb-2 block">{post.date} | {post.category}</span>
                     <h3 className="text-2xl font-headline text-accent group-hover:text-primary transition-colors">{post.title}</h3>
+                    <p className="text-xs text-stone-400 font-mono">/{post.slug}</p>
                   </div>
                   <div className="flex gap-2">
                     <Button variant="ghost" onClick={() => handleEdit(post)} className="text-stone-400 hover:text-primary">
@@ -331,7 +347,7 @@ export default function BlogManagementPage() {
                     <Button variant="ghost" onClick={() => handleDelete(post.id)} className="text-stone-400 hover:text-destructive">
                       <Trash2 size={18} />
                     </Button>
-                    <Button variant="ghost" onClick={() => router.push(`/blog/${post.id}`)} className="text-stone-300 hover:text-accent">
+                    <Button variant="ghost" onClick={() => router.push(`/blog/${post.slug || post.id}`)} className="text-stone-300 hover:text-accent">
                       <ArrowRight className="size-4" />
                     </Button>
                   </div>

@@ -74,10 +74,9 @@ export default function BlogPage() {
             ) : posts?.length === 0 ? (
               <p className="col-span-full text-center text-stone-400 text-xl font-light">בקרוב יעלו תכנים חדשים ומאירי פנים...</p>
             ) : (
-              posts?.map((post: any, i) => (
-                <Link href={`/blog/${post.id}`} key={post.id} className="group cursor-pointer">
+              posts?.map((post: any) => (
+                <Link href={`/blog/${post.slug || post.id}`} key={post.id} className="group cursor-pointer">
                   <div className="bg-stone-50 aspect-video mb-10 overflow-hidden relative shadow-sm group-hover:shadow-xl transition-all duration-700">
-                     {/* Desktop Image */}
                      <div className="hidden md:block absolute inset-0">
                        <Image 
                          src={post.heroImageUrlDesktop} 
@@ -86,7 +85,6 @@ export default function BlogPage() {
                          className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
                        />
                      </div>
-                     {/* Mobile Image */}
                      <div className="md:hidden absolute inset-0">
                        <Image 
                          src={post.heroImageUrlMobile} 
