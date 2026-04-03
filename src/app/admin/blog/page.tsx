@@ -1,7 +1,8 @@
 
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { collection, addDoc, query, orderBy, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useAuth, useUser, useFirestore, useCollection } from '@/firebase';
@@ -10,12 +11,20 @@ import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Plus, LogOut, ArrowRight, Monitor, Smartphone, Bold, Italic, Link as LinkIcon, Trash2, Edit } from 'lucide-react';
+import { Loader2, Plus, LogOut, ArrowRight, Monitor, Smartphone, Trash2, Edit } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
+
+// Import Quill styles
+import 'react-quill-new/dist/quill.snow.css';
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import('react-quill-new'), {
+  ssr: false,
+  loading: () => <div className="h-64 w-full bg-stone-50 animate-pulse border border-stone-100 flex items-center justify-center">טוען עורך טקסט...</div>,
+});
 
 export default function BlogManagementPage() {
   const { user, loading: authLoading } = useUser();
@@ -23,7 +32,6 @@ export default function BlogManagementPage() {
   const auth = useAuth();
   const router = useRouter();
   const { toast } = useToast();
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
   
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -51,33 +59,15 @@ export default function BlogManagementPage() {
     auth?.signOut().then(() => router.push('/'));
   };
 
-  const insertFormatting = (tag: string, placeholder: string = "") => {
-    if (!textareaRef.current) return;
-    const start = textareaRef.current.selectionStart;
-    const end = textareaRef.current.selectionEnd;
-    const text = newPost.content;
-    const selectedText = text.substring(start, end) || placeholder;
-    
-    let formatted = "";
-    if (tag === 'link') {
-      const url = prompt("הזינו כתובת URL (למשל: https://google.com):");
-      if (!url) return;
-      formatted = `<a href="${url}" target="_blank" class="text-primary underline font-bold">${selectedText || "קישור"}</a>`;
-    } else {
-      formatted = `<${tag}>${selectedText}</${tag}>`;
-    }
-
-    const newContent = text.substring(0, start) + formatted + text.substring(end);
-    setNewPost({ ...newPost, content: newContent });
-    
-    setTimeout(() => {
-      if (textareaRef.current) {
-        textareaRef.current.focus();
-        const newCursorPos = start + formatted.length;
-        textareaRef.current.setSelectionRange(newCursorPos, newCursorPos);
-      }
-    }, 0);
-  };
+  const quillModules = useMemo(() => ({
+    toolbar: [
+      [{ 'header': [1, 2, 3, false] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'direction': 'rtl' }, { 'align': [] }],
+      ['link', 'clean'],
+    ],
+  }), []);
 
   const handleSavePost = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -274,47 +264,16 @@ export default function BlogManagementPage() {
                 </div>
                 
                 <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <Label className="boutique-label text-stone-400">גוף הכתבה</Label>
-                    <div className="flex gap-2">
-                      <Button 
-                        type="button" 
-                        variant="ghost" 
-                        size="sm" 
-                        onClick={() => insertFormatting('b', 'טקסט מודגש')}
-                        className="h-8 w-8 p-0"
-                      >
-                        <Bold size={16} />
-                      </Button>
-                      <Button 
-                        type="button" 
-                        variant="ghost" 
-                        size="sm" 
-                        onClick={() => insertFormatting('i', 'טקסט נטוי')}
-                        className="h-8 w-8 p-0"
-                      >
-                        <Italic size={16} />
-                      </Button>
-                      <Button 
-                        type="button" 
-                        variant="ghost" 
-                        size="sm" 
-                        onClick={() => insertFormatting('link', 'טקסט לקישור')}
-                        className="h-8 w-8 p-0"
-                      >
-                        <LinkIcon size={16} />
-                      </Button>
-                    </div>
+                  <Label className="boutique-label text-stone-400">גוף הכתבה (כמו ב-Word)</Label>
+                  <div className="prose-editor">
+                    <ReactQuill 
+                      theme="snow"
+                      value={newPost.content}
+                      onChange={content => setNewPost({...newPost, content})}
+                      modules={quillModules}
+                      className="bg-stone-50"
+                    />
                   </div>
-                  <Textarea 
-                    ref={textareaRef}
-                    value={newPost.content} 
-                    onChange={e => setNewPost({...newPost, content: e.target.value})} 
-                    required 
-                    rows={15}
-                    className="border-stone-100 bg-stone-50 resize-none font-sans text-lg leading-relaxed"
-                  />
-                  <p className="text-xs text-stone-400">ניתן להשתמש בתגיות HTML בסיסיות (b, i, a) לעיצוב.</p>
                 </div>
                 
                 <Button type="submit" className="bg-primary text-white boutique-label h-14 w-full rounded-none">
