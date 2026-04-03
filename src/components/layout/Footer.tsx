@@ -1,11 +1,13 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MessageCircle, ExternalLink, Facebook, Instagram } from 'lucide-react';
+import { Mail, Phone, MessageCircle, ExternalLink, Facebook, Instagram, Navigation } from 'lucide-react';
 
 export function Footer() {
   const [year, setYear] = useState(new Date().getFullYear());
+  const wazeLink = "https://waze.com/ul?ll=32.723342373686044,35.14095372397462&navigate=yes";
 
   useEffect(() => {
     setYear(new Date().getFullYear());
@@ -78,6 +80,17 @@ export function Footer() {
                   <span>050-781-7338</span>
                 </a>
                 
+                {/* Waze Link for Mobile in Contact Area */}
+                <a 
+                  href={wazeLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light hover:text-primary transition-colors duration-500 md:hidden"
+                >
+                  <WazeIcon className="text-primary/60" />
+                  <span>ניווט לקליניקה ב-Waze</span>
+                </a>
+
                 <div className="pt-8 border-t border-white/10 mt-8">
                   <a 
                     href="https://www.nefeshnet.co.il/p/moran-paz-vaknin" 
@@ -104,18 +117,44 @@ export function Footer() {
           </div>
 
           <div className="flex items-center space-x-reverse space-x-6">
-            <span className="opacity-40">BOUTIQUE HOLISTIC CARE</span>
-            <a 
-              href="https://wa.me/972507817338" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-primary hover:text-white transition-colors flex items-center gap-2"
-            >
-              <MessageCircle size={16} /> WHATSAPP
-            </a>
+            <span className="opacity-40 hidden sm:block">BOUTIQUE HOLISTIC CARE</span>
+            
+            <div className="flex items-center space-x-reverse space-x-6">
+              <a 
+                href="https://wa.me/972507817338" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-primary hover:text-white transition-colors flex items-center gap-2"
+              >
+                <MessageCircle size={16} /> WHATSAPP
+              </a>
+              <a 
+                href={wazeLink} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-primary hover:text-white transition-colors flex items-center gap-2 md:hidden"
+              >
+                <WazeIcon size={16} /> WAZE
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </footer>
+  );
+}
+
+function WazeIcon({ size = 18, className = "" }: { size?: number, className?: string }) {
+  return (
+    <svg 
+      viewBox="0 0 24 24" 
+      width={size} 
+      height={size} 
+      fill="currentColor" 
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M19.1 11.1c.1.4.2.8.2 1.3 0 3.7-3 6.6-6.6 6.6-1.1 0-2-.3-2.9-.8l-2.4.7c-.4.1-.8-.3-.7-.7l.7-2.4c-.5-.9-.8-1.8-.8-2.9 0-3.7 3-6.6 6.6-6.6 3.7 0 6.6 3 6.6 6.6.1 1.1-.1 2-.7 2.8zm-1.8-1.7c-.4 0-.8.3-.8.8 0 .4.3.8.8.8s.8-.3.8-.8-.3-.8-.8-.8zm-4.7 0c-.4 0-.8.3-.8.8 0 .4.3.8.8.8s.8-.3.8-.8-.3-.8-.8-.8zm7.4 1.2c0-5.5-4.5-10-10-10S0 5.1 0 10.6c0 1.2.2 2.3.6 3.4l-2.1 5.5c-.3.7.4 1.4 1.1 1.1l5.5-2.1c1.1.4 2.2.6 3.4.6 5.5 0 10-4.5 10-10 0-1.2-.2-2.3-.6-3.4 2.7 1.5 4.7 4.2 4.7 7.3 0 2.6-1.2 5-3.1 6.5.4 1.1.7 2.3.7 3.5 0 3.1-2.5 5.6-5.6 5.6-1.2 0-2.4-.4-3.5-1.1-1.5 1.9-3.9 3.1-6.5 3.1-4.7 0-8.5-3.8-8.5-8.5 0-.4 0-.8.1-1.2-2.1-1.5-3.6-3.9-3.6-6.6 0-3.1 2-5.7 4.7-7.3z"/>
+    </svg>
   );
 }
