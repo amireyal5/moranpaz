@@ -53,7 +53,11 @@ export default function WorkshopPage() {
       {/* Hero Section */}
       <section className="pt-48 md:pt-64 pb-32 px-8 md:px-24 bg-white">
         <div className="max-w-7xl mx-auto">
-          <SectionTitle subtitle="The Workshop" title="BeinMe© קורס" className="mb-24" />
+          <SectionTitle 
+            subtitle={<span>BeinMe<sup>©</sup> קורס</span>} 
+            title={<span>BeinMe<sup>©</sup> <span className="font-['Amatic_SC'] font-bold">קורס</span></span>} 
+            className="mb-24" 
+          />
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-start">
             <div ref={contentReveal} className="lg:col-span-7 reveal space-y-12">
@@ -61,9 +65,9 @@ export default function WorkshopPage() {
                 להיות אני בתוכי
               </h1>
               
-              <div className="space-y-8 boutique-para text-stone-600">
+              <div className="space-y-8 boutique-para text-stone-600 text-right">
                 <p>
-                  BeinMe<sup className="text-[0.45em]">©</sup> הוא מרחב קבוצתי – טיפולי לנשים, שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו, ולחוות אותו בכנות ואותנטיות.
+                  <span dir="ltr">BeinMe<sup>©</sup></span> הוא מרחב קבוצתי – טיפולי לנשים, שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו, ולחוות אותו בכנות ואותנטיות.
                 </p>
                 <div className="italic text-accent border-r-4 border-primary/20 pr-8 py-6 bg-stone-50">
                   <p className="text-2xl md:text-3xl font-headline font-light leading-relaxed">
@@ -80,7 +84,7 @@ export default function WorkshopPage() {
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-6 px-12 py-4 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap"
+                  className="inline-flex items-center gap-6 px-12 py-3 bg-primary !text-white boutique-label !text-sm md:!text-base hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !tracking-[0.2em]"
                 >
                   הרשמה למחזור הקרוב
                   <ArrowLeft size={18} />
@@ -111,7 +115,7 @@ export default function WorkshopPage() {
             <SectionTitle subtitle="The Connection" title="האם הקורס מתאים לך?" className="flex flex-col items-center text-center" />
             <div ref={listReveal} className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 mt-20 reveal">
                {fits.map((text, i) => (
-                 <div key={i} className="flex items-start space-x-reverse space-x-6 p-6 border-b border-primary/10 hover:bg-white transition-all duration-700 group">
+                 <div key={i} className={cn("flex items-start space-x-reverse space-x-6 p-6 border-b border-primary/10 hover:bg-white transition-all duration-700 group", `stagger-${i+1}`)}>
                     <span className="text-primary font-headline text-2xl font-bold opacity-30 mt-1">0{i+1}</span>
                     <p className="text-xl text-stone-600 font-light leading-relaxed">{text}</p>
                  </div>
@@ -131,7 +135,7 @@ export default function WorkshopPage() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-6 px-12 py-5 bg-primary !text-white boutique-label hover:bg-white hover:!text-accent transition-all duration-700 shadow-2xl rounded-sm"
+              className="inline-flex items-center gap-6 px-12 py-4 bg-primary !text-white boutique-label !text-sm md:!text-base hover:bg-white hover:!text-accent transition-all duration-700 shadow-2xl rounded-sm !tracking-[0.2em]"
             >
               <MessageCircle size={22} />
               שלחי הודעה לבירור פרטים
@@ -147,7 +151,7 @@ export default function WorkshopPage() {
         <div className="max-w-4xl mx-auto">
           <SectionTitle subtitle="Register" title="צרי קשר להרשמה" className="flex flex-col items-center text-center" />
           <p className="text-center boutique-para mb-16">
-            השאירי פרטים ואחזור אלייך עם כל המידע על המחזור הקרוב של BeinMe<sup className="text-[0.45em]">©</sup>.
+            השאירי פרטים ואחזור אלייך עם כל המידע על המחזור הקרוב של BeinMe<sup>©</sup>.
           </p>
           <ContactForm />
         </div>

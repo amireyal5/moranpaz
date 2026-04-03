@@ -128,7 +128,7 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="inline-flex w-full md:w-auto px-12 md:px-16 py-4 md:py-5 bg-primary !text-white boutique-label !text-sm md:!text-base hover:bg-accent transition-all duration-700 items-center justify-center gap-4 shadow-xl rounded-sm group overflow-hidden relative whitespace-nowrap !tracking-[0.2em]"
+               className="inline-flex w-full md:w-auto px-12 md:px-16 py-3 md:py-4 bg-primary !text-white boutique-label !text-sm md:!text-base hover:bg-accent transition-all duration-700 items-center justify-center gap-4 shadow-xl rounded-sm group overflow-hidden relative whitespace-nowrap !tracking-[0.2em]"
              >
                 <span className="relative z-10">תאום שיחת היכרות</span>
                 <ArrowLeft size={18} className="relative z-10 group-hover:-translate-x-2 transition-transform duration-500" />
@@ -136,7 +136,7 @@ export default function Home() {
              </a>
              <Link 
                href="/practice"
-               className="inline-flex w-full md:w-auto px-10 md:px-12 py-4 md:py-5 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50/50 hover:border-foreground/30 transition-all duration-700 font-light items-center justify-center gap-4 tracking-widest uppercase text-xs md:text-sm"
+               className="inline-flex w-full md:w-auto px-10 md:px-12 py-3 md:py-4 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50/50 hover:border-foreground/30 transition-all duration-700 font-light items-center justify-center gap-4 tracking-widest uppercase text-xs md:text-sm"
              >
                 התהליך הטיפולי
              </Link>
@@ -153,7 +153,7 @@ export default function Home() {
           <SectionTitle subtitle="Unique Approach" title="מה מיוחד בשיטת הטיפול שלי?" className="flex flex-col items-center text-center" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-20 mt-20">
             {uniquenessPoints.map((point, i) => (
-              <div key={i} className={cn("space-y-6 md:space-y-10 group text-center md:text-right", `stagger-${i+1}`)}>
+              <div key={i} className={cn("space-y-6 md:space-y-10 group text-center md:text-right reveal", `stagger-${i+1}`)}>
                 <div className="mb-6 p-6 bg-stone-50 inline-block rounded-full shadow-sm group-hover:shadow-md transition-all duration-1000 text-primary animate-art-float">
                   {React.cloneElement(point.icon as React.ReactElement, { size: 48, strokeWidth: 0.5 })}
                 </div>
@@ -176,7 +176,7 @@ export default function Home() {
                 key={i} 
                 href={item.link}
                 className={cn(
-                  "boutique-card group !min-h-[500px]",
+                  "boutique-card group !min-h-[500px] reveal",
                   `stagger-${i+1}`
                 )}
               >
@@ -196,7 +196,7 @@ export default function Home() {
 
       <section ref={tourReveal} className="py-32 md:py-56 px-6 md:px-24 reveal bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 md:gap-32 items-center">
-          <div className="order-2 lg:order-1">
+          <div className="order-2 lg:order-1 reveal stagger-1">
             <SectionTitle subtitle="The Clinic" title="סיור בקליניקה בטבעון" />
             <p className="boutique-para mb-12 md:mb-16">
               הקליניקה ממוקמת בלב הטבע של טבעון. כאן מתקיים מרחב בטוח המאפשר נשימה עמוקה וניתוק מרעשי היום-יום. טיפול רגשי בטבעון הוא הזמנה לשקט פנימי.
@@ -206,7 +206,7 @@ export default function Home() {
               <Eye size={32} strokeWidth={1} className="group-hover:scale-110 transition-transform duration-700" />
             </Link>
           </div>
-          <div className="order-1 lg:order-2">
+          <div className="order-1 lg:order-2 reveal stagger-2">
             <div className="image-zoom-container aspect-video shadow-[0_40px_100px_rgba(0,0,0,0.15)] relative border-8 md:border-[16px] border-white">
               {clinicImg && (
                 <Image 
@@ -226,13 +226,13 @@ export default function Home() {
       
       <FaqSection items={homeFaqs} title="שאלות נפוצות על הטיפול" subtitle="Common Questions" />
 
-      <section id="contact" className="py-32 md:py-56 px-6 bg-white border-t border-border/10">
+      <section id="contact" className="py-32 md:py-56 px-6 bg-white border-t border-border/10 reveal">
         <div className="max-w-5xl mx-auto text-center">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center text-center" />
           <p className="boutique-para mb-16 md:mb-24 font-medium max-w-3xl mx-auto">אני כאן בשבילך לתאום שיחת הכרות ללא עלות. בואי נתחיל את המסע שלך יחד.</p>
           <ContactForm />
           
-          <div className="mt-24 md:mt-32 flex flex-col items-center">
+          <div className="mt-24 md:mt-32 flex flex-col items-center reveal stagger-3">
             <a 
               href={whatsappLink} 
               target="_blank"

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -5,8 +6,8 @@ import { useReveal } from '@/hooks/use-reveal';
 import { cn } from '@/lib/utils';
 
 interface SectionTitleProps {
-  subtitle: string;
-  title: string;
+  subtitle: React.ReactNode;
+  title: React.ReactNode;
   isLight?: boolean;
   className?: string;
 }
