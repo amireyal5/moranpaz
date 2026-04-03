@@ -51,7 +51,7 @@ export default function Home() {
               src={heroImg.imageUrl} 
               alt="BeinMe - Moran Paz" 
               fill
-              className="object-cover opacity-50 brightness-[0.7]"
+              className="object-cover opacity-60 brightness-[0.75]"
               priority
               data-ai-hint={heroImg.imageHint}
             />
@@ -60,13 +60,13 @@ export default function Home() {
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal flex flex-col items-center w-full max-w-7xl mx-auto px-4">
-           <span className="boutique-label text-white/80 mb-12 block">Moran Paz • BeinMe</span>
+           <span className="boutique-label text-white/90 mb-12 block drop-shadow-md">Moran Paz • BeinMe</span>
            
-           <h1 className="text-7xl sm:text-9xl md:text-[140px] font-bold leading-none font-handwriting text-white mb-12">
+           <h1 className="text-7xl sm:text-9xl md:text-[150px] font-bold leading-none font-handwriting text-white mb-12 drop-shadow-2xl">
              להאיר את עצמך
            </h1>
            
-           <h2 className="text-xl md:text-4xl font-headline italic mb-16 text-white/90 font-light max-w-4xl leading-relaxed">
+           <h2 className="text-xl md:text-4xl font-headline italic mb-16 text-white/95 font-light max-w-4xl leading-relaxed drop-shadow-lg">
              מסע של מודעות, קבלה וחיבור לסמכות הפנימית דרך עבודה משולבת של גוף, נפש ורוח
            </h2>
            
@@ -75,7 +75,7 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="px-20 py-5 bg-primary text-white boutique-label !text-[13px] hover:bg-white hover:text-accent transition-all duration-700 shadow-2xl rounded-sm flex items-center justify-center whitespace-nowrap !opacity-100 min-w-[300px]"
+               className="px-24 py-6 bg-primary text-white boutique-label !text-[15px] hover:bg-white hover:text-accent transition-all duration-700 shadow-2xl rounded-sm flex items-center justify-center whitespace-nowrap !opacity-100 min-w-[320px]"
              >
                 קביעת פגישת היכרות
              </a>
@@ -120,7 +120,7 @@ export default function Home() {
               </div>
               
               <div className="pt-8">
-                <Link href="/about" className="inline-flex items-center gap-4 boutique-label text-primary border-b border-primary/20 hover:border-primary transition-all pb-2 font-bold text-sm">
+                <Link href="/about" className="inline-flex items-center gap-4 boutique-label text-primary border-b border-primary/20 hover:border-primary transition-all pb-2 font-bold text-base">
                   עלי ועל הגישה הטיפולית
                 </Link>
               </div>
@@ -169,7 +169,7 @@ export default function Home() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-20 py-6 bg-accent text-white boutique-label !text-[14px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100 min-w-[320px] justify-center"
+              className="inline-flex items-center px-24 py-6 bg-accent text-white boutique-label !text-[15px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100 min-w-[340px] justify-center"
             >
               תיאום פגישת היכרות
             </a>
