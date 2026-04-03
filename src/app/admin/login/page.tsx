@@ -28,7 +28,7 @@ export default function AdminLoginPage() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/admin/blog');
+      router.push('/admin/dashboard');
     } catch (error: any) {
       toast({
         variant: "destructive",

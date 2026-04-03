@@ -14,8 +14,14 @@ import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Orbit, Heart, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useFirestore, useDoc } from '@/firebase';
+import { doc } from 'firebase/firestore';
 
 export default function Home() {
+  const db = useFirestore();
+  const contentRef = db ? doc(db, 'siteContent', 'home') : null;
+  const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
+
   const heroReveal = useReveal();
   const introReveal = useReveal();
   const uniquenessReveal = useReveal();
@@ -48,7 +54,6 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden bg-stone-900">
         <div className="absolute inset-0 z-0">
-          {/* Desktop Image */}
           {heroDesktop && (
             <div className="hidden md:block absolute inset-0">
               <Image 
@@ -57,11 +62,9 @@ export default function Home() {
                 fill
                 className="object-cover opacity-60 brightness-[0.75]"
                 priority
-                data-ai-hint={heroDesktop.imageHint}
               />
             </div>
           )}
-          {/* Mobile Image */}
           {heroMobile && (
             <div className="md:hidden absolute inset-0">
               <Image 
@@ -70,7 +73,6 @@ export default function Home() {
                 fill
                 className="object-cover opacity-60 brightness-[0.75]"
                 priority
-                data-ai-hint={heroMobile.imageHint}
               />
             </div>
           )}
@@ -81,11 +83,11 @@ export default function Home() {
            <span className="boutique-label text-white/90 mb-6 sm:mb-8 block drop-shadow-md">Moran Paz • BeinMe</span>
            
            <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-[110px] font-bold leading-none font-handwriting text-white mb-6 sm:mb-8 hero-title-shadow">
-             להאיר את עצמכם
+             {pageContent?.heroTitle || "להאיר את עצמכם"}
            </h1>
            
            <h2 className="text-base md:text-2xl lg:text-3xl font-headline italic mb-10 sm:mb-12 text-white/95 font-light max-w-3xl leading-relaxed hero-para-shadow">
-             מסע של מודעות, קבלה וחיבור לסמכות הפנימית דרך עבודה משולבת של גוף, נפש ורוח
+             {pageContent?.heroSubtitle || "מסע של מודעות, קבלה וחיבור לסמכות הפנימית דרך עבודה משולבת של גוף, נפש ורוח"}
            </h2>
            
            <div className="pt-2 sm:pt-4">
@@ -108,13 +110,7 @@ export default function Home() {
             <div className="lg:col-span-5 order-2 lg:order-1">
               <div className="image-zoom-container aspect-[3/4] shadow-2xl border-4 sm:border-8 border-background overflow-hidden relative max-w-md mx-auto lg:max-w-none">
                 {portraitImg && (
-                  <Image 
-                    src={portraitImg.imageUrl} 
-                    alt="מורן פז" 
-                    fill 
-                    className="object-cover"
-                    data-ai-hint={portraitImg.imageHint}
-                  />
+                  <Image src={portraitImg.imageUrl} alt="מורן פז" fill className="object-cover" />
                 )}
               </div>
             </div>
@@ -123,18 +119,20 @@ export default function Home() {
               <div className="relative">
                 <span className="boutique-label text-primary/70 mb-4 block">The Agenda</span>
                 <h2 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-handwriting font-bold text-foreground leading-tight mb-6">
-                  בכל טיפת חושך אפשר לשפוך אור של מודעות
+                  {pageContent?.introTitle || "בכל טיפת חושך אפשר לשפוך אור של מודעות"}
                 </h2>
                 <div className="mashrabiya-divider max-w-[120px] sm:max-w-[180px]"></div>
               </div>
               
               <div className="space-y-6 sm:space-y-10 boutique-para text-stone-600">
-                <p>
-                  אני מאמינה ששינוי מתחיל במפגש וקבלה של חלקי העצמי. הרגשות הם המצפן שלנו ולכל אחד מאיתנו יש את מפת הדרכים הפנימית שלו לחייו.
-                </p>
-                <p>
-                  המטרה שלי היא לעזור לכם לגלות את עצמכם, לקבל את הסיפור שאתם מספרים לעצמכם, ולהתחבר לסמכות הפנימית שבכם – המקום שבו נמצאות התשובות והחופש האמיתי.
-                </p>
+                {pageContent?.introContent ? (
+                  <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                ) : (
+                  <>
+                    <p>אני מאמינה ששינוי מתחיל במפגש וקבלה של חלקי העצמי. הרגשות הם המצפן שלנו ולכל אחד מאיתנו יש את מפת הדרכים הפנימית שלו לחייו.</p>
+                    <p>המטרה שלי היא לעזור לכם לגלות את עצמכם, לקבל את הסיפור שאתם מספרים לעצמכם, ולהתחבר לסמכות הפנימית שבכם.</p>
+                  </>
+                )}
               </div>
               
               <div className="pt-4">
@@ -147,7 +145,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Uniqueness Section */}
       <section ref={uniquenessReveal} className="py-20 md:py-32 xl:py-48 px-6 md:px-12 xl:px-24 bg-stone-50 reveal border-y border-stone-100">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Core Pillars" title="גוף • נפש • רוח" className="flex flex-col items-center text-center" />
@@ -167,30 +164,6 @@ export default function Home() {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Personal Appeal CTA */}
-      <section ref={ctaReveal} className="py-20 md:py-32 px-6 md:px-12 xl:px-24 bg-white reveal overflow-hidden">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 sm:gap-16">
-          <div className="space-y-6 flex-1 text-center md:text-right">
-            <h3 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-handwriting text-accent leading-none">
-              הזמנה למפגש אמיתי
-            </h3>
-            <p className="boutique-para !text-lg sm:!text-2xl font-light leading-relaxed">
-              בכל טיפת חושך ניתן לשפוך אור. אני כאן כדי להחזיק את הפנס בזמן שאתם מגלים את הדרך שלכם.
-            </p>
-          </div>
-          <div className="shrink-0 w-full md:w-auto">
-            <a 
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-10 sm:px-20 py-4 sm:py-5 bg-accent !text-white boutique-label !text-[12px] sm:!text-[14px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100 w-full md:min-w-[300px] justify-center"
-            >
-              תיאום פגישת היכרות
-            </a>
           </div>
         </div>
       </section>
