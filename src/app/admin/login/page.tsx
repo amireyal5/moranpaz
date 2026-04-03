@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { useAuth } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -12,11 +12,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
   const auth = useAuth();
   const router = useRouter();
   const { toast } = useToast();
@@ -37,6 +39,37 @@ export default function AdminLoginPage() {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      toast({
+        variant: "destructive",
+        title: "חסר מייל",
+        description: "אנא הזינו את כתובת המייל שלכם כדי לקבל קישור לאיפוס סיסמה.",
+      });
+      return;
+    }
+
+    if (!auth) return;
+
+    setResetLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast({
+        title: "אימייל לאיפוס נשלח",
+        description: `שלחנו קישור לאיפוס סיסמה לכתובת: ${email}. בדקו גם בתיקיית הספאם.`,
+      });
+    } catch (error: any) {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        title: "שגיאה בשליחה",
+        description: "לא הצלחנו לשלוח אימייל לאיפוס. וודאו שהמייל נכון.",
+      });
+    } finally {
+      setResetLoading(false);
     }
   };
 
@@ -62,7 +95,17 @@ export default function AdminLoginPage() {
                 />
               </div>
               <div className="space-y-3">
-                <Label htmlFor="password" title="סיסמה" className="boutique-label text-stone-400">סיסמה</Label>
+                <div className="flex justify-between items-center">
+                  <Label htmlFor="password" title="סיסמה" className="boutique-label text-stone-400">סיסמה</Label>
+                  <button 
+                    type="button" 
+                    onClick={handleForgotPassword}
+                    disabled={resetLoading}
+                    className="text-[10px] uppercase font-bold text-primary hover:text-accent transition-colors"
+                  >
+                    {resetLoading ? "שולח..." : "שכחתי סיסמה?"}
+                  </button>
+                </div>
                 <Input 
                   id="password" 
                   type="password" 
@@ -77,9 +120,15 @@ export default function AdminLoginPage() {
                 disabled={loading}
                 className="w-full bg-accent hover:bg-primary text-white boutique-label h-14 rounded-none transition-all duration-700 shadow-lg"
               >
-                {loading ? "מתחבר..." : "התחברות"}
+                {loading ? <Loader2 className="animate-spin" /> : "התחברות"}
               </Button>
             </form>
+            
+            <div className="mt-8 pt-8 border-t border-stone-100 text-center">
+              <p className="text-xs text-stone-400 font-light">
+                הגישה מיועדת למורן פז בלבד. אין אפשרות להרשמה עצמית.
+              </p>
+            </div>
           </CardContent>
         </Card>
       </section>
