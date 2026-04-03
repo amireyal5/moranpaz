@@ -42,7 +42,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body text-lg sm:text-xl overflow-x-hidden w-full;
+    @apply bg-background text-foreground font-body overflow-x-hidden w-full;
     direction: rtl;
     -webkit-font-smoothing: antialiased;
   }
@@ -57,9 +57,9 @@
 /* Animations 2026 Style */
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
-              transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(15px);
+  transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), 
+              transform 1s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .boutique-title {
-  @apply text-4xl sm:text-6xl md:text-7xl font-headline font-light leading-[1.2] tracking-tighter text-foreground;
+  @apply text-4xl sm:text-5xl md:text-6xl font-headline font-medium leading-[1.3] tracking-tight text-foreground;
 }
 
 .boutique-para {

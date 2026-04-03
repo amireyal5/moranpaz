@@ -12,7 +12,8 @@ export default {
     extend: {
       fontFamily: {
         body: ['Assistant', 'sans-serif'],
-        headline: ['Frank Ruhl Libre', 'serif'],
+        headline: ['Assistant', 'sans-serif'],
+        handwriting: ['Amatic SC', 'cursive'],
         code: ['monospace'],
       },
       colors: {

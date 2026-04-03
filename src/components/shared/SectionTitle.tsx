@@ -30,7 +30,7 @@ export function SectionTitle({ subtitle, title, isLight = false, className }: Se
         {title}
       </h2>
       <div className={cn(
-        "w-16 h-[1px] mt-6 mr-0",
+        "w-12 h-[1px] mt-6 mr-0",
         isLight ? 'bg-primary/40' : 'bg-primary/30'
       )}></div>
     </div>
