@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe } from 'lucide-react';
+import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, Plus, Trash2 } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
@@ -25,7 +25,8 @@ const PAGES = [
   { id: 'about', name: 'אודות' },
   { id: 'practice', name: 'התהליך הטיפולי' },
   { id: 'online', name: 'טיפול אונליין' },
-  { id: 'tivon', name: 'טבעון' }
+  { id: 'tivon', name: 'טבעון' },
+  { id: 'emeq-izrael', name: 'עמק יזרעאל' }
 ];
 
 export default function PageManagement() {
@@ -46,7 +47,8 @@ export default function PageManagement() {
     heroImageUrlDesktop: '',
     heroImageUrlMobile: '',
     siteName: '',
-    siteSubtitle: ''
+    siteSubtitle: '',
+    navItems: [] as { label: string, href: string }[]
   });
 
   useEffect(() => {
@@ -73,7 +75,8 @@ export default function PageManagement() {
           heroImageUrlDesktop: data.heroImageUrlDesktop || '',
           heroImageUrlMobile: data.heroImageUrlMobile || '',
           siteName: data.siteName || '',
-          siteSubtitle: data.siteSubtitle || ''
+          siteSubtitle: data.siteSubtitle || '',
+          navItems: data.navItems || []
         });
       } else {
         setContent({ 
@@ -84,7 +87,8 @@ export default function PageManagement() {
           heroImageUrlDesktop: '',
           heroImageUrlMobile: '',
           siteName: '',
-          siteSubtitle: ''
+          siteSubtitle: '',
+          navItems: []
         });
       }
     } catch (e) {
@@ -110,6 +114,25 @@ export default function PageManagement() {
     } finally {
       setIsSaving(false);
     }
+  };
+
+  const addNavItem = () => {
+    setContent({
+      ...content,
+      navItems: [...content.navItems, { label: '', href: '' }]
+    });
+  };
+
+  const removeNavItem = (index: number) => {
+    const updated = [...content.navItems];
+    updated.splice(index, 1);
+    setContent({ ...content, navItems: updated });
+  };
+
+  const updateNavItem = (index: number, field: 'label' | 'href', value: string) => {
+    const updated = [...content.navItems];
+    updated[index] = { ...updated[index], [field]: value };
+    setContent({ ...content, navItems: updated });
   };
 
   if (authLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-primary" /></div>;
@@ -146,23 +169,53 @@ export default function PageManagement() {
           <form onSubmit={handleSave} className="space-y-12">
             
             {selectedPage === 'global' ? (
-              <Card className="border-none shadow-xl rounded-none">
-                <CardHeader className="bg-stone-50/50 border-b border-stone-100">
-                  <CardTitle className="font-headline text-2xl flex items-center gap-4">
-                    <Globe size={24} className="text-primary" /> הגדרות מותג (Navbar)
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-8 space-y-8">
-                  <div className="space-y-3">
-                    <Label className="boutique-label text-stone-400">שם המותג (למשל: MORAN PAZ)</Label>
-                    <Input value={content.siteName} onChange={e => setContent({...content, siteName: e.target.value})} className="h-14 text-xl font-headline" placeholder="MORAN PAZ" />
-                  </div>
-                  <div className="space-y-3">
-                    <Label className="boutique-label text-stone-400">תיאור המותג (למשל: BeinMe — להיות אני בתוכי)</Label>
-                    <Input value={content.siteSubtitle} onChange={e => setContent({...content, siteSubtitle: e.target.value})} className="h-14 text-xl font-headline italic" placeholder="BeinMe — להיות אני בתוכי" />
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="space-y-12">
+                <Card className="border-none shadow-xl rounded-none">
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100">
+                    <CardTitle className="font-headline text-2xl flex items-center gap-4">
+                      <Globe size={24} className="text-primary" /> הגדרות מותג (Navbar)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-8 space-y-8">
+                    <div className="space-y-3">
+                      <Label className="boutique-label text-stone-400">שם המותג</Label>
+                      <Input value={content.siteName} onChange={e => setContent({...content, siteName: e.target.value})} className="h-14 text-xl font-headline" placeholder="MORAN PAZ" />
+                    </div>
+                    <div className="space-y-3">
+                      <Label className="boutique-label text-stone-400">תיאור המותג</Label>
+                      <Input value={content.siteSubtitle} onChange={e => setContent({...content, siteSubtitle: e.target.value})} className="h-14 text-xl font-headline italic" placeholder="BeinMe — להיות אני בתוכי" />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-none shadow-xl rounded-none">
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100">
+                    <CardTitle className="font-headline text-2xl flex items-center gap-4">
+                      <ListOrdered size={24} className="text-primary" /> ניהול תפריט ניווט
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-8 space-y-6">
+                    {content.navItems.map((item, index) => (
+                      <div key={index} className="flex gap-4 items-end bg-stone-50 p-4 border border-stone-100">
+                        <div className="flex-1 space-y-2">
+                          <Label className="text-[10px] uppercase font-bold text-stone-400">תווית (למשל: דף הבית)</Label>
+                          <Input value={item.label} onChange={e => updateNavItem(index, 'label', e.target.value)} className="bg-white border-none" />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <Label className="text-[10px] uppercase font-bold text-stone-400">קישור (למשל: /about)</Label>
+                          <Input value={item.href} onChange={e => updateNavItem(index, 'href', e.target.value)} className="bg-white border-none" />
+                        </div>
+                        <Button type="button" variant="ghost" onClick={() => removeNavItem(index)} className="text-destructive hover:bg-destructive/10">
+                          <Trash2 size={18} />
+                        </Button>
+                      </div>
+                    ))}
+                    <Button type="button" onClick={addNavItem} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary hover:bg-primary/5">
+                      <Plus className="mr-2" size={18} /> הוספת פריט לתפריט
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             ) : (
               <>
                 <Card className="border-none shadow-xl rounded-none">

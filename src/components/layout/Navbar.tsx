@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Loader2 } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -40,13 +40,15 @@ export function Navbar() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  const navItems = [
+  const defaultNavItems = [
     { label: 'בית', href: '/' },
     { label: 'אודות', href: '/about' },
-    { label: 'התהליך הטיפולי', href: '/practice' },
-    { label: 'נקודות של אור', href: '/blog' },
+    { label: 'התהליך', href: '/practice' },
+    { label: 'בלוג', href: '/blog' },
     { label: 'צור קשר', href: '/contact' },
   ];
+
+  const navItems = globalSettings?.navItems?.length > 0 ? globalSettings.navItems : defaultNavItems;
 
   return (
     <>
@@ -76,7 +78,7 @@ export function Navbar() {
         
         {/* Desktop Menu */}
         <div className="hidden lg:flex items-center gap-4 xl:gap-8 boutique-label">
-          {navItems.map((item) => (
+          {navItems.map((item: any) => (
             <NextLink 
               key={item.href} 
               href={item.href} 
@@ -144,7 +146,7 @@ export function Navbar() {
 
         <div className="flex-1 overflow-y-auto flex flex-col items-center pt-20 sm:pt-32 pb-12">
           <div className="flex flex-col items-center space-y-6 sm:space-y-10 text-center w-full px-6">
-            {navItems.map((item, i) => (
+            {navItems.map((item: any, i: number) => (
               <NextLink 
                 key={item.href} 
                 href={item.href} 

@@ -10,33 +10,39 @@ import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Globe, ShieldCheck, Clock, Infinity } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useFirestore, useDoc } from '@/firebase';
+import { doc } from 'firebase/firestore';
 
 export default function OnlineTherapyPage() {
+  const db = useFirestore();
+  const contentRef = db ? doc(db, 'siteContent', 'online') : null;
+  const { data: pageContent } = useDoc<any>(contentRef);
+
   const introReveal = useReveal();
   const benefitsReveal = useReveal();
-  const heroImg = PlaceHolderImages.find(img => img.id === 'hero-online');
+  const heroImgFallback = PlaceHolderImages.find(img => img.id === 'hero-online');
   const onlineAtmoImg = PlaceHolderImages.find(img => img.id === 'hero-main');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20אשמח%20לפרטים%20על%20טיפול%20אונליין%20לישראלים%20בחו%22ל";
 
   const benefits = [
     {
       title: "לישראלים בחו\"ל",
-      desc: "טיפול רגשי עמוק בשפת האם שלך, המגשר על פערי תרבות ומרחק עבור רילוקיישניסטים.",
+      desc: "טיפול רגשי עמוק בשפת האם שלך, המגשר על פערי תרבות ומרחק.",
       icon: <Globe size={40} strokeWidth={0.2} />
     },
     {
       title: "60 דקות טיפול",
-      desc: "מפגש מלא ומעמיק של שעה שלמה המוקדשת כולה לך ולמסע שלך פנימה.",
+      desc: "מפגש מלא ומעמיק של שעה שלמה המוקדשת כולה לך.",
       icon: <Clock size={40} strokeWidth={0.2} />
     },
     {
       title: "מרחב בטוח מהבית",
-      desc: "היכולת לעבור תהליך רגשי עמוק מהנוחות והביטחון של הפינה השקטה שלך.",
+      desc: "תהליך רגשי עמוק מהנוחות והביטחון של הפינה השקטה שלך.",
       icon: <ShieldCheck size={40} strokeWidth={0.2} />
     },
     {
       title: "פסיכותרפיה הוליסטית",
-      desc: "הקשר הרגשי והכלים החווייתיים עוברים דרך המסך בצורה מלאה ואינטימית.",
+      desc: "הקשר הרגשי עובר דרך המסך בצורה מלאה ואינטימית.",
       icon: <Infinity size={40} strokeWidth={0.2} />
     }
   ];
@@ -45,26 +51,37 @@ export default function OnlineTherapyPage() {
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
       
-      {/* Hero Section */}
+      {/* Dynamic Hero */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {heroImg && (
+          <div className="hidden md:block absolute inset-0">
             <Image 
-              src={heroImg.imageUrl} 
+              src={pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl || ""} 
               alt="Online Therapy" 
               fill 
               className="object-cover opacity-60 brightness-[0.7]"
               priority
-              data-ai-hint={heroImg.imageHint}
             />
-          )}
-          {/* Reduced Bottom Gradient by 50% */}
+          </div>
+          <div className="md:hidden absolute inset-0">
+            <Image 
+              src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl || ""} 
+              alt="Online Therapy" 
+              fill 
+              className="object-cover opacity-60 brightness-[0.7]"
+              priority
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
            <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">Global Connection</span>
-           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">בית פנימי מכל מקום</h1>
-           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">טיפול רגשי אונליין לישראלים בארץ ובעולם</p>
+           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
+             {pageContent?.heroTitle || "בית פנימי מכל מקום"}
+           </h1>
+           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
+             {pageContent?.heroSubtitle || "טיפול רגשי אונליין לישראלים בארץ ובעולם"}
+           </p>
         </div>
       </section>
 
@@ -73,15 +90,17 @@ export default function OnlineTherapyPage() {
           <div ref={introReveal} className="lg:col-span-7 reveal">
             <span className="boutique-label block mb-8 text-primary">Global Care</span>
             <h2 className="text-5xl md:text-7xl font-headline text-accent mb-12 font-bold leading-tight">
-              טיפול בעברית לישראלים בחו&quot;ל
+              {pageContent?.introTitle || "טיפול בעברית לישראלים בחו\"ל"}
             </h2>
             <div className="boutique-para mb-16 space-y-10 leading-relaxed text-xl text-stone-600">
-              <p>
-                פסיכותרפיה הוליסטית אונליין מאפשרת לנו להיפגש בתוך מרחב דיגיטלי בטוח ומכיל, המגשר על פערי מרחק ושפה.
-              </p>
-              <p>
-                אני מלווה ישראלים ורילוקיישניסטים ברחבי העולם בתהליכי עומק רגשיים של <strong>60 דקות</strong>, תוך הבנה עמוקה של אתגרי הזהות והבדידות במדינות זרות.
-              </p>
+              {pageContent?.introContent ? (
+                <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+              ) : (
+                <>
+                  <p>פסיכותרפיה הוליסטית אונליין מאפשרת לנו להיפגש בתוך מרחב דיגיטלי בטוח ומכיל.</p>
+                  <p>אני מלווה ישראלים ורילוקיישניסטים ברחבי העולם בתהליכי עומק רגשיים של 60 דקות.</p>
+                </>
+              )}
             </div>
             <a 
               href={whatsappLink}
@@ -100,8 +119,7 @@ export default function OnlineTherapyPage() {
                    src={onlineAtmoImg.imageUrl} 
                    alt="Atmosphere of peace" 
                    fill 
-                   className="object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
-                   data-ai-hint={onlineAtmoImg.imageHint}
+                   className="object-cover grayscale opacity-80"
                  />
                )}
             </div>
@@ -120,7 +138,7 @@ export default function OnlineTherapyPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-32">
             {benefits.map((benefit, i) => (
               <div key={i} className={cn("boutique-card group !min-h-[400px] backdrop-blur-md bg-white/90", `stagger-${i+1}`)}>
-                <div className="art-icon !top-10 !right-10 opacity-30 text-primary animate-art-float">
+                <div className="art-icon !top-10 !right-10 opacity-30 text-primary">
                   {benefit.icon}
                 </div>
                 <div className="relative z-10 text-right w-full">

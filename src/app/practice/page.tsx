@@ -10,13 +10,18 @@ import { useReveal } from '@/hooks/use-reveal';
 import { Orbit, Heart, Sparkles, Compass } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
+import { useFirestore, useDoc } from '@/firebase';
+import { doc } from 'firebase/firestore';
 
 export default function PracticePage() {
+  const db = useFirestore();
+  const contentRef = db ? doc(db, 'siteContent', 'practice') : null;
+  const { data: pageContent } = useDoc<any>(contentRef);
+
   const introReveal = useReveal();
   const stepsReveal = useReveal();
-  const heroDesktop = PlaceHolderImages.find(img => img.id === 'hero-practice');
-  const heroMobile = PlaceHolderImages.find(img => img.id === 'hero-practice-mobile');
-  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20התהליך%20הטיפולי";
+  const heroDesktopFallback = PlaceHolderImages.find(img => img.id === 'hero-practice');
+  const heroMobileFallback = PlaceHolderImages.find(img => img.id === 'hero-practice-mobile');
 
   const categories = [
     { title: "תקיעות בחיים", desc: "שחרור חסמים ויצירת תנועה חדשה." },
@@ -29,42 +34,37 @@ export default function PracticePage() {
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
       
-      {/* Hero Section */}
+      {/* Dynamic Hero */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {/* Desktop Hero */}
-          {heroDesktop && (
-            <div className="hidden md:block absolute inset-0">
-              <Image 
-                src={heroDesktop.imageUrl} 
-                alt="The Journey" 
-                fill 
-                className="object-cover opacity-50"
-                priority
-                data-ai-hint={heroDesktop.imageHint}
-              />
-            </div>
-          )}
-          {/* Mobile Hero */}
-          {heroMobile && (
-            <div className="md:hidden absolute inset-0">
-              <Image 
-                src={heroMobile.imageUrl} 
-                alt="The Journey Mobile" 
-                fill 
-                className="object-cover opacity-60"
-                priority
-                data-ai-hint={heroMobile.imageHint}
-              />
-            </div>
-          )}
-          {/* Reduced Bottom Gradient by 50% */}
+          <div className="hidden md:block absolute inset-0">
+            <Image 
+              src={pageContent?.heroImageUrlDesktop || heroDesktopFallback?.imageUrl || ""} 
+              alt="The Journey" 
+              fill 
+              className="object-cover opacity-50"
+              priority
+            />
+          </div>
+          <div className="md:hidden absolute inset-0">
+            <Image 
+              src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroMobileFallback?.imageUrl || ""} 
+              alt="The Journey Mobile" 
+              fill 
+              className="object-cover opacity-60"
+              priority
+            />
+          </div>
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
            <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">The Journey</span>
-           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">התהליך הטיפולי</h1>
-           <p className="text-2xl md:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">מסע משותף של גילוי וריפוי</p>
+           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
+             {pageContent?.heroTitle || "התהליך הטיפולי"}
+           </h1>
+           <p className="text-2xl md:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
+             {pageContent?.heroSubtitle || "מסע משותף של גילוי וריפוי"}
+           </p>
         </div>
       </section>
 
@@ -72,9 +72,14 @@ export default function PracticePage() {
         <div className="max-w-7xl mx-auto">
           <div ref={introReveal} className="reveal mb-32 max-w-5xl">
             <span className="boutique-label text-primary mb-10 block">Integrated Care</span>
-            <p className="boutique-para !text-3xl md:!text-5xl leading-tight mb-16 font-light">
-              העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח. אנחנו לא מטפלים רק בסימפטום, אלא באדם השלם – מתוך הבנה שהגוף, הנפש והרוח מדברים שפה אחת.
-            </p>
+            <div className="boutique-para !text-3xl md:!text-5xl leading-tight mb-16 font-light">
+              {pageContent?.introTitle ? pageContent.introTitle : "העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח."}
+            </div>
+            <div className="space-y-8 boutique-para text-stone-600">
+              {pageContent?.introContent && (
+                <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+              )}
+            </div>
             <div className="mashrabiya-divider max-w-[300px]"></div>
           </div>
 
