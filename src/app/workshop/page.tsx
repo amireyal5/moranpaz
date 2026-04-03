@@ -9,12 +9,13 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowLeft, MessageCircle, Quote } from 'lucide-react';
+import { ArrowLeft, MessageCircle, Quote, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function WorkshopPage() {
   const introReveal = useReveal();
   const listReveal = useReveal();
+  const workshopInviteReveal = useReveal();
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-workshop');
   const portraitImg = PlaceHolderImages.find(img => img.id === 'workshop-women');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20ולהרשמה%20לקורס%20BeinMe";
@@ -40,7 +41,7 @@ export default function WorkshopPage() {
         </div>
         <div className="relative z-10 text-center">
            <span className="boutique-label text-white/80 mb-8 block">Group Workshop</span>
-           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold">BeinMe<sup className="text-[0.4em] opacity-80 mr-2">©</sup> קורס</h1>
+           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold">BeinMe<sup className="text-[0.3em] opacity-80 mr-1">©</sup> קורס</h1>
            <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">להיות אני בתוכי - מסע קבוצתי של גילוי עצמי</p>
         </div>
       </section>
@@ -58,7 +59,7 @@ export default function WorkshopPage() {
               
               <div className="space-y-12 boutique-para text-stone-600 leading-relaxed text-xl">
                 <p>
-                  קורס BeinMe<sup className="text-[0.6em] opacity-60 mr-1">©</sup> הוא מרחב קבוצתי ייחודי לנשים שנולד מתוך הצורך העמוק להקשיב לעצמנו, ללא שיפוטיות ובכנות מלאה.
+                  קורס BeinMe<sup className="text-[0.45em] opacity-60 mr-1">©</sup> הוא מרחב קבוצתי ייחודי לנשים שנולד מתוך הצורך העמוק להקשיב לעצמנו, ללא שיפוטיות ובכנות מלאה.
                 </p>
                 <div className="relative pr-12 py-6">
                   <Quote className="absolute -top-10 -right-4 text-primary/5 w-48 h-48 rotate-180 pointer-events-none" />
@@ -99,8 +100,30 @@ export default function WorkshopPage() {
           </div>
         </div>
       </section>
+
+      {/* Workshop Personal Appeal CTA */}
+      <section ref={workshopInviteReveal} className="py-32 bg-stone-50 reveal border-y border-stone-200/50 px-8">
+         <div className="max-w-4xl mx-auto text-center space-y-16">
+            <h3 className="text-6xl md:text-8xl font-handwriting text-accent leading-none">תני לעצמך את המתנה הזו</h3>
+            <p className="boutique-para text-2xl font-light max-w-2xl mx-auto">
+              הקורס הוא הזדמנות לעצור את רעשי העולם ולהתחיל להקשיב לקול הכי חשוב – הקול שלך. מחכה לפגוש אותך במעגל שלנו.
+            </p>
+            <div className="pt-8">
+               <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-10 px-16 py-6 bg-accent text-white boutique-label !text-[14px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+              >
+                <Sparkles size={24} className="text-primary/60" />
+                תאום הרשמה ושיחת התאמה
+                <ArrowLeft size={18} />
+              </a>
+            </div>
+         </div>
+      </section>
       
-      <section ref={listReveal} className="py-32 md:py-48 bg-stone-50 px-8 md:px-24 reveal">
+      <section ref={listReveal} className="py-32 md:py-48 bg-white px-8 md:px-24 reveal">
          <div className="max-w-5xl mx-auto">
             <SectionTitle subtitle="Is it for you?" title="האם הקורס מתאים לך?" className="flex flex-col items-center text-center" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-24">

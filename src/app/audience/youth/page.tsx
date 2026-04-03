@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -6,10 +7,11 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
-import { ArrowLeft, Heart } from 'lucide-react';
+import { ArrowLeft, Heart, Sparkles } from 'lucide-react';
 
 export default function YouthPage() {
   const contentReveal = useReveal();
+  const youthInviteReveal = useReveal();
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אני%20פונה%20לגבי%20טיפול%20לנוער";
 
   return (
@@ -44,23 +46,33 @@ export default function YouthPage() {
                 <li className="flex items-start gap-4"><Heart size={20} className="text-primary mt-1" /> מציאת כלים לוויסות רגשי במצבי לחץ</li>
               </ul>
             </div>
-
-            <div className="text-center pt-16">
-              <a 
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex px-16 py-8 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 items-center gap-6 rounded-sm shadow-2xl"
-              >
-                פנייה לשיחת ייעוץ
-                <ArrowLeft size={18} />
-              </a>
-            </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="py-32 bg-stone-50 px-8">
+      {/* Youth Personal Invitation */}
+      <section ref={youthInviteReveal} className="py-24 bg-stone-50 reveal border-y border-stone-200/50 px-8">
+         <div className="max-w-4xl mx-auto text-center space-y-12">
+            <h3 className="text-6xl md:text-8xl font-handwriting text-accent">מרחב בטוח לצמוח בו</h3>
+            <p className="boutique-para text-2xl font-light max-w-2xl mx-auto">
+              הורים יקרים, אני כאן כדי להעניק לילדיכם את המרחב המכיל והמקצועי לו הם זקוקים. בואו נתאם שיחת ייעוץ ראשונית לבדיקת התאמה.
+            </p>
+            <div className="pt-8">
+               <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-10 px-16 py-6 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+              >
+                <Sparkles size={24} className="text-primary/60" />
+                פנייה לשיחת ייעוץ והתאמה
+                <ArrowLeft size={16} />
+              </a>
+            </div>
+         </div>
+      </section>
+
+      <section id="contact" className="py-32 bg-white px-8">
         <div className="max-w-4xl mx-auto">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
           <p className="text-center boutique-para mb-12">הורים יקרים, מוזמנים ליצור קשר לשיחה ראשונית לבדיקת התאמה עבור הילד/ה שלכם.</p>

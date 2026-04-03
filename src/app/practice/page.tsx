@@ -8,7 +8,7 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
-import { CheckCircle2, ArrowLeft, Orbit, Waves, Infinity, Compass } from 'lucide-react';
+import { CheckCircle2, ArrowLeft, Orbit, Waves, Infinity, Compass, Sparkles } from 'lucide-react';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
@@ -17,6 +17,7 @@ export default function PracticePage() {
   const introReveal = useReveal();
   const holisticReveal = useReveal();
   const stepsReveal = useReveal();
+  const practiceInviteReveal = useReveal();
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-practice');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20התהליך%20הטיפול%20ההוליסטי";
 
@@ -110,6 +111,31 @@ export default function PracticePage() {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Practice Personal CTA */}
+          <div ref={practiceInviteReveal} className="reveal bg-accent p-12 md:p-24 mb-48 text-white relative overflow-hidden shadow-2xl">
+             <div className="absolute -top-24 -right-24 opacity-5">
+                <Orbit size={400} />
+             </div>
+             <div className="relative z-10 space-y-12">
+                <h3 className="text-6xl md:text-8xl font-handwriting">מפת הדרכים שלך כבר כאן</h3>
+                <p className="text-2xl md:text-3xl font-light opacity-90 leading-relaxed max-w-3xl italic">
+                  "כל מסע גדול מתחיל בצעד אחד קטן של אומץ. אני כאן כדי להחזיק עבורך את המרחב וללכת לצידך."
+                </p>
+                <div className="pt-6">
+                   <a 
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-10 px-16 py-5 bg-primary text-white boutique-label !text-[13px] hover:bg-white hover:text-accent transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+                  >
+                    <Sparkles size={24} />
+                    בואי נתחיל את המסע שלך
+                    <ArrowLeft size={16} />
+                  </a>
+                </div>
+             </div>
           </div>
           
           <div ref={stepsReveal} className="reveal max-w-4xl mx-auto space-y-12">

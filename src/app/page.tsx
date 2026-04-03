@@ -12,7 +12,7 @@ import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { MessageCircle, ArrowLeft, Eye, Orbit, Waves, Infinity, Compass, Quote } from 'lucide-react';
+import { MessageCircle, ArrowLeft, Eye, Orbit, Waves, Infinity, Compass, Quote, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function Home() {
@@ -22,6 +22,7 @@ export default function Home() {
   const audienceReveal = useReveal();
   const tourReveal = useReveal();
   const contactReveal = useReveal();
+  const ctaReveal = useReveal();
   
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-main');
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
@@ -147,7 +148,7 @@ export default function Home() {
                   אני פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. אני מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושהבחירה קיימת לכל אדם בכל מצב.
                 </p>
                 <div className="relative pr-12 py-4">
-                  <Quote className="absolute -top-6 -right-2 text-primary/5 w-40 h-40 rotate-180 pointer-events-none" />
+                  <Quote className="absolute -top-10 -right-4 text-primary/5 w-48 h-48 rotate-180 pointer-events-none" />
                   <div className="border-r-[3px] border-primary/20 pr-10 py-1">
                     <p className="font-headline italic text-3xl md:text-5xl text-accent/80 leading-snug relative z-10">
                       התהליך מביא לפחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, וביטוי אותנטי.
@@ -170,8 +171,34 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Personal Invitation CTA */}
+      <section ref={ctaReveal} className="py-24 px-6 md:px-24 bg-stone-50 reveal overflow-hidden border-y border-stone-200/50">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-16">
+          <div className="space-y-8 flex-1">
+            <h3 className="text-6xl md:text-8xl font-handwriting text-accent leading-none">
+              הזמנה למסע משותף...
+            </h3>
+            <p className="boutique-para text-2xl font-light leading-relaxed">
+              הצעד הראשון לשינוי מתחיל בשיחה פשוטה. אני כאן כדי להקשיב, ללוות ולמצוא יחד איתך את העוגן הפנימי שחיפשת.
+            </p>
+          </div>
+          <div className="shrink-0">
+            <a 
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-10 px-16 py-5 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100"
+            >
+              <Sparkles size={24} className="text-primary/60" />
+              תאום שיחת הכרות ללא עלות
+              <ArrowLeft size={16} />
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Uniqueness */}
-      <section ref={uniquenessReveal} className="py-32 md:py-56 px-6 md:px-24 bg-stone-50 reveal">
+      <section ref={uniquenessReveal} className="py-32 md:py-56 px-6 md:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Unique Approach" title="מה מיוחד בגישה שלי?" className="flex flex-col items-center text-center" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16 mt-24">
@@ -192,7 +219,7 @@ export default function Home() {
       </section>
 
       {/* Audiences */}
-      <section ref={audienceReveal} className="py-32 md:py-56 px-6 md:px-24 bg-white reveal">
+      <section ref={audienceReveal} className="py-32 md:py-56 px-6 md:px-24 bg-stone-50 reveal">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Audiences" title="עם מי אני עובדת?" className="flex flex-col items-center text-center" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-24">
@@ -215,7 +242,7 @@ export default function Home() {
       </section>
 
       {/* Clinic Tour */}
-      <section ref={tourReveal} className="py-32 md:py-56 px-6 md:px-24 reveal bg-stone-50 overflow-hidden">
+      <section ref={tourReveal} className="py-32 md:py-56 px-6 md:px-24 reveal bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="order-2 lg:order-1">
             <SectionTitle subtitle="The Clinic" title="סיור בקליניקה בטבעון" />
@@ -228,7 +255,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="order-1 lg:order-2">
-            <div className="image-zoom-container aspect-video shadow-2xl relative border-8 border-white">
+            <div className="image-zoom-container aspect-video shadow-2xl relative border-8 border-stone-50">
               {clinicImg && (
                 <Image 
                   src={clinicImg.imageUrl} 

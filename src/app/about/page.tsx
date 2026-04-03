@@ -9,12 +9,13 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Orbit, Waves, Infinity, Compass, ArrowLeft, Quote } from 'lucide-react';
+import { Orbit, Waves, Infinity, Compass, ArrowLeft, Quote, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
   const introReveal = useReveal();
   const uniquenessReveal = useReveal();
+  const personalInviteReveal = useReveal();
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-about');
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20קראתי%20עליך%20באתר%20ואשמח%20לפרטים%20על%20תהליך%20טיפולי";
@@ -125,8 +126,30 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Personal Invitation Section */}
+      <section ref={personalInviteReveal} className="py-24 bg-stone-50 reveal border-y border-stone-200/50">
+        <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
+           <h3 className="text-6xl md:text-8xl font-handwriting text-accent">בואי נתחיל ללכת יחד...</h3>
+           <p className="boutique-para text-2xl font-light">
+             אני כאן כדי לספק לך את המרחב הבטוח לו את זקוקה. אם את מרגישה שהגיע הזמן לשינוי, אני מזמינה אותך לפנות אליי לשיחה ראשונית.
+           </p>
+           <div className="pt-6">
+              <a 
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-10 px-20 py-5 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+              >
+                <Heart size={20} className="text-primary/60" />
+                שלחי לי הודעה אישית
+                <ArrowLeft size={16} />
+              </a>
+           </div>
+        </div>
+      </section>
+
       {/* Philosophy Section */}
-      <section ref={uniquenessReveal} className="py-32 md:py-56 px-8 md:px-24 bg-stone-50 reveal">
+      <section ref={uniquenessReveal} className="py-32 md:py-56 px-8 md:px-24 bg-white reveal">
         <div className="max-w-6xl mx-auto">
           <SectionTitle subtitle="My Philosophy" title="מה מייחד את הגישה שלי?" className="flex flex-col items-center text-center" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-24 mt-32">
@@ -146,7 +169,7 @@ export default function AboutPage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-32 bg-white px-8">
+      <section id="contact" className="py-32 bg-stone-50 px-8">
         <div className="max-w-4xl mx-auto">
           <SectionTitle subtitle="Connect" title="מוזמנת ליצור קשר" className="flex flex-col items-center text-center" />
           <p className="text-center boutique-para mb-20 leading-relaxed">אני כאן בשבילך לכל שאלה או לתיאום פגישה ראשונית.</p>

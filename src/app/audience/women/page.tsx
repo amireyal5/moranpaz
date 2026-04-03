@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -6,11 +7,12 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
-import { ArrowLeft, Sparkles } from 'lucide-react';
+import { ArrowLeft, Sparkles, Heart } from 'lucide-react';
 import Link from 'next/link';
 
 export default function WomenPage() {
   const contentReveal = useReveal();
+  const personalAppealReveal = useReveal();
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20ליווי%20רגשי%20לנשים";
 
   return (
@@ -53,27 +55,37 @@ export default function WomenPage() {
             </div>
 
             <div className="text-center pt-24">
-              <Link href="/workshop" className="boutique-label text-primary border-b border-primary/30 pb-2 hover:border-primary transition-all text-2xl">
-                אולי קורס BeinMe הקבוצתי יתאים לך?
+              <Link href="/workshop" className="boutique-label text-primary border-b border-primary/30 pb-2 hover:border-primary transition-all text-2xl font-bold">
+                אולי קורס BeinMe<sup className="text-[0.5em] mr-1">©</sup> הקבוצתי יתאים לך?
               </Link>
-            </div>
-
-            <div className="text-center pt-16">
-              <a 
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex px-16 py-8 bg-accent !text-white boutique-label hover:bg-primary transition-all duration-700 items-center gap-6 shadow-2xl rounded-sm"
-              >
-                תאום שיחת היכרות אישית
-                <ArrowLeft size={18} />
-              </a>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="py-32 bg-stone-50 px-8">
+      {/* Women Personal Appeal */}
+      <section ref={personalAppealReveal} className="py-24 bg-stone-50 reveal border-y border-stone-200/50">
+        <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
+          <h3 className="text-6xl md:text-8xl font-handwriting text-accent leading-none">הקול שלך ראוי להישמע</h3>
+          <p className="boutique-para text-2xl font-light leading-relaxed">
+            אני כאן כדי לספק לך את המקום בו תוכלי להניח הכל ולחזור לעצמך. פני אליי לשיחת היכרות אישית ונתחיל את המסע שלך פנימה.
+          </p>
+          <div className="pt-8">
+            <a 
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-10 px-16 py-6 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+            >
+              <Heart size={24} className="text-primary/60" />
+              תאום פגישת היכרות לנשים
+              <ArrowLeft size={16} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="py-32 bg-white px-8">
         <div className="max-w-4xl mx-auto">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
           <ContactForm />

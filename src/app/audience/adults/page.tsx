@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -6,10 +7,11 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Sparkles } from 'lucide-react';
 
 export default function AdultsPage() {
   const contentReveal = useReveal();
+  const personalCtaReveal = useReveal();
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אני%20פונה%20לגבי%20טיפול%20למבוגרים";
 
   return (
@@ -49,23 +51,33 @@ export default function AdultsPage() {
                 </div>
               ))}
             </div>
-
-            <div className="text-center pt-16">
-              <a 
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex px-16 py-8 bg-accent !text-white boutique-label hover:bg-primary transition-all duration-700 items-center gap-6 rounded-sm shadow-2xl"
-              >
-                תאום שיחת היכרות
-                <ArrowLeft size={18} />
-              </a>
-            </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="py-32 bg-stone-50 px-8">
+      {/* Adults Personal Appeal */}
+      <section ref={personalCtaReveal} className="py-24 bg-stone-50 reveal border-y border-stone-200/50">
+        <div className="max-w-4xl mx-auto px-6 text-center space-y-12">
+          <h3 className="text-6xl md:text-8xl font-handwriting text-accent">זה הזמן שלך להרגיש חופשי</h3>
+          <p className="boutique-para text-2xl font-light leading-relaxed">
+            אני מזמינה אותך ליצור עבורך את המרחב לשקט פנימי וצמיחה. בואי נתחיל בשיחת היכרות פשוטה שבה נבדוק איך אני יכולה ללוות אותך.
+          </p>
+          <div className="pt-8">
+            <a 
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-10 px-16 py-6 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
+            >
+              <Sparkles size={24} className="text-primary/60" />
+              תאום שיחת היכרות אישית
+              <ArrowLeft size={16} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="py-32 bg-white px-8">
         <div className="max-w-4xl mx-auto">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
           <ContactForm />
