@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore';
 import { useUser, useFirestore } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -14,13 +14,12 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, Plus, Trash2, LayoutTextWindow } from 'lucide-react';
+import { Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, Plus, Trash2, LayoutTextWindow, Settings, FilePlus } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
 
-const PAGES = [
-  { id: 'global', name: 'הגדרות כלליות (ניווט)' },
+const DEFAULT_PAGES = [
   { id: 'home', name: 'דף הבית' },
   { id: 'about', name: 'אודות' },
   { id: 'practice', name: 'התהליך הטיפולי' },
@@ -39,8 +38,10 @@ export default function PageManagement() {
   const { toast } = useToast();
 
   const [selectedPage, setSelectedPage] = useState('home');
+  const [customPageId, setCustomPageId] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+  const [existingPages, setExistingPages] = useState<{id: string, name: string}[]>(DEFAULT_PAGES);
 
   const [content, setContent] = useState({
     heroTitle: '',
@@ -104,14 +105,25 @@ export default function PageManagement() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!db || isSaving) return;
+    
+    const targetId = selectedPage === 'custom' ? customPageId : selectedPage;
+    if (!targetId) {
+      toast({ variant: "destructive", title: "אנא הזיני מזהה עמוד (Slug)" });
+      return;
+    }
+
     setIsSaving(true);
     try {
-      await setDoc(doc(db, 'siteContent', selectedPage), {
+      await setDoc(doc(db, 'siteContent', targetId), {
         ...content,
-        pageId: selectedPage,
+        pageId: targetId,
         updatedAt: Date.now()
       });
       toast({ title: "התוכן נשמר בהצלחה!" });
+      if (selectedPage === 'custom') {
+        setCustomPageId('');
+        setSelectedPage(targetId);
+      }
     } catch (e) {
       toast({ variant: "destructive", title: "שגיאה בשמירה" });
     } finally {
@@ -138,6 +150,17 @@ export default function PageManagement() {
     setContent({ ...content, navItems: updated });
   };
 
+  const moveNavItem = (index: number, direction: 'up' | 'down') => {
+    const updated = [...content.navItems];
+    const targetIndex = direction === 'up' ? index - 1 : index + 1;
+    if (targetIndex < 0 || targetIndex >= updated.length) return;
+    
+    const temp = updated[index];
+    updated[index] = updated[targetIndex];
+    updated[targetIndex] = temp;
+    setContent({ ...content, navItems: updated });
+  };
+
   if (authLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-primary" /></div>;
   if (!user) return null;
 
@@ -150,19 +173,37 @@ export default function PageManagement() {
             <Button variant="ghost" onClick={() => router.push('/admin/dashboard')} className="mb-4 text-stone-400 p-0 hover:text-primary">
               <ChevronRight className="ml-2" /> חזרה ללוח הבקרה
             </Button>
-            <h1 className="text-6xl font-handwriting text-accent">עריכת תוכן דפים</h1>
+            <h1 className="text-6xl font-handwriting text-accent">ניהול תוכן ועיצוב</h1>
           </div>
           
-          <div className="w-full md:w-64 space-y-2">
-            <Label className="boutique-label">בחר דף לעריכה</Label>
-            <Select value={selectedPage} onValueChange={setSelectedPage}>
-              <SelectTrigger className="bg-white border-none h-12 rounded-none">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {PAGES.map(p => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
-              </SelectContent>
-            </Select>
+          <div className="w-full md:w-80 space-y-4">
+            <div className="space-y-2">
+              <Label className="boutique-label flex items-center gap-2">
+                <Settings size={14} /> בחר דף לעריכה
+              </Label>
+              <Select value={selectedPage} onValueChange={setSelectedPage}>
+                <SelectTrigger className="bg-white border-none h-12 rounded-none shadow-sm">
+                  <SelectValue placeholder="בחרי עמוד..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="global" className="font-bold text-primary">⚙️ הגדרות כלליות (תפריט)</SelectItem>
+                  {existingPages.map(p => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
+                  <SelectItem value="custom" className="italic text-stone-400">+ הוספת עמוד חדש...</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {selectedPage === 'custom' && (
+              <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
+                <Label className="boutique-label text-primary">מזהה עמוד (באנגלית, למשל: my-page)</Label>
+                <Input 
+                  value={customPageId} 
+                  onChange={e => setCustomPageId(e.target.value.toLowerCase().replace(/\s+/g, '-'))}
+                  className="h-10 border-primary/20 font-sans"
+                  placeholder="new-page-id"
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -194,19 +235,24 @@ export default function PageManagement() {
                 <Card className="border-none shadow-xl rounded-none">
                   <CardHeader className="bg-stone-50/50 border-b border-stone-100">
                     <CardTitle className="font-headline text-2xl flex items-center gap-4">
-                      <ListOrdered size={24} className="text-primary" /> ניהול תפריט ניווט
+                      <ListOrdered size={24} className="text-primary" /> ניהול וסדר תפריט הניווט
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-8 space-y-6">
+                    <p className="text-xs text-stone-400 italic mb-4">כאן תוכלי לקבוע אילו עמודים יפורסמו בתפריט ובאיזה סדר הם יופיעו.</p>
                     {content.navItems.map((item, index) => (
                       <div key={index} className="flex gap-4 items-end bg-stone-50 p-4 border border-stone-100">
-                        <div className="flex-1 space-y-2">
-                          <Label className="text-[10px] uppercase font-bold text-stone-400">תווית (למשל: דף הבית)</Label>
-                          <Input value={item.label} onChange={e => updateNavItem(index, 'label', e.target.value)} className="bg-white border-none" />
+                        <div className="flex flex-col gap-1">
+                          <Button type="button" variant="ghost" size="sm" onClick={() => moveNavItem(index, 'up')} disabled={index === 0} className="h-6 w-6 p-0 opacity-50 hover:opacity-100">▲</Button>
+                          <Button type="button" variant="ghost" size="sm" onClick={() => moveNavItem(index, 'down')} disabled={index === content.navItems.length - 1} className="h-6 w-6 p-0 opacity-50 hover:opacity-100">▼</Button>
                         </div>
                         <div className="flex-1 space-y-2">
-                          <Label className="text-[10px] uppercase font-bold text-stone-400">קישור (למשל: /about)</Label>
-                          <Input value={item.href} onChange={e => updateNavItem(index, 'href', e.target.value)} className="bg-white border-none" />
+                          <Label className="text-[10px] uppercase font-bold text-stone-400">תווית בתפריט</Label>
+                          <Input value={item.label} onChange={e => updateNavItem(index, 'label', e.target.value)} className="bg-white border-none" placeholder="למשל: אודות" />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <Label className="text-[10px] uppercase font-bold text-stone-400">כתובת (URL)</Label>
+                          <Input value={item.href} onChange={e => updateNavItem(index, 'href', e.target.value)} className="bg-white border-none font-sans" placeholder="למשל: /about" />
                         </div>
                         <Button type="button" variant="ghost" onClick={() => removeNavItem(index)} className="text-destructive hover:bg-destructive/10">
                           <Trash2 size={18} />
@@ -214,7 +260,7 @@ export default function PageManagement() {
                       </div>
                     ))}
                     <Button type="button" onClick={addNavItem} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary hover:bg-primary/5">
-                      <Plus className="mr-2" size={18} /> הוספת פריט לתפריט
+                      <Plus className="mr-2" size={18} /> הוספת קישור לתפריט
                     </Button>
                   </CardContent>
                 </Card>
@@ -222,7 +268,7 @@ export default function PageManagement() {
             ) : (
               <>
                 <Card className="border-none shadow-xl rounded-none">
-                  <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">Hero Section</CardTitle></CardHeader>
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">תמונות וכותרות (Hero)</CardTitle></CardHeader>
                   <CardContent className="pt-8 space-y-8">
                     <div className="space-y-3">
                       <Label className="boutique-label text-stone-400">כותרת ראשית (Hero)</Label>
@@ -235,13 +281,13 @@ export default function PageManagement() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
                       <div className="space-y-3">
                         <Label className="boutique-label text-stone-400 flex items-center gap-2">
-                          <Monitor size={14} /> תמונת רקע דסקטופ (URL)
+                          <Monitor size={14} /> רקע דסקטופ (URL)
                         </Label>
                         <Input value={content.heroImageUrlDesktop} onChange={e => setContent({...content, heroImageUrlDesktop: e.target.value})} className="font-sans" placeholder="https://..." />
                       </div>
                       <div className="space-y-3">
                         <Label className="boutique-label text-stone-400 flex items-center gap-2">
-                          <Smartphone size={14} /> תמונת רקע מובייל (URL)
+                          <Smartphone size={14} /> רקע מובייל (URL)
                         </Label>
                         <Input value={content.heroImageUrlMobile} onChange={e => setContent({...content, heroImageUrlMobile: e.target.value})} className="font-sans" placeholder="https://..." />
                       </div>
@@ -250,16 +296,18 @@ export default function PageManagement() {
                 </Card>
 
                 <Card className="border-none shadow-xl rounded-none">
-                  <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">תוכן העמוד (Cubes & Sections)</CardTitle></CardHeader>
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100">
+                    <CardTitle className="font-headline text-2xl flex items-center gap-4">
+                      <LayoutTextWindow size={24} className="text-primary" /> עיצוב ותוכן העמוד
+                    </CardTitle>
+                  </CardHeader>
                   <CardContent className="pt-8 space-y-8">
                     <div className="space-y-3">
-                      <Label className="boutique-label text-stone-400">כותרת פתיחה (Intro Title)</Label>
+                      <Label className="boutique-label text-stone-400">כותרת פתיחה</Label>
                       <Input value={content.introTitle} onChange={e => setContent({...content, introTitle: e.target.value})} className="h-14 text-xl font-headline" />
                     </div>
                     <div className="space-y-3">
-                      <Label className="boutique-label text-stone-400 flex items-center gap-2">
-                        <LayoutTextWindow size={16} /> גוף העמוד (ניתן להוסיף רשימות, תמונות ועיצוב)
-                      </Label>
+                      <Label className="boutique-label text-stone-400">גוף העמוד (שימוש בעורך לעיצוב חופשי)</Label>
                       <div className="prose-editor">
                         <ReactQuill 
                           theme="snow"
@@ -268,15 +316,15 @@ export default function PageManagement() {
                           className="bg-white"
                         />
                       </div>
-                      <p className="text-xs text-stone-400 mt-2 italic">טיפ: תוכלי להשתמש בעורך כדי ליצור את המבנה של "קוביות" המידע או להוסיף תמונות נוספות בתוך הטקסט.</p>
+                      <p className="text-xs text-stone-400 mt-2 italic">כאן תוכלי להשתמש בכותרות, רשימות ותמונות כדי לעצב את העמוד כפי שאת רוצה.</p>
                     </div>
                   </CardContent>
                 </Card>
               </>
             )}
 
-            <Button type="submit" disabled={isSaving} className="w-full bg-primary h-16 text-white text-xl boutique-label rounded-none shadow-2xl">
-              {isSaving ? <Loader2 className="animate-spin" /> : <><Save className="mr-4" /> שמירת כל השינויים</>}
+            <Button type="submit" disabled={isSaving} className="w-full bg-primary h-16 text-white text-xl boutique-label rounded-none shadow-2xl transition-all hover:bg-accent">
+              {isSaving ? <Loader2 className="animate-spin" /> : <><Save className="ml-4" /> שמירת כל השינויים</>}
             </Button>
           </form>
         )}
