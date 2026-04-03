@@ -9,7 +9,7 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Orbit, Waves, Infinity, Compass, ArrowLeft } from 'lucide-react';
+import { Orbit, Waves, Infinity, Compass, ArrowLeft, Quote } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
@@ -50,7 +50,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto">
           <div ref={introReveal} className="reveal text-center mb-24">
             <span className="boutique-label block mb-8 text-primary">About Moran Paz</span>
-            <h1 className="text-7xl md:text-9xl font-['Amatic_SC'] font-bold text-foreground leading-none mb-10">
+            <h1 className="text-7xl md:text-9xl font-handwriting font-bold text-foreground leading-none mb-10">
               נעים מאוד, מורן פז
             </h1>
             <div className="w-24 h-[1px] bg-primary/30 mx-auto"></div>
@@ -72,9 +72,12 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:col-span-7 order-1 lg:order-2 space-y-10">
-               <p className="text-3xl md:text-4xl font-headline text-accent italic border-r-4 border-primary/20 pr-8 font-light leading-relaxed">
-                  "אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה."
-               </p>
+               <div className="relative pt-8">
+                  <Quote className="absolute -top-6 -right-8 text-primary/10 w-24 h-24 rotate-180 pointer-events-none" />
+                  <p className="text-3xl md:text-4xl font-headline text-accent italic border-r-4 border-primary/20 pr-8 font-light leading-relaxed relative z-10">
+                    אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה.
+                  </p>
+               </div>
                <div className="space-y-8 boutique-para text-stone-600">
                   <p>
                     פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. 
@@ -94,7 +97,7 @@ export default function AboutPage() {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-6 px-12 py-4 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap"
+                    className="inline-flex items-center gap-6 px-12 py-3.5 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !opacity-100"
                   >
                     תאום שיחת היכרות
                     <ArrowLeft size={18} />
