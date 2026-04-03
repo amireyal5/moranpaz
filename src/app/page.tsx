@@ -13,6 +13,7 @@ import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Orbit, Heart, Sparkles } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function Home() {
   const heroReveal = useReveal();
@@ -157,13 +158,13 @@ export default function Home() {
               { title: "נפש", icon: <Heart />, desc: "עיבוד רגשות, דפוסים והסיפור שאנחנו מספרים לעצמנו." },
               { title: "רוח", icon: <Sparkles />, desc: "חיבור למודעות, למשמעות ולאור שבתוכנו." }
             ].map((point, i) => (
-              <div key={i} className="boutique-card">
+              <div key={i} className={cn("boutique-card group", `stagger-${i+1}`)}>
                 <div className="text-primary mb-8 group-hover:scale-110 transition-transform duration-700">
                   {React.cloneElement(point.icon as React.ReactElement, { size: 56, strokeWidth: 0.2 })}
                 </div>
                 <div className="space-y-6">
-                  <h3 className="text-3xl sm:text-4xl font-headline font-light text-accent">{point.title}</h3>
-                  <p className="text-lg sm:text-xl font-light text-stone-500 leading-relaxed">{point.desc}</p>
+                  <h3 className="text-3xl sm:text-4xl font-headline font-bold text-accent">{point.title}</h3>
+                  <p className="text-lg sm:text-xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
                 </div>
               </div>
             ))}
