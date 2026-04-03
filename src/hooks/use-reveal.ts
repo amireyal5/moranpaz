@@ -12,10 +12,15 @@ export function useReveal() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('reveal-visible');
+            // Once revealed, we don't need to observe anymore
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.05, // Trigger earlier for better UX
+        rootMargin: '0px 0px -50px 0px' // Trigger slightly before it hits the viewport
+      }
     );
 
     if (ref.current) {

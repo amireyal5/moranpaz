@@ -54,9 +54,10 @@
   }
 }
 
+/* Animations 2026 Style */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(20px);
   transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
               transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
@@ -100,7 +101,7 @@
 }
 
 .boutique-label {
-  @apply text-[11px] sm:text-xs uppercase tracking-[0.5em] font-bold opacity-60;
+  @apply text-[11px] sm:text-xs uppercase tracking-[0.4em] font-bold opacity-60;
 }
 
 .boutique-title {
