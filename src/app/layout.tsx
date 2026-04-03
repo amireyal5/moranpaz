@@ -1,16 +1,18 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { FloatingWhatsApp } from '@/components/shared/FloatingWhatsApp';
 
 export const metadata: Metadata = {
   title: {
-    default: 'BeinMe - מורן פז | להיות אני בתוכי | פסיכותרפיה הוליסטית בטבעון',
+    default: 'BeinMe - מורן פז | פסיכותרפיה הוליסטית בטבעון ובעמק יזרעאל',
     template: '%s | BeinMe - מורן פז'
   },
-  description: 'מורן פז - פסיכותרפיסטית הוליסטית בגישת BeinMe. ליווי רגשי לנשים ונוער בטבעון ובאונליין. שילוב גוף, נפש ורוח לריפוי עמוק וחיבור לסמכות הפנימית.',
+  description: 'מורן פז - פסיכותרפיסטית הוליסטית בגישת BeinMe. ליווי רגשי לנשים ונוער בטבעון, עמק יזרעאל ובאונליין. מומחית בטיפול בחרדה, חיבור לסמכות פנימית ועבודה רגשית עמוקה.',
   keywords: [
     'פסיכותרפיה הוליסטית',
     'טיפול רגשי בטבעון',
+    'טיפול רגשי בעמק יזרעאל',
     'טיפול למבוגרים',
     'טיפול בחרדות',
     'מטפלת רגשית עמק יזרעאל',
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'BeinMe - מורן פז | להיות אני בתוכי',
-    description: 'מרחב בטוח לצמיחה וריפוי רגשי בטבעון ובאונליין.',
+    description: 'מרחב בטוח לצמיחה וריפוי רגשי בטבעון, בעמק יזרעאל ובאונליין.',
     url: 'https://moranpaz.com',
     siteName: 'BeinMe - מורן פז',
     locale: 'he_IL',

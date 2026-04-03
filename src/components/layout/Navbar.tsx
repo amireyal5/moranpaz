@@ -38,8 +38,8 @@ export function Navbar() {
     { label: 'בית', href: '/' },
     { label: 'אודות', href: '/about' },
     { label: 'התהליך הטיפולי', href: '/practice' },
-    { label: 'טיפול אונליין', href: '/online-therapy' },
     { label: 'נקודות של אור', href: '/blog' },
+    { label: 'צור קשר', href: '/contact' },
   ];
 
   return (
