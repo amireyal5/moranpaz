@@ -43,17 +43,27 @@ export function Navbar() {
   return (
     <>
       <nav className={cn(
-        "fixed w-full z-[200] transition-all duration-1000 px-6 md:px-12 lg:px-24 flex justify-between items-center py-6 md:py-10",
-        isScrolled ? 'bg-background/95 backdrop-blur-xl py-3 md:py-5 border-b border-border/30 shadow-sm' : 'bg-transparent'
+        "fixed w-full z-[200] transition-all duration-700 px-6 md:px-12 lg:px-24 flex justify-between items-center py-6 md:py-10",
+        isScrolled 
+          ? 'bg-background/95 backdrop-blur-xl py-3 md:py-5 border-b border-border/30 shadow-sm' 
+          : 'bg-transparent'
       )}>
         <NextLink 
           href="/"
           className="flex flex-col items-start z-[220] group"
         >
-          <span className="text-xl sm:text-2xl md:text-3xl font-headline tracking-[0.25em] font-light hover:opacity-50 transition-all duration-700">
+          <span className={cn(
+            "text-xl sm:text-2xl md:text-3xl font-headline tracking-[0.25em] font-light transition-all duration-700",
+            isScrolled ? "text-foreground" : "text-white"
+          )}>
             MORAN PAZ
           </span>
-          <span className="text-[10px] font-handwriting tracking-widest text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-700">BeinMe — להיות אני בתוכי</span>
+          <span className={cn(
+            "text-[10px] font-handwriting tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-700",
+            isScrolled ? "text-primary" : "text-primary-foreground"
+          )}>
+            BeinMe — להיות אני בתוכי
+          </span>
         </NextLink>
         
         {/* Desktop Menu */}
@@ -63,18 +73,31 @@ export function Navbar() {
               key={item.href} 
               href={item.href} 
               className={cn(
-                "hover-gold relative py-1 transition-all duration-700 text-[12px] tracking-[0.2em] font-medium",
-                pathname === item.href ? "text-primary" : "text-foreground/80"
+                "relative py-1 transition-all duration-700 text-[12px] tracking-[0.2em] font-medium",
+                isScrolled 
+                  ? (pathname === item.href ? "text-primary" : "text-foreground/80 hover:text-primary") 
+                  : (pathname === item.href ? "text-white" : "text-white/70 hover:text-white")
               )}
             >
               {item.label}
+              {pathname === item.href && (
+                <span className={cn(
+                  "absolute bottom-0 right-0 w-full h-[1px] transition-all duration-700",
+                  isScrolled ? "bg-primary" : "bg-white"
+                )} />
+              )}
             </NextLink>
           ))}
           <a 
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="!text-white bg-primary px-6 py-2.5 hover:bg-accent transition-all duration-700 text-[10px] tracking-[0.3em] font-bold shadow-lg rounded-sm"
+            className={cn(
+              "px-6 py-2.5 transition-all duration-700 text-[10px] tracking-[0.3em] font-bold shadow-lg rounded-sm",
+              isScrolled 
+                ? "bg-primary text-white hover:bg-accent" 
+                : "bg-white/10 backdrop-blur-md text-white border border-white/30 hover:bg-white hover:text-primary"
+            )}
           >
             צרו קשר
           </a>
@@ -87,7 +110,13 @@ export function Navbar() {
             className="lg:hidden p-2 hover:opacity-50 transition-opacity z-[230] relative"
             aria-label="פתיחת תפריט"
           >
-            <Menu strokeWidth={1} className="size-7 sm:size-8 text-foreground" />
+            <Menu 
+              strokeWidth={1} 
+              className={cn(
+                "size-7 sm:size-8 transition-colors duration-700",
+                isScrolled ? "text-foreground" : "text-white"
+              )} 
+            />
           </button>
         )}
       </nav>
