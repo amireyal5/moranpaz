@@ -17,6 +17,8 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const isAdminPage = pathname?.startsWith('/admin');
+  
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20שלך%20מעוניין%20לקבל%20פרטים%20נוספים%20תודה";
 
   useEffect(() => {
@@ -50,11 +52,14 @@ export function Navbar() {
 
   const navItems = globalSettings?.navItems?.length > 0 ? globalSettings.navItems : defaultNavItems;
 
+  // Logic to determine if we should use the "solid" look (dark text)
+  const useSolidLook = isScrolled || isAdminPage;
+
   return (
     <>
       <nav className={cn(
         "fixed w-full z-[200] transition-all duration-700 px-4 md:px-8 lg:px-12 xl:px-24 flex justify-between items-center py-3 md:py-6",
-        isScrolled 
+        useSolidLook 
           ? 'bg-background/95 backdrop-blur-xl py-2 md:py-3 border-b border-border/30 shadow-sm' 
           : 'bg-transparent'
       )}>
@@ -64,13 +69,13 @@ export function Navbar() {
         >
           <span className={cn(
             "text-base sm:text-xl lg:text-2xl font-headline tracking-[0.2em] font-light transition-all duration-700",
-            isScrolled ? "text-foreground" : "text-white drop-shadow-md"
+            useSolidLook ? "text-foreground" : "text-white drop-shadow-md"
           )}>
             {globalSettings?.siteName || "MORAN PAZ"}
           </span>
           <span className={cn(
             "text-xs sm:text-base lg:text-lg font-handwriting tracking-widest transition-all duration-700 mt-0",
-            isScrolled ? "text-accent" : "text-white drop-shadow-sm"
+            useSolidLook ? "text-accent" : "text-white drop-shadow-sm"
           )}>
             {globalSettings?.siteSubtitle || "BeinMe — להיות אני בתוכי"}
           </span>
@@ -84,7 +89,7 @@ export function Navbar() {
               href={item.href} 
               className={cn(
                 "relative py-1 transition-all duration-700 text-[10px] xl:text-[12px] tracking-[0.1em] font-medium whitespace-nowrap",
-                isScrolled 
+                useSolidLook 
                   ? (pathname === item.href ? "text-primary" : "text-foreground/80 hover:text-primary") 
                   : (pathname === item.href ? "text-white" : "text-white/90 hover:text-white drop-shadow-sm")
               )}
@@ -93,7 +98,7 @@ export function Navbar() {
               {pathname === item.href && (
                 <span className={cn(
                   "absolute bottom-0 right-0 w-full h-[1px] transition-all duration-700",
-                  isScrolled ? "bg-primary" : "bg-white"
+                  useSolidLook ? "bg-primary" : "bg-white"
                 )} />
               )}
             </NextLink>
@@ -104,7 +109,7 @@ export function Navbar() {
             rel="noopener noreferrer"
             className={cn(
               "px-4 xl:px-6 py-1.5 transition-all duration-700 text-[9px] xl:text-[11px] tracking-[0.15em] font-bold shadow-lg rounded-sm !text-white flex items-center gap-2 whitespace-nowrap",
-              isScrolled 
+              useSolidLook 
                 ? "bg-primary hover:bg-accent" 
                 : "bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white hover:!text-primary"
             )}
@@ -126,7 +131,7 @@ export function Navbar() {
             strokeWidth={1} 
             className={cn(
               "size-7 transition-colors duration-700",
-              isScrolled ? "text-foreground" : "text-white drop-shadow-md"
+              useSolidLook ? "text-foreground" : "text-white drop-shadow-md"
             )} 
           />
         </button>
