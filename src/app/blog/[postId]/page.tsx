@@ -46,7 +46,7 @@ export default function BlogPostPage() {
   if (!post) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-stone-50 text-right p-8">
-        <h1 className="text-4xl font-headline text-accent mb-8">המאמר לא נמצא</h1>
+        <h1 className="text-3xl md:text-4xl font-headline text-accent mb-8">המאמר לא נמצא</h1>
         <Button onClick={() => router.push('/blog')} className="bg-primary text-white font-headline">חזרה לבלוג</Button>
       </div>
     );
@@ -57,7 +57,7 @@ export default function BlogPostPage() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative h-[60vh] md:h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
+      <section className="relative h-[50vh] md:h-[60vh] lg:h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
           {post.heroImageUrlDesktop ? (
             <>
@@ -87,19 +87,19 @@ export default function BlogPostPage() {
           )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background"></div>
         </div>
-        <div className="relative z-10 text-center max-w-5xl px-4">
-           <span className="boutique-label text-white/80 mb-6 block drop-shadow-md uppercase tracking-[0.4em]">{post.category}</span>
-           <h1 className="text-4xl md:text-6xl lg:text-8xl font-handwriting text-white mb-8 font-bold hero-title-shadow leading-tight">{post.title}</h1>
-           {post.subtitle && <p className="text-xl md:text-3xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">{post.subtitle}</p>}
+        <div className="relative z-10 text-center max-w-5xl px-4 mt-12 md:mt-20">
+           <span className="boutique-label text-white/80 mb-4 md:mb-6 block drop-shadow-md uppercase tracking-[0.4em] text-[10px] md:text-xs">{post.category}</span>
+           <h1 className="text-3xl md:text-5xl lg:text-7xl font-handwriting text-white mb-6 md:mb-8 font-bold hero-title-shadow leading-tight">{post.title}</h1>
+           {post.subtitle && <p className="text-lg md:text-2xl lg:text-3xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">{post.subtitle}</p>}
         </div>
       </section>
 
       {/* Content Section */}
-      <article className="py-20 md:py-32 px-6 bg-white">
+      <article className="py-16 md:py-24 lg:py-32 px-6 bg-white">
         <div className="max-w-3xl mx-auto">
-          {/* Metadata Bar - Centered for better balance */}
-          <div className="flex flex-col items-center gap-6 mb-16 pb-8 border-b border-stone-100 text-stone-400 boutique-label !text-[11px]">
-             <div className="flex items-center gap-8">
+          {/* Metadata Bar */}
+          <div className="flex flex-col items-center gap-4 md:gap-6 mb-12 md:mb-16 pb-6 md:pb-8 border-b border-stone-100 text-stone-400 boutique-label !text-[10px] md:!text-[11px]">
+             <div className="flex items-center gap-6 md:gap-8">
                 <div className="flex items-center gap-2">
                     <Calendar size={14} />
                     <span>{formatDisplayDate(post.date)}</span>
@@ -109,15 +109,15 @@ export default function BlogPostPage() {
                     <span>{post.category}</span>
                 </div>
              </div>
-             <Button variant="ghost" size="sm" onClick={() => router.push('/blog')} className="text-primary hover:text-accent font-bold gap-2">
-               <ChevronRight size={16} /> חזרה לבלוג
+             <Button variant="ghost" size="sm" onClick={() => router.push('/blog')} className="text-primary hover:text-accent font-bold gap-2 text-xs">
+               <ChevronRight size={14} /> חזרה לבלוג
              </Button>
           </div>
 
           {/* Article Summary (Excerpt) */}
           {post.summary && (
-            <div className="mb-16 p-8 bg-stone-50 border-r-4 border-primary/20 italic">
-              <p className="text-2xl md:text-3xl font-headline text-accent leading-relaxed">
+            <div className="mb-12 md:mb-16 p-6 md:p-8 bg-stone-50 border-r-4 border-primary/20 italic">
+              <p className="text-xl md:text-2xl lg:text-3xl font-headline text-accent leading-relaxed">
                 {post.summary}
               </p>
             </div>
@@ -129,13 +129,13 @@ export default function BlogPostPage() {
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
           
-          <div className="mt-24 pt-16 border-t border-stone-100 flex flex-col items-center text-center space-y-8">
-             <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4">
-                <ArrowRight size={32} />
+          <div className="mt-20 md:mt-24 pt-12 md:pt-16 border-t border-stone-100 flex flex-col items-center text-center space-y-6 md:space-y-8">
+             <div className="w-16 h-16 md:w-20 md:h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-2 md:mb-4">
+                <ArrowRight size={24} className="md:size-8" />
              </div>
-             <h4 className="text-5xl md:text-6xl font-handwriting text-accent">תודה שקראתם. יש לכם שאלות נוספות?</h4>
-             <p className="text-xl md:text-2xl font-headline font-light text-stone-500 max-w-xl">אני מזמינה אתכם לפנות אליי לשיחת היכרות אישית ולגלות את הדרך שלכם פנימה.</p>
-             <Button onClick={() => router.push('/contact')} className="bg-accent hover:bg-primary text-white h-14 px-16 boutique-label rounded-none shadow-xl transition-all duration-700 text-base">צרו קשר אישי</Button>
+             <h4 className="text-4xl md:text-6xl font-handwriting text-accent">תודה שקראתם. יש לכם שאלות נוספות?</h4>
+             <p className="text-lg md:text-2xl font-headline font-light text-stone-500 max-w-xl">אני מזמינה אתכם לפנות אליי לשיחת היכרות אישית ולגלות את הדרך שלכם פנימה.</p>
+             <Button onClick={() => router.push('/contact')} className="bg-accent hover:bg-primary text-white h-12 md:h-14 px-10 md:px-16 boutique-label rounded-none shadow-xl transition-all duration-700 text-sm md:text-base">צרו קשר אישי</Button>
           </div>
         </div>
       </article>

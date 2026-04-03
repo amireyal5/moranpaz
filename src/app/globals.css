@@ -87,7 +87,7 @@
 }
 
 .boutique-title {
-  @apply text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-headline font-light leading-tight tracking-tight text-foreground;
+  @apply text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-headline font-light leading-tight tracking-tight text-foreground;
   text-shadow: 0 2px 4px rgba(0,0,0,0.01);
 }
 
@@ -130,26 +130,26 @@
 
 /* Rich Text Content Container */
 .blog-content-container {
-  @apply text-xl md:text-2xl leading-[1.8] text-stone-700 text-right;
+  @apply text-lg md:text-xl lg:text-2xl leading-[1.8] text-stone-700 text-right;
 }
 
 .blog-content-container p {
-  @apply mb-10;
+  @apply mb-8 md:mb-10;
 }
 
 .blog-content-container h1, 
 .blog-content-container h2, 
 .blog-content-container h3 {
-  @apply text-accent font-bold mt-16 mb-8 leading-tight text-center;
+  @apply text-accent font-bold mt-12 md:mt-16 mb-6 md:mb-8 leading-tight text-center;
 }
 
-.blog-content-container h1 { @apply text-4xl md:text-5xl; }
-.blog-content-container h2 { @apply text-3xl md:text-4xl; }
-.blog-content-container h3 { @apply text-2xl md:text-3xl; }
+.blog-content-container h1 { @apply text-3xl md:text-4xl lg:text-5xl; }
+.blog-content-container h2 { @apply text-2xl md:text-3xl lg:text-4xl; }
+.blog-content-container h3 { @apply text-xl md:text-2xl lg:text-3xl; }
 
 .blog-content-container ul, 
 .blog-content-container ol {
-  @apply mb-12 pr-8 space-y-4;
+  @apply mb-10 md:mb-12 pr-6 md:pr-8 space-y-3 md:space-y-4;
 }
 
 .blog-content-container ul {
@@ -165,7 +165,7 @@
 }
 
 .blog-content-container blockquote {
-  @apply border-r-4 border-primary/20 pr-8 my-12 italic text-2xl md:text-3xl font-light text-stone-500 text-center;
+  @apply border-r-4 border-primary/20 pr-6 md:pr-8 my-10 md:my-12 italic text-xl md:text-2xl lg:text-3xl font-light text-stone-500 text-center;
 }
 
 /* Quill Editor Custom Styling for Boutique Feel */

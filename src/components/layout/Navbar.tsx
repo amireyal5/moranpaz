@@ -45,9 +45,9 @@ export function Navbar() {
   return (
     <>
       <nav className={cn(
-        "fixed w-full z-[200] transition-all duration-700 px-4 md:px-12 xl:px-24 flex justify-between items-center py-4 md:py-6",
+        "fixed w-full z-[200] transition-all duration-700 px-4 md:px-8 lg:px-12 xl:px-24 flex justify-between items-center py-3 md:py-6",
         isScrolled 
-          ? 'bg-background/95 backdrop-blur-xl py-3 border-b border-border/30 shadow-sm' 
+          ? 'bg-background/95 backdrop-blur-xl py-2 md:py-3 border-b border-border/30 shadow-sm' 
           : 'bg-transparent'
       )}>
         <NextLink 
@@ -55,27 +55,27 @@ export function Navbar() {
           className="flex flex-col items-start z-[220] group shrink-0"
         >
           <span className={cn(
-            "text-lg sm:text-2xl md:text-3xl font-headline tracking-[0.2em] font-light transition-all duration-700",
+            "text-base sm:text-xl lg:text-2xl font-headline tracking-[0.2em] font-light transition-all duration-700",
             isScrolled ? "text-foreground" : "text-white drop-shadow-md"
           )}>
             MORAN PAZ
           </span>
           <span className={cn(
-            "text-sm sm:text-lg md:text-xl font-handwriting tracking-widest transition-all duration-700 mt-0.5",
+            "text-xs sm:text-base lg:text-lg font-handwriting tracking-widest transition-all duration-700 mt-0",
             isScrolled ? "text-accent" : "text-white drop-shadow-sm"
           )}>
             BeinMe — להיות אני בתוכי
           </span>
         </NextLink>
         
-        {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-6 xl:gap-10 boutique-label">
+        {/* Desktop Menu - Adjust gap for responsiveness */}
+        <div className="hidden lg:flex items-center gap-4 xl:gap-8 boutique-label">
           {navItems.map((item) => (
             <NextLink 
               key={item.href} 
               href={item.href} 
               className={cn(
-                "relative py-1 transition-all duration-700 text-[11px] xl:text-[13px] tracking-[0.1em] font-medium whitespace-nowrap",
+                "relative py-1 transition-all duration-700 text-[10px] xl:text-[12px] tracking-[0.1em] font-medium whitespace-nowrap",
                 isScrolled 
                   ? (pathname === item.href ? "text-primary" : "text-foreground/80 hover:text-primary") 
                   : (pathname === item.href ? "text-white" : "text-white/90 hover:text-white drop-shadow-sm")
@@ -84,7 +84,7 @@ export function Navbar() {
               {item.label}
               {pathname === item.href && (
                 <span className={cn(
-                  "absolute bottom-0 right-0 w-full h-[1.5px] transition-all duration-700",
+                  "absolute bottom-0 right-0 w-full h-[1px] transition-all duration-700",
                   isScrolled ? "bg-primary" : "bg-white"
                 )} />
               )}
@@ -95,7 +95,7 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "px-5 xl:px-8 py-2 transition-all duration-700 text-[10px] xl:text-[12px] tracking-[0.15em] font-bold shadow-lg rounded-sm !text-white flex items-center gap-2 whitespace-nowrap",
+              "px-4 xl:px-6 py-1.5 transition-all duration-700 text-[9px] xl:text-[11px] tracking-[0.15em] font-bold shadow-lg rounded-sm !text-white flex items-center gap-2 whitespace-nowrap",
               isScrolled 
                 ? "bg-primary hover:bg-accent" 
                 : "bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white hover:!text-primary"
@@ -117,7 +117,7 @@ export function Navbar() {
           <Menu 
             strokeWidth={1} 
             className={cn(
-              "size-8 transition-colors duration-700",
+              "size-7 transition-colors duration-700",
               isScrolled ? "text-foreground" : "text-white drop-shadow-md"
             )} 
           />
@@ -131,19 +131,19 @@ export function Navbar() {
       )}>
         <button 
           onClick={() => setMobileMenuOpen(false)}
-          className="absolute top-8 left-8 p-4 z-[310]"
+          className="absolute top-6 left-6 p-4 z-[310]"
         >
-          <X strokeWidth={1} className="size-10 text-white/70 hover:text-white transition-colors" />
+          <X strokeWidth={1} className="size-8 text-white/70 hover:text-white transition-colors" />
         </button>
 
-        <div className="flex-1 overflow-y-auto flex flex-col items-center pt-24 sm:pt-32 pb-12">
-          <div className="flex flex-col items-center space-y-8 sm:space-y-10 text-center w-full px-6">
+        <div className="flex-1 overflow-y-auto flex flex-col items-center pt-20 sm:pt-32 pb-12">
+          <div className="flex flex-col items-center space-y-6 sm:space-y-10 text-center w-full px-6">
             {navItems.map((item, i) => (
               <NextLink 
                 key={item.href} 
                 href={item.href} 
                 className={cn(
-                  "relative text-3xl md:text-4xl font-headline tracking-[0.15em] transition-all duration-500 whitespace-nowrap",
+                  "relative text-2xl md:text-4xl font-headline tracking-[0.15em] transition-all duration-500 whitespace-nowrap",
                   pathname === item.href 
                     ? "text-white font-bold scale-110" 
                     : "text-white/60 font-light hover:text-white"
@@ -152,15 +152,15 @@ export function Navbar() {
               >
                 {item.label}
                 {pathname === item.href && (
-                  <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-primary animate-in fade-in zoom-in duration-1000" />
+                  <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-8 h-[1px] bg-primary animate-in fade-in zoom-in duration-1000" />
                 )}
               </NextLink>
             ))}
           </div>
           
-          <div className="mt-auto pt-20 text-center w-full px-6">
-            <div className="mashrabiya-divider opacity-10 mb-6 max-w-[120px] mx-auto"></div>
-            <span className="boutique-label text-white/40 tracking-[0.4em] text-[10px]">MORAN PAZ • BEINME</span>
+          <div className="mt-auto pt-16 text-center w-full px-6">
+            <div className="mashrabiya-divider opacity-10 mb-4 max-w-[100px] mx-auto"></div>
+            <span className="boutique-label text-white/40 tracking-[0.4em] text-[9px]">MORAN PAZ • BEINME</span>
           </div>
         </div>
       </div>
