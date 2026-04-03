@@ -95,19 +95,21 @@ export default function BlogPostPage() {
       </section>
 
       {/* Content Section */}
-      <article className="py-20 md:py-32 px-6 md:px-12 xl:px-24 bg-white">
-        <div className="max-w-4xl mx-auto">
-          {/* Metadata Bar */}
-          <div className="flex flex-wrap items-center gap-6 mb-16 pb-8 border-b border-stone-100 text-stone-400 boutique-label !text-[10px] sm:!text-[11px]">
-             <div className="flex items-center gap-2">
-                <Calendar size={14} />
-                <span>{formatDisplayDate(post.date)}</span>
+      <article className="py-20 md:py-32 px-6 bg-white">
+        <div className="max-w-3xl mx-auto">
+          {/* Metadata Bar - Centered for better balance */}
+          <div className="flex flex-col items-center gap-6 mb-16 pb-8 border-b border-stone-100 text-stone-400 boutique-label !text-[11px]">
+             <div className="flex items-center gap-8">
+                <div className="flex items-center gap-2">
+                    <Calendar size={14} />
+                    <span>{formatDisplayDate(post.date)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Tag size={14} />
+                    <span>{post.category}</span>
+                </div>
              </div>
-             <div className="flex items-center gap-2">
-                <Tag size={14} />
-                <span>{post.category}</span>
-             </div>
-             <Button variant="ghost" size="sm" onClick={() => router.push('/blog')} className="mr-auto text-primary hover:text-accent font-bold gap-2">
+             <Button variant="ghost" size="sm" onClick={() => router.push('/blog')} className="text-primary hover:text-accent font-bold gap-2">
                <ChevronRight size={16} /> חזרה לבלוג
              </Button>
           </div>
