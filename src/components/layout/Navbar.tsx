@@ -21,14 +21,6 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.classList.add('menu-open');
-    } else {
-      document.body.classList.remove('menu-open');
-    }
-  }, [mobileMenuOpen]);
-
-  useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
@@ -37,7 +29,7 @@ export function Navbar() {
     { label: 'אודות', href: '/about' },
     { label: 'התהליך הטיפולי', href: '/practice' },
     { label: 'טיפול אונליין', href: '/online-therapy' },
-    { label: 'טבעון', href: '/tivon' },
+    { label: 'נקודות של אור', href: '/blog' },
   ];
 
   return (
@@ -45,7 +37,7 @@ export function Navbar() {
       <nav className={cn(
         "fixed w-full z-[200] transition-all duration-700 px-6 md:px-12 lg:px-24 flex justify-between items-center py-6 md:py-10",
         isScrolled 
-          ? 'bg-background/95 backdrop-blur-xl py-3 md:py-5 border-b border-border/30 shadow-sm' 
+          ? 'bg-background/95 backdrop-blur-xl py-4 md:py-5 border-b border-border/30 shadow-sm' 
           : 'bg-transparent'
       )}>
         <NextLink 
@@ -59,15 +51,15 @@ export function Navbar() {
             MORAN PAZ
           </span>
           <span className={cn(
-            "text-[10px] font-handwriting tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-700",
-            isScrolled ? "text-primary" : "text-primary-foreground"
+            "text-[10px] font-handwriting tracking-widest transition-opacity duration-700",
+            isScrolled ? "text-primary opacity-100" : "text-white/60 opacity-0 group-hover:opacity-100"
           )}>
             BeinMe — להיות אני בתוכי
           </span>
         </NextLink>
         
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center space-x-reverse space-x-10 boutique-label">
+        <div className="hidden lg:flex items-center space-x-reverse space-x-12 boutique-label">
           {navItems.map((item) => (
             <NextLink 
               key={item.href} 
@@ -93,13 +85,13 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "px-6 py-2.5 transition-all duration-700 text-[10px] tracking-[0.3em] font-bold shadow-lg rounded-sm",
+              "px-8 py-3 transition-all duration-700 text-[11px] tracking-[0.3em] font-bold shadow-lg rounded-sm",
               isScrolled 
                 ? "bg-primary text-white hover:bg-accent" 
                 : "bg-white/10 backdrop-blur-md text-white border border-white/30 hover:bg-white hover:text-primary"
             )}
           >
-            צרו קשר
+            פגישת היכרות
           </a>
         </div>
 
@@ -107,13 +99,13 @@ export function Navbar() {
         {!mobileMenuOpen && (
           <button 
             onClick={() => setMobileMenuOpen(true)} 
-            className="lg:hidden p-2 hover:opacity-50 transition-opacity z-[230] relative"
-            aria-label="פתיחת תפריט"
+            className="lg:hidden p-2 z-[230] relative"
+            aria-label="Menu"
           >
             <Menu 
               strokeWidth={1} 
               className={cn(
-                "size-7 sm:size-8 transition-colors duration-700",
+                "size-8 transition-colors duration-700",
                 isScrolled ? "text-foreground" : "text-white"
               )} 
             />
@@ -123,45 +115,37 @@ export function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div className={cn(
-        "fixed inset-0 z-[300] bg-accent text-white transition-all duration-700 ease-in-out flex flex-col items-center justify-center h-screen w-full overflow-hidden",
+        "fixed inset-0 z-[300] bg-accent text-white transition-all duration-700 ease-in-out flex flex-col items-center justify-center h-screen w-full",
         mobileMenuOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-full pointer-events-none invisible'
       )}>
         <button 
           onClick={() => setMobileMenuOpen(false)}
-          className="absolute top-8 left-8 p-2 hover:rotate-90 transition-all duration-500"
-          aria-label="סגירת תפריט"
+          className="absolute top-8 left-8 p-2"
         >
           <X strokeWidth={1} className="size-8 text-white/70 hover:text-white" />
         </button>
 
-        <div className="flex flex-col items-center space-y-8 px-6 text-center w-full max-w-sm">
+        <div className="flex flex-col items-center space-y-10 text-center w-full max-w-sm">
           {navItems.map((item, i) => (
             <NextLink 
               key={item.href} 
               href={item.href} 
               onClick={() => setMobileMenuOpen(false)}
-              className={cn(
-                "text-3xl font-headline font-light tracking-[0.15em] hover:text-primary transition-all duration-700",
-                mobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-              )}
-              style={{ transitionDelay: `${i * 75}ms` }}
+              className="text-4xl font-headline font-light tracking-[0.2em] hover:text-primary transition-all duration-700"
+              style={{ transitionDelay: `${i * 100}ms` }}
             >
               {item.label}
             </NextLink>
           ))}
           
-          <div className={cn(
-            "pt-8 w-full transition-all duration-1000 delay-500",
-            mobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          )}>
+          <div className="pt-12 w-full px-12">
             <a 
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="inline-flex w-full items-center justify-center bg-primary !text-white py-5 rounded-sm boutique-label text-xs tracking-[0.3em] font-bold shadow-2xl hover:bg-white hover:!text-accent transition-all duration-500"
+              className="inline-flex w-full items-center justify-center bg-primary text-white py-6 rounded-sm boutique-label text-sm tracking-[0.3em] font-bold shadow-2xl"
             >
-              תאום פגישה
+              תיאום פגישה
             </a>
           </div>
         </div>
