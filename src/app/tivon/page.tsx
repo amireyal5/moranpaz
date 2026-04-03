@@ -14,6 +14,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function TivonPage() {
   const clinicImg = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
+  const heroTivon = PlaceHolderImages.find(img => img.id === 'hero-tivon');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20טיפול%20בקליניקה%20בטבעון";
 
   const tivonFaqs = [
@@ -44,16 +45,18 @@ export default function TivonPage() {
       
       {/* SEO Optimized Hero for Tivon */}
       <section className="h-[75vh] relative flex items-center justify-center bg-stone-900 overflow-hidden pt-20">
-        <div className="absolute inset-0 grayscale brightness-[0.45]">
-           {clinicImg && (
+        <div className="absolute inset-0">
+           {heroTivon && (
              <Image 
-              src={clinicImg.imageUrl} 
+              src={heroTivon.imageUrl} 
               alt="טיפול רגשי בטבעון - קליניקה ירוקה ומזמינה של מורן פז" 
               fill 
-              className="object-cover"
+              className="object-cover opacity-60 brightness-[0.7]"
               priority
              />
            )}
+           {/* Reduced Bottom Gradient by 50% */}
+           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center px-6 max-w-4xl">
            <span className="boutique-label text-primary/80 mb-6 block uppercase">TIVON HOLISTIC THERAPY</span>

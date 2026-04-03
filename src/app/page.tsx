@@ -74,8 +74,8 @@ export default function Home() {
               />
             </div>
           )}
-          {/* Gradient overlay - adjusted bottom color to be less white */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/30"></div>
+          {/* Reduced Bottom Gradient by 50% */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-background/20"></div>
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal flex flex-col items-center w-full max-w-5xl mx-auto px-4">
@@ -158,7 +158,7 @@ export default function Home() {
               { title: "נפש", icon: <Heart />, desc: "עיבוד רגשות, דפוסים והסיפור שאנחנו מספרים לעצמנו." },
               { title: "רוח", icon: <Sparkles />, desc: "חיבור למודעות, למשמעות ולאור שבתוכנו." }
             ].map((point, i) => (
-              <div key={i} className={cn("boutique-card group", `stagger-${i+1}`)}>
+              <div key={i} className={cn("boutique-card group backdrop-blur-md bg-white/90", `stagger-${i+1}`)}>
                 <div className="text-primary mb-8 group-hover:scale-110 transition-transform duration-700">
                   {React.cloneElement(point.icon as React.ReactElement, { size: 56, strokeWidth: 0.2 })}
                 </div>

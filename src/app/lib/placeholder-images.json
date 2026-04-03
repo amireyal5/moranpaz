@@ -66,6 +66,24 @@
       "description": "Serene connection via laptop with soft lighting and a plant",
       "imageUrl": "https://images.unsplash.com/photo-1516302752625-fbb3ad59c34f?q=80&w=1920&auto=format&fit=crop",
       "imageHint": "serene connection"
+    },
+    {
+      "id": "hero-tivon",
+      "description": "Serene green garden in Tivon",
+      "imageUrl": "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1920&auto=format&fit=crop",
+      "imageHint": "serene garden"
+    },
+    {
+      "id": "hero-emeq",
+      "description": "Wide view of a peaceful valley with soft light",
+      "imageUrl": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1920&auto=format&fit=crop",
+      "imageHint": "peaceful valley"
+    },
+    {
+      "id": "clinic-tivon",
+      "description": "Softly lit therapeutic space with plants",
+      "imageUrl": "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?q=80&w=1920&auto=format&fit=crop",
+      "imageHint": "therapeutic room"
     }
   ]
 }

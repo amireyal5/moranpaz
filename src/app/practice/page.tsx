@@ -58,12 +58,13 @@ export default function PracticePage() {
               />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
+          {/* Reduced Bottom Gradient by 50% */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
            <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">The Journey</span>
            <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">התהליך הטיפולי</h1>
-           <p className="text-2xl md:text-5xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">מסע משותף של גילוי וריפוי</p>
+           <p className="text-2xl md:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">מסע משותף של גילוי וריפוי</p>
         </div>
       </section>
 

@@ -12,7 +12,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { MapPin, Trees, Heart, Sparkles, ArrowLeft } from 'lucide-react';
 
 export default function EmeqIzraelPage() {
-  const heroImg = PlaceHolderImages.find(img => img.id === 'hero-practice');
+  const heroEmeq = PlaceHolderImages.find(img => img.id === 'hero-emeq');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אני%20פונה%20לגבי%20טיפול%20רגשי%20בעמק%20יזרעאל";
 
   return (
@@ -21,16 +21,18 @@ export default function EmeqIzraelPage() {
       
       {/* SEO Optimized Hero */}
       <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
-        <div className="absolute inset-0 grayscale brightness-[0.4]">
-          {heroImg && (
+        <div className="absolute inset-0">
+          {heroEmeq && (
             <Image 
-              src={heroImg.imageUrl} 
+              src={heroEmeq.imageUrl} 
               alt="טיפול רגשי בעמק יזרעאל - מורן פז" 
               fill 
-              className="object-cover"
+              className="object-cover opacity-60 brightness-[0.7]"
               priority
             />
           )}
+          {/* Reduced Bottom Gradient by 50% */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center max-w-5xl">
            <span className="boutique-label text-primary/80 mb-6 block">EMEQ IZRAEL CARE</span>
@@ -71,9 +73,9 @@ export default function EmeqIzraelPage() {
           </div>
           
           <div className="relative aspect-square shadow-2xl border-r-8 border-primary/10">
-            {heroImg && (
+            {heroEmeq && (
               <Image 
-                src={heroImg.imageUrl} 
+                src={heroEmeq.imageUrl} 
                 alt="אווירה טיפולית בעמק" 
                 fill 
                 className="object-cover opacity-80"

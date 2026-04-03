@@ -58,7 +58,8 @@ export default function OnlineTherapyPage() {
               data-ai-hint={heroImg.imageHint}
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30"></div>
+          {/* Reduced Bottom Gradient by 50% */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
            <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">Global Connection</span>
@@ -118,7 +119,7 @@ export default function OnlineTherapyPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-32">
             {benefits.map((benefit, i) => (
-              <div key={i} className={cn("boutique-card group !min-h-[400px]", `stagger-${i+1}`)}>
+              <div key={i} className={cn("boutique-card group !min-h-[400px] backdrop-blur-md bg-white/90", `stagger-${i+1}`)}>
                 <div className="art-icon !top-10 !right-10 opacity-30 text-primary animate-art-float">
                   {benefit.icon}
                 </div>

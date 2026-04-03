@@ -31,7 +31,8 @@ export default function ContactPage() {
               data-ai-hint={heroImg.imageHint}
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
+          {/* Reduced Bottom Gradient by 50% */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
            <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">Get in Touch</span>
@@ -55,7 +56,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="boutique-label text-stone-400 mb-1">טלפון</h4>
-                    <p className="text-xl sm:text-2xl md:text-3xl font-headline text-accent font-bold">050-781-7338</p>
+                    <p className="text-xl sm:text-2xl md:text-[30px] font-headline text-accent font-bold">050-781-7338</p>
                   </div>
                 </a>
 
@@ -65,7 +66,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="boutique-label text-stone-400 mb-1">מייל</h4>
-                    <p className="text-xl sm:text-2xl md:text-3xl font-headline text-accent font-bold break-all">moraniva5@gmail.com</p>
+                    <p className="text-xl sm:text-2xl md:text-[30px] font-headline text-accent font-bold break-all">moraniva5@gmail.com</p>
                   </div>
                 </a>
 
@@ -75,7 +76,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="boutique-label text-stone-400 mb-1">מיקום הקליניקה</h4>
-                    <p className="text-xl sm:text-2xl md:text-3xl font-headline text-accent font-bold">קריית טבעון</p>
+                    <p className="text-xl sm:text-2xl md:text-[30px] font-headline text-accent font-bold">קריית טבעון</p>
                   </div>
                 </div>
 
@@ -93,7 +94,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Form Section - Removed frame (shadow/border) */}
+            {/* Form Section */}
             <div className="lg:col-span-7 bg-white p-6 md:p-20">
               <ContactForm />
             </div>

@@ -50,7 +50,8 @@ export default function AboutPage() {
               />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
+          {/* Reduced Bottom Gradient by 50% */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
            <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">About Moran Paz</span>
