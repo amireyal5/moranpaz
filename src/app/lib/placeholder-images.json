@@ -14,10 +14,16 @@
       "imageHint": "moran portrait vertical"
     },
     {
-      "id": "hero-about",
-      "description": "Natural light streaming through a decorative window",
-      "imageUrl": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1920&auto=format&fit=crop",
-      "imageHint": "natural sunlight"
+      "id": "hero-about-desktop",
+      "description": "Moran Paz About page Hero Desktop",
+      "imageUrl": "https://res.cloudinary.com/dcdadfrpi/image/upload/v1775209370/moranpaz_9676b2.png",
+      "imageHint": "moran professional desktop"
+    },
+    {
+      "id": "hero-about-mobile",
+      "description": "Moran Paz About page Hero Mobile",
+      "imageUrl": "https://res.cloudinary.com/dcdadfrpi/image/upload/v1775213284/WhatsApp_Image_2026-04-03_at_13.24.34_fks4kw.jpg",
+      "imageHint": "moran portrait mobile"
     },
     {
       "id": "hero-practice",

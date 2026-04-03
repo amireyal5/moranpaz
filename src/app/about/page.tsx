@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -7,14 +8,14 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { GraduationCap, Briefcase, Quote, Sparkles, Heart, Orbit } from 'lucide-react';
+import { GraduationCap, Briefcase, Sparkles, Heart, Orbit } from 'lucide-react';
 
 export default function AboutPage() {
   const introReveal = useReveal();
   const uniquenessReveal = useReveal();
-  const heroImg = PlaceHolderImages.find(img => img.id === 'hero-about');
+  const heroDesktop = PlaceHolderImages.find(img => img.id === 'hero-about-desktop');
+  const heroMobile = PlaceHolderImages.find(img => img.id === 'hero-about-mobile');
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
-  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20קראתי%20עליך%20באתר%20ואשמח%20לפרטים%20על%20תהליך%20טיפולי";
 
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
@@ -23,22 +24,38 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {heroImg && (
-            <Image 
-              src={heroImg.imageUrl} 
-              alt="Atmosphere" 
-              fill 
-              className="object-cover opacity-50"
-              priority
-              data-ai-hint={heroImg.imageHint}
-            />
+          {/* Desktop Hero */}
+          {heroDesktop && (
+            <div className="hidden md:block absolute inset-0">
+              <Image 
+                src={heroDesktop.imageUrl} 
+                alt="About Moran Paz" 
+                fill 
+                className="object-cover opacity-60"
+                priority
+                data-ai-hint={heroDesktop.imageHint}
+              />
+            </div>
+          )}
+          {/* Mobile Hero */}
+          {heroMobile && (
+            <div className="md:hidden absolute inset-0">
+              <Image 
+                src={heroMobile.imageUrl} 
+                alt="About Moran Paz" 
+                fill 
+                className="object-cover opacity-60"
+                priority
+                data-ai-hint={heroMobile.imageHint}
+              />
+            </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block">About Moran Paz</span>
-           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold">הלב מאחורי הקליניקה</h1>
-           <p className="text-2xl md:text-5xl font-headline italic text-white/90 leading-relaxed font-light">להדליק את האור בתוך המרחב הטיפולי</p>
+           <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">About Moran Paz</span>
+           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">הלב מאחורי הקליניקה</h1>
+           <p className="text-2xl md:text-5xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">להדליק את האור בתוך המרחב הטיפוליי</p>
         </div>
       </section>
 
