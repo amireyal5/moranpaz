@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect, useMemo } from 'react';
@@ -48,6 +47,7 @@ const ICON_OPTIONS = [
 ];
 
 const PRESET_COLORS = [
+  { name: 'Mustard Gold (Premium)', value: '35 40% 45%' },
   { name: 'Sage (Original)', value: '155 15% 45%' },
   { name: 'Dusty Rose', value: '350 20% 65%' },
   { name: 'Ocean Mist', value: '190 15% 55%' },
@@ -75,7 +75,7 @@ export default function PageManagement() {
     introContent: '',
     heroImageUrlDesktop: '',
     heroImageUrlMobile: '',
-    primaryColor: '155 15% 45%',
+    primaryColor: '35 40% 45%',
     metaTitle: '',
     metaDescription: '',
     siteName: '',
@@ -113,7 +113,7 @@ export default function PageManagement() {
           introContent: data.introContent || '',
           heroImageUrlDesktop: data.heroImageUrlDesktop || '',
           heroImageUrlMobile: data.heroImageUrlMobile || '',
-          primaryColor: data.primaryColor || '155 15% 45%',
+          primaryColor: data.primaryColor || '35 40% 45%',
           metaTitle: data.metaTitle || '',
           metaDescription: data.metaDescription || '',
           siteName: data.siteName || '',
@@ -128,7 +128,7 @@ export default function PageManagement() {
         setContent({ 
           heroTitle: '', heroSubtitle: '', introTitle: '', introContent: '',
           heroImageUrlDesktop: '', heroImageUrlMobile: '',
-          primaryColor: '155 15% 45%', metaTitle: '', metaDescription: '',
+          primaryColor: '35 40% 45%', metaTitle: '', metaDescription: '',
           siteName: '', siteSubtitle: '', navItems: [], ctaButtons: [],
           features: [], testimonials: [], faqs: []
         });

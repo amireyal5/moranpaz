@@ -13,7 +13,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 155 20% 15%;
     
-    --primary: 155 15% 45%; /* Sage Green - Overriden by style attribute if set */
+    --primary: 35 40% 45%; /* Mustard Gold / Light Brown Gold */
     --primary-foreground: 60 10% 98%;
     
     --secondary: 155 10% 92%;
@@ -30,7 +30,7 @@
     
     --border: 155 15% 90%;
     --input: 155 15% 90%;
-    --ring: 155 15% 45%;
+    --ring: 35 40% 45%;
     
     --radius: 0rem;
   }
