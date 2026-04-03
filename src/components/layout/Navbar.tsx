@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -51,8 +52,8 @@ export function Navbar() {
             MORAN PAZ
           </span>
           <span className={cn(
-            "text-[11px] font-handwriting tracking-widest transition-opacity duration-700",
-            isScrolled ? "text-primary opacity-100" : "text-white/80 opacity-0 group-hover:opacity-100"
+            "text-lg sm:text-xl font-handwriting tracking-widest transition-all duration-700 mt-1",
+            isScrolled ? "text-accent opacity-100" : "text-white opacity-90 drop-shadow-sm"
           )}>
             BeinMe — להיות אני בתוכי
           </span>
@@ -85,10 +86,10 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "px-10 py-3.5 transition-all duration-700 text-[13px] tracking-[0.2em] font-bold shadow-xl rounded-sm",
+              "px-10 py-3.5 transition-all duration-700 text-[13px] tracking-[0.2em] font-bold shadow-xl rounded-sm !text-white",
               isScrolled 
-                ? "bg-primary text-white hover:bg-accent" 
-                : "bg-white/20 backdrop-blur-md text-white border border-white/40 hover:bg-white hover:text-primary"
+                ? "bg-primary hover:bg-accent" 
+                : "bg-white/20 backdrop-blur-md border border-white/40 hover:bg-white hover:!text-primary"
             )}
           >
             פגישת היכרות
