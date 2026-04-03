@@ -52,8 +52,10 @@ export function Footer() {
                   <span>BeinMe - Moran Paz</span>
                 </a>
                 <a 
-                  href="#" 
-                  className="flex items-center gap-3 text-lg font-light hover:text-primary transition-colors duration-500 opacity-40 cursor-not-allowed"
+                  href="https://www.instagram.com/beinme_moranpaz" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-lg font-light hover:text-primary transition-colors duration-500"
                 >
                   <Instagram size={18} strokeWidth={1} className="text-primary/60" />
                   <span>Instagram</span>
