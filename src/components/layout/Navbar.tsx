@@ -126,7 +126,7 @@ export function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div className={cn(
-        "fixed inset-0 z-[300] bg-accent/98 backdrop-blur-2xl text-white transition-all duration-700 ease-in-out flex flex-col items-center justify-center h-screen w-full",
+        "fixed inset-0 z-[300] bg-accent/98 backdrop-blur-2xl text-white transition-all duration-700 ease-in-out flex flex-col items-center justify-start h-screen w-full pt-32 sm:pt-40",
         mobileMenuOpen ? 'opacity-100 translate-y-0 visible pointer-events-auto' : 'opacity-0 -translate-y-full pointer-events-none invisible'
       )}>
         <button 
@@ -136,7 +136,7 @@ export function Navbar() {
           <X strokeWidth={1} className="size-10 text-white/70 hover:text-white transition-colors" />
         </button>
 
-        <div className="flex flex-col items-center space-y-12 text-center w-full px-6">
+        <div className="flex flex-col items-center space-y-10 sm:space-y-12 text-center w-full px-6 overflow-y-auto max-h-[70vh]">
           {navItems.map((item, i) => (
             <NextLink 
               key={item.href} 
@@ -157,7 +157,8 @@ export function Navbar() {
           ))}
         </div>
         
-        <div className="absolute bottom-12 text-center">
+        <div className="absolute bottom-12 text-center w-full px-6">
+          <div className="mashrabiya-divider opacity-10 mb-8 max-w-[150px] mx-auto"></div>
           <span className="boutique-label text-white/40 tracking-[0.4em] text-[10px]">MORAN PAZ • BEINME</span>
         </div>
       </div>
