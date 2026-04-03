@@ -17,21 +17,18 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
     const form = e.currentTarget;
     const formData = new FormData(form);
     
-    // Ensure the form-name is explicitly included for Netlify
-    const data = new URLSearchParams();
-    formData.forEach((value, key) => {
-      data.append(key, value as string);
-    });
-    
     try {
-      const response = await fetch("/", {
+      const response = await fetch("https://formspree.io/f/maqlpnkl", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: data.toString(),
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
       });
       
       if (response.ok) {
         setStatus('success');
+        form.reset();
       } else {
         throw new Error("שליחת הטופס נכשלה");
       }
@@ -87,13 +84,9 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
       </div>
 
       <form 
-        name="contact" 
-        method="POST" 
         onSubmit={handleSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16"
       >
-        <input type="hidden" name="form-name" value="contact" />
-        
         <div className="border-b border-border focus-within:border-primary transition-colors pb-4">
           <label className="boutique-label block mb-4">שם מלא</label>
           <input 
@@ -122,6 +115,17 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
             required
             className="bg-transparent w-full focus:outline-none text-xl sm:text-2xl font-headline font-light placeholder:opacity-10 py-1" 
             placeholder="050 000 0000" 
+          />
+        </div>
+
+        <div className="md:col-span-2 border-b border-border focus-within:border-primary transition-colors pb-4">
+          <label className="boutique-label block mb-4">איך אוכל לעזור?</label>
+          <textarea 
+            name="message"
+            required
+            rows={4}
+            className="bg-transparent w-full focus:outline-none text-xl sm:text-2xl font-headline font-light placeholder:opacity-10 py-1 resize-none" 
+            placeholder="ספרי לי קצת..." 
           />
         </div>
         
