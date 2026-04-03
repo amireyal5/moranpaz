@@ -124,9 +124,9 @@ export function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Now fully opaque */}
       <div className={cn(
-        "fixed inset-0 z-[300] bg-accent/98 backdrop-blur-2xl text-white transition-all duration-700 ease-in-out flex flex-col items-center justify-start h-screen w-full pt-32 sm:pt-40",
+        "fixed inset-0 z-[300] bg-accent text-white transition-all duration-700 ease-in-out flex flex-col items-center justify-start h-screen w-full pt-20 sm:pt-32",
         mobileMenuOpen ? 'opacity-100 translate-y-0 visible pointer-events-auto' : 'opacity-0 -translate-y-full pointer-events-none invisible'
       )}>
         <button 
@@ -136,18 +136,18 @@ export function Navbar() {
           <X strokeWidth={1} className="size-10 text-white/70 hover:text-white transition-colors" />
         </button>
 
-        <div className="flex flex-col items-center space-y-10 sm:space-y-12 text-center w-full px-6 overflow-y-auto max-h-[70vh]">
+        <div className="flex flex-col items-center space-y-8 sm:space-y-10 text-center w-full px-6 overflow-y-auto max-h-[75vh]">
           {navItems.map((item, i) => (
             <NextLink 
               key={item.href} 
               href={item.href} 
               className={cn(
-                "relative text-3xl md:text-4xl font-headline tracking-[0.15em] transition-all duration-500",
+                "relative text-3xl md:text-4xl font-headline tracking-[0.15em] transition-all duration-500 whitespace-nowrap",
                 pathname === item.href 
                   ? "text-white font-bold scale-110" 
                   : "text-white/60 font-light hover:text-white"
               )}
-              style={{ transitionDelay: `${i * 70}ms` }}
+              style={{ transitionDelay: `${i * 50}ms` }}
             >
               {item.label}
               {pathname === item.href && (
@@ -158,7 +158,7 @@ export function Navbar() {
         </div>
         
         <div className="absolute bottom-12 text-center w-full px-6">
-          <div className="mashrabiya-divider opacity-10 mb-8 max-w-[150px] mx-auto"></div>
+          <div className="mashrabiya-divider opacity-10 mb-6 max-w-[120px] mx-auto"></div>
           <span className="boutique-label text-white/40 tracking-[0.4em] text-[10px]">MORAN PAZ • BEINME</span>
         </div>
       </div>
