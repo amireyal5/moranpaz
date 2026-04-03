@@ -34,7 +34,7 @@ export default function ContactPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block">Get in Touch</span>
+           <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">Get in Touch</span>
            <h1 className="text-8xl md:text-[120px] font-handwriting text-white mb-8 font-bold hero-title-shadow">צור קשר</h1>
            <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">אני כאן עבורך לכל שאלה או תיאום</p>
         </div>
@@ -55,7 +55,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="boutique-label text-stone-400 mb-1">טלפון</h4>
-                    <p className="text-3xl font-headline text-accent font-bold">050-781-7338</p>
+                    <p className="text-xl sm:text-2xl md:text-3xl font-headline text-accent font-bold">050-781-7338</p>
                   </div>
                 </a>
 
@@ -65,7 +65,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="boutique-label text-stone-400 mb-1">מייל</h4>
-                    <p className="text-3xl font-headline text-accent font-bold">moraniva5@gmail.com</p>
+                    <p className="text-xl sm:text-2xl md:text-3xl font-headline text-accent font-bold break-all">moraniva5@gmail.com</p>
                   </div>
                 </a>
 
@@ -75,7 +75,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 className="boutique-label text-stone-400 mb-1">מיקום הקליניקה</h4>
-                    <p className="text-3xl font-headline text-accent font-bold">קריית טבעון</p>
+                    <p className="text-xl sm:text-2xl md:text-3xl font-headline text-accent font-bold">קריית טבעון</p>
                   </div>
                 </div>
 
@@ -93,8 +93,8 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Form Section */}
-            <div className="lg:col-span-7 bg-white p-12 md:p-20 shadow-2xl border border-stone-50">
+            {/* Form Section - Removed frame (shadow/border) */}
+            <div className="lg:col-span-7 bg-white p-6 md:p-20">
               <ContactForm />
             </div>
           </div>
