@@ -8,7 +8,7 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Orbit, Waves, Infinity, Compass, Quote, GraduationCap, Briefcase } from 'lucide-react';
+import { Orbit, Waves, Infinity, Compass, Quote, GraduationCap, Briefcase, Sparkles, Heart } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function AboutPage() {

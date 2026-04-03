@@ -26,7 +26,7 @@ export default function Home() {
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-main');
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
   const clinicImg = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
-  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20ואשמח%20לפרטים%20נוספים%20על%20תהליך%20טיפולי";
+  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20BeinMe%20ואשמח%20לפרטים%20נוספים";
 
   const homeFaqs = [
     {
