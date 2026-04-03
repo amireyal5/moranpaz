@@ -26,7 +26,7 @@
   "firestore": {
     "/blogPosts/{postId}": {
       "schema": { "$ref": "#/entities/BlogPost" },
-      "description": "Public Blog Posts. Rules: Allow read for all users. Allow create, update, and delete for any authenticated user."
+      "description": "Public Blog Posts. Rules: Allow read for all users. Allow write (create, update, delete) for any authenticated user."
     }
   }
 }
