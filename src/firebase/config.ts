@@ -1,6 +1,6 @@
 
 export const firebaseConfig = {
-  apiKey: "AIzaSyAs-example-key",
+  apiKey: "AIzaSyAs-example-key", // Note: Replace this with your actual API key from Firebase Console for production
   authDomain: "ateam-3cf3d.firebaseapp.com",
   projectId: "ateam-3cf3d",
   storageBucket: "ateam-3cf3d.firebasestorage.app",
