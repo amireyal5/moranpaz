@@ -46,7 +46,7 @@ export default function BlogManagementPage() {
     date: new Date().toISOString().split('T')[0]
   });
 
-  const postsQuery = query(collection(db!, 'blogPosts'), orderBy('createdAt', 'desc'));
+  const postsQuery = db ? query(collection(db, 'blogPosts'), orderBy('createdAt', 'desc')) : null;
   const { data: posts, loading: postsLoading } = useCollection(postsQuery);
 
   useEffect(() => {
@@ -115,8 +115,8 @@ export default function BlogManagementPage() {
       subtitle: post.subtitle,
       slug: post.slug || '',
       content: post.content,
-      heroImageUrlDesktop: post.heroImageUrlDesktop,
-      heroImageUrlMobile: post.heroImageUrlMobile,
+      heroImageUrlDesktop: post.heroImageUrlDesktop || '',
+      heroImageUrlMobile: post.heroImageUrlMobile || '',
       category: post.category,
       date: post.date
     });
@@ -220,24 +220,22 @@ export default function BlogManagementPage() {
                   </div>
                   <div className="space-y-3">
                     <Label className="boutique-label text-stone-400 flex items-center gap-2">
-                      <Monitor size={14} /> תמונת דסקטופ (URL)
+                      <Monitor size={14} /> תמונת דסקטופ (URL) - רשות
                     </Label>
                     <Input 
                       value={newPost.heroImageUrlDesktop} 
                       onChange={e => setNewPost({...newPost, heroImageUrlDesktop: e.target.value})} 
-                      required 
                       className="h-12 border-stone-100 bg-stone-50"
                       placeholder="https://images.unsplash.com/..."
                     />
                   </div>
                   <div className="space-y-3">
                     <Label className="boutique-label text-stone-400 flex items-center gap-2">
-                      <Smartphone size={14} /> תמונת מובייל (URL)
+                      <Smartphone size={14} /> תמונת מובייל (URL) - רשות
                     </Label>
                     <Input 
                       value={newPost.heroImageUrlMobile} 
                       onChange={e => setNewPost({...newPost, heroImageUrlMobile: e.target.value})} 
-                      required 
                       className="h-12 border-stone-100 bg-stone-50"
                       placeholder="https://images.unsplash.com/..."
                     />

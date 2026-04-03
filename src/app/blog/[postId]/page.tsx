@@ -17,8 +17,8 @@ export default function BlogPostPage() {
   const db = useFirestore();
   
   // Query by slug
-  const postQuery = postId ? query(
-    collection(db!, 'blogPosts'), 
+  const postQuery = (db && postId) ? query(
+    collection(db, 'blogPosts'), 
     where('slug', '==', postId),
     limit(1)
   ) : null;
@@ -50,24 +50,32 @@ export default function BlogPostPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          <div className="hidden md:block absolute inset-0">
-            <Image 
-              src={post.heroImageUrlDesktop} 
-              alt={post.title} 
-              fill 
-              className="object-cover opacity-60"
-              priority
-            />
-          </div>
-          <div className="md:hidden absolute inset-0">
-            <Image 
-              src={post.heroImageUrlMobile} 
-              alt={post.title} 
-              fill 
-              className="object-cover opacity-60"
-              priority
-            />
-          </div>
+          {post.heroImageUrlDesktop ? (
+            <>
+              <div className="hidden md:block absolute inset-0">
+                <Image 
+                  src={post.heroImageUrlDesktop} 
+                  alt={post.title} 
+                  fill 
+                  className="object-cover opacity-60"
+                  priority
+                />
+              </div>
+              <div className="md:hidden absolute inset-0">
+                <Image 
+                  src={post.heroImageUrlMobile || post.heroImageUrlDesktop} 
+                  alt={post.title} 
+                  fill 
+                  className="object-cover opacity-60"
+                  priority
+                />
+              </div>
+            </>
+          ) : (
+            <div className="absolute inset-0 bg-stone-800 flex items-center justify-center opacity-40">
+               {/* No image background */}
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center max-w-5xl">

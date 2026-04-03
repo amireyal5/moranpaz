@@ -16,7 +16,7 @@
         "category": { "type": "string", "description": "Article category (e.g., Awareness, Acceptance)." },
         "createdAt": { "type": "number", "description": "Timestamp of creation." }
       },
-      "required": ["title", "slug", "content", "heroImageUrlDesktop", "heroImageUrlMobile", "date", "category"]
+      "required": ["title", "slug", "content", "date", "category"]
     }
   },
   "auth": {
