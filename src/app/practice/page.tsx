@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -87,7 +88,7 @@ export default function PracticePage() {
             </div>
           </div>
 
-          <div ref={holisticReveal} className="reveal grid grid-cols-1 lg:grid-cols-2 gap-24 mb-48 bg-white p-16 md:p-32 shadow-sm border border-stone-100">
+          <div ref={holisticReveal} className="reveal grid grid-cols-1 lg:grid-cols-2 gap-24 mb-48 bg-white p-16 md:p-32 shadow-2xl border border-stone-100">
             <div>
               <h2 className="text-4xl md:text-5xl font-headline text-accent mb-12 font-bold">הגישה ההוליסטית</h2>
               <div className="space-y-10 boutique-para !text-xl leading-relaxed">
@@ -102,9 +103,12 @@ export default function PracticePage() {
                 { title: "יחסים", icon: <Waves /> },
                 { title: "דימוי", icon: <Compass /> }
               ].map((issue, i) => (
-                <div key={i} className="bg-stone-50 p-10 text-center border border-stone-100 hover:bg-white transition-all duration-700 hover:shadow-xl">
-                  <span className="text-2xl font-headline font-bold text-primary block mb-6">{issue.title}</span>
-                  <div className="text-primary/20 flex justify-center">{React.cloneElement(issue.icon as React.ReactElement, { size: 40, strokeWidth: 0.3 })}</div>
+                <div key={i} className="bg-stone-50 p-10 flex flex-col items-center justify-center text-center border border-stone-100 hover:bg-white transition-all duration-700 hover:shadow-2xl hover:border-primary/20 group relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-700"></div>
+                  <span className="text-2xl font-headline font-bold text-primary block mb-8 relative z-10">{issue.title}</span>
+                  <div className="text-primary/60 group-hover:text-primary group-hover:scale-110 transition-all duration-700 flex justify-center relative z-10">
+                    {React.cloneElement(issue.icon as React.ReactElement, { size: 56, strokeWidth: 0.5 })}
+                  </div>
                 </div>
               ))}
             </div>

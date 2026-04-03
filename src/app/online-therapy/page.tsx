@@ -9,13 +9,14 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Laptop, ShieldCheck, Clock, ArrowLeft, Globe, Infinity } from 'lucide-react';
+import { Globe, ShieldCheck, Clock, Infinity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function OnlineTherapyPage() {
   const introReveal = useReveal();
   const benefitsReveal = useReveal();
   const heroImg = PlaceHolderImages.find(img => img.id === 'hero-online');
+  const onlineAtmoImg = PlaceHolderImages.find(img => img.id === 'hero-main');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20אשמח%20לפרטים%20על%20טיפול%20אונליין%20לישראלים%20בחו%22ל";
 
   const benefits = [
@@ -89,16 +90,20 @@ export default function OnlineTherapyPage() {
               className="inline-flex items-center gap-8 px-16 py-4 bg-primary text-white boutique-label hover:bg-accent transition-all duration-700 shadow-2xl rounded-sm !opacity-100"
             >
               תאום פגישת היכרות אונליין
-              <ArrowLeft size={16} />
             </a>
           </div>
           
           <div className="lg:col-span-5">
-            <div className="image-zoom-container aspect-square shadow-2xl border-t-8 border-r-8 border-primary/10 bg-white p-4">
-               <div className="relative w-full h-full grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
-                  <Laptop className="w-full h-full text-primary/10" strokeWidth={0.1} />
-                  <Globe className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-primary w-24 h-24" strokeWidth={0.5} />
-               </div>
+            <div className="image-zoom-container aspect-square shadow-2xl border-t-8 border-r-8 border-primary/10 bg-white p-4 relative overflow-hidden">
+               {onlineAtmoImg && (
+                 <Image 
+                   src={onlineAtmoImg.imageUrl} 
+                   alt="Atmosphere of peace" 
+                   fill 
+                   className="object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
+                   data-ai-hint={onlineAtmoImg.imageHint}
+                 />
+               )}
             </div>
           </div>
         </div>
