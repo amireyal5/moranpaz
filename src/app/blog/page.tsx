@@ -76,12 +76,24 @@ export default function BlogPage() {
               posts?.map((post, i) => (
                 <div key={post.id} className="group cursor-pointer">
                   <div className="bg-stone-50 aspect-video mb-10 overflow-hidden relative shadow-sm group-hover:shadow-xl transition-all duration-700">
-                     <Image 
-                       src={post.heroImageUrl} 
-                       alt={post.title} 
-                       fill 
-                       className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
-                     />
+                     {/* Desktop Image */}
+                     <div className="hidden md:block absolute inset-0">
+                       <Image 
+                         src={post.heroImageUrlDesktop} 
+                         alt={post.title} 
+                         fill 
+                         className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
+                       />
+                     </div>
+                     {/* Mobile Image */}
+                     <div className="md:hidden absolute inset-0">
+                       <Image 
+                         src={post.heroImageUrlMobile} 
+                         alt={post.title} 
+                         fill 
+                         className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
+                       />
+                     </div>
                      <div className="absolute top-6 right-6 boutique-label text-[10px] bg-white px-3 py-1 shadow-sm">{post.category}</div>
                   </div>
                   <div className="space-y-6">

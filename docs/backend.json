@@ -9,12 +9,13 @@
         "title": { "type": "string", "description": "The main headline of the post." },
         "subtitle": { "type": "string", "description": "A secondary sub-headline." },
         "content": { "type": "string", "description": "The main body content of the article." },
-        "heroImageUrl": { "type": "string", "description": "URL for the main hero image." },
+        "heroImageUrlDesktop": { "type": "string", "description": "URL for the main hero image on desktop screens." },
+        "heroImageUrlMobile": { "type": "string", "description": "URL for the main hero image on mobile screens." },
         "date": { "type": "string", "format": "date", "description": "Publishing date." },
         "category": { "type": "string", "description": "Article category (e.g., Awareness, Acceptance)." },
         "createdAt": { "type": "number", "description": "Timestamp of creation." }
       },
-      "required": ["title", "content", "heroImageUrl", "date", "category"]
+      "required": ["title", "content", "heroImageUrlDesktop", "heroImageUrlMobile", "date", "category"]
     }
   },
   "auth": {

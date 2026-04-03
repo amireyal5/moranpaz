@@ -13,7 +13,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Plus, LogOut, ArrowRight } from 'lucide-react';
+import { Loader2, Plus, LogOut, ArrowRight, Monitor, Smartphone } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
@@ -29,7 +29,8 @@ export default function BlogManagementPage() {
     title: '',
     subtitle: '',
     content: '',
-    heroImageUrl: '',
+    heroImageUrlDesktop: '',
+    heroImageUrlMobile: '',
     category: 'מודעות',
     date: new Date().toISOString().split('T')[0]
   });
@@ -61,7 +62,8 @@ export default function BlogManagementPage() {
         title: '',
         subtitle: '',
         content: '',
-        heroImageUrl: '',
+        heroImageUrlDesktop: '',
+        heroImageUrlMobile: '',
         category: 'מודעות',
         date: new Date().toISOString().split('T')[0]
       });
@@ -132,10 +134,24 @@ export default function BlogManagementPage() {
                     />
                   </div>
                   <div className="space-y-3">
-                    <Label className="boutique-label text-stone-400">תמונת הירו (URL)</Label>
+                    <Label className="boutique-label text-stone-400 flex items-center gap-2">
+                      <Monitor size={14} /> תמונת דסקטופ (URL)
+                    </Label>
                     <Input 
-                      value={newPost.heroImageUrl} 
-                      onChange={e => setNewPost({...newPost, heroImageUrl: e.target.value})} 
+                      value={newPost.heroImageUrlDesktop} 
+                      onChange={e => setNewPost({...newPost, heroImageUrlDesktop: e.target.value})} 
+                      required 
+                      className="h-12 border-stone-100 bg-stone-50"
+                      placeholder="https://images.unsplash.com/..."
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="boutique-label text-stone-400 flex items-center gap-2">
+                      <Smartphone size={14} /> תמונת מובייל (URL)
+                    </Label>
+                    <Input 
+                      value={newPost.heroImageUrlMobile} 
+                      onChange={e => setNewPost({...newPost, heroImageUrlMobile: e.target.value})} 
                       required 
                       className="h-12 border-stone-100 bg-stone-50"
                       placeholder="https://images.unsplash.com/..."
@@ -146,6 +162,16 @@ export default function BlogManagementPage() {
                     <Input 
                       value={newPost.category} 
                       onChange={e => setNewPost({...newPost, category: e.target.value})} 
+                      required 
+                      className="h-12 border-stone-100 bg-stone-50"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <Label className="boutique-label text-stone-400">תאריך פרסום</Label>
+                    <Input 
+                      type="date"
+                      value={newPost.date} 
+                      onChange={e => setNewPost({...newPost, date: e.target.value})} 
                       required 
                       className="h-12 border-stone-100 bg-stone-50"
                     />
