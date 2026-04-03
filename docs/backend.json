@@ -26,7 +26,7 @@
   "firestore": {
     "/blogPosts/{postId}": {
       "schema": "#/backend/entities/BlogPost",
-      "description": "Collection of blog articles managed by the admin. Rules allow read for everyone and write for authenticated users."
+      "description": "Collection of blog articles managed by the admin. Rules: Allow read for all. Allow write (create, update, delete) for any authenticated user."
     }
   }
 }
