@@ -86,20 +86,20 @@
 }
 
 .boutique-title {
-  @apply text-5xl sm:text-6xl md:text-8xl font-headline font-light leading-[1.2] tracking-tight text-foreground;
+  @apply text-4xl sm:text-6xl md:text-8xl font-headline font-light leading-[1.2] tracking-tight text-foreground;
   text-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
 .hero-title-shadow {
-  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  text-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 .hero-para-shadow {
-  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .boutique-para {
-  @apply text-xl sm:text-2xl font-light text-stone-700 leading-relaxed max-w-4xl mx-auto;
+  @apply text-lg sm:text-2xl font-light text-stone-700 leading-relaxed max-w-4xl mx-auto;
 }
 
 .image-zoom-container {
@@ -107,7 +107,7 @@
 }
 
 .image-zoom-container img {
-  transition: transform 3000ms cubic-bezier(0.4, 0, 0.2, 1), filter 3000ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1);
   filter: grayscale(0.05);
 }
 
@@ -116,13 +116,13 @@
 }
 
 .boutique-card {
-  @apply bg-white text-foreground p-10 sm:p-16 flex flex-col items-center text-center justify-center min-h-[400px] relative overflow-hidden transition-all duration-1000 border border-primary/5;
+  @apply bg-white text-foreground p-8 sm:p-12 flex flex-col items-center text-center justify-center min-h-[350px] relative overflow-hidden transition-all duration-700 border border-primary/5 shadow-sm;
 }
 
 .boutique-card:hover {
-  @apply bg-stone-50 shadow-2xl border-primary/20;
+  @apply bg-stone-50 shadow-xl border-primary/20 -translate-y-1;
 }
 
 .art-icon {
-  @apply absolute top-10 right-10 opacity-30 text-primary;
+  @apply absolute top-8 right-8 opacity-20 text-primary;
 }
