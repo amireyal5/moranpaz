@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -45,11 +44,11 @@
     @apply bg-background text-foreground font-body overflow-x-hidden w-full;
     direction: rtl;
     -webkit-font-smoothing: antialiased;
-    line-height: 1.8;
+    line-height: 1.6;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline font-light tracking-tight;
-    line-height: 1.3;
+    line-height: 1.2;
   }
 }
 
@@ -81,26 +80,26 @@
 }
 
 .boutique-label {
-  font-size: 11px;
-  letter-spacing: 0.25em;
+  font-size: 10px;
+  letter-spacing: 0.2em;
   @apply sm:text-xs uppercase font-bold;
 }
 
 .boutique-title {
-  @apply text-4xl sm:text-6xl md:text-8xl font-headline font-light leading-[1.2] tracking-tight text-foreground;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  @apply text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-headline font-light leading-tight tracking-tight text-foreground;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.01);
 }
 
 .hero-title-shadow {
-  text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .hero-para-shadow {
-  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.25);
 }
 
 .boutique-para {
-  @apply text-lg sm:text-2xl font-light text-stone-700 leading-relaxed max-w-4xl mx-auto;
+  @apply text-base sm:text-xl lg:text-2xl font-light text-stone-700 leading-relaxed max-w-4xl mx-auto;
 }
 
 .image-zoom-container {
@@ -117,7 +116,7 @@
 }
 
 .boutique-card {
-  @apply bg-white/80 backdrop-blur-sm text-foreground p-6 sm:p-12 flex flex-col items-center text-center justify-center min-h-[280px] sm:min-h-[350px] relative overflow-hidden transition-all duration-700 border border-primary/10 shadow-sm rounded-sm;
+  @apply bg-white/80 backdrop-blur-sm text-foreground p-6 sm:p-10 flex flex-col items-center text-center justify-center min-h-[250px] sm:min-h-[320px] relative overflow-hidden transition-all duration-700 border border-primary/10 shadow-sm rounded-sm;
 }
 
 .boutique-card:hover {
@@ -125,7 +124,7 @@
 }
 
 .art-icon {
-  @apply absolute top-8 right-8 opacity-20 text-primary;
+  @apply absolute top-6 right-6 opacity-20 text-primary;
 }
 
 /* Quill Editor Custom Styling for Boutique Feel */

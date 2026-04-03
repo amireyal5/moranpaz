@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -45,23 +44,23 @@ export function Navbar() {
   return (
     <>
       <nav className={cn(
-        "fixed w-full z-[200] transition-all duration-700 px-6 md:px-12 lg:px-24 flex justify-between items-center py-6 md:py-10",
+        "fixed w-full z-[200] transition-all duration-700 px-6 md:px-12 xl:px-24 flex justify-between items-center py-4 md:py-8",
         isScrolled 
-          ? 'bg-background/95 backdrop-blur-xl py-4 md:py-5 border-b border-border/30 shadow-sm' 
+          ? 'bg-background/95 backdrop-blur-xl py-3 md:py-4 border-b border-border/30 shadow-sm' 
           : 'bg-transparent'
       )}>
         <NextLink 
           href="/"
-          className="flex flex-col items-start z-[220] group"
+          className="flex flex-col items-start z-[220] group shrink-0"
         >
           <span className={cn(
-            "text-2xl sm:text-3xl md:text-4xl font-headline tracking-[0.25em] font-light transition-all duration-700",
+            "text-xl sm:text-2xl md:text-3xl font-headline tracking-[0.2em] font-light transition-all duration-700",
             isScrolled ? "text-foreground" : "text-white drop-shadow-md"
           )}>
             MORAN PAZ
           </span>
           <span className={cn(
-            "text-xl sm:text-2xl font-handwriting tracking-widest transition-all duration-700 mt-1",
+            "text-base sm:text-lg md:text-xl font-handwriting tracking-widest transition-all duration-700 mt-0.5",
             isScrolled ? "text-accent" : "text-white drop-shadow-sm"
           )}>
             BeinMe — להיות אני בתוכי
@@ -69,13 +68,13 @@ export function Navbar() {
         </NextLink>
         
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center space-x-reverse space-x-12 boutique-label">
+        <div className="hidden lg:flex items-center space-x-reverse space-x-6 xl:space-x-10 boutique-label">
           {navItems.map((item) => (
             <NextLink 
               key={item.href} 
               href={item.href} 
               className={cn(
-                "relative py-1 transition-all duration-700 text-[14px] tracking-[0.15em] font-medium",
+                "relative py-1 transition-all duration-700 text-[12px] xl:text-[14px] tracking-[0.1em] font-medium",
                 isScrolled 
                   ? (pathname === item.href ? "text-primary" : "text-foreground/80 hover:text-primary") 
                   : (pathname === item.href ? "text-white" : "text-white/90 hover:text-white drop-shadow-sm")
@@ -95,10 +94,10 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "px-10 py-3.5 transition-all duration-700 text-[13px] tracking-[0.2em] font-bold shadow-xl rounded-sm !text-white flex items-center gap-2",
+              "px-6 xl:px-10 py-2.5 transition-all duration-700 text-[11px] xl:text-[13px] tracking-[0.15em] font-bold shadow-lg rounded-sm !text-white flex items-center gap-2",
               isScrolled 
                 ? "bg-primary hover:bg-accent" 
-                : "bg-white/20 backdrop-blur-md border border-white/40 hover:bg-white hover:!text-primary"
+                : "bg-white/10 backdrop-blur-md border border-white/30 hover:bg-white hover:!text-primary"
             )}
           >
             פגישת היכרות
@@ -117,7 +116,7 @@ export function Navbar() {
           <Menu 
             strokeWidth={1} 
             className={cn(
-              "size-10 transition-colors duration-700",
+              "size-8 md:size-10 transition-colors duration-700",
               isScrolled ? "text-foreground" : "text-white drop-shadow-md"
             )} 
           />
@@ -129,7 +128,6 @@ export function Navbar() {
         "fixed inset-0 z-[300] bg-accent text-white transition-all duration-700 ease-in-out flex flex-col h-screen w-full",
         mobileMenuOpen ? 'opacity-100 translate-y-0 visible pointer-events-auto' : 'opacity-0 -translate-y-full pointer-events-none invisible'
       )}>
-        {/* Fixed Close Button */}
         <button 
           onClick={() => setMobileMenuOpen(false)}
           className="absolute top-8 left-8 p-4 z-[310]"
@@ -137,9 +135,7 @@ export function Navbar() {
           <X strokeWidth={1} className="size-10 text-white/70 hover:text-white transition-colors" />
         </button>
 
-        {/* Scrollable Content Container */}
         <div className="flex-1 overflow-y-auto flex flex-col items-center pt-24 sm:pt-32 pb-12">
-          {/* Navigation Links */}
           <div className="flex flex-col items-center space-y-8 sm:space-y-10 text-center w-full px-6">
             {navItems.map((item, i) => (
               <NextLink 
@@ -161,7 +157,6 @@ export function Navbar() {
             ))}
           </div>
           
-          {/* Branding at the bottom of the scroll flow */}
           <div className="mt-auto pt-20 text-center w-full px-6">
             <div className="mashrabiya-divider opacity-10 mb-6 max-w-[120px] mx-auto"></div>
             <span className="boutique-label text-white/40 tracking-[0.4em] text-[10px]">MORAN PAZ • BEINME</span>

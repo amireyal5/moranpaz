@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -74,27 +73,26 @@ export default function Home() {
               />
             </div>
           )}
-          {/* Reduced Bottom Gradient by 50% */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-background/20"></div>
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal flex flex-col items-center w-full max-w-5xl mx-auto px-4">
-           <span className="boutique-label text-white/90 mb-8 block drop-shadow-md">Moran Paz • BeinMe</span>
+           <span className="boutique-label text-white/90 mb-6 sm:mb-8 block drop-shadow-md">Moran Paz • BeinMe</span>
            
-           <h1 className="text-6xl sm:text-8xl md:text-[130px] font-bold leading-tight font-handwriting text-white mb-8 hero-title-shadow">
+           <h1 className="text-5xl sm:text-7xl lg:text-8xl xl:text-[110px] font-bold leading-none font-handwriting text-white mb-6 sm:mb-8 hero-title-shadow">
              להאיר את עצמך
            </h1>
            
-           <h2 className="text-lg md:text-3xl font-headline italic mb-12 text-white/95 font-light max-w-3xl leading-relaxed hero-para-shadow">
+           <h2 className="text-base md:text-2xl lg:text-3xl font-headline italic mb-10 sm:mb-12 text-white/95 font-light max-w-3xl leading-relaxed hero-para-shadow">
              מסע של מודעות, קבלה וחיבור לסמכות הפנימית דרך עבודה משולבת של גוף, נפש ורוח
            </h2>
            
-           <div className="pt-4">
+           <div className="pt-2 sm:pt-4">
              <a 
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="px-12 sm:px-24 py-5 bg-primary !text-white boutique-label !text-[13px] sm:!text-[15px] hover:bg-white hover:!text-accent transition-all duration-700 shadow-2xl rounded-sm flex items-center justify-center whitespace-nowrap !opacity-100 min-w-[260px] sm:min-w-[320px]"
+               className="px-10 sm:px-20 py-4 sm:py-5 bg-primary !text-white boutique-label !text-[12px] sm:!text-[14px] hover:bg-white hover:!text-accent transition-all duration-700 shadow-2xl rounded-sm flex items-center justify-center whitespace-nowrap !opacity-100 min-w-[240px] sm:min-w-[300px]"
              >
                 קביעת פגישת היכרות
              </a>
@@ -103,11 +101,11 @@ export default function Home() {
       </section>
 
       {/* Intro Agenda Section */}
-      <section ref={introReveal} className="py-24 md:py-48 px-6 md:px-24 bg-white reveal">
+      <section ref={introReveal} className="py-20 md:py-32 xl:py-48 px-6 md:px-12 xl:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-32 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-24 items-center">
             <div className="lg:col-span-5 order-2 lg:order-1">
-              <div className="image-zoom-container aspect-[3/4] shadow-2xl border-4 sm:border-8 border-background overflow-hidden relative">
+              <div className="image-zoom-container aspect-[3/4] shadow-2xl border-4 sm:border-8 border-background overflow-hidden relative max-w-md mx-auto lg:max-w-none">
                 {portraitImg && (
                   <Image 
                     src={portraitImg.imageUrl} 
@@ -120,16 +118,16 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="lg:col-span-7 order-1 lg:order-2 space-y-10 sm:space-y-16">
+            <div className="lg:col-span-7 order-1 lg:order-2 space-y-8 sm:space-y-12">
               <div className="relative">
                 <span className="boutique-label text-primary/70 mb-4 block">The Agenda</span>
-                <h2 className="text-5xl sm:text-7xl md:text-9xl font-handwriting font-bold text-foreground leading-none mb-6">
+                <h2 className="text-4xl sm:text-6xl lg:text-7xl xl:text-8xl font-handwriting font-bold text-foreground leading-tight mb-6">
                   בכל טיפת חושך אפשר לשפוך אור של מודעות
                 </h2>
-                <div className="mashrabiya-divider max-w-[150px] sm:max-w-[200px]"></div>
+                <div className="mashrabiya-divider max-w-[120px] sm:max-w-[180px]"></div>
               </div>
               
-              <div className="space-y-8 sm:space-y-12 boutique-para text-stone-600">
+              <div className="space-y-6 sm:space-y-10 boutique-para text-stone-600">
                 <p>
                   אני מאמינה ששינוי מתחיל במפגש וקבלה של חלקי העצמי. הרגשות הם המצפן שלנו ולכל אחד מאיתנו יש את מפת הדרכים הפנימית שלו לחייו.
                 </p>
@@ -149,22 +147,22 @@ export default function Home() {
       </section>
 
       {/* Uniqueness Section */}
-      <section ref={uniquenessReveal} className="py-24 md:py-48 px-6 md:px-24 bg-stone-50 reveal border-y border-stone-100">
+      <section ref={uniquenessReveal} className="py-20 md:py-32 xl:py-48 px-6 md:px-12 xl:px-24 bg-stone-50 reveal border-y border-stone-100">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Core Pillars" title="גוף • נפש • רוח" className="flex flex-col items-center text-center" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mt-20 sm:mt-32">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 mt-16 sm:mt-24">
             {[
               { title: "גוף", icon: <Orbit />, desc: "הקשבה לתחושות הפיזיקליות כפתח לעולם הרגשי." },
               { title: "נפש", icon: <Heart />, desc: "עיבוד רגשות, דפוסים והסיפור שאנחנו מספרים לעצמנו." },
               { title: "רוח", icon: <Sparkles />, desc: "חיבור למודעות, למשמעות ולאור שבתוכנו." }
             ].map((point, i) => (
               <div key={i} className={cn("boutique-card group backdrop-blur-md bg-white/90", `stagger-${i+1}`)}>
-                <div className="text-primary mb-8 group-hover:scale-110 transition-transform duration-700">
-                  {React.cloneElement(point.icon as React.ReactElement, { size: 56, strokeWidth: 0.2 })}
+                <div className="text-primary mb-6 group-hover:scale-110 transition-transform duration-700">
+                  {React.cloneElement(point.icon as React.ReactElement, { size: 48, strokeWidth: 0.2 })}
                 </div>
-                <div className="space-y-6">
-                  <h3 className="text-3xl sm:text-4xl font-headline font-bold text-accent">{point.title}</h3>
-                  <p className="text-lg sm:text-xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
+                <div className="space-y-4">
+                  <h3 className="text-2xl sm:text-3xl font-headline font-bold text-accent">{point.title}</h3>
+                  <p className="text-base sm:text-lg font-light text-stone-600 leading-relaxed">{point.desc}</p>
                 </div>
               </div>
             ))}
@@ -173,13 +171,13 @@ export default function Home() {
       </section>
 
       {/* Personal Appeal CTA */}
-      <section ref={ctaReveal} className="py-24 md:py-32 px-6 md:px-24 bg-white reveal overflow-hidden">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 sm:gap-24">
-          <div className="space-y-8 flex-1 text-center md:text-right">
-            <h3 className="text-5xl sm:text-7xl md:text-9xl font-handwriting text-accent leading-none">
+      <section ref={ctaReveal} className="py-20 md:py-32 px-6 md:px-12 xl:px-24 bg-white reveal overflow-hidden">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 sm:gap-16">
+          <div className="space-y-6 flex-1 text-center md:text-right">
+            <h3 className="text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-handwriting text-accent leading-none">
               הזמנה למפגש אמיתי
             </h3>
-            <p className="boutique-para text-xl sm:text-3xl font-light leading-relaxed">
+            <p className="boutique-para !text-lg sm:!text-2xl font-light leading-relaxed">
               בכל טיפת חושך ניתן לשפוך אור. אני כאן כדי להחזיק את הפנס בזמן שאת מגלה את הדרך שלך.
             </p>
           </div>
@@ -188,7 +186,7 @@ export default function Home() {
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-12 sm:px-24 py-5 bg-accent !text-white boutique-label !text-[13px] sm:!text-[15px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100 w-full md:min-w-[340px] justify-center"
+              className="inline-flex items-center px-10 sm:px-20 py-4 sm:py-5 bg-accent !text-white boutique-label !text-[12px] sm:!text-[14px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100 w-full md:min-w-[300px] justify-center"
             >
               תיאום פגישת היכרות
             </a>
@@ -199,10 +197,10 @@ export default function Home() {
       <TestimonialsSection />
       <FaqSection items={homeFaqs} />
 
-      <section id="contact" className="py-24 md:py-48 px-6 bg-white border-t border-stone-100">
+      <section id="contact" className="py-20 md:py-32 px-6 bg-white border-t border-stone-100">
         <div className="max-w-4xl mx-auto text-center">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
-          <p className="boutique-para mb-12 sm:mb-20 font-medium">אני כאן בשבילך לתאום שיחת הכרות ללא עלות.</p>
+          <p className="boutique-para mb-10 sm:mb-16 font-medium !text-lg">אני כאן בשבילך לתאום שיחת הכרות ללא עלות.</p>
           <ContactForm />
         </div>
       </section>
