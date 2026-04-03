@@ -4,16 +4,17 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { collection, addDoc, query, orderBy, doc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useAuth, useUser, useFirestore, useCollection } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Plus, LogOut, ArrowRight, Monitor, Smartphone, Trash2, Edit } from 'lucide-react';
+import { Loader2, Plus, LogOut, ArrowRight, Monitor, Smartphone, Trash2, Edit, FileText } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
@@ -23,7 +24,7 @@ import 'react-quill-new/dist/quill.snow.css';
 // Dynamically import ReactQuill to avoid SSR issues
 const ReactQuill = dynamic(() => import('react-quill-new'), {
   ssr: false,
-  loading: () => <div className="h-64 w-full bg-stone-50 animate-pulse border border-stone-100 flex items-center justify-center">טוען עורך טקסט...</div>,
+  loading: () => <div className="h-64 w-full bg-stone-50 animate-pulse border border-stone-100 flex items-center justify-center font-headline">טוען עורך טקסט...</div>,
 });
 
 export default function BlogManagementPage() {
@@ -40,6 +41,7 @@ export default function BlogManagementPage() {
   const [newPost, setNewPost] = useState({
     title: '',
     subtitle: '',
+    summary: '',
     slug: '',
     content: '',
     heroImageUrlDesktop: '',
@@ -48,7 +50,6 @@ export default function BlogManagementPage() {
     date: new Date().toISOString().split('T')[0]
   });
 
-  // Stabilize query for useCollection to prevent infinite loops
   const postsQuery = useMemo(() => {
     if (!db) return null;
     return query(collection(db, 'blogPosts'), orderBy('createdAt', 'desc'));
@@ -127,6 +128,7 @@ export default function BlogManagementPage() {
     setNewPost({
       title: post.title,
       subtitle: post.subtitle || '',
+      summary: post.summary || '',
       slug: post.slug || '',
       content: post.content,
       heroImageUrlDesktop: post.heroImageUrlDesktop || '',
@@ -158,6 +160,7 @@ export default function BlogManagementPage() {
     setNewPost({
       title: '',
       subtitle: '',
+      summary: '',
       slug: '',
       content: '',
       heroImageUrlDesktop: '',
@@ -180,24 +183,24 @@ export default function BlogManagementPage() {
   return (
     <main className="min-h-screen bg-stone-50 text-right">
       <Navbar />
-      <section className="pt-56 pb-32 px-8 max-w-6xl mx-auto">
-        <div className="flex justify-between items-end mb-16">
+      <section className="pt-40 md:pt-56 pb-32 px-4 md:px-8 max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
           <div>
             <span className="boutique-label text-primary mb-4 block">Admin Panel</span>
-            <h1 className="text-6xl font-handwriting text-accent">ניהול בלוג</h1>
+            <h1 className="text-5xl md:text-6xl font-handwriting text-accent">ניהול בלוג</h1>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 w-full md:w-auto">
             <Button 
               onClick={() => {
                 if (isAdding) resetForm();
                 else setIsAdding(true);
               }} 
-              className="bg-accent hover:bg-primary text-white boutique-label h-12 px-8 rounded-none"
+              className="flex-1 md:flex-none bg-accent hover:bg-primary text-white boutique-label h-12 px-8 rounded-none"
             >
               {isAdding ? "ביטול" : "מאמר חדש"}
               <Plus className="mr-2 size-4" />
             </Button>
-            <Button variant="outline" onClick={handleSignOut} className="h-12 border-stone-200 rounded-none boutique-label">
+            <Button variant="outline" onClick={handleSignOut} className="flex-1 md:flex-none h-12 border-stone-200 rounded-none boutique-label">
               התנתקות <LogOut className="mr-2 size-4" />
             </Button>
           </div>
@@ -219,7 +222,7 @@ export default function BlogManagementPage() {
                       value={newPost.title} 
                       onChange={e => setNewPost({...newPost, title: e.target.value})} 
                       required 
-                      className="h-12 border-stone-100 bg-stone-50"
+                      className="h-12 border-stone-100 bg-stone-50 font-headline"
                     />
                   </div>
                   <div className="space-y-3">
@@ -228,18 +231,30 @@ export default function BlogManagementPage() {
                       value={newPost.slug} 
                       onChange={e => setNewPost({...newPost, slug: e.target.value})} 
                       required 
-                      className="h-12 border-stone-100 bg-stone-50"
+                      className="h-12 border-stone-100 bg-stone-50 font-sans"
                       placeholder="my-post-title"
                     />
                   </div>
+                  
                   <div className="space-y-3 md:col-span-2">
-                    <Label className="boutique-label text-stone-400">כותרת משנית</Label>
+                    <Label className="boutique-label text-stone-400">תקציר למסך הבית (Exerpt)</Label>
+                    <Textarea 
+                      value={newPost.summary} 
+                      onChange={e => setNewPost({...newPost, summary: e.target.value})} 
+                      className="min-h-24 border-stone-100 bg-stone-50 font-headline text-lg"
+                      placeholder="תיאור קצר שיופיע ברשימת המאמרים..."
+                    />
+                  </div>
+
+                  <div className="space-y-3 md:col-span-2">
+                    <Label className="boutique-label text-stone-400">כותרת משנית (מופיע בתוך המאמר)</Label>
                     <Input 
                       value={newPost.subtitle} 
                       onChange={e => setNewPost({...newPost, subtitle: e.target.value})} 
-                      className="h-12 border-stone-100 bg-stone-50"
+                      className="h-12 border-stone-100 bg-stone-50 font-headline"
                     />
                   </div>
+
                   <div className="space-y-3">
                     <Label className="boutique-label text-stone-400 flex items-center gap-2">
                       <Monitor size={14} /> תמונת דסקטופ (URL)
@@ -247,7 +262,7 @@ export default function BlogManagementPage() {
                     <Input 
                       value={newPost.heroImageUrlDesktop} 
                       onChange={e => setNewPost({...newPost, heroImageUrlDesktop: e.target.value})} 
-                      className="h-12 border-stone-100 bg-stone-50"
+                      className="h-12 border-stone-100 bg-stone-50 font-sans"
                       placeholder="https://images.unsplash.com/..."
                     />
                   </div>
@@ -258,7 +273,7 @@ export default function BlogManagementPage() {
                     <Input 
                       value={newPost.heroImageUrlMobile} 
                       onChange={e => setNewPost({...newPost, heroImageUrlMobile: e.target.value})} 
-                      className="h-12 border-stone-100 bg-stone-50"
+                      className="h-12 border-stone-100 bg-stone-50 font-sans"
                       placeholder="https://images.unsplash.com/..."
                     />
                   </div>
@@ -268,7 +283,7 @@ export default function BlogManagementPage() {
                       value={newPost.category} 
                       onChange={e => setNewPost({...newPost, category: e.target.value})} 
                       required 
-                      className="h-12 border-stone-100 bg-stone-50"
+                      className="h-12 border-stone-100 bg-stone-50 font-headline"
                     />
                   </div>
                   <div className="space-y-3">
@@ -284,7 +299,7 @@ export default function BlogManagementPage() {
                 </div>
                 
                 <div className="space-y-3">
-                  <Label className="boutique-label text-stone-400">גוף הכתבה (כמו ב-Word)</Label>
+                  <Label className="boutique-label text-stone-400">גוף הכתבה</Label>
                   <div className="prose-editor">
                     <ReactQuill 
                       theme="snow"
@@ -299,7 +314,7 @@ export default function BlogManagementPage() {
                 <Button 
                   type="submit" 
                   disabled={isSaving}
-                  className="bg-primary text-white boutique-label h-14 w-full rounded-none"
+                  className="bg-primary text-white boutique-label h-14 w-full rounded-none text-base"
                 >
                   {isSaving ? <Loader2 className="animate-spin" /> : (editingId ? "עדכון מאמר" : "פרסום מאמר")}
                 </Button>
@@ -313,24 +328,25 @@ export default function BlogManagementPage() {
           {postsLoading ? (
             <div className="flex justify-center p-20"><Loader2 className="animate-spin text-stone-300 size-12" /></div>
           ) : posts?.length === 0 ? (
-            <p className="text-xl text-stone-400 text-center py-20">עדיין אין מאמרים. הזמן להתחיל לכתוב...</p>
+            <p className="text-xl text-stone-400 text-center py-20 font-headline">עדיין אין מאמרים. הזמן להתחיל לכתוב...</p>
           ) : (
             <div className="grid grid-cols-1 gap-6">
               {posts?.map((post: any) => (
-                <div key={post.id} className="bg-white p-8 border border-stone-100 flex justify-between items-center group hover:border-primary/30 transition-all">
+                <div key={post.id} className="bg-white p-6 md:p-8 border border-stone-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group hover:border-primary/30 transition-all">
                   <div className="flex-1">
                     <span className="boutique-label text-stone-300 text-[10px] mb-2 block">{post.date} | {post.category}</span>
                     <h3 className="text-2xl font-headline text-accent group-hover:text-primary transition-colors">{post.title}</h3>
-                    <p className="text-xs text-stone-400 font-mono">/{post.slug}</p>
+                    <p className="text-sm text-stone-400 font-sans mt-1">/{post.slug}</p>
+                    {post.summary && <p className="text-stone-500 mt-2 line-clamp-1 text-sm font-headline italic">{post.summary}</p>}
                   </div>
-                  <div className="flex gap-2">
-                    <Button variant="ghost" onClick={() => handleEdit(post)} className="text-stone-400 hover:text-primary">
+                  <div className="flex gap-2 w-full md:w-auto border-t md:border-t-0 pt-4 md:pt-0">
+                    <Button variant="ghost" onClick={() => handleEdit(post)} className="text-stone-400 hover:text-primary flex-1 md:flex-none">
                       <Edit size={18} />
                     </Button>
-                    <Button variant="ghost" onClick={() => handleDelete(post.id)} className="text-stone-400 hover:text-destructive">
+                    <Button variant="ghost" onClick={() => handleDelete(post.id)} className="text-stone-400 hover:text-destructive flex-1 md:flex-none">
                       <Trash2 size={18} />
                     </Button>
-                    <Button variant="ghost" onClick={() => router.push(`/blog/${post.slug || post.id}`)} className="text-stone-300 hover:text-accent">
+                    <Button variant="ghost" onClick={() => router.push(`/blog/${post.slug || post.id}`)} className="text-stone-300 hover:text-accent flex-1 md:flex-none">
                       <ArrowRight className="size-4" />
                     </Button>
                   </div>

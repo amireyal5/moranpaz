@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 155 20% 15%;
     
-    --primary: 155 15% 45%; /* Sage Green - המרווה המבוקשת */
+    --primary: 155 15% 45%; /* Sage Green */
     --primary-foreground: 60 10% 98%;
     
     --secondary: 155 10% 92%;
@@ -125,6 +126,46 @@
 
 .art-icon {
   @apply absolute top-6 right-6 opacity-20 text-primary;
+}
+
+/* Rich Text Content Container - IMPROVED */
+.blog-content-container {
+  @apply text-xl md:text-2xl leading-[1.8] text-stone-700;
+}
+
+.blog-content-container p {
+  @apply mb-10;
+}
+
+.blog-content-container h1, 
+.blog-content-container h2, 
+.blog-content-container h3 {
+  @apply text-accent font-bold mt-16 mb-8 leading-tight;
+}
+
+.blog-content-container h1 { @apply text-4xl md:text-5xl; }
+.blog-content-container h2 { @apply text-3xl md:text-4xl; }
+.blog-content-container h3 { @apply text-2xl md:text-3xl; }
+
+.blog-content-container ul, 
+.blog-content-container ol {
+  @apply mb-12 pr-8 space-y-4;
+}
+
+.blog-content-container ul {
+  @apply list-disc;
+}
+
+.blog-content-container ol {
+  @apply list-decimal;
+}
+
+.blog-content-container a {
+  @apply text-primary underline underline-offset-4 hover:text-accent transition-colors;
+}
+
+.blog-content-container blockquote {
+  @apply border-r-4 border-primary/20 pr-8 my-12 italic text-2xl md:text-3xl font-light text-stone-500;
 }
 
 /* Quill Editor Custom Styling for Boutique Feel */

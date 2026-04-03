@@ -57,26 +57,26 @@ export default function BlogPage() {
         </div>
         <div className="relative z-10 text-center">
            <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">The Wisdom</span>
-           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">נקודות של אור</h1>
-           <p className="text-2xl md:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">ידע, תובנות והשראה למסע הפנימי</p>
+           <h1 className="text-6xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">נקודות של אור</h1>
+           <p className="text-xl md:text-3xl xl:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">ידע, תובנות והשראה למסע הפנימי</p>
         </div>
       </section>
 
-      <section ref={revealRef} className="py-32 md:py-56 px-8 md:px-24 bg-white reveal">
+      <section ref={revealRef} className="py-24 md:py-32 xl:py-56 px-6 md:px-12 xl:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Journal" title="השראה ושיתופים" className="flex flex-col items-center text-center" />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-32">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 xl:gap-16 mt-20 md:mt-32">
             {loading ? (
               <div className="col-span-full flex justify-center py-20">
                 <Loader2 className="animate-spin text-primary size-12" />
               </div>
             ) : posts?.length === 0 ? (
-              <p className="col-span-full text-center text-stone-400 text-xl font-light">בקרוב יעלו תכנים חדשים ומאירי פנים...</p>
+              <p className="col-span-full text-center text-stone-400 text-xl font-light font-headline">בקרוב יעלו תכנים חדשים ומאירי פנים...</p>
             ) : (
               posts?.map((post: any) => (
                 <Link href={`/blog/${post.slug || post.id}`} key={post.id} className="group cursor-pointer">
-                  <div className="bg-stone-50 aspect-video mb-10 overflow-hidden relative shadow-sm group-hover:shadow-xl transition-all duration-700">
+                  <div className="bg-stone-50 aspect-video mb-8 overflow-hidden relative shadow-sm group-hover:shadow-xl transition-all duration-700">
                      {post.heroImageUrlDesktop ? (
                        <>
                          <div className="hidden md:block absolute inset-0">
@@ -101,12 +101,14 @@ export default function BlogPage() {
                           <span className="font-handwriting text-4xl text-stone-300">BeinMe</span>
                        </div>
                      )}
-                     <div className="absolute top-6 right-6 boutique-label text-[10px] bg-white px-3 py-1 shadow-sm">{post.category}</div>
+                     <div className="absolute top-4 right-4 boutique-label text-[10px] bg-white px-3 py-1 shadow-sm">{post.category}</div>
                   </div>
-                  <div className="space-y-6">
-                    <span className="boutique-label text-stone-400">{post.date}</span>
-                    <h3 className="text-3xl font-headline font-bold text-accent group-hover:text-primary transition-colors">{post.title}</h3>
-                    <p className="text-lg font-light text-stone-500 leading-relaxed line-clamp-2">{post.subtitle}</p>
+                  <div className="space-y-4">
+                    <span className="boutique-label text-stone-400 block">{post.date}</span>
+                    <h3 className="text-2xl md:text-3xl font-headline font-bold text-accent group-hover:text-primary transition-colors leading-tight">{post.title}</h3>
+                    <p className="text-lg font-light text-stone-500 leading-relaxed line-clamp-3 font-headline italic">
+                      {post.summary || post.subtitle || "לחצו לקריאת המאמר המלא..."}
+                    </p>
                     <div className="flex items-center gap-4 text-primary boutique-label text-[10px] pt-4 font-bold">
                       קריאת המאמר <ArrowLeft size={14} />
                     </div>
