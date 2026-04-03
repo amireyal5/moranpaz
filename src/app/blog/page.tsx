@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -10,7 +11,8 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowLeft } from 'lucide-react';
 
 export default function BlogPage() {
-  const heroImg = PlaceHolderImages.find(img => img.id === 'hero-blog');
+  const heroDesktop = PlaceHolderImages.find(img => img.id === 'hero-blog-desktop');
+  const heroMobile = PlaceHolderImages.find(img => img.id === 'hero-blog-mobile');
   const revealRef = useReveal();
 
   const articles = [
@@ -39,24 +41,40 @@ export default function BlogPage() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
+      <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {heroImg && (
-            <Image 
-              src={heroImg.imageUrl} 
-              alt="Points of Light" 
-              fill 
-              className="object-cover opacity-60"
-              priority
-              data-ai-hint={heroImg.imageHint}
-            />
+          {/* Desktop Hero */}
+          {heroDesktop && (
+            <div className="hidden md:block absolute inset-0">
+              <Image 
+                src={heroDesktop.imageUrl} 
+                alt="Points of Light" 
+                fill 
+                className="object-cover opacity-60"
+                priority
+                data-ai-hint={heroDesktop.imageHint}
+              />
+            </div>
+          )}
+          {/* Mobile Hero */}
+          {heroMobile && (
+            <div className="md:hidden absolute inset-0">
+              <Image 
+                src={heroMobile.imageUrl} 
+                alt="Points of Light Mobile" 
+                fill 
+                className="object-cover opacity-60"
+                priority
+                data-ai-hint={heroMobile.imageHint}
+              />
+            </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block">The Wisdom</span>
-           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold">נקודות של אור</h1>
-           <p className="text-2xl md:text-5xl font-headline italic text-white/90 leading-relaxed font-light">ידע, תובנות והשראה למסע הפנימי</p>
+           <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">The Wisdom</span>
+           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">נקודות של אור</h1>
+           <p className="text-2xl md:text-5xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">ידע, תובנות והשראה למסע הפנימי</p>
         </div>
       </section>
 
