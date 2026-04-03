@@ -1,9 +1,9 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { collection, addDoc, serverTimestamp, query, orderBy } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, orderBy, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useAuth, useUser, useFirestore, useCollection } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -13,7 +13,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Plus, LogOut, ArrowRight, Monitor, Smartphone } from 'lucide-react';
+import { Loader2, Plus, LogOut, ArrowRight, Monitor, Smartphone, Bold, Italic, Link as LinkIcon, Trash2, Edit } from 'lucide-react';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
@@ -23,8 +23,10 @@ export default function BlogManagementPage() {
   const auth = useAuth();
   const router = useRouter();
   const { toast } = useToast();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   
   const [isAdding, setIsAdding] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [newPost, setNewPost] = useState({
     title: '',
     subtitle: '',
@@ -48,32 +50,105 @@ export default function BlogManagementPage() {
     auth?.signOut().then(() => router.push('/'));
   };
 
+  const insertFormatting = (tag: string, placeholder: string = "") => {
+    if (!textareaRef.current) return;
+    const start = textareaRef.current.selectionStart;
+    const end = textareaRef.current.selectionEnd;
+    const text = newPost.content;
+    const selectedText = text.substring(start, end) || placeholder;
+    
+    let formatted = "";
+    if (tag === 'link') {
+      const url = prompt("הזינו כתובת URL (למשל: https://google.com):");
+      if (!url) return;
+      formatted = `<a href="${url}" target="_blank" class="text-primary underline font-bold">${selectedText || "קישור"}</a>`;
+    } else {
+      formatted = `<${tag}>${selectedText}</${tag}>`;
+    }
+
+    const newContent = text.substring(0, start) + formatted + text.substring(end);
+    setNewPost({ ...newPost, content: newContent });
+    
+    // Maintain focus
+    setTimeout(() => {
+      if (textareaRef.current) {
+        textareaRef.current.focus();
+        const newCursorPos = start + formatted.length;
+        textareaRef.current.setSelectionRange(newCursorPos, newCursorPos);
+      }
+    }, 0);
+  };
+
   const handleSavePost = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!db) return;
 
-    addDoc(collection(db, 'blogPosts'), {
-      ...newPost,
-      createdAt: Date.now()
-    }).then(() => {
-      toast({ title: "מאמר נשמר בהצלחה!" });
-      setIsAdding(false);
-      setNewPost({
-        title: '',
-        subtitle: '',
-        content: '',
-        heroImageUrlDesktop: '',
-        heroImageUrlMobile: '',
-        category: 'מודעות',
-        date: new Date().toISOString().split('T')[0]
+    if (editingId) {
+      updateDoc(doc(db, 'blogPosts', editingId), {
+        ...newPost,
+        updatedAt: Date.now()
+      }).then(() => {
+        toast({ title: "מאמר עודכן בהצלחה!" });
+        resetForm();
+      }).catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: `blogPosts/${editingId}`,
+          operation: 'update',
+          requestResourceData: newPost
+        });
+        errorEmitter.emit('permission-error', permissionError);
       });
-    }).catch(async (error) => {
-      const permissionError = new FirestorePermissionError({
-        path: 'blogPosts',
-        operation: 'create',
-        requestResourceData: newPost
+    } else {
+      addDoc(collection(db, 'blogPosts'), {
+        ...newPost,
+        createdAt: Date.now()
+      }).then(() => {
+        toast({ title: "מאמר נשמר בהצלחה!" });
+        resetForm();
+      }).catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: 'blogPosts',
+          operation: 'create',
+          requestResourceData: newPost
+        });
+        errorEmitter.emit('permission-error', permissionError);
       });
-      errorEmitter.emit('permission-error', permissionError);
+    }
+  };
+
+  const handleEdit = (post: any) => {
+    setNewPost({
+      title: post.title,
+      subtitle: post.subtitle,
+      content: post.content,
+      heroImageUrlDesktop: post.heroImageUrlDesktop,
+      heroImageUrlMobile: post.heroImageUrlMobile,
+      category: post.category,
+      date: post.date
+    });
+    setEditingId(post.id);
+    setIsAdding(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleDelete = (id: string) => {
+    if (!db || !confirm("האם את בטוחה שברצונך למחוק את המאמר?")) return;
+    deleteDoc(doc(db, 'blogPosts', id))
+      .then(() => toast({ title: "מאמר נמחק." }))
+      .catch(err => console.error(err));
+  };
+
+  const resetForm = () => {
+    setIsAdding(false);
+    setEditingId(null);
+    setNewPost({
+      title: '',
+      subtitle: '',
+      content: '',
+      heroImageUrlDesktop: '',
+      heroImageUrlMobile: '',
+      category: 'מודעות',
+      date: new Date().toISOString().split('T')[0]
     });
   };
 
@@ -96,7 +171,10 @@ export default function BlogManagementPage() {
           </div>
           <div className="flex gap-4">
             <Button 
-              onClick={() => setIsAdding(!isAdding)} 
+              onClick={() => {
+                if (isAdding) resetForm();
+                else setIsAdding(true);
+              }} 
               className="bg-accent hover:bg-primary text-white boutique-label h-12 px-8 rounded-none"
             >
               {isAdding ? "ביטול" : "מאמר חדש"}
@@ -111,7 +189,9 @@ export default function BlogManagementPage() {
         {isAdding && (
           <Card className="mb-20 bg-white shadow-2xl border-none rounded-none animate-in fade-in slide-in-from-top-4">
             <CardHeader className="border-b border-stone-50">
-              <CardTitle className="text-3xl font-headline text-accent">יצירת כתבה חדשה</CardTitle>
+              <CardTitle className="text-3xl font-headline text-accent">
+                {editingId ? "עריכת כתבה" : "יצירת כתבה חדשה"}
+              </CardTitle>
             </CardHeader>
             <CardContent className="pt-10">
               <form onSubmit={handleSavePost} className="space-y-10">
@@ -177,17 +257,54 @@ export default function BlogManagementPage() {
                     />
                   </div>
                 </div>
+                
                 <div className="space-y-3">
-                  <Label className="boutique-label text-stone-400">גוף הכתבה</Label>
+                  <div className="flex justify-between items-center">
+                    <Label className="boutique-label text-stone-400">גוף הכתבה</Label>
+                    <div className="flex gap-2">
+                      <Button 
+                        type="button" 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => insertFormatting('b', 'טקסט מודגש')}
+                        className="h-8 w-8 p-0"
+                      >
+                        <Bold size={16} />
+                      </Button>
+                      <Button 
+                        type="button" 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => insertFormatting('i', 'טקסט נטוי')}
+                        className="h-8 w-8 p-0"
+                      >
+                        <Italic size={16} />
+                      </Button>
+                      <Button 
+                        type="button" 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => insertFormatting('link', 'טקסט לקישור')}
+                        className="h-8 w-8 p-0"
+                      >
+                        <LinkIcon size={16} />
+                      </Button>
+                    </div>
+                  </div>
                   <Textarea 
+                    ref={textareaRef}
                     value={newPost.content} 
                     onChange={e => setNewPost({...newPost, content: e.target.value})} 
                     required 
-                    rows={12}
-                    className="border-stone-100 bg-stone-50 resize-none"
+                    rows={15}
+                    className="border-stone-100 bg-stone-50 resize-none font-sans text-lg leading-relaxed"
                   />
+                  <p className="text-xs text-stone-400">ניתן להשתמש בתגיות HTML בסיסיות (b, i, a) לעיצוב.</p>
                 </div>
-                <Button type="submit" className="bg-primary text-white boutique-label h-14 w-full rounded-none">פרסום מאמר</Button>
+                
+                <Button type="submit" className="bg-primary text-white boutique-label h-14 w-full rounded-none">
+                  {editingId ? "עדכון מאמר" : "פרסום מאמר"}
+                </Button>
               </form>
             </CardContent>
           </Card>
@@ -201,15 +318,23 @@ export default function BlogManagementPage() {
             <p className="text-xl text-stone-400 text-center py-20">עדיין אין מאמרים. הזמן להתחיל לכתוב...</p>
           ) : (
             <div className="grid grid-cols-1 gap-6">
-              {posts?.map(post => (
+              {posts?.map((post: any) => (
                 <div key={post.id} className="bg-white p-8 border border-stone-100 flex justify-between items-center group hover:border-primary/30 transition-all">
-                  <div>
+                  <div className="flex-1">
                     <span className="boutique-label text-stone-300 text-[10px] mb-2 block">{post.date} | {post.category}</span>
                     <h3 className="text-2xl font-headline text-accent group-hover:text-primary transition-colors">{post.title}</h3>
                   </div>
-                  <Button variant="ghost" className="text-stone-300 hover:text-primary">
-                    עריכה <ArrowRight className="mr-2 size-4" />
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button variant="ghost" onClick={() => handleEdit(post)} className="text-stone-400 hover:text-primary">
+                      <Edit size={18} />
+                    </Button>
+                    <Button variant="ghost" onClick={() => handleDelete(post.id)} className="text-stone-400 hover:text-destructive">
+                      <Trash2 size={18} />
+                    </Button>
+                    <Button variant="ghost" onClick={() => router.push(`/blog/${post.id}`)} className="text-stone-300 hover:text-accent">
+                      <ArrowRight className="size-4" />
+                    </Button>
+                  </div>
                 </div>
               ))}
             </div>

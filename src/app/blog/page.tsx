@@ -3,6 +3,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
@@ -73,8 +74,8 @@ export default function BlogPage() {
             ) : posts?.length === 0 ? (
               <p className="col-span-full text-center text-stone-400 text-xl font-light">בקרוב יעלו תכנים חדשים ומאירי פנים...</p>
             ) : (
-              posts?.map((post, i) => (
-                <div key={post.id} className="group cursor-pointer">
+              posts?.map((post: any, i) => (
+                <Link href={`/blog/${post.id}`} key={post.id} className="group cursor-pointer">
                   <div className="bg-stone-50 aspect-video mb-10 overflow-hidden relative shadow-sm group-hover:shadow-xl transition-all duration-700">
                      {/* Desktop Image */}
                      <div className="hidden md:block absolute inset-0">
@@ -99,12 +100,12 @@ export default function BlogPage() {
                   <div className="space-y-6">
                     <span className="boutique-label text-stone-400">{post.date}</span>
                     <h3 className="text-3xl font-headline font-bold text-accent group-hover:text-primary transition-colors">{post.title}</h3>
-                    <p className="text-lg font-light text-stone-500 leading-relaxed line-clamp-3">{post.subtitle}</p>
+                    <p className="text-lg font-light text-stone-500 leading-relaxed line-clamp-2">{post.subtitle}</p>
                     <div className="flex items-center gap-4 text-primary boutique-label text-[10px] pt-4 font-bold">
                       קריאת המאמר <ArrowLeft size={14} />
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             )}
           </div>
