@@ -17,11 +17,17 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
     const form = e.currentTarget;
     const formData = new FormData(form);
     
+    // Ensure the form-name is explicitly included for Netlify
+    const data = new URLSearchParams();
+    formData.forEach((value, key) => {
+      data.append(key, value as string);
+    });
+    
     try {
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as any).toString(),
+        body: data.toString(),
       });
       
       if (response.ok) {
@@ -80,10 +86,12 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
         ></iframe>
       </div>
 
+      {/* Note: data-netlify and netlify attributes are intentionally omitted from this React form 
+          to comply with Netlify's Next.js Runtime v5 requirements. The form is defined in 
+          public/__forms.html for build-time detection. */}
       <form 
         name="contact" 
         method="POST" 
-        data-netlify="true" 
         onSubmit={handleSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16"
       >
