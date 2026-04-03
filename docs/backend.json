@@ -14,7 +14,8 @@
         "heroImageUrlMobile": { "type": "string", "description": "URL for the main hero image on mobile screens." },
         "date": { "type": "string", "format": "date", "description": "Publishing date." },
         "category": { "type": "string", "description": "Article category (e.g., Awareness, Acceptance)." },
-        "createdAt": { "type": "number", "description": "Timestamp of creation." }
+        "createdAt": { "type": "number", "description": "Timestamp of creation." },
+        "updatedAt": { "type": "number", "description": "Timestamp of update." }
       },
       "required": ["title", "slug", "content", "date", "category"]
     }
@@ -25,7 +26,7 @@
   "firestore": {
     "/blogPosts/{postId}": {
       "schema": "#/backend/entities/BlogPost",
-      "description": "Collection of blog articles managed by the admin."
+      "description": "Collection of blog articles managed by the admin. Rules allow read for everyone and write for authenticated users."
     }
   }
 }

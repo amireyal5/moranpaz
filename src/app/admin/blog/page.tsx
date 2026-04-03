@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { collection, addDoc, query, orderBy, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, doc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 import { useAuth, useUser, useFirestore, useCollection } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -35,6 +35,8 @@ export default function BlogManagementPage() {
   
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+
   const [newPost, setNewPost] = useState({
     title: '',
     subtitle: '',
@@ -46,7 +48,12 @@ export default function BlogManagementPage() {
     date: new Date().toISOString().split('T')[0]
   });
 
-  const postsQuery = db ? query(collection(db, 'blogPosts'), orderBy('createdAt', 'desc')) : null;
+  // Stabilize query for useCollection to prevent infinite loops
+  const postsQuery = useMemo(() => {
+    if (!db) return null;
+    return query(collection(db, 'blogPosts'), orderBy('createdAt', 'desc'));
+  }, [db]);
+
   const { data: posts, loading: postsLoading } = useCollection(postsQuery);
 
   useEffect(() => {
@@ -71,8 +78,9 @@ export default function BlogManagementPage() {
 
   const handleSavePost = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!db) return;
+    if (!db || isSaving) return;
 
+    setIsSaving(true);
     const postData = {
       ...newPost,
       slug: newPost.slug.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
@@ -80,39 +88,45 @@ export default function BlogManagementPage() {
     };
 
     if (editingId) {
-      updateDoc(doc(db, 'blogPosts', editingId), postData).then(() => {
-        toast({ title: "מאמר עודכן בהצלחה!" });
-        resetForm();
-      }).catch(async (error) => {
-        const permissionError = new FirestorePermissionError({
-          path: `blogPosts/${editingId}`,
-          operation: 'update',
-          requestResourceData: postData
-        });
-        errorEmitter.emit('permission-error', permissionError);
-      });
+      updateDoc(doc(db, 'blogPosts', editingId), postData)
+        .then(() => {
+          toast({ title: "מאמר עודכן בהצלחה!" });
+          resetForm();
+        })
+        .catch(async (error) => {
+          const permissionError = new FirestorePermissionError({
+            path: `blogPosts/${editingId}`,
+            operation: 'update',
+            requestResourceData: postData
+          });
+          errorEmitter.emit('permission-error', permissionError);
+        })
+        .finally(() => setIsSaving(false));
     } else {
       addDoc(collection(db, 'blogPosts'), {
         ...postData,
         createdAt: Date.now()
-      }).then(() => {
-        toast({ title: "מאמר נשמר בהצלחה!" });
-        resetForm();
-      }).catch(async (error) => {
-        const permissionError = new FirestorePermissionError({
-          path: 'blogPosts',
-          operation: 'create',
-          requestResourceData: postData
-        });
-        errorEmitter.emit('permission-error', permissionError);
-      });
+      })
+        .then(() => {
+          toast({ title: "מאמר נשמר בהצלחה!" });
+          resetForm();
+        })
+        .catch(async (error) => {
+          const permissionError = new FirestorePermissionError({
+            path: 'blogPosts',
+            operation: 'create',
+            requestResourceData: postData
+          });
+          errorEmitter.emit('permission-error', permissionError);
+        })
+        .finally(() => setIsSaving(false));
     }
   };
 
   const handleEdit = (post: any) => {
     setNewPost({
       title: post.title,
-      subtitle: post.subtitle,
+      subtitle: post.subtitle || '',
       slug: post.slug || '',
       content: post.content,
       heroImageUrlDesktop: post.heroImageUrlDesktop || '',
@@ -129,7 +143,13 @@ export default function BlogManagementPage() {
     if (!db || !confirm("האם את בטוחה שברצונך למחוק את המאמר?")) return;
     deleteDoc(doc(db, 'blogPosts', id))
       .then(() => toast({ title: "מאמר נמחק." }))
-      .catch(err => console.error(err));
+      .catch(async (error) => {
+        const permissionError = new FirestorePermissionError({
+          path: `blogPosts/${id}`,
+          operation: 'delete'
+        });
+        errorEmitter.emit('permission-error', permissionError);
+      });
   };
 
   const resetForm = () => {
@@ -147,13 +167,15 @@ export default function BlogManagementPage() {
     });
   };
 
-  if (authLoading || !user) {
+  if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-50">
         <Loader2 className="animate-spin text-primary size-12" />
       </div>
     );
   }
+
+  if (!user) return null;
 
   return (
     <main className="min-h-screen bg-stone-50 text-right">
@@ -220,7 +242,7 @@ export default function BlogManagementPage() {
                   </div>
                   <div className="space-y-3">
                     <Label className="boutique-label text-stone-400 flex items-center gap-2">
-                      <Monitor size={14} /> תמונת דסקטופ (URL) - רשות
+                      <Monitor size={14} /> תמונת דסקטופ (URL)
                     </Label>
                     <Input 
                       value={newPost.heroImageUrlDesktop} 
@@ -231,7 +253,7 @@ export default function BlogManagementPage() {
                   </div>
                   <div className="space-y-3">
                     <Label className="boutique-label text-stone-400 flex items-center gap-2">
-                      <Smartphone size={14} /> תמונת מובייל (URL) - רשות
+                      <Smartphone size={14} /> תמונת מובייל (URL)
                     </Label>
                     <Input 
                       value={newPost.heroImageUrlMobile} 
@@ -274,8 +296,12 @@ export default function BlogManagementPage() {
                   </div>
                 </div>
                 
-                <Button type="submit" className="bg-primary text-white boutique-label h-14 w-full rounded-none">
-                  {editingId ? "עדכון מאמר" : "פרסום מאמר"}
+                <Button 
+                  type="submit" 
+                  disabled={isSaving}
+                  className="bg-primary text-white boutique-label h-14 w-full rounded-none"
+                >
+                  {isSaving ? <Loader2 className="animate-spin" /> : (editingId ? "עדכון מאמר" : "פרסום מאמר")}
                 </Button>
               </form>
             </CardContent>
