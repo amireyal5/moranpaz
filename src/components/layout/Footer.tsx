@@ -23,9 +23,9 @@ export function Footer() {
           
           {/* Brand Section */}
           <div className="lg:col-span-5">
-            <h3 className="text-3xl font-headline tracking-[0.4em] font-light mb-4">MORAN PAZ</h3>
+            <h3 className="text-3xl font-headline tracking-[0.4em] font-light mb-4 text-white">MORAN PAZ</h3>
             <span className="text-primary font-handwriting text-3xl block mb-8">BeinMe — להיות אני בתוכי</span>
-            <p className="text-stone-400 font-light leading-relaxed max-w-md mr-0 text-xl">
+            <p className="text-white/70 font-light leading-relaxed max-w-md mr-0 text-xl">
               פסיכותרפיה הוליסטית וליווי רגשי המשלב גוף, נפש ורוח. מרחב בטוח לגילוי, ריפוי וחיבור לסמכות הפנימית בטבעון ובאונליין.
             </p>
           </div>
@@ -34,11 +34,11 @@ export function Footer() {
           <div className="lg:col-span-2">
              <h4 className="boutique-label text-primary mb-10 block opacity-100">ניווט מהיר</h4>
              <nav className="flex flex-col space-y-4 text-lg font-light">
-                <Link href="/" className="hover:text-primary transition-colors duration-500">דף הבית</Link>
-                <Link href="/about" className="hover:text-primary transition-colors duration-500">אודות</Link>
-                <Link href="/practice" className="hover:text-primary transition-colors duration-500">התהליך הטיפולי</Link>
-                <Link href="/online-therapy" className="hover:text-primary transition-colors duration-500">טיפול אונליין</Link>
-                <Link href="/blog" className="hover:text-primary transition-colors duration-500">נקודות של אור</Link>
+                <Link href="/" className="text-white/90 hover:text-primary transition-colors duration-500">דף הבית</Link>
+                <Link href="/about" className="text-white/90 hover:text-primary transition-colors duration-500">אודות</Link>
+                <Link href="/practice" className="text-white/90 hover:text-primary transition-colors duration-500">התהליך הטיפולי</Link>
+                <Link href="/online-therapy" className="text-white/90 hover:text-primary transition-colors duration-500">טיפול אונליין</Link>
+                <Link href="/blog" className="text-white/90 hover:text-primary transition-colors duration-500">נקודות של אור</Link>
              </nav>
           </div>
 
@@ -50,18 +50,18 @@ export function Footer() {
                   href="https://www.facebook.com/profile.php?id=100063529346610" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-xl font-light hover:text-primary transition-colors duration-500"
+                  className="flex items-center gap-4 text-xl font-light text-white/90 hover:text-primary transition-colors duration-500"
                 >
-                  <Facebook size={20} strokeWidth={1} className="text-primary/60" />
+                  <Facebook size={20} strokeWidth={1} className="text-primary/80" />
                   <span>Facebook</span>
                 </a>
                 <a 
                   href="https://www.instagram.com/beinme_moranpaz" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center gap-4 text-xl font-light hover:text-primary transition-colors duration-500"
+                  className="flex items-center gap-4 text-xl font-light text-white/90 hover:text-primary transition-colors duration-500"
                 >
-                  <Instagram size={20} strokeWidth={1} className="text-primary/60" />
+                  <Instagram size={20} strokeWidth={1} className="text-primary/80" />
                   <span>Instagram</span>
                 </a>
              </nav>
@@ -71,12 +71,12 @@ export function Footer() {
           <div className="lg:col-span-3">
              <h4 className="boutique-label text-primary mb-10 block opacity-100">יצירת קשר</h4>
              <div className="space-y-6">
-                <a href="mailto:moraniva5@gmail.com" className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light hover:text-primary transition-colors duration-500">
-                  <Mail size={18} className="text-primary/60" />
+                <a href="mailto:moraniva5@gmail.com" className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light text-white/90 hover:text-primary transition-colors duration-500">
+                  <Mail size={18} className="text-primary/80" />
                   <span>moraniva5@gmail.com</span>
                 </a>
-                <a href="tel:0507817338" className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light hover:text-primary transition-colors duration-500">
-                  <Phone size={18} className="text-primary/60" />
+                <a href="tel:0507817338" className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light text-white/90 hover:text-primary transition-colors duration-500">
+                  <Phone size={18} className="text-primary/80" />
                   <span>050-781-7338</span>
                 </a>
                 
@@ -85,9 +85,9 @@ export function Footer() {
                   href={wazeLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light hover:text-primary transition-colors duration-500 md:hidden"
+                  className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light text-white/90 hover:text-primary transition-colors duration-500 md:hidden"
                 >
-                  <WazeIcon className="text-primary/60" />
+                  <WazeIcon className="text-primary/80" />
                   <span>ניווט לקליניקה ב-Waze</span>
                 </a>
 
@@ -96,7 +96,7 @@ export function Footer() {
                     href="https://www.nefeshnet.co.il/p/moran-paz-vaknin" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-4 text-stone-400 hover:text-primary transition-all text-sm tracking-widest border border-white/10 px-6 py-3 hover:bg-white/5"
+                    className="inline-flex items-center gap-4 text-white/60 hover:text-primary transition-all text-sm tracking-widest border border-white/10 px-6 py-3 hover:bg-white/5"
                   >
                     <span>הפרופיל בנפש-נט</span>
                     <ExternalLink size={14} />
@@ -107,7 +107,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-[11px] uppercase tracking-[0.3em] text-stone-500 font-bold">
+        <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 text-[11px] uppercase tracking-[0.3em] text-white/40 font-bold">
           <p>© {year} BEINME — מורן פז — כל הזכויות שמורות</p>
           
           <div className="flex items-center space-x-reverse space-x-12">
