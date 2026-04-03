@@ -8,33 +8,18 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Loader2 } from 'lucide-react';
+import { useFirestore, useCollection } from '@/firebase';
+import { query, collection, orderBy } from 'firebase/firestore';
 
 export default function BlogPage() {
   const heroDesktop = PlaceHolderImages.find(img => img.id === 'hero-blog-desktop');
   const heroMobile = PlaceHolderImages.find(img => img.id === 'hero-blog-mobile');
   const revealRef = useReveal();
+  const db = useFirestore();
 
-  const articles = [
-    {
-      title: "גוף-נפש-רוח: השפה השלמה",
-      excerpt: "איך נוכל להתחיל להקשיב למסרים שהגוף שלנו שולח לנו ביומיום?",
-      date: "מרץ 2024",
-      category: "מודעות"
-    },
-    {
-      title: "לקבל את הצל: המפגש עם הלא נודע",
-      excerpt: "מדוע דווקא בחלקים המפחידים שלנו נמצא המפתח לחופש האמיתי?",
-      date: "פברואר 2024",
-      category: "קבלה עצמית"
-    },
-    {
-      title: "הסמכות הפנימית: למצוא את המצפן",
-      excerpt: "כך תלמדי להפסיק לחפש תשובות בחוץ ולהתחיל להקשיב פנימה.",
-      date: "ינואר 2024",
-      category: "סמכות פנימית"
-    }
-  ];
+  const postsQuery = query(collection(db!, 'blogPosts'), orderBy('createdAt', 'desc'));
+  const { data: posts, loading } = useCollection(postsQuery);
 
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
@@ -43,7 +28,6 @@ export default function BlogPage() {
       {/* Hero Section */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {/* Desktop Hero */}
           {heroDesktop && (
             <div className="hidden md:block absolute inset-0">
               <Image 
@@ -56,7 +40,6 @@ export default function BlogPage() {
               />
             </div>
           )}
-          {/* Mobile Hero */}
           {heroMobile && (
             <div className="md:hidden absolute inset-0">
               <Image 
@@ -69,7 +52,6 @@ export default function BlogPage() {
               />
             </div>
           )}
-          {/* Reduced Bottom Gradient by 50% */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
@@ -84,22 +66,35 @@ export default function BlogPage() {
           <SectionTitle subtitle="Journal" title="השראה ושיתופים" className="flex flex-col items-center text-center" />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-32">
-            {articles.map((article, i) => (
-              <div key={i} className="group cursor-pointer">
-                <div className="bg-stone-50 aspect-video mb-10 overflow-hidden relative">
-                   <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors"></div>
-                   <div className="absolute top-6 right-6 boutique-label text-[10px] bg-white px-3 py-1 shadow-sm">{article.category}</div>
-                </div>
-                <div className="space-y-6">
-                  <span className="boutique-label text-stone-400">{article.date}</span>
-                  <h3 className="text-3xl font-headline font-bold text-accent group-hover:text-primary transition-colors">{article.title}</h3>
-                  <p className="text-lg font-light text-stone-500 leading-relaxed">{article.excerpt}</p>
-                  <div className="flex items-center gap-4 text-primary boutique-label text-[10px] pt-4">
-                    קריאת המאמר <ArrowLeft size={14} />
+            {loading ? (
+              <div className="col-span-full flex justify-center py-20">
+                <Loader2 className="animate-spin text-primary size-12" />
+              </div>
+            ) : posts?.length === 0 ? (
+              <p className="col-span-full text-center text-stone-400 text-xl font-light">בקרוב יעלו תכנים חדשים ומאירי פנים...</p>
+            ) : (
+              posts?.map((post, i) => (
+                <div key={post.id} className="group cursor-pointer">
+                  <div className="bg-stone-50 aspect-video mb-10 overflow-hidden relative shadow-sm group-hover:shadow-xl transition-all duration-700">
+                     <Image 
+                       src={post.heroImageUrl} 
+                       alt={post.title} 
+                       fill 
+                       className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-1000"
+                     />
+                     <div className="absolute top-6 right-6 boutique-label text-[10px] bg-white px-3 py-1 shadow-sm">{post.category}</div>
+                  </div>
+                  <div className="space-y-6">
+                    <span className="boutique-label text-stone-400">{post.date}</span>
+                    <h3 className="text-3xl font-headline font-bold text-accent group-hover:text-primary transition-colors">{post.title}</h3>
+                    <p className="text-lg font-light text-stone-500 leading-relaxed line-clamp-3">{post.subtitle}</p>
+                    <div className="flex items-center gap-4 text-primary boutique-label text-[10px] pt-4 font-bold">
+                      קריאת המאמר <ArrowLeft size={14} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </section>

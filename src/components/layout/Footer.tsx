@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Mail, Phone, ExternalLink, Facebook, Instagram } from 'lucide-react';
+import { Mail, Phone, ExternalLink, Facebook, Instagram, Lock } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/shared/WhatsAppIcon';
 
 export function Footer() {
@@ -92,6 +92,9 @@ export function Footer() {
             <Link href="/privacy" className="hover:text-white transition-colors">פרטיות</Link>
             <Link href="/terms" className="hover:text-white transition-colors">תנאים</Link>
             <Link href="/accessibility" className="hover:text-white transition-colors">נגישות</Link>
+            <Link href="/admin/login" className="hover:text-white transition-colors flex items-center gap-2">
+              <Lock size={10} /> ניהול
+            </Link>
           </div>
 
           <div className="flex items-center space-x-reverse space-x-6">
