@@ -1,12 +1,62 @@
 
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useReveal } from '@/hooks/use-reveal';
 import { cn } from '@/lib/utils';
+import { CheckCircle2, AlertCircle, ArrowLeft } from 'lucide-react';
 
 export function ContactForm({ isLight = false }: { isLight?: boolean }) {
   const revealRef = useReveal();
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus('submitting');
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      
+      if (response.ok) {
+        setStatus('success');
+      } else {
+        throw new Error("שליחת הטופס נכשלה");
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus('error');
+    }
+  };
+
+  if (status === 'success') {
+    return (
+      <div className="max-w-4xl mx-auto text-center py-20 animate-in fade-in duration-1000">
+        <div className="flex justify-center mb-12">
+          <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center">
+            <CheckCircle2 className="text-primary w-12 h-12" strokeWidth={1} />
+          </div>
+        </div>
+        <h3 className="text-6xl md:text-8xl font-handwriting text-accent mb-8">ההודעה נשלחה בהצלחה!</h3>
+        <p className="boutique-para text-2xl font-light mb-12 max-w-lg mx-auto leading-relaxed">
+          תודה שפנית אליי. קיבלתי את הפרטים שלך ואחזור אלייך בהקדם האפשרי לתיאום שיחה.
+        </p>
+        <button 
+          onClick={() => setStatus('idle')}
+          className="boutique-label text-primary border-b border-primary/20 pb-2 hover:border-primary transition-all text-sm font-bold inline-flex items-center gap-4"
+        >
+          חזרה לטופס
+          <ArrowLeft size={16} />
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div 
@@ -30,11 +80,20 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
         ></iframe>
       </div>
 
-      <form className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16">
+      <form 
+        name="contact" 
+        method="POST" 
+        data-netlify="true" 
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        
         <div className="border-b border-border focus-within:border-primary transition-colors pb-4">
           <label className="boutique-label block mb-4">שם מלא</label>
           <input 
             type="text" 
+            name="name"
             required
             className="bg-transparent w-full focus:outline-none text-xl sm:text-2xl font-headline font-light placeholder:opacity-10 py-1" 
             placeholder="השם שלך" 
@@ -44,6 +103,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
           <label className="boutique-label block mb-4">מייל</label>
           <input 
             type="email" 
+            name="email"
             required
             className="bg-transparent w-full focus:outline-none text-xl sm:text-2xl font-headline font-light placeholder:opacity-10 py-1" 
             placeholder="example@email.com" 
@@ -53,6 +113,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
           <label className="boutique-label block mb-4">טלפון</label>
           <input 
             type="tel" 
+            name="phone"
             required
             className="bg-transparent w-full focus:outline-none text-xl sm:text-2xl font-headline font-light placeholder:opacity-10 py-1" 
             placeholder="050 000 0000" 
@@ -60,21 +121,29 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
         </div>
         
         <div className="md:col-span-2 flex items-center space-x-reverse space-x-4 opacity-70">
-           <input type="checkbox" className="w-5 h-5 accent-primary cursor-pointer border-border" id="mkt" />
+           <input type="checkbox" name="marketing" className="w-5 h-5 accent-primary cursor-pointer border-border" id="mkt" />
            <label htmlFor="mkt" className="text-sm sm:text-base cursor-pointer">אני מאשר/ת קבלת חומר שיווקי ממורן פז</label>
         </div>
+
+        {status === 'error' && (
+          <div className="md:col-span-2 flex items-center gap-4 text-destructive bg-destructive/5 p-4 rounded-sm animate-in fade-in">
+            <AlertCircle size={20} />
+            <p className="text-sm font-medium">סליחה, אירעה שגיאה בשליחה. אנא נסה שוב או פנה אליי בוואטסאפ.</p>
+          </div>
+        )}
         
         <div className="md:col-span-2 text-center pt-8">
           <button 
             type="submit"
+            disabled={status === 'submitting'}
             className={cn(
-              "w-full md:w-auto px-12 sm:px-20 py-4 sm:py-5 text-sm uppercase tracking-[0.3em] font-bold transition-all border",
+              "w-full md:w-auto px-12 sm:px-20 py-4 sm:py-5 text-sm uppercase tracking-[0.3em] font-bold transition-all border disabled:opacity-50 disabled:cursor-not-allowed",
               isLight 
                 ? 'border-white !text-white hover:bg-white hover:!text-black' 
                 : 'border-accent bg-accent !text-white hover:bg-primary hover:border-primary'
             )}
           >
-            שליחת פנייה
+            {status === 'submitting' ? 'שולח...' : 'שליחת פנייה'}
           </button>
         </div>
       </form>
