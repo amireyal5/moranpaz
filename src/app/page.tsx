@@ -84,11 +84,11 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-background"></div>
         </div>
         
-        <div ref={heroReveal} className="relative z-10 text-center reveal flex flex-col items-center max-w-5xl">
+        <div ref={heroReveal} className="relative z-10 text-center reveal flex flex-col items-center w-full max-w-7xl mx-auto px-4">
            <span className="boutique-label text-primary mb-12 block">Holistic Care • Tivon</span>
            
-           <h1 className="mb-12">
-             <div className="flex flex-wrap justify-center items-center gap-x-4 md:gap-x-12 text-6xl sm:text-8xl md:text-[140px] font-bold leading-none font-['Amatic_SC'] text-foreground">
+           <h1 className="mb-16 w-full text-center">
+             <div className="flex flex-wrap justify-center items-center gap-x-6 md:gap-x-12 text-6xl sm:text-8xl md:text-[140px] font-bold leading-none font-handwriting text-foreground">
                <span>להתחבר</span>
                <span className="text-primary/30 text-4xl hidden md:inline">•</span>
                <span>לגלות</span>
@@ -106,7 +106,7 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="px-12 py-3.5 bg-primary text-white boutique-label !opacity-100 hover:bg-accent transition-all duration-700 shadow-xl rounded-sm flex items-center gap-4 group min-w-[280px] justify-center"
+               className="px-12 py-3.5 bg-primary text-white text-[12px] tracking-[0.2em] font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm flex items-center gap-4 group min-w-[240px] justify-center whitespace-nowrap"
              >
                 תיאום שיחת היכרות
                 <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
@@ -121,7 +121,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Self Introduction Section - NEW */}
+      {/* Self Introduction Section */}
       <section ref={introReveal} className="py-32 md:py-56 px-6 md:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-center">
@@ -142,7 +142,7 @@ export default function Home() {
             <div className="lg:col-span-7 order-1 lg:order-2 space-y-12">
               <div>
                 <span className="boutique-label text-primary mb-6 block">About Moran Paz</span>
-                <h2 className="text-7xl md:text-9xl font-['Amatic_SC'] font-bold text-foreground leading-none mb-4">
+                <h2 className="text-7xl md:text-9xl font-handwriting font-bold text-foreground leading-none mb-4">
                   נעים מאוד, מורן פז
                 </h2>
                 <div className="w-20 h-[1px] bg-primary/30"></div>
@@ -244,7 +244,7 @@ export default function Home() {
       </section>
 
       <TestimonialsSection />
-      <FaqSection items={homeFaqs} title="שאלות נפוצות" subtitle="FAQ" />
+      <FaqSection items={homeFaqs} title="שאלות נפוצות" subtitle="Common Questions" />
 
       {/* Contact */}
       <section id="contact" ref={contactReveal} className="py-32 md:py-56 px-6 bg-white border-t border-border/10 reveal">
@@ -253,14 +253,14 @@ export default function Home() {
           <p className="boutique-para mb-16 font-medium">אני כאן בשבילך לתאום שיחת הכרות ללא עלות.</p>
           <ContactForm />
           
-          <div className="mt-24">
+          <div className="mt-24 flex justify-center">
             <a 
               href={whatsappLink} 
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-6 text-foreground hover:text-primary transition-all boutique-label !text-xl md:!text-3xl !opacity-100 font-bold border border-primary/10 px-12 py-8 rounded-sm hover:bg-stone-50"
+              className="inline-flex items-center gap-6 px-12 py-5 bg-primary text-white text-[13px] tracking-[0.2em] uppercase font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap"
             >
-              <MessageCircle size={32} className="text-primary" />
+              <MessageCircle size={24} />
               שלחי הודעה בוואטסאפ
             </a>
           </div>
