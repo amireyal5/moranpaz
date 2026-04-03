@@ -23,7 +23,7 @@ export default function Home() {
   const tourReveal = useReveal();
   const contactReveal = useReveal();
   
-  const heroImg = PlaceHolderImages.find(img => img.id === 'hero-bg');
+  const heroImg = PlaceHolderImages.find(img => img.id === 'hero-main');
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
   const clinicImg = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20הגעתי%20מהאתר%20שלך%20מעוניין%20לקבל%20פרטים%20נוספים%20תודה";
@@ -54,7 +54,6 @@ export default function Home() {
       title: "נוער",
       icon: <Infinity size={80} strokeWidth={0.3} />,
       link: "/audience/youth",
-      linkText: "מידע לנוער",
       desc: "מרחב בטוח לפיתוח חוסן רגשי וביטוי עצמי."
     },
     {
@@ -70,34 +69,29 @@ export default function Home() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative h-screen w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-white">
+      <section className="relative h-screen w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0 z-0">
           {heroImg && (
             <Image 
               src={heroImg.imageUrl} 
               alt="מורן פז - פסיכותרפיה הוליסטית" 
               fill
-              className="object-cover opacity-30 grayscale-[0.4]"
+              className="object-cover opacity-60 brightness-[0.7]"
               priority
+              data-ai-hint={heroImg.imageHint}
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-background"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background/90"></div>
         </div>
         
         <div ref={heroReveal} className="relative z-10 text-center reveal flex flex-col items-center w-full max-w-7xl mx-auto px-4">
-           <span className="boutique-label text-primary mb-12 block">Holistic Care • Tivon</span>
+           <span className="boutique-label text-white/80 mb-12 block tracking-[0.4em]">Moran Paz • Holistic Care</span>
            
-           <h1 className="mb-16 w-full text-center">
-             <div className="flex flex-wrap justify-center items-center gap-x-6 md:gap-x-12 text-6xl sm:text-8xl md:text-[140px] font-bold leading-none font-handwriting text-foreground">
-               <span>להתחבר</span>
-               <span className="text-primary/30 text-4xl hidden md:inline">•</span>
-               <span>לגלות</span>
-               <span className="text-primary/30 text-4xl hidden md:inline">•</span>
-               <span>להשתנות</span>
-             </div>
+           <h1 className="text-7xl sm:text-9xl md:text-[140px] font-bold leading-none font-handwriting text-white mb-12">
+             להתחבר • לגלות • להשתנות
            </h1>
            
-           <h2 className="text-xl md:text-2xl font-headline italic mb-16 text-accent/70 font-medium max-w-2xl">
+           <h2 className="text-xl md:text-3xl font-headline italic mb-16 text-white/90 font-light max-w-3xl leading-relaxed">
              פסיכותרפיה הוליסטית וליווי רגשי ליצירת עוגן פנימי ושלווה עמוקה
            </h2>
            
@@ -106,14 +100,14 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="px-16 py-4 bg-primary text-white text-[12px] tracking-[0.2em] font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm flex items-center gap-6 group min-w-[280px] justify-center whitespace-nowrap !opacity-100"
+               className="px-16 py-4 bg-primary text-white boutique-label !text-[12px] hover:bg-white hover:text-accent transition-all duration-700 shadow-2xl rounded-sm flex items-center gap-6 group min-w-[280px] justify-center whitespace-nowrap !opacity-100"
              >
                 תיאום שיחת היכרות
-                <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+                <ArrowLeft size={16} />
              </a>
              <Link 
                href="/practice"
-               className="px-12 py-4 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50 transition-all duration-700 text-[10px] tracking-[0.3em] uppercase font-bold min-w-[220px] text-center"
+               className="px-12 py-4 bg-transparent border border-white/30 text-white hover:bg-white/10 transition-all duration-700 boutique-label !text-[10px] min-w-[220px] text-center"
              >
                 התהליך הטיפולי
              </Link>
@@ -121,7 +115,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Self Introduction Section */}
+      {/* Intro Section */}
       <section ref={introReveal} className="py-32 md:py-56 px-6 md:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-24 items-center">
@@ -130,9 +124,9 @@ export default function Home() {
                 {portraitImg && (
                   <Image 
                     src={portraitImg.imageUrl} 
-                    alt="מורן פז - פסיכותרפיסטית הוליסטית" 
+                    alt="מורן פז" 
                     fill 
-                    className="object-cover grayscale-[0.2]"
+                    className="object-cover"
                     data-ai-hint={portraitImg.imageHint}
                   />
                 )}
@@ -140,22 +134,22 @@ export default function Home() {
             </div>
             
             <div className="lg:col-span-7 order-1 lg:order-2 space-y-12">
-              <div>
+              <div className="relative">
                 <span className="boutique-label text-primary mb-6 block">About Moran Paz</span>
                 <h2 className="text-7xl md:text-[140px] font-handwriting font-bold text-foreground leading-none mb-4">
                   נעים מאוד, מורן פז
                 </h2>
-                <div className="w-20 h-[1px] bg-primary/30"></div>
+                <div className="w-24 h-[1px] bg-primary/30"></div>
               </div>
               
               <div className="space-y-12 boutique-para text-stone-600">
                 <p>
                   אני פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. אני מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושהבחירה קיימת לכל אדם בכל מצב.
                 </p>
-                <div className="relative pr-12 py-2">
-                  <Quote className="absolute -top-6 -right-2 text-primary/5 w-32 h-32 rotate-180 pointer-events-none" />
+                <div className="relative pr-12 py-4">
+                  <Quote className="absolute -top-6 -right-2 text-primary/5 w-40 h-40 rotate-180 pointer-events-none" />
                   <div className="border-r-[3px] border-primary/20 pr-10 py-1">
-                    <p className="font-headline italic text-3xl md:text-4xl text-accent/80 leading-relaxed relative z-10">
+                    <p className="font-headline italic text-3xl md:text-5xl text-accent/80 leading-snug relative z-10">
                       התהליך מביא לפחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, וביטוי אותנטי.
                     </p>
                   </div>
@@ -166,7 +160,7 @@ export default function Home() {
               </div>
               
               <div className="pt-6">
-                <Link href="/about" className="inline-flex items-center gap-4 boutique-label text-primary !opacity-100 border-b border-primary/20 hover:border-primary transition-all pb-2 font-bold text-sm">
+                <Link href="/about" className="inline-flex items-center gap-4 boutique-label text-primary border-b border-primary/20 hover:border-primary transition-all pb-2 font-bold text-sm">
                   להכיר אותי לעומק
                   <ArrowLeft size={16} />
                 </Link>
@@ -180,17 +174,17 @@ export default function Home() {
       <section ref={uniquenessReveal} className="py-32 md:py-56 px-6 md:px-24 bg-stone-50 reveal">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Unique Approach" title="מה מיוחד בגישה שלי?" className="flex flex-col items-center text-center" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16 mt-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16 mt-24">
             {[
               { title: "שילוב גוף-נפש", icon: <Orbit />, desc: "אנחנו עובדות עם הרגש והגוף יחד לריפוי עמוק." },
               { title: "כלים חווייתיים", icon: <Infinity />, desc: "עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס." },
               { title: "מרחב בטוח בטבע", icon: <Waves />, desc: "הקליניקה בטבעון משרה שקט חיצוני ופנימי." },
               { title: "ידע וניסיון", icon: <Compass />, desc: "תואר שני (MA) ושילוב של מקצועיות וגישה אנושית." }
             ].map((point, i) => (
-              <div key={i} className={cn("text-center md:text-right stagger", `stagger-${i+1}`)}>
-                <div className="mb-6 text-primary flex justify-center md:justify-start">{React.cloneElement(point.icon as React.ReactElement, { size: 40, strokeWidth: 0.5 })}</div>
-                <h3 className="text-2xl font-headline font-bold text-accent mb-4">{point.title}</h3>
-                <p className="text-lg font-light text-stone-500 leading-relaxed">{point.desc}</p>
+              <div key={i} className={cn("text-right group", `stagger-${i+1}`)}>
+                <div className="mb-8 text-primary group-hover:scale-110 transition-transform duration-700">{React.cloneElement(point.icon as React.ReactElement, { size: 48, strokeWidth: 0.3 })}</div>
+                <h3 className="text-3xl font-headline font-bold text-accent mb-6">{point.title}</h3>
+                <p className="text-xl font-light text-stone-500 leading-relaxed">{point.desc}</p>
               </div>
             ))}
           </div>
@@ -201,18 +195,18 @@ export default function Home() {
       <section ref={audienceReveal} className="py-32 md:py-56 px-6 md:px-24 bg-white reveal">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Audiences" title="עם מי אני עובדת?" className="flex flex-col items-center text-center" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-24">
             {audiences.map((item, i) => (
               <Link 
                 key={i} 
                 href={item.link}
-                className={cn("boutique-card group", `stagger-${i+1}`)}
+                className={cn("boutique-card group !min-h-[400px]", `stagger-${i+1}`)}
               >
                 <div className="art-icon">{item.icon}</div>
-                <h3 className="text-5xl font-headline mb-6 group-hover:scale-105 transition-transform duration-700">{item.title}</h3>
-                <p className="text-xl font-light opacity-80 max-w-[280px]">{item.desc}</p>
-                <div className="mt-12 boutique-label !opacity-40 group-hover:!opacity-100 transition-all flex items-center gap-3">
-                  למידע נוסף <ArrowLeft size={14} />
+                <h3 className="text-6xl font-headline mb-8 group-hover:translate-y-[-5px] transition-transform duration-700">{item.title}</h3>
+                <p className="text-xl font-light opacity-80 max-w-[280px] leading-relaxed">{item.desc}</p>
+                <div className="mt-16 boutique-label !opacity-40 group-hover:!opacity-100 transition-all flex items-center gap-4 text-sm">
+                  למידע נוסף <ArrowLeft size={16} />
                 </div>
               </Link>
             ))}
@@ -225,12 +219,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="order-2 lg:order-1">
             <SectionTitle subtitle="The Clinic" title="סיור בקליניקה בטבעון" />
-            <p className="boutique-para mb-12">
+            <p className="boutique-para mb-16 leading-relaxed">
               הקליניקה ממוקמת בלב הטבע של טבעון. כאן מתקיים מרחב בטוח המאפשר נשימה עמוקה וניתוק מרעשי היום-יום.
             </p>
-            <Link href="/tivon" className="inline-flex items-center gap-4 boutique-label text-primary !opacity-100 border-b border-primary/20 hover:border-primary transition-all pb-2 group text-lg font-bold">
+            <Link href="/tivon" className="inline-flex items-center gap-6 boutique-label text-primary !opacity-100 border-b border-primary/20 hover:border-primary transition-all pb-2 group text-xl font-bold">
               לראות איפה הכל קורה
-              <Eye size={20} strokeWidth={1} />
+              <Eye size={24} strokeWidth={1} />
             </Link>
           </div>
           <div className="order-1 lg:order-2">
@@ -240,7 +234,7 @@ export default function Home() {
                   src={clinicImg.imageUrl} 
                   alt="הקליניקה בטבעון" 
                   fill 
-                  className="object-cover grayscale-[0.3]"
+                  className="object-cover"
                 />
               )}
             </div>
@@ -255,7 +249,7 @@ export default function Home() {
       <section id="contact" ref={contactReveal} className="py-32 md:py-56 px-6 bg-white border-t border-border/10 reveal">
         <div className="max-w-4xl mx-auto text-center">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
-          <p className="boutique-para mb-16 font-medium">אני כאן בשבילך לתאום שיחת הכרות ללא עלות.</p>
+          <p className="boutique-para mb-20 font-medium">אני כאן בשבילך לתאום שיחת הכרות ללא עלות.</p>
           <ContactForm />
           
           <div className="mt-24 flex justify-center">
@@ -263,7 +257,7 @@ export default function Home() {
               href={whatsappLink} 
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-10 px-16 py-4 bg-primary text-white text-[13px] tracking-[0.2em] uppercase font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !opacity-100"
+              className="px-16 py-5 bg-accent text-white boutique-label !text-[13px] hover:bg-primary transition-all duration-700 shadow-2xl rounded-sm whitespace-nowrap !opacity-100 flex items-center gap-8"
             >
               <MessageCircle size={24} />
               שלחי הודעה בוואטסאפ

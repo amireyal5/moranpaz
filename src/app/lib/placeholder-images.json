@@ -2,10 +2,52 @@
 {
   "placeholderImages": [
     {
-      "id": "hero-bg",
-      "description": "Serene minimalist therapy room with soft natural light and elegant interior",
-      "imageUrl": "https://picsum.photos/seed/soke-therapy-hero/1920/1080",
-      "imageHint": "serene clinic"
+      "id": "hero-main",
+      "description": "Majestic golden sunrise over calm mountains",
+      "imageUrl": "https://picsum.photos/seed/soke-majestic-1/1920/1080",
+      "imageHint": "majestic sunrise"
+    },
+    {
+      "id": "hero-about",
+      "description": "Expansive view of misty ancient mountains",
+      "imageUrl": "https://picsum.photos/seed/soke-majestic-2/1920/1080",
+      "imageHint": "misty mountains"
+    },
+    {
+      "id": "hero-practice",
+      "description": "Serene still lake reflecting morning light",
+      "imageUrl": "https://picsum.photos/seed/soke-majestic-3/1920/1080",
+      "imageHint": "serene lake"
+    },
+    {
+      "id": "hero-online",
+      "description": "Abstract horizon with warm light rays",
+      "imageUrl": "https://picsum.photos/seed/soke-majestic-4/1920/1080",
+      "imageHint": "golden horizon"
+    },
+    {
+      "id": "hero-workshop",
+      "description": "Soft golden wheat fields swaying in wind",
+      "imageUrl": "https://picsum.photos/seed/soke-majestic-5/1920/1080",
+      "imageHint": "golden fields"
+    },
+    {
+      "id": "hero-adults",
+      "description": "Stately ancient tree in a vast field",
+      "imageUrl": "https://picsum.photos/seed/soke-majestic-6/1920/1080",
+      "imageHint": "ancient tree"
+    },
+    {
+      "id": "hero-youth",
+      "description": "Vibrant birds soaring through a bright sky",
+      "imageUrl": "https://picsum.photos/seed/soke-majestic-7/1920/1080",
+      "imageHint": "soaring birds"
+    },
+    {
+      "id": "hero-women",
+      "description": "Soft flowing silk in warm sunset light",
+      "imageUrl": "https://picsum.photos/seed/soke-majestic-8/1920/1080",
+      "imageHint": "soft silk"
     },
     {
       "id": "moran-portrait",
@@ -14,22 +56,10 @@
       "imageHint": "editorial portrait"
     },
     {
-      "id": "workshop-women",
-      "description": "Artistic abstract representation of women gathering",
-      "imageUrl": "https://picsum.photos/seed/soke-workshop-art/1000/1000",
-      "imageHint": "minimalist art"
-    },
-    {
       "id": "clinic-tivon",
       "description": "Serene minimalist interior with natural light and green view",
       "imageUrl": "https://picsum.photos/seed/soke-clinic-art/1200/800",
       "imageHint": "minimalist interior"
-    },
-    {
-      "id": "online-therapy-bg",
-      "description": "Abstract minimalist aesthetic represention of connection and digital warmth",
-      "imageUrl": "https://picsum.photos/seed/online-therapy/1200/800",
-      "imageHint": "abstract connection"
     }
   ]
 }
