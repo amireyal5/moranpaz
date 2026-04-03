@@ -252,6 +252,12 @@ export default function PageManagement() {
                 </SelectContent>
               </Select>
             </div>
+            {selectedPage === 'custom' && (
+              <div className="space-y-2 animate-in slide-in-from-top-2">
+                <Label className="boutique-label">מזהה עמוד באנגלית (Slug)</Label>
+                <Input value={customPageId} onChange={e => setCustomPageId(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))} placeholder="my-new-page" className="bg-white h-12" />
+              </div>
+            )}
           </div>
         </div>
 
