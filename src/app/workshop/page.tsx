@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
-import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -23,18 +22,20 @@ export default function WorkshopPage() {
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
       
-      <section className="pt-48 pb-32 px-8 md:px-24 bg-white">
+      <section className="pt-56 pb-32 px-8 md:px-24 bg-white">
         <div className="max-w-7xl mx-auto">
           <div ref={introReveal} className="reveal grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-7">
-              <span className="boutique-label text-primary mb-6 block">BeinMe<sup>©</sup> קורס</span>
-              <h1 className="text-7xl md:text-9xl font-['Amatic_SC'] font-bold text-foreground leading-none mb-10">
+              <span className="boutique-label text-primary mb-6 block uppercase">
+                קורס BeinMe<sup className="text-[0.5em] ml-0.5">©</sup>
+              </span>
+              <h1 className="text-6xl md:text-9xl font-handwriting text-foreground leading-none mb-10">
                 להיות אני בתוכי
               </h1>
               
               <div className="space-y-8 boutique-para text-stone-600">
                 <p>
-                  קורס BeinMe<sup>©</sup> הוא מרחב קבוצתי שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו ולחוות אותו בכנות.
+                  קורס BeinMe<sup className="text-[0.6em]">©</sup> הוא מרחב קבוצתי שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו ולחוות אותו בכנות.
                 </p>
                 <div className="italic text-accent border-r-4 border-primary/20 pr-8 py-6 bg-stone-50">
                   <p className="text-2xl font-headline font-light">"האמת שלנו ומפת הדרכים לחיינו נמצאת בתוכנו – לא מחוצה לנו."</p>
@@ -46,7 +47,7 @@ export default function WorkshopPage() {
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-12 py-3.5 bg-primary text-white boutique-label !opacity-100 hover:bg-accent transition-all rounded-sm flex items-center gap-4 group w-fit"
+                  className="px-12 py-3.5 bg-primary text-white boutique-label !text-[13px] !opacity-100 hover:bg-accent transition-all rounded-sm flex items-center gap-4 group w-fit shadow-xl"
                 >
                   הרשמה למחזור הקרוב
                   <ArrowLeft size={16} />
@@ -91,12 +92,12 @@ export default function WorkshopPage() {
 
       <section className="py-32 bg-accent text-white px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-6xl md:text-8xl font-['Amatic_SC'] font-bold mb-10 leading-none">מוכנה לצאת למסע?</h2>
+          <h2 className="text-6xl md:text-8xl font-handwriting mb-10 leading-none">מוכנה לצאת למסע?</h2>
           <a 
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-12 py-4 bg-primary text-white boutique-label !opacity-100 hover:bg-white hover:text-accent transition-all rounded-sm inline-flex items-center gap-4"
+            className="px-12 py-4 bg-primary text-white boutique-label !text-[13px] !opacity-100 hover:bg-white hover:text-accent transition-all rounded-sm inline-flex items-center gap-4 shadow-2xl"
           >
             <MessageCircle size={20} />
             לפרטים והרשמה
