@@ -136,18 +136,23 @@ export function Navbar() {
           <X strokeWidth={1} className="size-10 text-white/70 hover:text-white transition-colors" />
         </button>
 
-        <div className="flex flex-col items-center space-y-8 text-center w-full px-6">
+        <div className="flex flex-col items-center space-y-12 text-center w-full px-6">
           {navItems.map((item, i) => (
             <NextLink 
               key={item.href} 
               href={item.href} 
               className={cn(
-                "text-3xl font-headline font-light tracking-[0.15em] transition-all duration-500 hover:text-primary",
-                pathname === item.href ? "text-primary font-medium" : "text-white/90"
+                "relative text-3xl md:text-4xl font-headline tracking-[0.15em] transition-all duration-500",
+                pathname === item.href 
+                  ? "text-white font-bold scale-110" 
+                  : "text-white/60 font-light hover:text-white"
               )}
               style={{ transitionDelay: `${i * 70}ms` }}
             >
               {item.label}
+              {pathname === item.href && (
+                <span className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-12 h-[2px] bg-primary animate-in fade-in zoom-in duration-1000" />
+              )}
             </NextLink>
           ))}
         </div>
