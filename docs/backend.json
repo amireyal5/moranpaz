@@ -34,6 +34,7 @@
         "heroImageUrlMobile": { "type": "string" },
         "siteName": { "type": "string", "description": "Brand name used in Navbar." },
         "siteSubtitle": { "type": "string", "description": "Brand slogan used in Navbar." },
+        "navItems": { "type": "array", "description": "Ordered list of navbar links." },
         "updatedAt": { "type": "number" }
       }
     }
