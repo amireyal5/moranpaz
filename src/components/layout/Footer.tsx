@@ -48,7 +48,7 @@ export function Footer() {
              <h4 className="boutique-label !text-white border-b border-white/20 pb-2 mb-10 inline-block opacity-100">רשתות חברתיות</h4>
              <nav className="flex flex-col space-y-6">
                 <a 
-                  href="https://www.facebook.com/profile.php?id=100063529346610" 
+                  href="https://www.facebook.com/share/18MjZEfzgv/?mibextid=wwXIfr" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 text-xl font-light text-white/90 hover:text-white transition-colors duration-500"
@@ -116,7 +116,7 @@ export function Footer() {
                 rel="noopener noreferrer" 
                 className="text-white hover:opacity-70 transition-opacity flex items-center gap-2"
               >
-                <WhatsAppIcon size={18} className="text-slate-400" /> WHATSAPP
+                <WhatsAppIcon size={18} className="text-slate-400" variant="outline" /> WHATSAPP
               </a>
               <a 
                 href={wazeLink} 
