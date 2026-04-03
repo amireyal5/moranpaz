@@ -16,7 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { 
   Loader2, Save, ChevronRight, Monitor, Smartphone, Globe, ListOrdered, 
-  Plus, Trash2, Layout, Settings, MousePointer2, Box, Heart, Sparkles, 
+  Plus, Trash2, Layout, MousePointer2, Box, Heart, Sparkles, 
   Orbit, Compass, Users, Star, Palette, MessageSquare, HelpCircle 
 } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -92,14 +92,8 @@ export default function PageManagement() {
     if (!authLoading && !user) router.push('/admin/login');
   }, [user, authLoading, router]);
 
-  // Memoize document reference to prevent unnecessary effect triggers
-  const docRef = useMemo(() => {
-    if (!db) return null;
-    return doc(db, 'siteContent', selectedPage === 'custom' ? 'home' : selectedPage);
-  }, [db, selectedPage]);
-
   useEffect(() => {
-    if (selectedPage !== 'custom') {
+    if (selectedPage !== 'custom' && db) {
       fetchPageContent(selectedPage);
     }
   }, [selectedPage, db]);
@@ -132,22 +126,11 @@ export default function PageManagement() {
         });
       } else {
         setContent({ 
-          heroTitle: '', 
-          heroSubtitle: '', 
-          introTitle: '', 
-          introContent: '',
-          heroImageUrlDesktop: '',
-          heroImageUrlMobile: '',
-          primaryColor: '155 15% 45%',
-          metaTitle: '',
-          metaDescription: '',
-          siteName: '',
-          siteSubtitle: '',
-          navItems: [],
-          ctaButtons: [],
-          features: [],
-          testimonials: [],
-          faqs: []
+          heroTitle: '', heroSubtitle: '', introTitle: '', introContent: '',
+          heroImageUrlDesktop: '', heroImageUrlMobile: '',
+          primaryColor: '155 15% 45%', metaTitle: '', metaDescription: '',
+          siteName: '', siteSubtitle: '', navItems: [], ctaButtons: [],
+          features: [], testimonials: [], faqs: []
         });
       }
     } catch (e) {
@@ -185,7 +168,7 @@ export default function PageManagement() {
           setSelectedPage(targetId);
         }
       })
-      .catch(async (serverError) => {
+      .catch(async () => {
         const permissionError = new FirestorePermissionError({
           path: saveRef.path,
           operation: 'write',
@@ -228,19 +211,13 @@ export default function PageManagement() {
   if (isMobile) {
     return (
       <main className="min-h-screen flex items-center justify-center p-8 text-center bg-stone-50">
-        <div className="max-w-md space-y-8 animate-in fade-in zoom-in duration-700">
+        <div className="max-w-md space-y-8">
           <div className="p-6 bg-white rounded-full w-fit mx-auto shadow-xl">
             <Monitor className="size-16 text-primary" strokeWidth={1} />
           </div>
-          <div className="space-y-4">
-            <h2 className="text-4xl font-handwriting font-bold text-accent">אזור זה ניתן לשימוש מהמחשב בלבד</h2>
-            <p className="text-lg font-headline text-stone-500 leading-relaxed">
-              ניהול האתר דורש מסך רחב לעבודה נוחה ומקצועית. אנא התחברי מהמחשב.
-            </p>
-          </div>
-          <Button onClick={() => router.push('/admin/dashboard')} variant="outline" className="boutique-label h-12 px-8 border-stone-200">
-            חזרה ללוח הבקרה
-          </Button>
+          <h2 className="text-4xl font-handwriting font-bold text-accent">אזור זה ניתן לשימוש מהמחשב בלבד</h2>
+          <p className="text-lg font-headline text-stone-500">עריכת תוכן ועיצוב דורשים מסך רחב לעבודה מלוטשת. אנא התחברי מהמחשב.</p>
+          <Button onClick={() => router.push('/admin/dashboard')} variant="outline" className="boutique-label h-12 px-8 border-stone-200">חזרה ללוח הבקרה</Button>
         </div>
       </main>
     );
@@ -273,7 +250,7 @@ export default function PageManagement() {
               </Select>
             </div>
             {selectedPage === 'custom' && (
-              <div className="space-y-2 animate-in slide-in-from-top-2">
+              <div className="space-y-2">
                 <Label className="boutique-label">מזהה עמוד באנגלית (Slug)</Label>
                 <Input value={customPageId} onChange={e => setCustomPageId(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))} placeholder="my-new-page" className="bg-white h-12" />
               </div>
@@ -289,7 +266,7 @@ export default function PageManagement() {
             <Card className="border-none shadow-xl rounded-none overflow-hidden">
               <CardHeader className="bg-primary/5 border-b border-stone-100">
                 <CardTitle className="font-headline text-2xl flex items-center gap-4">
-                  <Palette size={24} className="text-primary" /> עיצוב ו-SEO (גוגל)
+                  <Palette size={24} className="text-primary" /> עיצוב ו-SEO
                 </CardTitle>
               </CardHeader>
               <CardContent className="pt-8 space-y-8">
@@ -309,15 +286,14 @@ export default function PageManagement() {
                         ))}
                       </SelectContent>
                     </Select>
-                    <p className="text-[10px] text-stone-400 italic">שינוי הצבע ישפיע על כפתורים, אייקונים ועיטורים בכל האתר.</p>
                   </div>
                   <div className="space-y-4">
                     <Label className="boutique-label">כותרת גוגל (Meta Title)</Label>
-                    <Input value={content.metaTitle} onChange={e => setContent({...content, metaTitle: e.target.value})} placeholder="למשל: מורן פז | פסיכותרפיה בטבעון" />
+                    <Input value={content.metaTitle} onChange={e => setContent({...content, metaTitle: e.target.value})} placeholder="מורן פז | פסיכותרפיה" />
                   </div>
                   <div className="md:col-span-2 space-y-4">
                     <Label className="boutique-label">תיאור גוגל (Meta Description)</Label>
-                    <Input value={content.metaDescription} onChange={e => setContent({...content, metaDescription: e.target.value})} placeholder="תיאור קצר שיופיע בתוצאות החיפוש..." />
+                    <Input value={content.metaDescription} onChange={e => setContent({...content, metaDescription: e.target.value})} placeholder="תיאור קצר לתוצאות החיפוש..." />
                   </div>
                 </div>
               </CardContent>
@@ -326,29 +302,21 @@ export default function PageManagement() {
             {selectedPage === 'global' ? (
               <div className="space-y-12">
                 <Card className="border-none shadow-xl rounded-none">
-                  <CardHeader className="bg-stone-50/50 border-b border-stone-100">
-                    <CardTitle className="font-headline text-2xl flex items-center gap-4">
-                      <Globe size={24} className="text-primary" /> הגדרות מותג (Navbar)
-                    </CardTitle>
-                  </CardHeader>
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">הגדרות מותג</CardTitle></CardHeader>
                   <CardContent className="pt-8 space-y-8">
                     <div className="space-y-3">
                       <Label className="boutique-label text-stone-400">שם המותג</Label>
-                      <Input value={content.siteName} onChange={e => setContent({...content, siteName: e.target.value})} className="h-14 text-xl font-headline" placeholder="MORAN PAZ" />
+                      <Input value={content.siteName} onChange={e => setContent({...content, siteName: e.target.value})} className="h-14 text-xl font-headline" />
                     </div>
                     <div className="space-y-3">
                       <Label className="boutique-label text-stone-400">תיאור המותג</Label>
-                      <Input value={content.siteSubtitle} onChange={e => setContent({...content, siteSubtitle: e.target.value})} className="h-14 text-xl font-headline italic" placeholder="BeinMe — להיות אני בתוכי" />
+                      <Input value={content.siteSubtitle} onChange={e => setContent({...content, siteSubtitle: e.target.value})} className="h-14 text-xl font-headline italic" />
                     </div>
                   </CardContent>
                 </Card>
 
                 <Card className="border-none shadow-xl rounded-none">
-                  <CardHeader className="bg-stone-50/50 border-b border-stone-100">
-                    <CardTitle className="font-headline text-2xl flex items-center gap-4">
-                      <ListOrdered size={24} className="text-primary" /> ניהול תפריט הניווט
-                    </CardTitle>
-                  </CardHeader>
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100"><CardTitle className="font-headline text-2xl">תפריט ניווט</CardTitle></CardHeader>
                   <CardContent className="pt-8 space-y-6">
                     {content.navItems.map((item, index) => (
                       <div key={index} className="flex gap-4 items-end bg-stone-50 p-4 border border-stone-100">
@@ -357,11 +325,11 @@ export default function PageManagement() {
                           <Button type="button" variant="ghost" size="sm" onClick={() => moveArrayItem('navItems', index, 'down')} disabled={index === content.navItems.length - 1}>▼</Button>
                         </div>
                         <div className="flex-1 space-y-2">
-                          <Label className="text-[10px] uppercase font-bold text-stone-400">תווית</Label>
+                          <Label className="text-[10px] font-bold">תווית</Label>
                           <Input value={item.label} onChange={e => updateArrayItem('navItems', index, 'label', e.target.value)} />
                         </div>
                         <div className="flex-1 space-y-2">
-                          <Label className="text-[10px] uppercase font-bold text-stone-400">כתובת (URL)</Label>
+                          <Label className="text-[10px] font-bold">כתובת (URL)</Label>
                           <Input value={item.href} onChange={e => updateArrayItem('navItems', index, 'href', e.target.value)} />
                         </div>
                         <Button type="button" variant="ghost" onClick={() => removeArrayItem('navItems', index)} className="text-destructive"><Trash2 size={18} /></Button>
@@ -418,77 +386,7 @@ export default function PageManagement() {
                 <Card className="border-none shadow-xl rounded-none">
                   <CardHeader className="bg-stone-50/50 border-b border-stone-100">
                     <CardTitle className="font-headline text-2xl flex items-center gap-4">
-                      <MessageSquare size={24} className="text-primary" /> המלצות ועדויות
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-8 space-y-6">
-                    {content.testimonials.map((t, index) => (
-                      <div key={index} className="bg-stone-50 p-6 border border-stone-100 rounded-sm space-y-4">
-                        <div className="flex justify-between items-center">
-                           <div className="flex gap-2">
-                             <Button type="button" variant="ghost" size="sm" onClick={() => moveArrayItem('testimonials', index, 'up')} disabled={index === 0}>▲</Button>
-                             <Button type="button" variant="ghost" size="sm" onClick={() => moveArrayItem('testimonials', index, 'down')} disabled={index === content.testimonials.length - 1}>▼</Button>
-                           </div>
-                           <Button type="button" variant="ghost" onClick={() => removeArrayItem('testimonials', index)} className="text-destructive"><Trash2 size={16} /></Button>
-                        </div>
-                        <div className="space-y-2">
-                          <Label className="text-[10px] font-bold">ההמלצה</Label>
-                          <Input value={t.text} onChange={e => updateArrayItem('testimonials', index, 'text', e.target.value)} className="bg-white" />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label className="text-[10px] font-bold">שם הכותב/ת</Label>
-                            <Input value={t.author} onChange={e => updateArrayItem('testimonials', index, 'author', e.target.value)} className="bg-white" />
-                          </div>
-                          <div className="space-y-2">
-                            <Label className="text-[10px] font-bold">מיקום</Label>
-                            <Input value={t.location} onChange={e => updateArrayItem('testimonials', index, 'location', e.target.value)} className="bg-white" />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                    <Button type="button" onClick={() => addArrayItem('testimonials', { text: '', author: '', location: '' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary">
-                      <Plus className="mr-2" size={18} /> הוספת המלצה חדשה
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-none shadow-xl rounded-none">
-                  <CardHeader className="bg-stone-50/50 border-b border-stone-100">
-                    <CardTitle className="font-headline text-2xl flex items-center gap-4">
-                      <HelpCircle size={24} className="text-primary" /> שאלות נפוצות (FAQ)
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="pt-8 space-y-6">
-                    {content.faqs.map((faq, index) => (
-                      <div key={index} className="bg-stone-50 p-6 border border-stone-100 rounded-sm space-y-4">
-                        <div className="flex justify-between items-center">
-                           <div className="flex gap-2">
-                             <Button type="button" variant="ghost" size="sm" onClick={() => moveArrayItem('faqs', index, 'up')} disabled={index === 0}>▲</Button>
-                             <Button type="button" variant="ghost" size="sm" onClick={() => moveArrayItem('faqs', index, 'down')} disabled={index === content.faqs.length - 1}>▼</Button>
-                           </div>
-                           <Button type="button" variant="ghost" onClick={() => removeArrayItem('faqs', index)} className="text-destructive"><Trash2 size={16} /></Button>
-                        </div>
-                        <div className="space-y-2">
-                          <Label className="text-[10px] font-bold">שאלה</Label>
-                          <Input value={faq.question} onChange={e => updateArrayItem('faqs', index, 'question', e.target.value)} className="bg-white" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label className="text-[10px] font-bold">תשובה</Label>
-                          <Input value={faq.answer} onChange={e => updateArrayItem('faqs', index, 'answer', e.target.value)} className="bg-white" />
-                        </div>
-                      </div>
-                    ))}
-                    <Button type="button" onClick={() => addArrayItem('faqs', { question: '', answer: '' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary">
-                      <Plus className="mr-2" size={18} /> הוספת שאלה ותשובה
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-none shadow-xl rounded-none">
-                  <CardHeader className="bg-stone-50/50 border-b border-stone-100">
-                    <CardTitle className="font-headline text-2xl flex items-center gap-4">
-                      <Box size={24} className="text-primary" /> קוביות תוכן (Features Grid)
+                      <Box size={24} className="text-primary" /> קוביות תוכן (Features)
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="pt-8 space-y-6">
@@ -568,6 +466,76 @@ export default function PageManagement() {
                     ))}
                     <Button type="button" onClick={() => addArrayItem('ctaButtons', { label: '', href: '', variant: 'primary' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary">
                       <Plus className="mr-2" size={18} /> הוספת כפתור חדש
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-none shadow-xl rounded-none">
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100">
+                    <CardTitle className="font-headline text-2xl flex items-center gap-4">
+                      <HelpCircle size={24} className="text-primary" /> שאלות נפוצות (FAQ)
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-8 space-y-6">
+                    {content.faqs.map((faq, index) => (
+                      <div key={index} className="bg-stone-50 p-6 border border-stone-100 rounded-sm space-y-4">
+                        <div className="flex justify-between items-center">
+                           <div className="flex gap-2">
+                             <Button type="button" variant="ghost" size="sm" onClick={() => moveArrayItem('faqs', index, 'up')} disabled={index === 0}>▲</Button>
+                             <Button type="button" variant="ghost" size="sm" onClick={() => moveArrayItem('faqs', index, 'down')} disabled={index === content.faqs.length - 1}>▼</Button>
+                           </div>
+                           <Button type="button" variant="ghost" onClick={() => removeArrayItem('faqs', index)} className="text-destructive"><Trash2 size={16} /></Button>
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-bold">שאלה</Label>
+                          <Input value={faq.question} onChange={e => updateArrayItem('faqs', index, 'question', e.target.value)} className="bg-white" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-bold">תשובה</Label>
+                          <Input value={faq.answer} onChange={e => updateArrayItem('faqs', index, 'answer', e.target.value)} className="bg-white" />
+                        </div>
+                      </div>
+                    ))}
+                    <Button type="button" onClick={() => addArrayItem('faqs', { question: '', answer: '' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary">
+                      <Plus className="mr-2" size={18} /> הוספת שאלה ותשובה
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-none shadow-xl rounded-none">
+                  <CardHeader className="bg-stone-50/50 border-b border-stone-100">
+                    <CardTitle className="font-headline text-2xl flex items-center gap-4">
+                      <MessageSquare size={24} className="text-primary" /> המלצות ועדויות
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-8 space-y-6">
+                    {content.testimonials.map((t, index) => (
+                      <div key={index} className="bg-stone-50 p-6 border border-stone-100 rounded-sm space-y-4">
+                        <div className="flex justify-between items-center">
+                           <div className="flex gap-2">
+                             <Button type="button" variant="ghost" size="sm" onClick={() => moveArrayItem('testimonials', index, 'up')} disabled={index === 0}>▲</Button>
+                             <Button type="button" variant="ghost" size="sm" onClick={() => moveArrayItem('testimonials', index, 'down')} disabled={index === content.testimonials.length - 1}>▼</Button>
+                           </div>
+                           <Button type="button" variant="ghost" onClick={() => removeArrayItem('testimonials', index)} className="text-destructive"><Trash2 size={16} /></Button>
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-bold">ההמלצה</Label>
+                          <Input value={t.text} onChange={e => updateArrayItem('testimonials', index, 'text', e.target.value)} className="bg-white" />
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-bold">שם הכותב/ת</Label>
+                            <Input value={t.author} onChange={e => updateArrayItem('testimonials', index, 'author', e.target.value)} className="bg-white" />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-[10px] font-bold">מיקום</Label>
+                            <Input value={t.location} onChange={e => updateArrayItem('testimonials', index, 'location', e.target.value)} className="bg-white" />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    <Button type="button" onClick={() => addArrayItem('testimonials', { text: '', author: '', location: '' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary">
+                      <Plus className="mr-2" size={18} /> הוספת המלצה חדשה
                     </Button>
                   </CardContent>
                 </Card>

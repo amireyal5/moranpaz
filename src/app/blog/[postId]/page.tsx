@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
@@ -10,18 +10,20 @@ import { useFirestore, useCollection } from '@/firebase';
 import { collection, query, where, limit } from 'firebase/firestore';
 import { Loader2, ArrowRight, Calendar, Tag, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 
 export default function BlogPostPage() {
   const { postId } = useParams();
   const router = useRouter();
   const db = useFirestore();
   
-  const postQuery = (db && postId) ? query(
-    collection(db, 'blogPosts'), 
-    where('slug', '==', postId),
-    limit(1)
-  ) : null;
+  const postQuery = useMemo(() => {
+    if (!db || !postId) return null;
+    return query(
+      collection(db, 'blogPosts'), 
+      where('slug', '==', postId),
+      limit(1)
+    );
+  }, [db, postId]);
   
   const { data: posts, loading } = useCollection<any>(postQuery);
   const post = posts?.[0];
@@ -82,7 +84,6 @@ export default function BlogPostPage() {
             </>
           ) : (
             <div className="absolute inset-0 bg-stone-800 flex items-center justify-center opacity-40">
-               {/* No image background placeholder */}
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background"></div>
@@ -94,7 +95,7 @@ export default function BlogPostPage() {
         </div>
       </section>
 
-      {/* Content Section - Added flex and items-center for forced centering */}
+      {/* Content Section */}
       <article className="py-16 md:py-24 lg:py-32 px-6 bg-white flex flex-col items-center">
         <div className="max-w-3xl w-full mx-auto">
           {/* Metadata Bar */}
@@ -114,7 +115,7 @@ export default function BlogPostPage() {
              </Button>
           </div>
 
-          {/* Article Summary (Excerpt) */}
+          {/* Article Summary */}
           {post.summary && (
             <div className="mb-12 md:mb-16 p-6 md:p-8 bg-stone-50 border-r-4 border-primary/20 italic">
               <p className="text-xl md:text-2xl lg:text-3xl font-headline text-accent leading-relaxed">

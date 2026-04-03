@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { collection, addDoc, query, orderBy, doc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { useAuth, useUser, useFirestore, useCollection } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -100,7 +100,7 @@ export default function BlogManagementPage() {
           toast({ title: "מאמר עודכן בהצלחה!" });
           resetForm();
         })
-        .catch(async (serverError) => {
+        .catch(async () => {
           const permissionError = new FirestorePermissionError({
             path: `blogPosts/${editingId}`,
             operation: 'update',
@@ -118,7 +118,7 @@ export default function BlogManagementPage() {
           toast({ title: "מאמר נשמר בהצלחה!" });
           resetForm();
         })
-        .catch(async (serverError) => {
+        .catch(async () => {
           const permissionError = new FirestorePermissionError({
             path: 'blogPosts',
             operation: 'create',
@@ -153,7 +153,7 @@ export default function BlogManagementPage() {
       .then(() => {
         toast({ title: "מאמר נמחק." });
       })
-      .catch(async (serverError) => {
+      .catch(async () => {
         const permissionError = new FirestorePermissionError({
           path: `blogPosts/${id}`,
           operation: 'delete'
@@ -189,21 +189,17 @@ export default function BlogManagementPage() {
   if (isMobile) {
     return (
       <main className="min-h-screen flex items-center justify-center p-8 text-center bg-stone-50">
-        <div className="max-w-md space-y-8 animate-in fade-in zoom-in duration-700">
+        <div className="max-w-md space-y-8">
           <div className="p-6 bg-white rounded-full w-fit mx-auto shadow-xl">
             <Monitor className="size-16 text-primary" strokeWidth={1} />
           </div>
           <div className="space-y-4">
             <h2 className="text-4xl font-handwriting font-bold text-accent">אזור זה ניתן לשימוש מהמחשב בלבד</h2>
             <p className="text-lg font-headline text-stone-500 leading-relaxed">
-              בשל מורכבות ניהול התוכן, עריכת המאמרים והעיצוב, אזור הניהול מותאם לעבודה נוחה עם מסך רחב ומקלדת. אנא התחברי מהמחשב האישי שלך להמשך עבודה.
+              עריכת מאמרים דורשת מסך רחב לעבודה נוחה ומקצועית. אנא התחברי מהמחשב האישי שלך.
             </p>
           </div>
-          <Button 
-            onClick={() => router.push('/admin/dashboard')} 
-            variant="outline" 
-            className="boutique-label h-12 px-8 border-stone-200"
-          >
+          <Button onClick={() => router.push('/admin/dashboard')} variant="outline" className="boutique-label h-12 px-8 border-stone-200">
             חזרה ללוח הבקרה
           </Button>
         </div>

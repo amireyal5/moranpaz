@@ -1,6 +1,7 @@
+
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
@@ -21,7 +22,12 @@ const ICON_MAP: Record<string, any> = {
 export default function DynamicPage() {
   const { slug } = useParams();
   const db = useFirestore();
-  const contentRef = db && slug ? doc(db, 'siteContent', slug as string) : null;
+  
+  const contentRef = useMemo(() => {
+    if (!db || !slug) return null;
+    return doc(db, 'siteContent', slug as string);
+  }, [db, slug]);
+
   const { data: pageContent, loading } = useDoc<any>(contentRef);
 
   const contentReveal = useReveal();
