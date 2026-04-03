@@ -4,7 +4,6 @@
 import React from 'react';
 import { useReveal } from '@/hooks/use-reveal';
 import { cn } from '@/lib/utils';
-import { MapPin } from 'lucide-react';
 
 export function ContactForm({ isLight = false }: { isLight?: boolean }) {
   const revealRef = useReveal();
@@ -17,13 +16,18 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
         isLight ? 'text-white' : 'text-foreground'
       )}
     >
-      <div className="w-full h-[250px] sm:h-[400px] bg-stone-100 mb-12 sm:mb-20 relative overflow-hidden group shadow-inner border border-stone-200">
-        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-40 group-hover:opacity-60 transition-opacity px-6 text-center">
-          <MapPin size={40} strokeWidth={1} className="text-primary mb-4 animate-art-float" />
-          <p className="text-lg sm:text-2xl font-headline italic">מיקום הקליניקה - טבעון / עמק יזרעאל</p>
-          <span className="text-[10px] sm:text-xs tracking-[0.2em] mt-2">(שומר מקום למפת גוגל)</span>
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent pointer-events-none"></div>
+      <div className="w-full h-[300px] sm:h-[450px] bg-stone-100 mb-12 sm:mb-20 relative overflow-hidden group shadow-inner border border-stone-200">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53711.02646947229!2d35.12536055!3d32.71424450000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151dadfff9f521db%3A0x377c729195dd381f!2z16fXqNeZ16og15jXkdei15XXnw!5e0!3m2!1siw!2sil!4v1775196670523!5m2!1siw!2sil" 
+          width="100%" 
+          height="100%" 
+          style={{ border: 0 }} 
+          allowFullScreen 
+          loading="lazy" 
+          referrerPolicy="no-referrer-when-downgrade"
+          className="grayscale contrast-125 opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-1000"
+          title="מיקום הקליניקה בטבעון"
+        ></iframe>
       </div>
 
       <form className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-16">
@@ -64,7 +68,7 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
           <button 
             type="submit"
             className={cn(
-              "w-full md:w-auto px-12 sm:px-24 py-5 sm:py-7 text-xs sm:text-sm uppercase tracking-[0.4em] font-bold transition-all border",
+              "w-full md:w-auto px-12 sm:px-20 py-4 sm:py-5 text-sm uppercase tracking-[0.3em] font-bold transition-all border",
               isLight 
                 ? 'border-white !text-white hover:bg-white hover:!text-black' 
                 : 'border-accent bg-accent !text-white hover:bg-primary hover:border-primary'
