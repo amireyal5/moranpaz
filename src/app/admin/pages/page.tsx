@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -20,6 +20,8 @@ import {
   Orbit, Compass, Users, Star, Palette, MessageSquare, HelpCircle 
 } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
@@ -90,16 +92,24 @@ export default function PageManagement() {
     if (!authLoading && !user) router.push('/admin/login');
   }, [user, authLoading, router]);
 
+  // Memoize document reference to prevent unnecessary effect triggers
+  const docRef = useMemo(() => {
+    if (!db) return null;
+    return doc(db, 'siteContent', selectedPage === 'custom' ? 'home' : selectedPage);
+  }, [db, selectedPage]);
+
   useEffect(() => {
-    fetchPageContent(selectedPage);
+    if (selectedPage !== 'custom') {
+      fetchPageContent(selectedPage);
+    }
   }, [selectedPage, db]);
 
   const fetchPageContent = async (id: string) => {
     if (!db) return;
     setIsFetching(true);
     try {
-      const docRef = doc(db, 'siteContent', id);
-      const docSnap = await getDoc(docRef);
+      const pageRef = doc(db, 'siteContent', id);
+      const docSnap = await getDoc(pageRef);
       if (docSnap.exists()) {
         const data = docSnap.data();
         setContent({
@@ -151,29 +161,39 @@ export default function PageManagement() {
     e.preventDefault();
     if (!db || isSaving) return;
     
-    const targetId = selectedPage === 'custom' ? customPageId : selectedPage;
+    const rawTargetId = selectedPage === 'custom' ? customPageId : selectedPage;
+    const targetId = rawTargetId.toLowerCase().trim().replace(/[^a-z0-9-]/g, '-');
+    
     if (!targetId) {
       toast({ variant: "destructive", title: "אנא הזיני מזהה עמוד (Slug)" });
       return;
     }
 
     setIsSaving(true);
-    try {
-      await setDoc(doc(db, 'siteContent', targetId), {
-        ...content,
-        pageId: targetId,
-        updatedAt: Date.now()
-      });
-      toast({ title: "התוכן נשמר בהצלחה!" });
-      if (selectedPage === 'custom') {
-        setCustomPageId('');
-        setSelectedPage(targetId);
-      }
-    } catch (e) {
-      toast({ variant: "destructive", title: "שגיאה בשמירה" });
-    } finally {
-      setIsSaving(false);
-    }
+    const saveRef = doc(db, 'siteContent', targetId);
+    const savePayload = {
+      ...content,
+      pageId: targetId,
+      updatedAt: Date.now()
+    };
+
+    setDoc(saveRef, savePayload)
+      .then(() => {
+        toast({ title: "התוכן נשמר בהצלחה!" });
+        if (selectedPage === 'custom') {
+          setCustomPageId('');
+          setSelectedPage(targetId);
+        }
+      })
+      .catch(async (serverError) => {
+        const permissionError = new FirestorePermissionError({
+          path: saveRef.path,
+          operation: 'write',
+          requestResourceData: savePayload
+        });
+        errorEmitter.emit('permission-error', permissionError);
+      })
+      .finally(() => setIsSaving(false));
   };
 
   const addArrayItem = (key: keyof typeof content, newItem: any) => {

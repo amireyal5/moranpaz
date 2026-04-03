@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { collection, addDoc, query, orderBy, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, addDoc, query, orderBy, doc, updateDoc, deleteDoc, serverTimestamp } from 'firebase/firestore';
 import { useAuth, useUser, useFirestore, useCollection } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -86,9 +86,11 @@ export default function BlogManagementPage() {
     if (!db || isSaving) return;
 
     setIsSaving(true);
+    const sanitizedSlug = newPost.slug.toLowerCase().trim().replace(/[^a-z0-9-]/g, '-');
+    
     const postData = {
       ...newPost,
-      slug: newPost.slug.toLowerCase().replace(/[^a-z0-9-]/g, '-'),
+      slug: sanitizedSlug,
       updatedAt: Date.now()
     };
 
@@ -98,7 +100,7 @@ export default function BlogManagementPage() {
           toast({ title: "מאמר עודכן בהצלחה!" });
           resetForm();
         })
-        .catch(async (error) => {
+        .catch(async (serverError) => {
           const permissionError = new FirestorePermissionError({
             path: `blogPosts/${editingId}`,
             operation: 'update',
@@ -116,7 +118,7 @@ export default function BlogManagementPage() {
           toast({ title: "מאמר נשמר בהצלחה!" });
           resetForm();
         })
-        .catch(async (error) => {
+        .catch(async (serverError) => {
           const permissionError = new FirestorePermissionError({
             path: 'blogPosts',
             operation: 'create',
@@ -148,8 +150,10 @@ export default function BlogManagementPage() {
   const handleDelete = (id: string) => {
     if (!db || !confirm("האם למחוק את המאמר?")) return;
     deleteDoc(doc(db, 'blogPosts', id))
-      .then(() => toast({ title: "מאמר נמחק." }))
-      .catch(async (error) => {
+      .then(() => {
+        toast({ title: "מאמר נמחק." });
+      })
+      .catch(async (serverError) => {
         const permissionError = new FirestorePermissionError({
           path: `blogPosts/${id}`,
           operation: 'delete'
