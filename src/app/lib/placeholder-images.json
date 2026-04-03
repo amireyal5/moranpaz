@@ -1,10 +1,17 @@
+
 {
   "placeholderImages": [
     {
-      "id": "hero-home",
-      "description": "Elegant professional library with warm lighting",
-      "imageUrl": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1920&auto=format&fit=crop",
-      "imageHint": "elegant library"
+      "id": "hero-home-desktop",
+      "description": "Hero desktop image for Moran Paz home page",
+      "imageUrl": "https://res.cloudinary.com/dcdadfrpi/image/upload/v1775219723/version_2_npvleo.png",
+      "imageHint": "professional workspace"
+    },
+    {
+      "id": "hero-home-mobile",
+      "description": "Hero mobile image for Moran Paz home page",
+      "imageUrl": "https://res.cloudinary.com/dcdadfrpi/image/upload/v1775213285/WhatsApp_Image_2026-04-03_at_13.24.35_btcdy5.jpg",
+      "imageHint": "moran portrait vertical"
     },
     {
       "id": "hero-about",

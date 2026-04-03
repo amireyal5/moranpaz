@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -19,7 +20,8 @@ export default function Home() {
   const uniquenessReveal = useReveal();
   const ctaReveal = useReveal();
   
-  const heroImg = PlaceHolderImages.find(img => img.id === 'hero-home');
+  const heroDesktop = PlaceHolderImages.find(img => img.id === 'hero-home-desktop');
+  const heroMobile = PlaceHolderImages.find(img => img.id === 'hero-home-mobile');
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20BeinMe%20ואשמח%20לפרטים%20נוספים";
 
@@ -45,15 +47,31 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden bg-stone-900">
         <div className="absolute inset-0 z-0">
-          {heroImg && (
-            <Image 
-              src={heroImg.imageUrl} 
-              alt="BeinMe - Moran Paz" 
-              fill
-              className="object-cover opacity-60 brightness-[0.75]"
-              priority
-              data-ai-hint={heroImg.imageHint}
-            />
+          {/* Desktop Image */}
+          {heroDesktop && (
+            <div className="hidden md:block absolute inset-0">
+              <Image 
+                src={heroDesktop.imageUrl} 
+                alt="BeinMe - Moran Paz" 
+                fill
+                className="object-cover opacity-60 brightness-[0.75]"
+                priority
+                data-ai-hint={heroDesktop.imageHint}
+              />
+            </div>
+          )}
+          {/* Mobile Image */}
+          {heroMobile && (
+            <div className="md:hidden absolute inset-0">
+              <Image 
+                src={heroMobile.imageUrl} 
+                alt="BeinMe - Moran Paz" 
+                fill
+                className="object-cover opacity-60 brightness-[0.75]"
+                priority
+                data-ai-hint={heroMobile.imageHint}
+              />
+            </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background"></div>
         </div>
@@ -128,7 +146,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Uniqueness Section - Now with subtle background and cards */}
+      {/* Uniqueness Section */}
       <section ref={uniquenessReveal} className="py-24 md:py-48 px-6 md:px-24 bg-stone-50 reveal border-y border-stone-100">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Core Pillars" title="גוף • נפש • רוח" className="flex flex-col items-center text-center" />
