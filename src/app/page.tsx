@@ -106,14 +106,14 @@ export default function Home() {
                href={whatsappLink} 
                target="_blank" 
                rel="noopener noreferrer"
-               className="px-12 py-3.5 bg-primary text-white text-[12px] tracking-[0.2em] font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm flex items-center gap-4 group min-w-[240px] justify-center whitespace-nowrap !opacity-100"
+               className="px-12 py-3 bg-primary text-white text-[12px] tracking-[0.2em] font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm flex items-center gap-4 group min-w-[240px] justify-center whitespace-nowrap !opacity-100"
              >
                 תיאום שיחת היכרות
                 <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
              </a>
              <Link 
                href="/practice"
-               className="px-10 py-3.5 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50 transition-all duration-700 text-[10px] tracking-[0.3em] uppercase font-bold"
+               className="px-10 py-3 bg-transparent border border-foreground/15 text-foreground/80 hover:bg-stone-50 transition-all duration-700 text-[10px] tracking-[0.3em] uppercase font-bold"
              >
                 התהליך הטיפולי
              </Link>
@@ -152,11 +152,13 @@ export default function Home() {
                 <p>
                   אני פסיכותרפיסטית הוליסטית ומנחת תהליכים רגשיים – חווייתיים. אני מאמינה שלכולנו יש את הזכות להרגיש חופשיים מבפנים ושהבחירה קיימת לכל אדם בכל מצב.
                 </p>
-                <div className="relative pt-6">
-                  <Quote className="absolute -top-6 -right-8 text-primary/10 w-20 h-20 rotate-180 pointer-events-none" />
-                  <p className="font-headline italic text-2xl text-accent/80 border-r-4 border-primary/20 pr-8 py-2 relative z-10">
-                    התהליך מביא לפחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, וביטוי אותנטי.
-                  </p>
+                <div className="relative pr-12 py-4">
+                  <Quote className="absolute -top-8 -right-4 text-primary/5 w-32 h-32 rotate-180 pointer-events-none" />
+                  <div className="border-r-[3px] border-primary/20 pr-10 py-1">
+                    <p className="font-headline italic text-2xl text-accent/80 leading-relaxed relative z-10">
+                      התהליך מביא לפחות חרדות וסטרס, שלווה פנימית, חוסן נפשי ומנטלי, וביטוי אותנטי.
+                    </p>
+                  </div>
                 </div>
                 <p>
                   אני מלווה מבוגרים, נוער ונשים למצוא את הדרך שלהם פנימה – לחיבור העמוק והאותנטי עם עצמם, בקליניקה בטבעון או בטיפול אונליין.
@@ -261,7 +263,7 @@ export default function Home() {
               href={whatsappLink} 
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-6 px-12 py-3.5 bg-primary text-white text-[13px] tracking-[0.2em] uppercase font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !opacity-100"
+              className="inline-flex items-center gap-6 px-12 py-3 bg-primary text-white text-[13px] tracking-[0.2em] uppercase font-bold hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !opacity-100"
             >
               <MessageCircle size={24} />
               שלחי הודעה בוואטסאפ

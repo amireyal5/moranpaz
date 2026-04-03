@@ -72,11 +72,13 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:col-span-7 order-1 lg:order-2 space-y-10">
-               <div className="relative pt-8">
-                  <Quote className="absolute -top-6 -right-8 text-primary/10 w-24 h-24 rotate-180 pointer-events-none" />
-                  <p className="text-3xl md:text-4xl font-headline text-accent italic border-r-4 border-primary/20 pr-8 font-light leading-relaxed relative z-10">
-                    אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה.
-                  </p>
+               <div className="relative pr-12 py-4">
+                  <Quote className="absolute -top-10 -right-4 text-primary/5 w-40 h-40 rotate-180 pointer-events-none" />
+                  <div className="border-r-[3px] border-primary/20 pr-10 py-1">
+                    <p className="text-3xl md:text-4xl font-headline text-accent italic font-light leading-relaxed relative z-10">
+                      אנחנו לא רק מה שהיינו – אנחנו גם מה שנהיה.
+                    </p>
+                  </div>
                </div>
                <div className="space-y-8 boutique-para text-stone-600">
                   <p>
@@ -97,7 +99,7 @@ export default function AboutPage() {
                     href={whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-6 px-12 py-3.5 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !opacity-100"
+                    className="inline-flex items-center gap-6 px-12 py-3 bg-primary !text-white boutique-label hover:bg-accent transition-all duration-700 shadow-xl rounded-sm whitespace-nowrap !opacity-100"
                   >
                     תאום שיחת היכרות
                     <ArrowLeft size={18} />

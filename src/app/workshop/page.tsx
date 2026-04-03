@@ -27,7 +27,7 @@ export default function WorkshopPage() {
           <div ref={introReveal} className="reveal grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             <div className="lg:col-span-7">
               <span className="boutique-label text-primary mb-6 block uppercase">
-                BeinMe<sup className="text-[0.5em] ml-0.5">©</sup> קורס
+                BeinMe<sup className="text-[0.5em] ml-0.5 opacity-60">©</sup> קורס
               </span>
               <h1 className="text-6xl md:text-9xl font-handwriting text-foreground leading-none mb-10">
                 להיות אני בתוכי
@@ -35,12 +35,12 @@ export default function WorkshopPage() {
               
               <div className="space-y-8 boutique-para text-stone-600">
                 <p>
-                  קורס BeinMe<sup className="text-[0.6em]">©</sup> הוא מרחב קבוצתי שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו ולחוות אותו בכנות.
+                  קורס BeinMe<sup className="text-[0.6em] opacity-60">©</sup> הוא מרחב קבוצתי שנולד מתוך רצון להקשיב לעצמי. לגלות את מה שנמצא בתוכי, להכיר אותו ולחוות אותו בכנות.
                 </p>
-                <div className="relative pt-12 pb-6">
-                  <Quote className="absolute top-0 -right-8 text-primary/10 w-24 h-24 rotate-180 pointer-events-none" />
-                  <div className="italic text-accent border-r-4 border-primary/20 pr-8 py-6 bg-stone-50 relative z-10">
-                    <p className="text-2xl font-headline font-light">האמת שלנו ומפת הדרכים לחיינו נמצאת בתוכנו – לא מחוצה לנו.</p>
+                <div className="relative pr-12 py-4">
+                  <Quote className="absolute -top-10 -right-4 text-primary/5 w-40 h-40 rotate-180 pointer-events-none" />
+                  <div className="border-r-[3px] border-primary/20 pr-10 py-1 bg-stone-50/50">
+                    <p className="text-2xl font-headline font-light italic text-accent leading-relaxed relative z-10">האמת שלנו ומפת הדרכים לחיינו נמצאת בתוכנו – לא מחוצה לנו.</p>
                   </div>
                 </div>
               </div>
@@ -50,7 +50,7 @@ export default function WorkshopPage() {
                   href={whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-12 py-3.5 bg-primary text-white boutique-label !text-[13px] !opacity-100 hover:bg-accent transition-all rounded-sm flex items-center gap-4 group w-fit shadow-xl"
+                  className="px-12 py-3 bg-primary text-white boutique-label !text-[13px] !opacity-100 hover:bg-accent transition-all rounded-sm flex items-center gap-4 group w-fit shadow-xl"
                 >
                   הרשמה למחזור הקרוב
                   <ArrowLeft size={16} />
@@ -100,7 +100,7 @@ export default function WorkshopPage() {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-12 py-3.5 bg-primary text-white boutique-label !text-[13px] !opacity-100 hover:bg-white hover:text-accent transition-all rounded-sm inline-flex items-center gap-4 shadow-2xl"
+            className="px-12 py-3 bg-primary text-white boutique-label !text-[13px] !opacity-100 hover:bg-white hover:text-accent transition-all rounded-sm inline-flex items-center gap-4 shadow-2xl"
           >
             <MessageCircle size={20} />
             לפרטים והרשמה
