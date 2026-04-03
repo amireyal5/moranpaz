@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react';
@@ -19,7 +18,7 @@ export function SectionTitle({ subtitle, title, isLight = false, className }: Se
     <div ref={revealRef} className={cn("mb-12 text-right reveal transition-all duration-1000", className)}>
       <span className={cn(
         "boutique-label block mb-4",
-        isLight ? 'text-primary/70' : 'text-primary'
+        isLight ? 'text-primary/50' : 'text-primary/70'
       )}>
         {subtitle}
       </span>
