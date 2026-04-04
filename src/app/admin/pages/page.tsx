@@ -18,7 +18,7 @@ import {
   Loader2, Save, ChevronRight, Monitor, Smartphone, Globe,
   Plus, Trash2, Box, Heart, Sparkles,
   Orbit, Compass, Users, Star, Palette, MessageSquare, HelpCircle,
-  MousePointerClick, Quote, AlignLeft, AlignCenter, AlignRight
+  MousePointerClick, Quote, AlignLeft, AlignCenter, AlignRight, UserRound
 } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
@@ -255,6 +255,9 @@ type ContentState = {
   heroBgColor: string;
   introTitle: string;
   introContent: string;
+  portraitImageUrl: string;
+  portraitShape: string;
+  portraitPosition: string;
   sectionBg: string;
   primaryColor: string;
   metaTitle: string;
@@ -274,6 +277,9 @@ const EMPTY_CONTENT: ContentState = {
   heroSubtitle: '',
   heroImageUrlDesktop: '',
   heroImageUrlMobile: '',
+  portraitImageUrl: '',
+  portraitShape: 'circle',
+  portraitPosition: 'left',
   heroHeight: '70vh',
   heroTextAlign: 'center',
   heroBgColor: '',
@@ -386,6 +392,9 @@ export default function PageManagement() {
         heroSubtitle:         d.heroSubtitle         || fb.heroSubtitle         || '',
         heroImageUrlDesktop:  d.heroImageUrlDesktop  || '',
         heroImageUrlMobile:   d.heroImageUrlMobile   || '',
+        portraitImageUrl:     d.portraitImageUrl     || '',
+        portraitShape:        d.portraitShape        || 'circle',
+        portraitPosition:     d.portraitPosition     || 'left',
         heroHeight:           d.heroHeight           || fb.heroHeight           || '70vh',
         heroTextAlign:        d.heroTextAlign        || fb.heroTextAlign        || 'center',
         heroBgColor:          d.heroBgColor          || '',
@@ -580,6 +589,43 @@ export default function PageManagement() {
                       <Input value={content.heroBgColor} onChange={e => set({ heroBgColor: e.target.value })} placeholder="#1c1917 או stone-900" className="font-sans" dir="ltr" />
                     </Field>
                   </div>
+                </SectionCard>
+
+                {/* ── Portrait ── */}
+                <SectionCard icon={<UserRound size={20} />} title="תמונת פורטרט">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <Field label="קישור לתמונה (URL)">
+                      <Input value={content.portraitImageUrl} onChange={e => set({ portraitImageUrl: e.target.value })} className="font-sans" dir="ltr" placeholder="https://..." />
+                    </Field>
+                    <Field label="צורת התמונה">
+                      <Select value={content.portraitShape} onValueChange={v => set({ portraitShape: v })}>
+                        <SelectTrigger className="bg-stone-50"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="circle">עיגול</SelectItem>
+                          <SelectItem value="rectangle">מלבן (3:4)</SelectItem>
+                          <SelectItem value="square">ריבוע</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                    <Field label="מיקום">
+                      <Select value={content.portraitPosition} onValueChange={v => set({ portraitPosition: v })}>
+                        <SelectTrigger className="bg-stone-50"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="left">שמאל</SelectItem>
+                          <SelectItem value="right">ימין</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                  </div>
+                  {content.portraitImageUrl && (
+                    <div className="border-t border-stone-100 pt-5 flex items-center gap-4">
+                      <p className="boutique-label text-stone-400 text-[11px]">תצוגה מקדימה</p>
+                      <div className={`relative overflow-hidden border-2 border-stone-200 ${content.portraitShape === 'circle' ? 'rounded-full w-16 h-16' : content.portraitShape === 'square' ? 'w-16 h-16' : 'w-12 h-16'}`}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={content.portraitImageUrl} alt="preview" className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+                  )}
                 </SectionCard>
 
                 {/* ── Content ── */}

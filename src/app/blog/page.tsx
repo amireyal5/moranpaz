@@ -8,15 +8,12 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowLeft, Loader2 } from 'lucide-react';
+import { PortraitImage } from '@/components/shared/PortraitImage';
 import { useFirestore, useCollection, useDoc } from '@/firebase';
 import { query, collection, orderBy, doc } from 'firebase/firestore';
 
 export default function BlogPage() {
-  const heroDesktop = PlaceHolderImages.find(img => img.id === 'hero-blog-desktop');
-  const heroMobile = PlaceHolderImages.find(img => img.id === 'hero-blog-mobile');
-  const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
   const revealRef = useReveal();
   const introReveal = useReveal();
   const db = useFirestore();
@@ -43,68 +40,81 @@ export default function BlogPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {(pageContent?.heroImageUrlDesktop || heroDesktop) && (
+          {pageContent?.heroImageUrlDesktop && (
             <div className="hidden md:block absolute inset-0">
               <Image
-                src={pageContent?.heroImageUrlDesktop || heroDesktop!.imageUrl}
+                src={pageContent.heroImageUrlDesktop}
                 alt="Points of Light"
                 fill
                 className="object-cover opacity-60"
                 priority
-                data-ai-hint={heroDesktop?.imageHint}
               />
             </div>
           )}
-          {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroMobile) && (
+          {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop) && (
             <div className="md:hidden absolute inset-0">
               <Image
-                src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroMobile!.imageUrl}
+                src={pageContent.heroImageUrlMobile || pageContent.heroImageUrlDesktop}
                 alt="Points of Light Mobile"
                 fill
                 className="object-cover opacity-60"
                 priority
-                data-ai-hint={heroMobile?.imageHint}
               />
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">The Wisdom</span>
-           <h1 className="text-5xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
-             {pageContent?.heroTitle || "נקודות של אור"}
-           </h1>
-           <p className="text-xl md:text-3xl xl:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
-             {pageContent?.heroSubtitle || "ידע, תובנות והשראה למסע הפנימי"}
-           </p>
+          {pageLoading ? (
+            <div className="space-y-6 animate-pulse">
+              <div className="h-4 w-24 bg-white/20 rounded mx-auto" />
+              <div className="h-24 w-96 bg-white/20 rounded mx-auto" />
+              <div className="h-8 w-72 bg-white/10 rounded mx-auto" />
+            </div>
+          ) : (
+            <>
+              <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">The Wisdom</span>
+              <h1 className="text-5xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
+                {pageContent?.heroTitle}
+              </h1>
+              <p className="text-xl md:text-3xl xl:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
+                {pageContent?.heroSubtitle}
+              </p>
+            </>
+          )}
         </div>
       </section>
 
       {/* Personal Introduction Section */}
       <section ref={introReveal} className="py-20 md:py-32 bg-stone-50 border-b border-stone-100 px-6 reveal">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12 text-right">
-          <div className="w-32 h-32 md:w-48 md:h-48 shrink-0 relative rounded-full overflow-hidden border-4 border-white shadow-xl">
-            {portraitImg && (
-              <Image 
-                src={portraitImg.imageUrl} 
-                alt="מורן פז" 
-                fill 
-                className="object-cover"
-              />
-            )}
-          </div>
+        <div className={`max-w-5xl mx-auto flex flex-col items-center gap-12 text-right ${pageContent?.portraitPosition === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+          <PortraitImage
+            src={pageContent?.portraitImageUrl}
+            loading={pageLoading}
+            shape={pageContent?.portraitShape as any || 'circle'}
+            alt="מורן פז"
+          />
           <div className="space-y-6 flex-1 min-w-0">
-            <h2 className="text-3xl md:text-5xl font-handwriting text-accent font-bold break-words">
-              {pageContent?.introTitle || 'ברוכים הבאים ל"נקודות של אור"'}
-            </h2>
-            <div className="boutique-para !text-lg md:!text-xl !mr-0 !max-w-none italic text-stone-600 leading-relaxed font-headline font-light">
-              {pageContent?.introContent ? (
-                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
-              ) : (
-                <p>&quot;אני מאמינה שהמסע אל עצמנו רצוף ברגעים של גילוי, לחישות של הלב ותובנות שמבקשות לצאת לאור. המרחב הזה נועד להיות בית למחשבות, השראה וידע המשלבים גוף, נפש ורוח – כלים שנועדו להאיר את הדרך חזרה אל המהות האמיתית שלנו. אני מזמינה אתכם לקרוא, לנשום ולמצוא כאן נקודה של אור עבור המסע האישי שלכם.&quot;</p>
-              )}
-            </div>
-            <span className="boutique-label text-primary block mt-4">— מורן פז</span>
+            {pageLoading ? (
+              <div className="space-y-4 animate-pulse">
+                <div className="h-10 w-64 bg-stone-200 rounded" />
+                <div className="h-4 w-full bg-stone-100 rounded" />
+                <div className="h-4 w-5/6 bg-stone-100 rounded" />
+                <div className="h-4 w-4/6 bg-stone-100 rounded" />
+              </div>
+            ) : (
+              <>
+                <h2 className="text-3xl md:text-5xl font-handwriting text-accent font-bold break-words">
+                  {pageContent?.introTitle}
+                </h2>
+                {pageContent?.introContent && (
+                  <div className="boutique-para !text-lg md:!text-xl !mr-0 !max-w-none italic text-stone-600 leading-relaxed font-headline font-light">
+                    <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
+                  </div>
+                )}
+                <span className="boutique-label text-primary block mt-4">— מורן פז</span>
+              </>
+            )}
           </div>
         </div>
       </section>
