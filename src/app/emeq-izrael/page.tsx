@@ -69,13 +69,13 @@ export default function EmeqIzraelPage() {
       </section>
 
       {/* Dynamic Content Section */}
-      <section className="py-32 px-8 md:px-24 bg-white">
+      <section className="py-32 px-4 md:px-8 xl:px-24 bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="space-y-12">
             <SectionTitle subtitle="Local Therapy" title={pageContent?.introTitle || "קרוב לבית, עמוק בלב"} />
             <div className="boutique-para space-y-8 text-xl leading-relaxed text-stone-600">
               {pageContent?.introContent ? (
-                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               ) : (
                 <>
                   <p>תושבות ותושבי עמק יזרעאל והסביבה מחפשים לעיתים קרובות מרחב טיפולי שמאפשר התנתקות מהרעש החיצוני וחיבור פנימי עמוק.</p>

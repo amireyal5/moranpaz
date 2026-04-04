@@ -68,7 +68,7 @@ export default function PracticePage() {
         </div>
       </section>
 
-      <section className="py-32 md:py-56 px-8 md:px-24">
+      <section className="py-32 md:py-56 px-4 md:px-8 xl:px-24">
         <div className="max-w-7xl mx-auto">
           <div ref={introReveal} className="reveal mb-32 max-w-5xl">
             <span className="boutique-label text-primary mb-10 block">Integrated Care</span>
@@ -77,7 +77,7 @@ export default function PracticePage() {
             </div>
             <div className="space-y-8 boutique-para text-stone-600">
               {pageContent?.introContent && (
-                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               )}
             </div>
             <div className="mashrabiya-divider max-w-[300px]"></div>

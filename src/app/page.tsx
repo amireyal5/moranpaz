@@ -126,7 +126,12 @@ export default function Home() {
               
               <div className="space-y-8 sm:space-y-12 boutique-para text-stone-600">
                 {pageContent?.introContent ? (
-                  <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                  <div 
+                    className="page-content-container" 
+                    dangerouslySetInnerHTML={{ 
+                      __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') 
+                    }} 
+                  />
                 ) : (
                   <>
                     <p><strong>ברוכים הבאים, אני מורן פז.</strong></p>

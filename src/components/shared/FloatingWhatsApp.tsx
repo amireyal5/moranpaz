@@ -2,7 +2,7 @@
 "use client";
 
 import React from 'react';
-import { WhatsAppIcon } from './WhatsAppIcon';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 export function FloatingWhatsApp() {
@@ -19,11 +19,15 @@ export function FloatingWhatsApp() {
       )}
       aria-label="WhatsApp"
     >
-      <WhatsAppIcon 
-        size={40} 
-        variant="outline" 
-        className="group-hover:rotate-12 transition-transform text-slate-400" 
-      />
+      <div className="relative group-hover:rotate-12 transition-transform duration-300 pointer-events-auto">
+        <Image
+          src="/whatsapp.png"
+          alt="WhatsApp"
+          width={45}
+          height={45}
+          className="object-contain"
+        />
+      </div>
       <span className="absolute left-full ml-4 bg-white/90 backdrop-blur-sm text-accent px-4 py-2 rounded-sm text-[10px] font-bold tracking-widest whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity shadow-xl pointer-events-none hidden sm:block border border-primary/10">
         דברו איתי בוואטסאפ
       </span>

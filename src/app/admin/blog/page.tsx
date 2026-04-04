@@ -67,7 +67,8 @@ export default function BlogManagementPage() {
 
     setIsSaving(true);
     const sanitizedSlug = newPost.slug.toLowerCase().trim().replace(/[^a-z0-9-]/g, '-');
-    const postData = { ...newPost, slug: sanitizedSlug, updatedAt: Date.now() };
+    const postData = { ...newPost, slug: sanitizedSlug, updatedAt: Date.now() }
+    if(postData.content) postData.content = postData.content.replace(/&nbsp;|\u00A0/g, ' ');;
 
     if (editingId) {
       updateDoc(doc(db, 'blogPosts', editingId), postData)

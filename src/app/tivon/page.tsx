@@ -108,7 +108,7 @@ export default function TivonPage() {
                <h2 className="text-5xl md:text-7xl font-handwriting text-accent mb-12 font-light">{pageContent?.introTitle || "טיפול רגשי קרוב לבית"}</h2>
                <div className="space-y-8 boutique-para mb-12">
                   {pageContent?.introContent ? (
-                    <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                    <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
                   ) : (
                     <p>המרחב שבו מתקיים הטיפול הוא בעל משמעות אדירה. כשאנחנו יוצאים מהמרוץ ונכנסים אל תוך הירוק של טבעון, המערכת העצבית שלנו מתחילה להירגע.</p>
                   )}

@@ -10,7 +10,7 @@ export default function UpdatesPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      <section className="pt-56 pb-32 px-8 md:px-24">
+      <section className="pt-56 pb-32 px-4 md:px-8 xl:px-24">
         <div className="max-w-4xl mx-auto text-right">
           <SectionTitle subtitle="Journal" title="עדכונים והודעות" />
           <div className="space-y-16 mt-12">

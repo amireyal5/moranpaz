@@ -102,7 +102,7 @@ export function Navbar() {
         </NextLink>
         
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-5 xl:gap-10 boutique-label">
+        <div className="hidden xl:flex items-center gap-5 xl:gap-10 boutique-label">
           {navItems.map((item: any) => (
             <NextLink 
               key={item.href} 
@@ -142,7 +142,7 @@ export function Navbar() {
         <button 
           onClick={() => setMobileMenuOpen(true)} 
           className={cn(
-            "lg:hidden p-2 z-[230] relative",
+            "xl:hidden p-2 z-[230] relative",
             mobileMenuOpen && "hidden"
           )}
           aria-label="Menu"

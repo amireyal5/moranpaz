@@ -67,14 +67,14 @@ export default function YouthPage() {
         </div>
       </section>
 
-      <section className="pt-32 pb-32 px-8 md:px-24">
+      <section className="pt-32 pb-32 px-4 md:px-8 xl:px-24">
         <div className="max-w-5xl mx-auto">
           <SectionTitle subtitle="Audience" title={pageContent?.introTitle || "טיפול וליווי לנוער"} />
           
           <div ref={contentReveal} className="reveal space-y-12">
             <div className="boutique-para space-y-8 text-stone-600">
               {pageContent?.introContent ? (
-                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               ) : (
                 <>
                   <p>גיל ההתבגרות הוא תקופה של שינויים מרגשים אך גם מאתגרים מאוד. זהו שלב של חיפוש זהות והתמודדות עם לחצים שונים.</p>

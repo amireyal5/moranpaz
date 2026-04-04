@@ -74,10 +74,10 @@ export default function AboutPage() {
       </section>
 
       {/* Personal Text Section - Updated to 1st Person Female */}
-      <section className="py-32 md:py-56 px-8 md:px-24 bg-white">
+      <section className="py-20 md:py-32 xl:py-56 px-6 md:px-12 xl:px-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 md:gap-32 items-start">
-            <div className="lg:col-span-5">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 xl:gap-24 items-start">
+            <div className="lg:col-span-5 min-w-0">
                <div className="image-zoom-container aspect-[3/4] shadow-2xl rounded-sm overflow-hidden border-8 border-background">
                   {portraitImg?.imageUrl && (
                     <Image 
@@ -90,16 +90,16 @@ export default function AboutPage() {
                </div>
             </div>
 
-            <div ref={introReveal} className="lg:col-span-7 reveal space-y-12">
-               <div className="relative pr-12 border-r-[3px] border-primary/20">
-                  <h3 className="text-3xl md:text-5xl font-headline text-accent italic font-light leading-snug">
+            <div ref={introReveal} className="lg:col-span-7 reveal space-y-8 min-w-0 overflow-hidden">
+               <div className="relative pr-6 md:pr-10 xl:pr-12 border-r-[3px] border-primary/20 overflow-hidden">
+                  <h3 className="text-2xl md:text-4xl xl:text-5xl font-headline text-accent italic font-light leading-snug break-words">
                     {pageContent?.introTitle || "אני מאמינה ששינוי – כל שינוי – מתחיל קודם כל במפגש. מפגש אמיץ וחשוף עם כל אותם חלקים המרכיבים אותנו."}
                   </h3>
                </div>
                
                <div className="space-y-10 boutique-para text-stone-600">
                   {pageContent?.introContent ? (
-                    <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                    <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
                   ) : (
                     <>
                       <p>בתוך המרחב הטיפולי, המטרה שלי היא לעזור לך להדליק את האור. בכל מקום שבו קיימת טיפת חושך, ניתן לשפוך את אור המודעות ולהאיר את עצמנו מחדש.</p>
@@ -130,7 +130,7 @@ export default function AboutPage() {
       </section>
 
       {/* Expertise Cards Section */}
-      <section ref={servicesReveal} className="py-32 md:py-48 px-8 md:px-24 bg-stone-50 border-y border-stone-100 reveal">
+      <section ref={servicesReveal} className="py-32 md:py-48 px-4 md:px-8 xl:px-24 bg-stone-50 border-y border-stone-100 reveal">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="How I Help" title="מרחבי הטיפול והליווי שלי" className="flex flex-col items-center text-center" />
           
@@ -181,7 +181,7 @@ export default function AboutPage() {
       </section>
 
       {/* Philosophy Section */}
-      <section ref={uniquenessReveal} className="py-32 md:py-56 px-8 md:px-24 bg-white reveal">
+      <section ref={uniquenessReveal} className="py-32 md:py-56 px-4 md:px-8 xl:px-24 bg-white reveal">
         <div className="max-w-6xl mx-auto">
           <SectionTitle subtitle="Unique Approach" title="מה מיוחד בגישה שלי?" className="flex flex-col items-center text-center" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-32">

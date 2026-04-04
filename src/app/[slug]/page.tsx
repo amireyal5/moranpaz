@@ -96,7 +96,7 @@ export default function DynamicPage() {
         </div>
       </section>
 
-      <section className="pt-32 pb-32 px-8 md:px-24 bg-white">
+      <section className="pt-32 pb-32 px-4 md:px-8 xl:px-24 bg-white">
         <div className="max-w-5xl mx-auto">
           {pageContent?.introTitle && (
             <SectionTitle subtitle="Information" title={pageContent.introTitle} />
@@ -105,7 +105,7 @@ export default function DynamicPage() {
           <div ref={contentReveal} className="reveal space-y-12">
             <div className="boutique-para space-y-8 text-stone-600">
               {pageContent?.introContent ? (
-                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               ) : (
                 <p className="text-center italic opacity-30">אין תוכן להצגה בעמוד זה.</p>
               )}

@@ -606,7 +606,7 @@ export default function PageManagement() {
                           content.sectionBg === 'stone-100' ? 'bg-stone-100' :
                           content.sectionBg === 'primary' ? 'bg-primary/10' : 'bg-white border border-stone-100'
                         }`}
-                        dangerouslySetInnerHTML={{ __html: content.introContent }}
+                        dangerouslySetInnerHTML={{ __html: content.introContent.replace(/&nbsp;|\u00A0/g, ' ') }}
                       />
                     </div>
                   )}

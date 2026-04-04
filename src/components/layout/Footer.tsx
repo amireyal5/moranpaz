@@ -21,7 +21,7 @@ export function Footer() {
       <div className="absolute inset-0 mashrabiya-divider opacity-[0.05] pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-24 mb-24 text-right">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-24 mb-24 text-right">
           
           {/* Brand Section */}
           <div className="lg:col-span-4">

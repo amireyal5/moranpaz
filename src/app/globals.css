@@ -37,19 +37,23 @@
 }
 
 @layer base {
+  html {
+    overflow-x: hidden;
+  }
   * {
     @apply border-border;
+    min-width: 0; /* Prevent grid/flex children from overflowing their containers */
   }
   body {
     @apply bg-background text-foreground font-body overflow-x-hidden w-full;
     direction: rtl;
     -webkit-font-smoothing: antialiased;
     line-height: 1.6;
-    /* Never auto-hyphenate — always wrap whole words */
+    /* Never auto-hyphenate — always wrap whole words naturally */
     hyphens: none;
     -webkit-hyphens: none;
     word-break: normal;
-    overflow-wrap: normal;
+    overflow-wrap: break-word; /* Last-resort: only break if word is truly unbreakable (e.g. long URLs) */
     word-spacing: normal;
   }
   h1, h2, h3, h4, h5, h6 {
@@ -204,18 +208,17 @@
 }
 
 /* Bulletproof text wrapping: 
-   1. white-space: pre-wrap ensures Quill spaces/newlines are respected but lines STILL WRAP
-   2. overflow-wrap: break-word ensures if a SINGLE massive word exists, it breaks to fit
-   3. word-break: keep-all / normal prevents breaking normal Arabic/Hebrew words mid-character 
+   1. white-space: pre-wrap only on paragraphs to preserve editor spaces/newlines
+   2. Ensure text wrapping is completely natural without forcing breaks inside short words
 */
-.page-content-container p,
-.page-content-container span,
-.page-content-container div,
+.page-content-container p {
+  white-space: pre-wrap;
+  word-wrap: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
 .page-content-container * {
-  white-space: pre-wrap !important; 
-  word-break: normal !important;
-  overflow-wrap: break-word !important; 
-  hyphens: none !important;
   max-width: 100%;
 }
 

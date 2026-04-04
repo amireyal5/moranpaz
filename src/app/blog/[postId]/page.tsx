@@ -127,7 +127,7 @@ export default function BlogPostPage() {
           {/* Main Content Body */}
           <div 
             className="blog-content-container font-headline text-stone-700 w-full"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: post.content.replace(/&nbsp;|\u00A0/g, ' ') }}
           />
           
           <div className="mt-20 md:mt-24 pt-12 md:pt-16 border-t border-stone-100 flex flex-col items-center text-center space-y-6 md:space-y-8">

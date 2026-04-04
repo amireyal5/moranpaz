@@ -68,14 +68,14 @@ export default function AdultsPage() {
         </div>
       </section>
 
-      <section className="pt-32 pb-32 px-8 md:px-24">
+      <section className="pt-32 pb-32 px-4 md:px-8 xl:px-24">
         <div className="max-w-5xl mx-auto">
           <SectionTitle subtitle="Audience" title={pageContent?.introTitle || "טיפול רגשי למבוגרים"} />
           
           <div ref={contentReveal} className="reveal space-y-12">
             <div className="boutique-para space-y-8">
               {pageContent?.introContent ? (
-                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               ) : (
                 <>
                   <p>החיים הבוגרים מזמנים לנו אינסוף אתגרים – בקריירה, בזוגיות, בהורות ובמפגש היומיומי עם עצמנו.</p>

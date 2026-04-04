@@ -93,7 +93,7 @@ export default function OnlineTherapyPage() {
         </div>
       </section>
 
-      <section className="py-32 px-8 md:px-24">
+      <section className="py-32 px-4 md:px-8 xl:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
           <div ref={introReveal} className="lg:col-span-7 reveal">
             <span className="boutique-label block mb-8 text-primary">Global Care</span>
@@ -102,7 +102,7 @@ export default function OnlineTherapyPage() {
             </h2>
             <div className="boutique-para mb-16 space-y-10 leading-relaxed text-xl text-stone-600">
               {pageContent?.introContent ? (
-                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               ) : (
                 <>
                   <p>פסיכותרפיה הוליסטית אונליין מאפשרת לנו להיפגש בתוך מרחב דיגיטלי בטוח ומכיל.</p>
@@ -135,7 +135,7 @@ export default function OnlineTherapyPage() {
         </div>
       </section>
 
-      <section ref={benefitsReveal} className="py-32 md:py-56 bg-stone-50 px-8 md:px-24 reveal">
+      <section ref={benefitsReveal} className="py-32 md:py-56 bg-stone-50 px-4 md:px-8 xl:px-24 reveal">
         <div className="max-w-7xl mx-auto">
           <SectionTitle 
             subtitle="The Advantages" 
