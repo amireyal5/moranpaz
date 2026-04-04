@@ -21,11 +21,12 @@ export default function OnlineTherapyPage() {
   const introReveal = useReveal();
   const benefitsReveal = useReveal();
   const heroImgFallback = PlaceHolderImages.find(img => img.id === 'hero-online');
-  const onlineAtmoImg = PlaceHolderImages.find(img => img.id === 'hero-main');
+  const onlineAtmoImgFallback = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20אשמח%20לפרטים%20על%20טיפול%20אונליין%20לישראלים%20בחו%22ל";
 
   const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
   const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
+  const atmoImgSrc = pageContent?.heroImageUrlDesktop || onlineAtmoImgFallback?.imageUrl;
 
   const benefits = [
     {
@@ -121,9 +122,9 @@ export default function OnlineTherapyPage() {
           
           <div className="lg:col-span-5">
             <div className="image-zoom-container aspect-square shadow-2xl border-t-8 border-r-8 border-primary/10 bg-white p-4 relative overflow-hidden">
-               {onlineAtmoImg?.imageUrl && (
+               {atmoImgSrc && (
                  <Image 
-                   src={onlineAtmoImg.imageUrl} 
+                   src={atmoImgSrc} 
                    alt="Atmosphere of peace" 
                    fill 
                    className="object-cover grayscale opacity-80"
