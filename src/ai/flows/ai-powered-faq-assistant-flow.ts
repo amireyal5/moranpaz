@@ -1,7 +1,7 @@
 'use server';
 /**
  * @fileOverview An AI-powered FAQ assistant flow for Moran Paz's BeinMe practice.
- * This flow now dynamically fetches content from Firestore to ensure responses are always up-to-date.
+ * This flow dynamically fetches all content from Firestore to ensure responses are always in sync with the CMS.
  */
 
 import {ai} from '@/ai/genkit';
@@ -29,13 +29,14 @@ const faqPrompt = ai.definePrompt({
   output: {schema: AIPoweredFaqAssistantOutputSchema},
   prompt: `אתה עוזר וירטואלי למרחב הטיפול "BeinMe — להיות אני בתוכי" של מורן פז. המטרה שלך היא לענות על שאלות משתמשים בצורה תמציתית, חמה ומדויקת.
 
-  המידע הבא נשלף כרגע ממסד הנתונים המעודכן של האתר:
+  המידע הבא נשלף כרגע ממסד הנתונים המעודכן של האתר (הוא משקף בדיוק את מה שמופיע בעמודים השונים):
   {{{dynamicContext}}}
 
   הנחיות לתשובה:
   - ענה אך ורק על סמך המידע שסופק לעיל.
-  - אם המידע לא קיים, הפנה את המשתמש ליצירת קשר עם מורן בטלפון 050-781-7338.
-  - שמור על טון אמפתי ומקצועי.
+  - המידע כולל תכנים מעמוד "אודות", "התהליך", "טיפול אונליין" ומאמרי הבלוג.
+  - אם המידע לא קיים בטקסט שסופק, אל תמציא! הפנה את המשתמש ליצירת קשר עם מורן בטלפון 050-781-7338.
+  - שמור על טון אמפתי, מקצועי ואישי.
 
   שאלת המשתמש: {{{question}}}
 
@@ -52,29 +53,36 @@ const aiPoweredFaqAssistantFlow = ai.defineFlow(
     // 1. Initialize Firebase on the server
     const { firestore } = initializeFirebase();
 
-    // 2. Fetch all site content and blog post summaries to build dynamic context
+    // 2. Deep scan: Fetch all site content and blog posts to build current context
     let dynamicContext = "";
     try {
       const siteContentSnap = await getDocs(collection(firestore, 'siteContent'));
       const blogPostsSnap = await getDocs(collection(firestore, 'blogPosts'));
 
+      // Build a comprehensive context map
       const pagesInfo = siteContentSnap.docs.map(doc => {
         const data = doc.data();
-        return `עמוד: ${data.heroTitle || doc.id}\nתוכן: ${data.introContent || ''}\nשירותים: ${JSON.stringify(data.features || [])}`;
+        return `
+        עמוד: ${data.heroTitle || doc.id}
+        כותרת משנית: ${data.heroSubtitle || ''}
+        תוכן פתיחה: ${data.introContent || ''}
+        שירותים/יתרונות: ${JSON.stringify(data.features || [])}
+        שאלות נפוצות: ${JSON.stringify(data.faqs || [])}
+        `;
       }).join('\n\n');
 
       const blogInfo = blogPostsSnap.docs.map(doc => {
         const data = doc.data();
-        return `מאמר בבלוג: ${data.title}\nתקציר: ${data.summary || ''}`;
+        return `מאמר בבלוג: ${data.title}\nתקציר: ${data.summary || ''}\nקטגוריה: ${data.category || ''}`;
       }).join('\n');
 
-      dynamicContext = `--- מידע מהעמודים ---\n${pagesInfo}\n\n--- מידע מהבלוג ---\n${blogInfo}`;
+      dynamicContext = `--- מידע מעודכן מהאתר ---\n${pagesInfo}\n\n--- מידע מהבלוג ---\n${blogInfo}`;
     } catch (e) {
-      console.error("Error fetching dynamic context for AI:", e);
-      dynamicContext = "מידע כללי: מורן פז היא פסיכותרפיסטית הוליסטית המנהלת את מרחב BeinMe בטבעון ובאונליין.";
+      console.error("Error performing dynamic context scan:", e);
+      dynamicContext = "מורן פז היא פסיכותרפיסטית הוליסטית המנהלת את מרחב BeinMe. היא מטפלת בנשים ונוער בטבעון ובאונליין.";
     }
 
-    // 3. Run the prompt with the dynamic context
+    // 3. Run the prompt with the real-time context
     const {output} = await faqPrompt({
       ...input,
       dynamicContext
