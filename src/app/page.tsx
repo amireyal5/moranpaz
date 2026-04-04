@@ -53,25 +53,29 @@ export default function Home() {
       <section className="relative h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden bg-stone-900">
         <div className="absolute inset-0 z-0">
           {/* Desktop Hero */}
-          <div className="hidden md:block absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlDesktop || heroDesktopFallback?.imageUrl || ""} 
-              alt="BeinMe - Moran Paz" 
-              fill
-              className="object-cover opacity-60 brightness-[0.75]"
-              priority
-            />
-          </div>
+          {(pageContent?.heroImageUrlDesktop || heroDesktopFallback?.imageUrl) && (
+            <div className="hidden md:block absolute inset-0">
+              <Image 
+                src={pageContent?.heroImageUrlDesktop || heroDesktopFallback?.imageUrl || ""} 
+                alt="BeinMe - Moran Paz" 
+                fill
+                className="object-cover opacity-60 brightness-[0.75]"
+                priority
+              />
+            </div>
+          )}
           {/* Mobile Hero */}
-          <div className="md:hidden absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlMobile || heroMobileFallback?.imageUrl || ""} 
-              alt="BeinMe - Moran Paz" 
-              fill
-              className="object-cover opacity-60 brightness-[0.75]"
-              priority
-            />
-          </div>
+          {(pageContent?.heroImageUrlMobile || heroMobileFallback?.imageUrl) && (
+            <div className="md:hidden absolute inset-0">
+              <Image 
+                src={pageContent?.heroImageUrlMobile || heroMobileFallback?.imageUrl || ""} 
+                alt="BeinMe - Moran Paz" 
+                fill
+                className="object-cover opacity-60 brightness-[0.75]"
+                priority
+              />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-background/20"></div>
         </div>
         
@@ -83,7 +87,7 @@ export default function Home() {
            </h1>
            
            <h2 className="text-base md:text-2xl lg:text-3xl font-headline italic mb-10 sm:mb-12 text-white/95 font-light max-w-3xl leading-relaxed hero-para-shadow stagger-3">
-             {pageContent?.heroSubtitle || "מסע של מודעות, קבלה וחיבור לסמכות הפנימית דרך עבודה משולבת של גוף, נפש ורוח"}
+             {pageContent?.heroSubtitle || "ברוכים הבאים למרחב של BeinMe. אני מזמינה אתכם למסע של מודעות, קבלה וחיבור לסמכות הפנימית דרך עבודה משולבת של גוף, נפש ורוח"}
            </h2>
            
            <div className="pt-2 sm:pt-4 stagger-4">
@@ -105,7 +109,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 xl:gap-32 items-center">
             <div className="lg:col-span-5 order-2 lg:order-1">
               <div className="image-zoom-container aspect-[3/4] shadow-2xl border-4 sm:border-8 border-background overflow-hidden relative max-w-md mx-auto lg:max-w-none">
-                {portraitImg && (
+                {portraitImg?.imageUrl && (
                   <Image src={portraitImg.imageUrl} alt="מורן פז" fill className="object-cover" />
                 )}
               </div>
@@ -125,15 +129,16 @@ export default function Home() {
                   <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
                 ) : (
                   <>
-                    <p>אנחנו מאמינים ששינוי מתחיל במפגש וקבלה של חלקי העצמי. הרגשות הם המצפן שלנו ולכל אחד מאיתנו יש את מפת הדרכים הפנימית שלו לחייו.</p>
-                    <p>המטרה שלנו היא לעזור לכם לגלות את עצמכם, לקבל את הסיפור שאתם מספרים לעצמכם, ולהתחבר לסמכות הפנימית שבכם.</p>
+                    <p><strong>ברוכים הבאים, אני מורן פז.</strong></p>
+                    <p>אני מאמינה ששינוי עמוק מתחיל במפגש כנתי ובקבלה של כל חלקי העצמי שלנו. עבורי, הרגשות הם המצפן המדויק ביותר שיש לנו, ולכל אחד ואחת מאיתנו יש מפת דרכים פנימית הייחודית רק לו.</p>
+                    <p>המטרה שלי היא ללוות אתכם במסע הגילוי הזה – לעזור לכם לקבל את הסיפור שאתם מספרים לעצמכם, ולמצוא את הדרך להתחבר מחדש לסמכות הפנימית, לשקט ולאור שבתוככם.</p>
                   </>
                 )}
               </div>
               
               <div className="pt-6">
                 <Link href="/about" className="inline-flex items-center gap-6 boutique-label text-primary/70 border-b border-primary/20 hover:border-primary transition-all pb-3 font-bold text-sm sm:text-lg">
-                  עלינו ועל הגישה הטיפולית
+                  הכירו אותי ואת הגישה שלי
                 </Link>
               </div>
             </div>
@@ -172,7 +177,7 @@ export default function Home() {
       <section id="contact" className="py-24 md:py-48 px-6 bg-white border-t border-stone-100">
         <div className="max-w-4xl mx-auto text-center">
           <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
-          <p className="boutique-para mb-12 sm:mb-20 font-medium !text-xl">אנחנו כאן בשבילכם לתיאום שיחת היכרות ללא עלות.</p>
+          <p className="boutique-para mb-12 sm:mb-20 font-medium !text-xl">אני כאן עבורכם לתיאום שיחת היכרות ללא עלות.</p>
           <ContactForm />
         </div>
       </section>
