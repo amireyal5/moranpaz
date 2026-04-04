@@ -20,8 +20,9 @@ export default function OnlineTherapyPage() {
 
   const introReveal = useReveal();
   const benefitsReveal = useReveal();
+  
   const heroImgFallback = PlaceHolderImages.find(img => img.id === 'hero-online');
-  const onlineAtmoImgFallback = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
+  const onlineAtmoImgFallback = PlaceHolderImages.find(img => img.id === 'online-therapy-atmo');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20אשמח%20לפרטים%20על%20טיפול%20אונליין%20לישראלים%20בחו%22ל";
 
   const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
@@ -55,14 +56,14 @@ export default function OnlineTherapyPage() {
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
       
-      {/* Dynamic Hero */}
+      {/* Hero Section */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
           {heroDesktopSrc && (
             <div className="hidden md:block absolute inset-0">
               <Image 
                 src={heroDesktopSrc} 
-                alt="Online Therapy" 
+                alt="Online Therapy Hero" 
                 fill 
                 className="object-cover opacity-60 brightness-[0.7]"
                 priority
@@ -73,7 +74,7 @@ export default function OnlineTherapyPage() {
             <div className="md:hidden absolute inset-0">
               <Image 
                 src={heroMobileSrc} 
-                alt="Online Therapy" 
+                alt="Online Therapy Hero Mobile" 
                 fill 
                 className="object-cover opacity-60 brightness-[0.7]"
                 priority
@@ -84,7 +85,7 @@ export default function OnlineTherapyPage() {
         </div>
         <div className="relative z-10 text-center">
            <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">Global Connection</span>
-           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
+           <h1 className="text-6xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow leading-none">
              {pageContent?.heroTitle || "בית פנימי מכל מקום"}
            </h1>
            <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
@@ -125,9 +126,9 @@ export default function OnlineTherapyPage() {
                {atmoImgSrc && (
                  <Image 
                    src={atmoImgSrc} 
-                   alt="Atmosphere of peace" 
+                   alt="Atmosphere of peace and connection" 
                    fill 
-                   className="object-cover grayscale opacity-80"
+                   className="object-cover opacity-80"
                  />
                )}
             </div>

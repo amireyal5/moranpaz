@@ -63,9 +63,9 @@
     },
     {
       "id": "hero-online",
-      "description": "Serene connection via laptop with soft lighting and a plant",
+      "description": "Serene connected laptop with soft morning light",
       "imageUrl": "https://images.unsplash.com/photo-1516302752625-fbb3ad59c34f?q=80&w=1920&auto=format&fit=crop",
-      "imageHint": "serene connection"
+      "imageHint": "serene laptop"
     },
     {
       "id": "hero-tivon",
@@ -82,8 +82,14 @@
     {
       "id": "clinic-tivon",
       "description": "Softly lit therapeutic space with plants",
-      "imageUrl": "https://images.unsplash.com/photo-1598256989800-fe5f95da9787?q=80&w=1920&auto=format&fit=crop",
-      "imageHint": "therapeutic room"
+      "imageUrl": "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=1920&auto=format&fit=crop",
+      "imageHint": "calm interior"
+    },
+    {
+      "id": "online-therapy-atmo",
+      "description": "A focused therapist on a digital call in a warm office",
+      "imageUrl": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1920&auto=format&fit=crop",
+      "imageHint": "digital therapy"
     }
   ]
 }
