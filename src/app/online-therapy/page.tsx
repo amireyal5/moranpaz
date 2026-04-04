@@ -22,12 +22,12 @@ export default function OnlineTherapyPage() {
   const benefitsReveal = useReveal();
   
   const heroImgFallback = PlaceHolderImages.find(img => img.id === 'hero-online');
-  const onlineAtmoImgFallback = PlaceHolderImages.find(img => img.id === 'online-therapy-atmo');
+  const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20אשמח%20לפרטים%20על%20טיפול%20אונליין%20לישראלים%20בחו%22ל";
 
   const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
   const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
-  const atmoImgSrc = pageContent?.heroImageUrlDesktop || onlineAtmoImgFallback?.imageUrl;
+  const atmoImgSrc = portraitImg?.imageUrl;
 
   const benefits = [
     {
@@ -122,13 +122,13 @@ export default function OnlineTherapyPage() {
           </div>
           
           <div className="lg:col-span-5">
-            <div className="image-zoom-container aspect-square shadow-2xl border-t-8 border-r-8 border-primary/10 bg-white p-4 relative overflow-hidden">
+            <div className="image-zoom-container aspect-square shadow-2xl border-t-8 border-r-8 border-primary/10 bg-white p-4 relative overflow-hidden rounded-sm">
                {atmoImgSrc && (
                  <Image 
                    src={atmoImgSrc} 
-                   alt="Atmosphere of peace and connection" 
+                   alt="Moran Paz - Therapy atmosphere" 
                    fill 
-                   className="object-cover opacity-80"
+                   className="object-cover"
                  />
                )}
             </div>
