@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import NextLink from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -65,33 +66,52 @@ export function Navbar() {
       )}>
         <NextLink 
           href="/"
-          className="flex flex-col items-start z-[220] group shrink-0"
+          className="flex items-center gap-1.5 z-[220] group shrink-0"
         >
-          <span className={cn(
-            "text-base sm:text-xl lg:text-2xl font-headline tracking-[0.2em] font-light transition-all duration-700",
-            useSolidLook ? "text-foreground" : "text-white drop-shadow-md"
-          )}>
-            {globalSettings?.siteName || "MORAN PAZ"}
-          </span>
-          <span className={cn(
-            "text-xs sm:text-base lg:text-lg font-handwriting tracking-widest transition-all duration-700 mt-0",
-            useSolidLook ? "text-accent" : "text-white drop-shadow-sm"
-          )}>
-            {globalSettings?.siteSubtitle || "BeinMe — להיות אני בתוכי"}
-          </span>
+          {/* Logo Image */}
+          <div className="relative w-12 h-12 sm:w-16 sm:h-16 flex-shrink-0 transition-transform duration-700 group-hover:scale-105">
+            <Image 
+              src="/logo.png"
+              alt="Moran Paz Logo"
+              fill
+              className={cn(
+                "object-contain transition-all duration-700",
+                !useSolidLook && "brightness-0 invert drop-shadow-md"
+              )}
+              priority
+            />
+          </div>
+
+          {/* Text Titles */}
+          <div className="flex flex-col items-center translate-y-0.5">
+            <span className={cn(
+              "text-lg sm:text-2xl lg:text-3xl font-headline tracking-[0.2em] font-medium transition-all duration-700 leading-none text-center",
+              useSolidLook ? "text-foreground" : "text-white drop-shadow-md"
+            )}>
+              {globalSettings?.siteName || "MORAN PAZ"}
+            </span>
+            <span 
+              className={cn(
+                "text-[13px] sm:text-base lg:text-[17px] font-handwriting tracking-widest transition-all duration-700 mt-2 leading-none font-bold text-center",
+                useSolidLook ? "text-accent" : "text-white drop-shadow-sm"
+              )}
+            >
+              {globalSettings?.siteSubtitle || "BeinMe — להיות אני בתוכי"}
+            </span>
+          </div>
         </NextLink>
         
         {/* Desktop Menu */}
-        <div className="hidden lg:flex items-center gap-4 xl:gap-8 boutique-label">
+        <div className="hidden lg:flex items-center gap-5 xl:gap-10 boutique-label">
           {navItems.map((item: any) => (
             <NextLink 
               key={item.href} 
               href={item.href} 
               className={cn(
-                "relative py-1 transition-all duration-700 text-[10px] xl:text-[12px] tracking-[0.1em] font-medium whitespace-nowrap",
+                "relative py-1 transition-all duration-700 text-[12px] lg:text-[14px] xl:text-[16px] tracking-[0.1em] font-bold whitespace-nowrap",
                 useSolidLook 
-                  ? (pathname === item.href ? "text-primary" : "text-foreground/80 hover:text-primary") 
-                  : (pathname === item.href ? "text-white" : "text-white/90 hover:text-white drop-shadow-sm")
+                  ? (pathname === item.href ? "text-primary" : "text-foreground/90 hover:text-primary") 
+                  : (pathname === item.href ? "text-white" : "text-white hover:text-white/90 drop-shadow-md")
               )}
             >
               {item.label}
