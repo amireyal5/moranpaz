@@ -17,8 +17,8 @@ export function FirebaseErrorListener() {
         description: `אין לך הרשאה לבצע את הפעולה: ${error.context.operation} בנתיב ${error.context.path}. וודאי שאת מחוברת כאדמין.`,
       });
       
-      // Also throw to trigger Next.js error overlay in development
-      throw error;
+      // Log to console for debugging without crashing the app
+      console.error('[Firebase]', error.message, error.context);
     };
 
     errorEmitter.on('permission-error', handlePermissionError);

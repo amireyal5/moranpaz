@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
@@ -14,7 +14,7 @@ import { doc } from 'firebase/firestore';
 
 export default function YouthPage() {
   const db = useFirestore();
-  const contentRef = db ? doc(db, 'siteContent', 'youth') : null;
+  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'youth') : null, [db]);
   const { data: pageContent } = useDoc<any>(contentRef);
 
   const contentReveal = useReveal();
@@ -74,7 +74,7 @@ export default function YouthPage() {
           <div ref={contentReveal} className="reveal space-y-12">
             <div className="boutique-para space-y-8 text-stone-600">
               {pageContent?.introContent ? (
-                <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
               ) : (
                 <>
                   <p>גיל ההתבגרות הוא תקופה של שינויים מרגשים אך גם מאתגרים מאוד. זהו שלב של חיפוש זהות והתמודדות עם לחצים שונים.</p>

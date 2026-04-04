@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -15,7 +15,7 @@ import { doc } from 'firebase/firestore';
 
 export default function EmeqIzraelPage() {
   const db = useFirestore();
-  const contentRef = db ? doc(db, 'siteContent', 'emeq-izrael') : null;
+  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'emeq-izrael') : null, [db]);
   const { data: pageContent } = useDoc<any>(contentRef);
 
   const heroEmeqFallback = PlaceHolderImages.find(img => img.id === 'hero-emeq');
@@ -75,7 +75,7 @@ export default function EmeqIzraelPage() {
             <SectionTitle subtitle="Local Therapy" title={pageContent?.introTitle || "קרוב לבית, עמוק בלב"} />
             <div className="boutique-para space-y-8 text-xl leading-relaxed text-stone-600">
               {pageContent?.introContent ? (
-                <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
               ) : (
                 <>
                   <p>תושבות ותושבי עמק יזרעאל והסביבה מחפשים לעיתים קרובות מרחב טיפולי שמאפשר התנתקות מהרעש החיצוני וחיבור פנימי עמוק.</p>

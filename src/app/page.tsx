@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
@@ -18,7 +18,7 @@ import { doc } from 'firebase/firestore';
 
 export default function Home() {
   const db = useFirestore();
-  const contentRef = db ? doc(db, 'siteContent', 'home') : null;
+  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'home') : null, [db]);
   const { data: pageContent } = useDoc<any>(contentRef);
 
   const heroReveal = useReveal();
@@ -126,7 +126,7 @@ export default function Home() {
               
               <div className="space-y-8 sm:space-y-12 boutique-para text-stone-600">
                 {pageContent?.introContent ? (
-                  <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                  <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
                 ) : (
                   <>
                     <p><strong>ברוכים הבאים, אני מורן פז.</strong></p>
@@ -146,26 +146,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Core Pillars Grid with Staggered Reveal */}
+      {/* Core Pillars Grid — dynamic from Firestore */}
       <section ref={uniquenessReveal} className="py-24 md:py-40 xl:py-64 px-6 md:px-12 xl:px-24 bg-stone-50 reveal border-y border-stone-100">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Core Pillars" title="גוף • נפש • רוח" className="flex flex-col items-center text-center" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 mt-20 sm:mt-32">
-            {[
-              { title: "גוף", icon: <Orbit />, desc: "הקשבה לתחושות הפיזיקליות כפתח לעולם הרגשי." },
-              { title: "נפש", icon: <Heart />, desc: "עיבוד רגשות, דפוסים והסיפור שאנחנו מספרים לעצמנו." },
-              { title: "רוח", icon: <Sparkles />, desc: "חיבור למודעות, למשמעות ולאור שבתוכנו." }
-            ].map((point, i) => (
-              <div key={i} className={cn("boutique-card group backdrop-blur-md bg-white/90", `stagger-${i+1}`)}>
-                <div className="text-primary mb-8 group-hover:scale-110 transition-transform duration-1000">
-                  {React.cloneElement(point.icon as React.ReactElement, { size: 64, strokeWidth: 0.1 })}
+            {(pageContent?.features?.length > 0 ? pageContent.features : [
+              { title: "גוף", icon: "Orbit", description: "הקשבה לתחושות הפיזיקליות כפתח לעולם הרגשי." },
+              { title: "נפש", icon: "Heart", description: "עיבוד רגשות, דפוסים והסיפור שאנחנו מספרים לעצמנו." },
+              { title: "רוח", icon: "Sparkles", description: "חיבור למודעות, למשמעות ולאור שבתוכנו." }
+            ]).map((point: any, i: number) => {
+              const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles };
+              const Icon = IconMap[point.icon] || Heart;
+              return (
+                <div key={i} className={cn("boutique-card group backdrop-blur-md bg-white/90", `stagger-${i+1}`)}>
+                  <div className="text-primary mb-8 group-hover:scale-110 transition-transform duration-1000">
+                    <Icon size={64} strokeWidth={0.1} />
+                  </div>
+                  <div className="space-y-6">
+                    <h3 className="text-3xl sm:text-4xl font-headline font-bold text-accent">{point.title}</h3>
+                    <p className="text-lg sm:text-xl font-light text-stone-600 leading-relaxed">{point.description || point.desc}</p>
+                  </div>
                 </div>
-                <div className="space-y-6">
-                  <h3 className="text-3xl sm:text-4xl font-headline font-bold text-accent">{point.title}</h3>
-                  <p className="text-lg sm:text-xl font-light text-stone-600 leading-relaxed">{point.desc}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

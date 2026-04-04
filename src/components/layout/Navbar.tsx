@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import NextLink from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
@@ -11,7 +11,7 @@ import { doc } from 'firebase/firestore';
 
 export function Navbar() {
   const db = useFirestore();
-  const settingsRef = db ? doc(db, 'siteContent', 'global') : null;
+  const settingsRef = useMemo(() => db ? doc(db, 'siteContent', 'global') : null, [db]);
   const { data: globalSettings } = useDoc<any>(settingsRef);
 
   const [isScrolled, setIsScrolled] = useState(false);

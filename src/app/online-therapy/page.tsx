@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -15,7 +15,7 @@ import { doc } from 'firebase/firestore';
 
 export default function OnlineTherapyPage() {
   const db = useFirestore();
-  const contentRef = db ? doc(db, 'siteContent', 'online') : null;
+  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'online') : null, [db]);
   const { data: pageContent } = useDoc<any>(contentRef);
 
   const introReveal = useReveal();
@@ -102,7 +102,7 @@ export default function OnlineTherapyPage() {
             </h2>
             <div className="boutique-para mb-16 space-y-10 leading-relaxed text-xl text-stone-600">
               {pageContent?.introContent ? (
-                <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
               ) : (
                 <>
                   <p>פסיכותרפיה הוליסטית אונליין מאפשרת לנו להיפגש בתוך מרחב דיגיטלי בטוח ומכיל.</p>

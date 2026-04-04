@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
@@ -15,7 +15,7 @@ import { doc } from 'firebase/firestore';
 
 export default function WomenPage() {
   const db = useFirestore();
-  const contentRef = db ? doc(db, 'siteContent', 'women') : null;
+  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'women') : null, [db]);
   const { data: pageContent } = useDoc<any>(contentRef);
 
   const contentReveal = useReveal();
@@ -75,7 +75,7 @@ export default function WomenPage() {
           <div ref={contentReveal} className="reveal space-y-12">
             <div className="boutique-para space-y-8 text-stone-600">
               {pageContent?.introContent ? (
-                <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
               ) : (
                 <>
                   <p>כאישה, את ודאי חווה עומס רגשי ופיזי כבד, כשאת מתמרנת בין שלל תפקידים ומנסה להחזיק הכל.</p>

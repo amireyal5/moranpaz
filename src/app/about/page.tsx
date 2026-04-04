@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
@@ -15,7 +15,7 @@ import { doc } from 'firebase/firestore';
 
 export default function AboutPage() {
   const db = useFirestore();
-  const contentRef = db ? doc(db, 'siteContent', 'about') : null;
+  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'about') : null, [db]);
   const { data: pageContent } = useDoc<any>(contentRef);
 
   const introReveal = useReveal();
@@ -99,7 +99,7 @@ export default function AboutPage() {
                
                <div className="space-y-10 boutique-para text-stone-600">
                   {pageContent?.introContent ? (
-                    <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                    <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
                   ) : (
                     <>
                       <p>בתוך המרחב הטיפולי, המטרה שלי היא לעזור לך להדליק את האור. בכל מקום שבו קיימת טיפת חושך, ניתן לשפוך את אור המודעות ולהאיר את עצמנו מחדש.</p>

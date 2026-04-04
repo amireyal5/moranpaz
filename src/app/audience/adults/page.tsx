@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -15,7 +15,7 @@ import { doc } from 'firebase/firestore';
 
 export default function AdultsPage() {
   const db = useFirestore();
-  const contentRef = db ? doc(db, 'siteContent', 'adults') : null;
+  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'adults') : null, [db]);
   const { data: pageContent } = useDoc<any>(contentRef);
 
   const contentReveal = useReveal();
@@ -75,7 +75,7 @@ export default function AdultsPage() {
           <div ref={contentReveal} className="reveal space-y-12">
             <div className="boutique-para space-y-8">
               {pageContent?.introContent ? (
-                <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
               ) : (
                 <>
                   <p>החיים הבוגרים מזמנים לנו אינסוף אתגרים – בקריירה, בזוגיות, בהורות ובמפגש היומיומי עם עצמנו.</p>

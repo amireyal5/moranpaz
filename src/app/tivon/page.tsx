@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -16,7 +16,7 @@ import { doc } from 'firebase/firestore';
 
 export default function TivonPage() {
   const db = useFirestore();
-  const contentRef = db ? doc(db, 'siteContent', 'tivon') : null;
+  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'tivon') : null, [db]);
   const { data: pageContent } = useDoc<any>(contentRef);
 
   const clinicImgFallback = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
@@ -108,7 +108,7 @@ export default function TivonPage() {
                <h2 className="text-5xl md:text-7xl font-handwriting text-accent mb-12 font-light">{pageContent?.introTitle || "טיפול רגשי קרוב לבית"}</h2>
                <div className="space-y-8 boutique-para mb-12">
                   {pageContent?.introContent ? (
-                    <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
+                    <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent }} />
                   ) : (
                     <p>המרחב שבו מתקיים הטיפול הוא בעל משמעות אדירה. כשאנחנו יוצאים מהמרוץ ונכנסים אל תוך הירוק של טבעון, המערכת העצבית שלנו מתחילה להירגע.</p>
                   )}
