@@ -21,13 +21,12 @@ export default function OnlineTherapyPage() {
   const introReveal = useReveal();
   const benefitsReveal = useReveal();
   
-  const heroImgFallback = PlaceHolderImages.find(img => img.id === 'hero-online');
+  // Using the stable portrait image as the primary fallback for Hero
   const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20אשמח%20לפרטים%20על%20טיפול%20אונליין%20לישראלים%20בחו%22ל";
 
-  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
-  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
-  const atmoImgSrc = portraitImg?.imageUrl;
+  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || portraitImg?.imageUrl;
+  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || portraitImg?.imageUrl;
 
   const benefits = [
     {
@@ -56,7 +55,7 @@ export default function OnlineTherapyPage() {
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
       
-      {/* Hero Section */}
+      {/* Hero Section - Fixed with Therapist Portrait */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
           {heroDesktopSrc && (
@@ -65,7 +64,7 @@ export default function OnlineTherapyPage() {
                 src={heroDesktopSrc} 
                 alt="Online Therapy Hero" 
                 fill 
-                className="object-cover opacity-60 brightness-[0.7]"
+                className="object-cover opacity-70 brightness-[0.8]"
                 priority
               />
             </div>
@@ -76,19 +75,19 @@ export default function OnlineTherapyPage() {
                 src={heroMobileSrc} 
                 alt="Online Therapy Hero Mobile" 
                 fill 
-                className="object-cover opacity-60 brightness-[0.7]"
+                className="object-cover opacity-70 brightness-[0.8]"
                 priority
               />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">Global Connection</span>
+           <span className="boutique-label text-white/90 mb-8 block drop-shadow-md">Global Connection</span>
            <h1 className="text-6xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow leading-none">
              {pageContent?.heroTitle || "בית פנימי מכל מקום"}
            </h1>
-           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
+           <p className="text-2xl md:text-4xl font-headline italic text-white/95 leading-relaxed font-light hero-para-shadow">
              {pageContent?.heroSubtitle || "טיפול רגשי אונליין לישראלים בארץ ובעולם"}
            </p>
         </div>
@@ -123,10 +122,10 @@ export default function OnlineTherapyPage() {
           
           <div className="lg:col-span-5">
             <div className="image-zoom-container aspect-square shadow-2xl border-t-8 border-r-8 border-primary/10 bg-white p-4 relative overflow-hidden rounded-sm">
-               {atmoImgSrc && (
+               {portraitImg?.imageUrl && (
                  <Image 
-                   src={atmoImgSrc} 
-                   alt="Moran Paz - Therapy atmosphere" 
+                   src={portraitImg.imageUrl} 
+                   alt="מורן פז - BeinMe" 
                    fill 
                    className="object-cover"
                  />
