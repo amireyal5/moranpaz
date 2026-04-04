@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { FloatingWhatsApp } from '@/components/shared/FloatingWhatsApp';
+import { FaqAssistant } from '@/components/shared/FaqAssistant';
 import { FirebaseClientProvider } from '@/firebase';
 import { Toaster } from '@/components/ui/toaster';
 
@@ -61,6 +62,7 @@ export default function RootLayout({
         <FirebaseClientProvider>
           {children}
           <FloatingWhatsApp />
+          <FaqAssistant />
           <Toaster />
         </FirebaseClientProvider>
       </body>
