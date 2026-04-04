@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useMemo } from 'react';
@@ -55,6 +56,36 @@ const PRESET_COLORS = [
   { name: 'Deep Forest', value: '155 25% 25%' }
 ];
 
+// Content Fallbacks to ensure the editor is never empty
+const PAGE_FALLBACKS: Record<string, any> = {
+  home: {
+    heroTitle: "להאיר את עצמכם",
+    heroSubtitle: "ברוכים הבאים למרחב של BeinMe. אני מזמינה אתכם למסע של מודעות, קבלה וחיבור לסמכות הפנימית דרך עבודה משולבת של גוף, נפש ורוח",
+    introTitle: "בכל טיפת חושך אפשר לשפוך אור של מודעות",
+    introContent: "<p><strong>ברוכים הבאים, אני מורן פז.</strong></p><p>אני מאמינה ששינוי עמוק מתחיל במפגש כנה ובקבלה של כל חלקי העצמי שלנו. עבורי, הרגשות הם המצפן המדויק ביותר שיש לנו, ולכל אחד ואחת מאיתנו יש מפת דרכים פנימית הייחודית רק לו.</p><p>המטרה שלי היא ללוות אתכם במסע הגילוי הזה – לעזור לכם לקבל את הסיפור שאתם מספרים לעצמכם, ולמצוא את הדרך להתחבר מחדש לסמכות הפנימית, לשקט ולאור שבתוככם.</p>",
+    primaryColor: '35 40% 45%',
+    features: [
+      { title: "גוף", icon: "Orbit", description: "הקשבה לתחושות הפיזיקליות כפתח לעולם הרגשי." },
+      { title: "נפש", icon: "Heart", description: "עיבוד רגשות, דפוסים והסיפור שאנחנו מספרים לעצמנו." },
+      { title: "רוח", icon: "Sparkles", description: "חיבור למודעות, למשמעות ולאור שבתוכנו." }
+    ]
+  },
+  about: {
+    heroTitle: "הלב מאחורי הקליניקה",
+    heroSubtitle: "להדליק את האור בתוך המרחב הטיפול",
+    introTitle: "אני מאמינה ששינוי – כל שינוי – מתחיל קודם כל במפגש. מפגש אמיץ וחשוף עם כל אותם חלקים המרכיבים אותנו.",
+    introContent: "<p>בתוך המרחב הטיפולי, המטרה שלי היא לעזור לך להדליק את האור. בכל מקום שבו קיימת טיפת חושך, ניתן לשפוך את אור המודעות ולהאיר את עצמנו מחדש.</p><p>הרגשות שלנו הם המצפן. לכל אחד מאיתנו יש מפת דרכים פנימית ייחודית לחייו, ולעיתים כל מה שנדרש הוא מישהי שתחזיק את הפנס בזמן שאת מגלה אותה מחדש.</p>",
+    primaryColor: '35 40% 45%'
+  },
+  online: {
+    heroTitle: "בית פנימי מכל מקום",
+    heroSubtitle: "טיפול רגשי אונליין לישראלים בארץ ובעולם",
+    introTitle: "טיפול בעברית לישראלים בחו\"ל",
+    introContent: "<p>פסיכותרפיה הוליסטית אונליין מאפשרת לנו להיפגש בתוך מרחב דיגיטלי בטוח ומכיל.</p><p>אני מלווה ישראלים ורילוקיישניסטים ברחבי העולם בתהליכי עומק רגשיים של 60 דקות.</p>",
+    primaryColor: '35 40% 45%'
+  }
+};
+
 export default function PageManagement() {
   const { user, loading: authLoading } = useUser();
   const db = useFirestore();
@@ -104,33 +135,48 @@ export default function PageManagement() {
     try {
       const pageRef = doc(db, 'siteContent', id);
       const docSnap = await getDoc(pageRef);
+      
+      const fallback = PAGE_FALLBACKS[id] || {};
+
       if (docSnap.exists()) {
         const data = docSnap.data();
         setContent({
-          heroTitle: data.heroTitle || '',
-          heroSubtitle: data.heroSubtitle || '',
-          introTitle: data.introTitle || '',
-          introContent: data.introContent || '',
+          heroTitle: data.heroTitle || fallback.heroTitle || '',
+          heroSubtitle: data.heroSubtitle || fallback.heroSubtitle || '',
+          introTitle: data.introTitle || fallback.introTitle || '',
+          introContent: data.introContent || fallback.introContent || '',
           heroImageUrlDesktop: data.heroImageUrlDesktop || '',
           heroImageUrlMobile: data.heroImageUrlMobile || '',
-          primaryColor: data.primaryColor || '35 40% 45%',
+          primaryColor: data.primaryColor || fallback.primaryColor || '35 40% 45%',
           metaTitle: data.metaTitle || '',
           metaDescription: data.metaDescription || '',
           siteName: data.siteName || '',
           siteSubtitle: data.siteSubtitle || '',
           navItems: data.navItems || [],
           ctaButtons: data.ctaButtons || [],
-          features: data.features || [],
+          features: data.features || fallback.features || [],
           testimonials: data.testimonials || [],
           faqs: data.faqs || []
         });
       } else {
+        // Use the hardcoded code values if DB is empty
         setContent({ 
-          heroTitle: '', heroSubtitle: '', introTitle: '', introContent: '',
-          heroImageUrlDesktop: '', heroImageUrlMobile: '',
-          primaryColor: '35 40% 45%', metaTitle: '', metaDescription: '',
-          siteName: '', siteSubtitle: '', navItems: [], ctaButtons: [],
-          features: [], testimonials: [], faqs: []
+          heroTitle: fallback.heroTitle || '', 
+          heroSubtitle: fallback.heroSubtitle || '', 
+          introTitle: fallback.introTitle || '', 
+          introContent: fallback.introContent || '',
+          heroImageUrlDesktop: '', 
+          heroImageUrlMobile: '',
+          primaryColor: fallback.primaryColor || '35 40% 45%', 
+          metaTitle: '', 
+          metaDescription: '',
+          siteName: id === 'global' ? 'MORAN PAZ' : '', 
+          siteSubtitle: id === 'global' ? 'BeinMe — להיות אני בתוכי' : '', 
+          navItems: [], 
+          ctaButtons: [],
+          features: fallback.features || [], 
+          testimonials: [], 
+          faqs: []
         });
       }
     } catch (e) {
