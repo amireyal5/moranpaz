@@ -1,3 +1,4 @@
+import { SITE_URL } from '@/lib/site-config';
 
 import type { Metadata } from 'next';
 import './globals.css';
@@ -6,6 +7,7 @@ import { FirebaseClientProvider } from '@/firebase';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'BeinMe - מורן פז | פסיכותרפיה הוליסטית בטבעון ובעמק יזרעאל',
     template: '%s | BeinMe - מורן פז'
@@ -30,6 +32,9 @@ export const metadata: Metadata = {
   authors: [{ name: 'מורן פז' }],
   creator: 'מורן פז',
   publisher: 'מורן פז',
+  alternates: {
+    canonical: SITE_URL,
+  },
   formatDetection: {
     email: false,
     address: false,
@@ -38,11 +43,41 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'BeinMe - מורן פז | להיות אני בתוכי',
     description: 'מרחב בטוח לצמיחה וריפוי רגשי בטבעון, בעמק יזרעאל ובאונליין.',
-    url: 'https://moranpaz.com',
+    url: SITE_URL,
     siteName: 'BeinMe - מורן פז',
     locale: 'he_IL',
     type: 'website',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'BeinMe - מורן פז | פסיכותרפיה הוליסטית',
+      },
+    ],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BeinMe - מורן פז | להיות אני בתוכי',
+    description: 'מרחב בטוח לצמיחה וריפוי רגשי בטבעון, בעמק יזרעאל ובאונליין.',
+    images: ['/opengraph-image'],
+  },
+  icons: {
+    icon: [
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png' },
+    ],
+    other: [
+      {
+        rel: 'icon',
+        url: '/favicon.ico',
+      },
+    ],
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
