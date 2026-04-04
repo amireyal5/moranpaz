@@ -10,8 +10,8 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ArrowLeft, Loader2 } from 'lucide-react';
-import { useFirestore, useCollection } from '@/firebase';
-import { query, collection, orderBy } from 'firebase/firestore';
+import { useFirestore, useCollection, useDoc } from '@/firebase';
+import { query, collection, orderBy, doc } from 'firebase/firestore';
 
 export default function BlogPage() {
   const heroDesktop = PlaceHolderImages.find(img => img.id === 'hero-blog-desktop');
@@ -20,8 +20,11 @@ export default function BlogPage() {
   const revealRef = useReveal();
   const introReveal = useReveal();
   const db = useFirestore();
+  
+  const pageRef = React.useMemo(() => db ? doc(db, 'siteContent', 'blog') : null, [db]);
+  const { data: pageContent, loading: pageLoading } = useDoc<any>(pageRef);
 
-  const postsQuery = db ? query(collection(db, 'blogPosts'), orderBy('createdAt', 'desc')) : null;
+  const postsQuery = React.useMemo(() => db ? query(collection(db, 'blogPosts'), orderBy('createdAt', 'desc')) : null, [db]);
   const { data: posts, loading } = useCollection(postsQuery);
 
   const formatDisplayDate = (dateStr: string) => {
@@ -40,27 +43,27 @@ export default function BlogPage() {
       {/* Hero Section */}
       <section className="relative h-[60vh] md:h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {heroDesktop && (
+          {(pageContent?.heroImageUrlDesktop || heroDesktop) && (
             <div className="hidden md:block absolute inset-0">
-              <Image 
-                src={heroDesktop.imageUrl} 
-                alt="Points of Light" 
-                fill 
+              <Image
+                src={pageContent?.heroImageUrlDesktop || heroDesktop!.imageUrl}
+                alt="Points of Light"
+                fill
                 className="object-cover opacity-60"
                 priority
-                data-ai-hint={heroDesktop.imageHint}
+                data-ai-hint={heroDesktop?.imageHint}
               />
             </div>
           )}
-          {heroMobile && (
+          {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroMobile) && (
             <div className="md:hidden absolute inset-0">
-              <Image 
-                src={heroMobile.imageUrl} 
-                alt="Points of Light Mobile" 
-                fill 
+              <Image
+                src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroMobile!.imageUrl}
+                alt="Points of Light Mobile"
+                fill
                 className="object-cover opacity-60"
                 priority
-                data-ai-hint={heroMobile.imageHint}
+                data-ai-hint={heroMobile?.imageHint}
               />
             </div>
           )}
@@ -68,8 +71,12 @@ export default function BlogPage() {
         </div>
         <div className="relative z-10 text-center">
            <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">The Wisdom</span>
-           <h1 className="text-5xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">נקודות של אור</h1>
-           <p className="text-xl md:text-3xl xl:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">ידע, תובנות והשראה למסע הפנימי</p>
+           <h1 className="text-5xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
+             {pageContent?.heroTitle || "נקודות של אור"}
+           </h1>
+           <p className="text-xl md:text-3xl xl:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
+             {pageContent?.heroSubtitle || "ידע, תובנות והשראה למסע הפנימי"}
+           </p>
         </div>
       </section>
 
@@ -86,10 +93,16 @@ export default function BlogPage() {
               />
             )}
           </div>
-          <div className="space-y-6 flex-1">
-            <h2 className="text-3xl md:text-5xl font-handwriting text-accent font-bold">ברוכים הבאים ל&quot;נקודות של אור&quot;</h2>
-            <div className="boutique-para !text-lg md:!text-xl !mr-0 !max-w-none italic text-stone-600 leading-relaxed">
-              &quot;אני מאמינה שהמסע אל עצמנו רצוף ברגעים של גילוי, לחישות של הלב ותובנות שמבקשות לצאת לאור. המרחב הזה נועד להיות בית למחשבות, השראה וידע המשלבים גוף, נפש ורוח – כלים שנועדו להאיר את הדרך חזרה אל המהות האמיתית שלנו. אני מזמינה אתכם לקרוא, לנשום ולמצוא כאן נקודה של אור עבור המסע האישי שלכם.&quot;
+          <div className="space-y-6 flex-1 min-w-0">
+            <h2 className="text-3xl md:text-5xl font-handwriting text-accent font-bold break-words">
+              {pageContent?.introTitle || 'ברוכים הבאים ל"נקודות של אור"'}
+            </h2>
+            <div className="boutique-para !text-lg md:!text-xl !mr-0 !max-w-none italic text-stone-600 leading-relaxed font-headline font-light">
+              {pageContent?.introContent ? (
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
+              ) : (
+                <p>&quot;אני מאמינה שהמסע אל עצמנו רצוף ברגעים של גילוי, לחישות של הלב ותובנות שמבקשות לצאת לאור. המרחב הזה נועד להיות בית למחשבות, השראה וידע המשלבים גוף, נפש ורוח – כלים שנועדו להאיר את הדרך חזרה אל המהות האמיתית שלנו. אני מזמינה אתכם לקרוא, לנשום ולמצוא כאן נקודה של אור עבור המסע האישי שלכם.&quot;</p>
+              )}
             </div>
             <span className="boutique-label text-primary block mt-4">— מורן פז</span>
           </div>

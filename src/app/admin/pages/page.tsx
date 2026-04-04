@@ -58,7 +58,8 @@ const DEFAULT_PAGES = [
   { id: 'emeq-izrael', name: 'עמק יזרעאל' },
   { id: 'women', name: 'טיפול בנשים' },
   { id: 'youth', name: 'טיפול בנוער' },
-  { id: 'adults', name: 'טיפול במבוגרים' }
+  { id: 'adults', name: 'טיפול במבוגרים' },
+  { id: 'blog', name: 'ראשי - בלוג' }
 ];
 
 const ICON_OPTIONS = [
@@ -196,6 +197,15 @@ const PAGE_FALLBACKS: Record<string, any> = {
     introContent: "<p>ליווי רגשי מקצועי לתושבי עמק יזרעאל והסביבה. נפגשים בקליניקה או אונליין — כמה שנוח לך.</p>",
     primaryColor: '35 40% 45%',
     heroHeight: '70vh',
+    heroTextAlign: 'center',
+  },
+  blog: {
+    heroTitle: "נקודות של אור",
+    heroSubtitle: "ידע, תובנות והשראה למסע הפנימי",
+    introTitle: "ברוכים הבאים ל״נקודות של אור״",
+    introContent: "<p>&quot;אני מאמינה שהמסע אל עצמנו רצוף ברגעים של גילוי, לחישות של הלב ותובנות שמבקשות לצאת לאור. המרחב הזה נועד להיות בית למחשבות, השראה וידע המשלבים גוף, נפש ורוח – כלים שנועדו להאיר את הדרך חזרה אל המהות האמיתית שלנו. אני מזמינה אתכם לקרוא, לנשום ולמצוא כאן נקודה של אור עבור המסע האישי שלכם.&quot;</p>",
+    primaryColor: '35 40% 45%',
+    heroHeight: '80vh',
     heroTextAlign: 'center',
   },
   women: {
