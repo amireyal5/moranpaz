@@ -10,22 +10,15 @@ import { FaqSection } from '@/components/shared/FaqSection';
 import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { MapPin, Trees, Coffee, Sun, Wind, ArrowLeft } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
 
 export default function TivonPage() {
   const db = useFirestore();
   const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'tivon') : null, [db]);
-  const { data: pageContent } = useDoc<any>(contentRef);
+  const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
 
-  const clinicImgFallback = PlaceHolderImages.find(img => img.id === 'clinic-tivon');
-  const heroTivonFallback = PlaceHolderImages.find(img => img.id === 'hero-tivon');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אשמח%20לפרטים%20על%20טיפול%20בקליניקה%20בטבעון";
-
-  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroTivonFallback?.imageUrl;
-  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroTivonFallback?.imageUrl;
-  const clinicImgSrc = pageContent?.heroImageUrlDesktop || clinicImgFallback?.imageUrl;
 
   const tivonFaqs = [
     {
@@ -52,23 +45,23 @@ export default function TivonPage() {
       {/* Dynamic Hero */}
       <section className="h-[75vh] relative flex items-center justify-center bg-stone-900 overflow-hidden pt-20">
         <div className="absolute inset-0">
-           {heroDesktopSrc && (
+           {pageContent?.heroImageUrlDesktop && (
              <div className="hidden md:block absolute inset-0">
-               <Image 
-                src={heroDesktopSrc} 
-                alt="טיפול רגשי בטבעון" 
-                fill 
+               <Image
+                src={pageContent.heroImageUrlDesktop}
+                alt="טיפול רגשי בטבעון"
+                fill
                 className="object-cover opacity-60 brightness-[0.7]"
                 priority
                />
              </div>
            )}
-           {heroMobileSrc && (
+           {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop) && (
              <div className="md:hidden absolute inset-0">
-               <Image 
-                src={heroMobileSrc} 
-                alt="טיפול רגשי בטבעון" 
-                fill 
+               <Image
+                src={pageContent.heroImageUrlMobile || pageContent.heroImageUrlDesktop}
+                alt="טיפול רגשי בטבעון"
+                fill
                 className="object-cover opacity-60 brightness-[0.7]"
                 priority
                />
@@ -77,13 +70,23 @@ export default function TivonPage() {
            <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center px-6 max-w-4xl">
-           <span className="boutique-label text-white/80 mb-6 block uppercase">TIVON HOLISTIC THERAPY</span>
-           <h1 className="text-6xl md:text-9xl font-handwriting text-white mb-8 font-light">
-             {pageContent?.heroTitle || "פסיכותרפיה הוליסטית בטבעון"}
-           </h1>
-           <p className="text-2xl md:text-3xl font-headline italic text-white/90 leading-relaxed font-light">
-             {pageContent?.heroSubtitle || "מרחב בטוח לנשימה ושינוי בלב הטבע של קריית טבעון."}
-           </p>
+          {pageLoading ? (
+            <div className="space-y-6 animate-pulse">
+              <div className="h-4 w-48 bg-white/20 rounded mx-auto" />
+              <div className="h-24 w-96 bg-white/20 rounded mx-auto" />
+              <div className="h-8 w-72 bg-white/10 rounded mx-auto" />
+            </div>
+          ) : (
+            <>
+              <span className="boutique-label text-white/80 mb-6 block uppercase">TIVON HOLISTIC THERAPY</span>
+              <h1 className="text-6xl md:text-9xl font-handwriting text-white mb-8 font-light">
+                {pageContent?.heroTitle}
+              </h1>
+              <p className="text-2xl md:text-3xl font-headline italic text-white/90 leading-relaxed font-light">
+                {pageContent?.heroSubtitle}
+              </p>
+            </>
+          )}
         </div>
       </section>
       
@@ -124,11 +127,11 @@ export default function TivonPage() {
             
             <div className="order-1 lg:order-2">
                <div className="image-zoom-container aspect-[4/5] shadow-2xl relative border-8 border-white">
-                  {clinicImgSrc && (
-                    <Image 
-                      src={clinicImgSrc} 
-                      alt="פסיכותרפיה בטבעון" 
-                      fill 
+                  {pageContent?.clinicImageUrl && (
+                    <Image
+                      src={pageContent.clinicImageUrl}
+                      alt="פסיכותרפיה בטבעון"
+                      fill
                       className="object-cover"
                     />
                   )}

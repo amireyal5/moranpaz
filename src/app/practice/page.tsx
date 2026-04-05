@@ -8,7 +8,6 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
 import { Orbit, Heart, Sparkles, Compass } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -16,12 +15,10 @@ import { doc } from 'firebase/firestore';
 export default function PracticePage() {
   const db = useFirestore();
   const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'practice') : null, [db]);
-  const { data: pageContent } = useDoc<any>(contentRef);
+  const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
 
   const introReveal = useReveal();
   const stepsReveal = useReveal();
-  const heroDesktopFallback = PlaceHolderImages.find(img => img.id === 'hero-practice');
-  const heroMobileFallback = PlaceHolderImages.find(img => img.id === 'hero-practice-mobile');
 
   const categories = [
     { title: "תקיעות בחיים", desc: "שחרור חסמים ויצירת תנועה חדשה." },
@@ -37,34 +34,48 @@ export default function PracticePage() {
       {/* Dynamic Hero */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          <div className="hidden md:block absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlDesktop || heroDesktopFallback?.imageUrl || ""} 
-              alt="The Journey" 
-              fill 
-              className="object-cover opacity-50"
-              priority
-            />
-          </div>
-          <div className="md:hidden absolute inset-0">
-            <Image 
-              src={pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroMobileFallback?.imageUrl || ""} 
-              alt="The Journey Mobile" 
-              fill 
-              className="object-cover opacity-60"
-              priority
-            />
-          </div>
+          {pageContent?.heroImageUrlDesktop && (
+            <div className="hidden md:block absolute inset-0">
+              <Image
+                src={pageContent.heroImageUrlDesktop}
+                alt="The Journey"
+                fill
+                className="object-cover opacity-50"
+                priority
+              />
+            </div>
+          )}
+          {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop) && (
+            <div className="md:hidden absolute inset-0">
+              <Image
+                src={pageContent.heroImageUrlMobile || pageContent.heroImageUrlDesktop}
+                alt="The Journey Mobile"
+                fill
+                className="object-cover opacity-60"
+                priority
+              />
+            </div>
+          )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">The Journey</span>
-           <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
-             {pageContent?.heroTitle || "התהליך הטיפולי"}
-           </h1>
-           <p className="text-2xl md:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
-             {pageContent?.heroSubtitle || "מסע משותף של גילוי וריפוי"}
-           </p>
+          {pageLoading ? (
+            <div className="space-y-6 animate-pulse">
+              <div className="h-4 w-24 bg-white/20 rounded mx-auto" />
+              <div className="h-24 w-96 bg-white/20 rounded mx-auto" />
+              <div className="h-8 w-72 bg-white/10 rounded mx-auto" />
+            </div>
+          ) : (
+            <>
+              <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">The Journey</span>
+              <h1 className="text-8xl md:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
+                {pageContent?.heroTitle}
+              </h1>
+              <p className="text-2xl md:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
+                {pageContent?.heroSubtitle}
+              </p>
+            </>
+          )}
         </div>
       </section>
 

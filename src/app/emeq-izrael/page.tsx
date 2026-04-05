@@ -8,7 +8,6 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { MapPin, Sparkles, ArrowLeft } from 'lucide-react';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -16,13 +15,9 @@ import { doc } from 'firebase/firestore';
 export default function EmeqIzraelPage() {
   const db = useFirestore();
   const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'emeq-izrael') : null, [db]);
-  const { data: pageContent } = useDoc<any>(contentRef);
+  const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
 
-  const heroEmeqFallback = PlaceHolderImages.find(img => img.id === 'hero-emeq');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אני%20פונה%20לגבי%20טיפול%20רגשי%20בעמק%20יזרעאל";
-
-  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroEmeqFallback?.imageUrl;
-  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroEmeqFallback?.imageUrl;
 
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
@@ -32,24 +27,24 @@ export default function EmeqIzraelPage() {
       <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
           {/* Desktop Hero */}
-          {heroDesktopSrc && (
+          {pageContent?.heroImageUrlDesktop && (
             <div className="hidden md:block absolute inset-0">
-              <Image 
-                src={heroDesktopSrc} 
-                alt="טיפול רגשי בעמק יזרעאל - מורן פז" 
-                fill 
+              <Image
+                src={pageContent.heroImageUrlDesktop}
+                alt="טיפול רגשי בעמק יזרעאל - מורן פז"
+                fill
                 className="object-cover opacity-60 brightness-[0.7]"
                 priority
               />
             </div>
           )}
           {/* Mobile Hero */}
-          {heroMobileSrc && (
+          {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop) && (
             <div className="md:hidden absolute inset-0">
-              <Image 
-                src={heroMobileSrc} 
-                alt="טיפול רגשי בעמק יזרעאל - מורן פז" 
-                fill 
+              <Image
+                src={pageContent.heroImageUrlMobile || pageContent.heroImageUrlDesktop}
+                alt="טיפול רגשי בעמק יזרעאל - מורן פז"
+                fill
                 className="object-cover opacity-60 brightness-[0.7]"
                 priority
               />
@@ -58,13 +53,23 @@ export default function EmeqIzraelPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center max-w-5xl">
-           <span className="boutique-label text-white/80 mb-6 block uppercase">EMEQ IZRAEL CARE</span>
-           <h1 className="text-6xl md:text-9xl font-handwriting text-white mb-8 font-light">
-             {pageContent?.heroTitle || "טיפול רגשי בעמק יזרעאל"}
-           </h1>
-           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">
-             {pageContent?.heroSubtitle || "מרחב בטוח לצמיחה, ריפוי ומודעות בלב העמק - ליווי רגשי לנשים ונוער."}
-           </p>
+          {pageLoading ? (
+            <div className="space-y-6 animate-pulse">
+              <div className="h-4 w-24 bg-white/20 rounded mx-auto" />
+              <div className="h-24 w-96 bg-white/20 rounded mx-auto" />
+              <div className="h-8 w-72 bg-white/10 rounded mx-auto" />
+            </div>
+          ) : (
+            <>
+              <span className="boutique-label text-white/80 mb-6 block uppercase">EMEQ IZRAEL CARE</span>
+              <h1 className="text-6xl md:text-9xl font-handwriting text-white mb-8 font-light">
+                {pageContent?.heroTitle}
+              </h1>
+              <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">
+                {pageContent?.heroSubtitle}
+              </p>
+            </>
+          )}
         </div>
       </section>
 
@@ -100,11 +105,11 @@ export default function EmeqIzraelPage() {
           </div>
           
           <div className="relative aspect-square shadow-2xl border-r-8 border-primary/10">
-            {heroDesktopSrc && (
-              <Image 
-                src={heroDesktopSrc} 
-                alt="אווירה טיפולית בעמק" 
-                fill 
+            {pageContent?.heroImageUrlDesktop && (
+              <Image
+                src={pageContent.heroImageUrlDesktop}
+                alt="אווירה טיפולית בעמק"
+                fill
                 className="object-cover opacity-80"
               />
             )}

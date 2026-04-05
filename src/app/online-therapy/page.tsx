@@ -7,7 +7,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { PortraitImage } from '@/components/shared/PortraitImage';
 import { Globe, ShieldCheck, Clock, Infinity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFirestore, useDoc } from '@/firebase';
@@ -16,17 +16,12 @@ import { doc } from 'firebase/firestore';
 export default function OnlineTherapyPage() {
   const db = useFirestore();
   const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'online') : null, [db]);
-  const { data: pageContent } = useDoc<any>(contentRef);
+  const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
 
   const introReveal = useReveal();
   const benefitsReveal = useReveal();
   
-  // Using the stable portrait image as the primary fallback for Hero
-  const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20אשמח%20לפרטים%20על%20טיפול%20אונליין%20לישראלים%20בחו%22ל";
-
-  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || portraitImg?.imageUrl;
-  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || portraitImg?.imageUrl;
 
   const benefits = [
     {
@@ -58,23 +53,23 @@ export default function OnlineTherapyPage() {
       {/* Hero Section - Fixed with Therapist Portrait */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {heroDesktopSrc && (
+          {pageContent?.heroImageUrlDesktop && (
             <div className="hidden md:block absolute inset-0">
-              <Image 
-                src={heroDesktopSrc} 
-                alt="Online Therapy Hero" 
-                fill 
+              <Image
+                src={pageContent.heroImageUrlDesktop}
+                alt="Online Therapy Hero"
+                fill
                 className="object-cover opacity-70 brightness-[0.8]"
                 priority
               />
             </div>
           )}
-          {heroMobileSrc && (
+          {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop) && (
             <div className="md:hidden absolute inset-0">
-              <Image 
-                src={heroMobileSrc} 
-                alt="Online Therapy Hero Mobile" 
-                fill 
+              <Image
+                src={pageContent.heroImageUrlMobile || pageContent.heroImageUrlDesktop}
+                alt="Online Therapy Hero Mobile"
+                fill
                 className="object-cover opacity-70 brightness-[0.8]"
                 priority
               />
@@ -83,13 +78,23 @@ export default function OnlineTherapyPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/90 mb-8 block drop-shadow-md">Global Connection</span>
-           <h1 className="text-6xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow leading-none">
-             {pageContent?.heroTitle || "בית פנימי מכל מקום"}
-           </h1>
-           <p className="text-2xl md:text-4xl font-headline italic text-white/95 leading-relaxed font-light hero-para-shadow">
-             {pageContent?.heroSubtitle || "טיפול רגשי אונליין לישראלים בארץ ובעולם"}
-           </p>
+          {pageLoading ? (
+            <div className="space-y-6 animate-pulse">
+              <div className="h-4 w-24 bg-white/20 rounded mx-auto" />
+              <div className="h-24 w-96 bg-white/20 rounded mx-auto" />
+              <div className="h-8 w-72 bg-white/10 rounded mx-auto" />
+            </div>
+          ) : (
+            <>
+              <span className="boutique-label text-white/90 mb-8 block drop-shadow-md">Global Connection</span>
+              <h1 className="text-6xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow leading-none">
+                {pageContent?.heroTitle}
+              </h1>
+              <p className="text-2xl md:text-4xl font-headline italic text-white/95 leading-relaxed font-light hero-para-shadow">
+                {pageContent?.heroSubtitle}
+              </p>
+            </>
+          )}
         </div>
       </section>
 
@@ -120,17 +125,13 @@ export default function OnlineTherapyPage() {
             </a>
           </div>
           
-          <div className="lg:col-span-5">
-            <div className="image-zoom-container aspect-square shadow-2xl border-t-8 border-r-8 border-primary/10 bg-white p-4 relative overflow-hidden rounded-sm">
-               {portraitImg?.imageUrl && (
-                 <Image 
-                   src={portraitImg.imageUrl} 
-                   alt="מורן פז - BeinMe" 
-                   fill 
-                   className="object-cover"
-                 />
-               )}
-            </div>
+          <div className="lg:col-span-5 flex justify-center">
+            <PortraitImage
+              src={pageContent?.portraitImageUrl}
+              loading={pageLoading}
+              shape={pageContent?.portraitShape as any || 'circle'}
+              alt="מורן פז"
+            />
           </div>
         </div>
       </section>

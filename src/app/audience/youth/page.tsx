@@ -8,22 +8,17 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
 import { Heart, CheckCircle2, Quote } from 'lucide-react';
 import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
 
 export default function YouthPage() {
   const db = useFirestore();
   const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'youth') : null, [db]);
-  const { data: pageContent } = useDoc<any>(contentRef);
+  const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
 
   const contentReveal = useReveal();
   const youthInviteReveal = useReveal();
-  const heroImgFallback = PlaceHolderImages.find(img => img.id === 'hero-youth');
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20אני%20פונה%20לגבי%20טיפול%20לנוער";
-
-  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
-  const heroMobileSrc = pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop || heroImgFallback?.imageUrl;
 
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
@@ -32,23 +27,23 @@ export default function YouthPage() {
       {/* Hero Section */}
       <section className="relative h-[70vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {heroDesktopSrc && (
+          {pageContent?.heroImageUrlDesktop && (
             <div className="hidden md:block absolute inset-0">
-              <Image 
-                src={heroDesktopSrc} 
-                alt="Therapy for Youth" 
-                fill 
+              <Image
+                src={pageContent.heroImageUrlDesktop}
+                alt="Therapy for Youth"
+                fill
                 className="object-cover opacity-60 brightness-[0.7]"
                 priority
               />
             </div>
           )}
-          {heroMobileSrc && (
+          {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop) && (
             <div className="md:hidden absolute inset-0">
-              <Image 
-                src={heroMobileSrc} 
-                alt="Therapy for Youth Mobile" 
-                fill 
+              <Image
+                src={pageContent.heroImageUrlMobile || pageContent.heroImageUrlDesktop}
+                alt="Therapy for Youth Mobile"
+                fill
                 className="object-cover opacity-60 brightness-[0.7]"
                 priority
               />
@@ -57,13 +52,23 @@ export default function YouthPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block">Youth Empowerment</span>
-           <h1 className="text-7xl md:text-9xl font-handwriting text-white mb-8 font-bold">
-             {pageContent?.heroTitle || "טיפול רגשי לנוער"}
-           </h1>
-           <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">
-             {pageContent?.heroSubtitle || "מקום בטוח להיות מי שאת/ה"}
-           </p>
+          {pageLoading ? (
+            <div className="space-y-6 animate-pulse">
+              <div className="h-4 w-24 bg-white/20 rounded mx-auto" />
+              <div className="h-24 w-96 bg-white/20 rounded mx-auto" />
+              <div className="h-8 w-72 bg-white/10 rounded mx-auto" />
+            </div>
+          ) : (
+            <>
+              <span className="boutique-label text-white/80 mb-8 block">Youth Empowerment</span>
+              <h1 className="text-7xl md:text-9xl font-handwriting text-white mb-8 font-bold">
+                {pageContent?.heroTitle}
+              </h1>
+              <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light">
+                {pageContent?.heroSubtitle}
+              </p>
+            </>
+          )}
         </div>
       </section>
 

@@ -8,7 +8,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { useReveal } from '@/hooks/use-reveal';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { PortraitImage } from '@/components/shared/PortraitImage';
 import { GraduationCap, Briefcase, Sparkles, Heart, Orbit, Users, Star, ArrowLeft } from 'lucide-react';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -16,18 +16,11 @@ import { doc } from 'firebase/firestore';
 export default function AboutPage() {
   const db = useFirestore();
   const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'about') : null, [db]);
-  const { data: pageContent } = useDoc<any>(contentRef);
+  const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
 
   const introReveal = useReveal();
   const servicesReveal = useReveal();
   const uniquenessReveal = useReveal();
-  
-  const heroDesktopFallback = PlaceHolderImages.find(img => img.id === 'hero-about-desktop');
-  const heroMobileFallback = PlaceHolderImages.find(img => img.id === 'hero-about-mobile');
-  const portraitImg = PlaceHolderImages.find(img => img.id === 'moran-portrait');
-
-  const heroDesktopSrc = pageContent?.heroImageUrlDesktop || heroDesktopFallback?.imageUrl;
-  const heroMobileSrc = pageContent?.heroImageUrlMobile || heroMobileFallback?.imageUrl;
 
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
@@ -37,24 +30,24 @@ export default function AboutPage() {
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
           {/* Desktop Hero */}
-          {heroDesktopSrc && (
+          {pageContent?.heroImageUrlDesktop && (
             <div className="hidden md:block absolute inset-0">
-              <Image 
-                src={heroDesktopSrc} 
-                alt="About Moran Paz" 
-                fill 
+              <Image
+                src={pageContent.heroImageUrlDesktop}
+                alt="About Moran Paz"
+                fill
                 className="object-cover opacity-60"
                 priority
               />
             </div>
           )}
           {/* Mobile Hero */}
-          {heroMobileSrc && (
+          {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop) && (
             <div className="md:hidden absolute inset-0">
-              <Image 
-                src={heroMobileSrc} 
-                alt="About Moran Paz" 
-                fill 
+              <Image
+                src={pageContent.heroImageUrlMobile || pageContent.heroImageUrlDesktop}
+                alt="About Moran Paz"
+                fill
                 className="object-cover opacity-60"
                 priority
               />
@@ -63,13 +56,23 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
-           <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">About Moran Paz</span>
-           <h1 className="text-6xl md:text-8xl xl:text-[110px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
-             {pageContent?.heroTitle || "הלב מאחורי הקליניקה"}
-           </h1>
-           <p className="text-2xl md:text-4xl xl:text-5xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
-             {pageContent?.heroSubtitle || "להדליק את האור בתוך המרחב הטיפול"}
-           </p>
+          {pageLoading ? (
+            <div className="space-y-6 animate-pulse">
+              <div className="h-4 w-32 bg-white/20 rounded mx-auto" />
+              <div className="h-24 w-96 bg-white/20 rounded mx-auto" />
+              <div className="h-8 w-80 bg-white/10 rounded mx-auto" />
+            </div>
+          ) : (
+            <>
+              <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">About Moran Paz</span>
+              <h1 className="text-6xl md:text-8xl xl:text-[110px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
+                {pageContent?.heroTitle}
+              </h1>
+              <p className="text-2xl md:text-4xl xl:text-5xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
+                {pageContent?.heroSubtitle}
+              </p>
+            </>
+          )}
         </div>
       </section>
 
@@ -78,16 +81,12 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 xl:gap-24 items-start">
             <div className="lg:col-span-5 min-w-0">
-               <div className="image-zoom-container aspect-[3/4] shadow-2xl rounded-sm overflow-hidden border-8 border-background">
-                  {portraitImg?.imageUrl && (
-                    <Image 
-                      src={portraitImg.imageUrl} 
-                      alt="מורן פז" 
-                      fill 
-                      className="object-cover"
-                    />
-                  )}
-               </div>
+               <PortraitImage
+                 src={pageContent?.portraitImageUrl}
+                 loading={pageLoading}
+                 shape={pageContent?.portraitShape as any || 'circle'}
+                 alt="מורן פז"
+               />
             </div>
 
             <div ref={introReveal} className="lg:col-span-7 reveal space-y-8 min-w-0 overflow-hidden">

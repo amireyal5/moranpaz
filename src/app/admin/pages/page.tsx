@@ -59,7 +59,13 @@ const DEFAULT_PAGES = [
   { id: 'women', name: 'טיפול בנשים' },
   { id: 'youth', name: 'טיפול בנוער' },
   { id: 'adults', name: 'טיפול במבוגרים' },
-  { id: 'blog', name: 'ראשי - בלוג' }
+  { id: 'blog', name: 'ראשי - בלוג' },
+  { id: 'contact', name: 'צור קשר' },
+  { id: 'privacy', name: 'פרטיות' },
+  { id: 'terms', name: 'תנאי שימוש' },
+  { id: 'accessibility', name: 'נגישות' },
+  { id: 'updates', name: 'עדכונים' },
+  { id: 'workshop', name: 'סדנאות' },
 ];
 
 const ICON_OPTIONS = [
@@ -258,6 +264,7 @@ type ContentState = {
   portraitImageUrl: string;
   portraitShape: string;
   portraitPosition: string;
+  clinicImageUrl: string;
   sectionBg: string;
   primaryColor: string;
   metaTitle: string;
@@ -280,6 +287,7 @@ const EMPTY_CONTENT: ContentState = {
   portraitImageUrl: '',
   portraitShape: 'circle',
   portraitPosition: 'left',
+  clinicImageUrl: '',
   heroHeight: '70vh',
   heroTextAlign: 'center',
   heroBgColor: '',
@@ -395,6 +403,7 @@ export default function PageManagement() {
         portraitImageUrl:     d.portraitImageUrl     || '',
         portraitShape:        d.portraitShape        || 'circle',
         portraitPosition:     d.portraitPosition     || 'left',
+        clinicImageUrl:       d.clinicImageUrl       || '',
         heroHeight:           d.heroHeight           || fb.heroHeight           || '70vh',
         heroTextAlign:        d.heroTextAlign        || fb.heroTextAlign        || 'center',
         heroBgColor:          d.heroBgColor          || '',
@@ -617,6 +626,9 @@ export default function PageManagement() {
                       </Select>
                     </Field>
                   </div>
+                  <Field label="תמונת קליניקה / משנית (URL)">
+                    <Input value={content.clinicImageUrl} onChange={e => set({ clinicImageUrl: e.target.value })} className="font-sans" dir="ltr" placeholder="https://..." />
+                  </Field>
                   {content.portraitImageUrl && (
                     <div className="border-t border-stone-100 pt-5 flex items-center gap-4">
                       <p className="boutique-label text-stone-400 text-[11px]">תצוגה מקדימה</p>
