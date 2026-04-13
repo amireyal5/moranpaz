@@ -15,11 +15,26 @@ import { Globe, ShieldCheck, Clock, Infinity, Heart, Sparkles, Orbit, Compass, U
 import { cn } from '@/lib/utils';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
+import { getInitialPageContent } from '@/config/page-defaults';
+
 
 export default function OnlineTherapyPage() {
   const db = useFirestore();
-  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'online') : null, [db]);
+  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'online-therapy') : null, [db]);
   const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
+
+  const mergedContent = useMemo(() => {
+    const defaults = getInitialPageContent('online-therapy');
+    if (!pageContent) return defaults;
+    return {
+      ...defaults,
+      ...pageContent,
+      features:     Array.isArray(pageContent.features)     ? pageContent.features     : defaults.features,
+      ctaButtons:   Array.isArray(pageContent.ctaButtons)   ? pageContent.ctaButtons   : defaults.ctaButtons,
+      testimonials: Array.isArray(pageContent.testimonials) ? pageContent.testimonials : defaults.testimonials,
+      faqs:         Array.isArray(pageContent.faqs)         ? pageContent.faqs         : defaults.faqs,
+    };
+  }, [pageContent]);
 
   const introReveal = useReveal();
   const benefitsReveal = useReveal();
@@ -56,10 +71,10 @@ export default function OnlineTherapyPage() {
       {/* Hero Section - Fixed with Therapist Portrait */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {pageContent?.heroImageUrlDesktop && (
+          {mergedContent.heroImageUrlDesktop && (
             <div className="hidden md:block absolute inset-0">
               <Image
-                src={pageContent.heroImageUrlDesktop}
+                src={mergedContent.heroImageUrlDesktop}
                 alt="Online Therapy Hero"
                 fill
                 className="object-cover opacity-70 brightness-[0.8]"
@@ -67,10 +82,10 @@ export default function OnlineTherapyPage() {
               />
             </div>
           )}
-          {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop) && (
+          {(mergedContent.heroImageUrlMobile || mergedContent.heroImageUrlDesktop) && (
             <div className="md:hidden absolute inset-0">
               <Image
-                src={pageContent.heroImageUrlMobile || pageContent.heroImageUrlDesktop}
+                src={mergedContent.heroImageUrlMobile || mergedContent.heroImageUrlDesktop}
                 alt="Online Therapy Hero Mobile"
                 fill
                 className="object-cover opacity-70 brightness-[0.8]"
@@ -91,10 +106,10 @@ export default function OnlineTherapyPage() {
             <>
               <span className="boutique-label text-white/90 mb-8 block drop-shadow-md">Global Connection</span>
               <h1 className="text-6xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow leading-none">
-                {pageContent?.heroTitle}
+                {mergedContent.heroTitle}
               </h1>
               <p className="text-2xl md:text-4xl font-headline italic text-white/95 leading-relaxed font-light hero-para-shadow">
-                {pageContent?.heroSubtitle}
+                {mergedContent.heroSubtitle}
               </p>
             </>
           )}
@@ -106,11 +121,11 @@ export default function OnlineTherapyPage() {
           <div ref={introReveal} className="lg:col-span-7 reveal">
             <span className="boutique-label block mb-8 text-primary">Global Care</span>
             <h2 className="text-5xl md:text-7xl font-headline text-accent mb-12 font-bold leading-tight">
-              {pageContent?.introTitle ?? "טיפול בעברית לישראלים בחו\"ל"}
+              {mergedContent.introTitle || "טיפול בעברית לישראלים בחו\"ל"}
             </h2>
             <div className="boutique-para mb-16 space-y-10 leading-relaxed text-xl text-stone-600">
-              {pageContent?.introContent != null ? (
-                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
+              {mergedContent.introContent ? (
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: mergedContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               ) : (
                 <>
                   <p>פסיכותרפיה הוליסטית אונליין מאפשרת לנו להיפגש בתוך מרחב דיגיטלי בטוח ומכיל.</p>
@@ -130,9 +145,9 @@ export default function OnlineTherapyPage() {
           
           <div className="lg:col-span-5 flex justify-center">
             <PortraitImage
-              src={pageContent?.portraitImageUrl}
+              src={mergedContent.portraitImageUrl}
               loading={pageLoading}
-              shape={pageContent?.portraitShape as any || 'circle'}
+              shape={mergedContent.portraitShape as any || 'circle'}
               alt="מורן פז"
             />
           </div>
@@ -140,8 +155,8 @@ export default function OnlineTherapyPage() {
       </section>
 
       {/* Dynamic Features / Benefits */}
-      {pageContent?.features?.length > 0 && (
-        <section ref={benefitsReveal} className="py-32 md:py-56 bg-stone-50 px-4 md:px-8 xl:px-24 reveal">
+      {mergedContent.features.length > 0 && (
+        <section className="py-32 md:py-56 bg-stone-50 px-4 md:px-8 xl:px-24">
           <div className="max-w-7xl mx-auto">
             <SectionTitle 
               subtitle="The Advantages" 
@@ -149,7 +164,7 @@ export default function OnlineTherapyPage() {
               className="flex flex-col items-center text-center"
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-32">
-              {pageContent.features.map((benefit: any, i: number) => {
+              {mergedContent.features.map((benefit: any, i: number) => {
                 const IconMap: Record<string, React.ElementType> = { Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle };
                 const Icon = IconMap[benefit.icon] || Heart;
                 return (
@@ -170,20 +185,22 @@ export default function OnlineTherapyPage() {
       )}
 
       {/* Dynamic CTA Buttons */}
-      {pageContent?.ctaButtons?.length > 0 && (
+      {mergedContent.ctaButtons.length > 0 && (
         <section className="py-16 px-6 bg-white">
           <div className="max-w-5xl mx-auto">
-            <CtaButtons buttons={pageContent.ctaButtons} align={pageContent?.ctaAlign} />
+            <CtaButtons buttons={mergedContent.ctaButtons} align={mergedContent.ctaAlign} />
           </div>
         </section>
       )}
 
       {/* Dynamic Testimonials */}
-      <TestimonialsSection customTestimonials={pageContent?.testimonials} />
+      {mergedContent.testimonials.length > 0 && (
+        <TestimonialsSection customTestimonials={mergedContent.testimonials} />
+      )}
 
       {/* Dynamic FAQs */}
-      {pageContent?.faqs?.length > 0 && (
-        <FaqSection items={pageContent.faqs} />
+      {mergedContent.faqs.length > 0 && (
+        <FaqSection items={mergedContent.faqs} />
       )}
 
       <Footer />

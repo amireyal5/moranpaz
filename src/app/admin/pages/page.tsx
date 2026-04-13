@@ -26,6 +26,13 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-48 w-full bg-stone-50 flex items-center justify-center font-headline text-stone-400">טוען עורך...</div>
 });
 import 'react-quill-new/dist/quill.snow.css';
+import { 
+  ContentState, 
+  PAGE_FALLBACKS, 
+  getInitialPageContent, 
+  DEFAULT_CONTENT_VALUES 
+} from '@/config/page-defaults';
+
 
 // Quill toolbar with RTL + image support
 const QUILL_MODULES = {
@@ -161,159 +168,13 @@ const PAGE_FALLBACKS: Record<string, any> = {
       { question: "כמה זמן אורך תהליך הטיפול?", answer: "זה משתנה מאדם לאדם. בדרך כלל מדובר בתהליך של מספר חודשים עד שנה." }
     ]
   },
-  'online-therapy': {
-    heroTitle: "בית פנימי מכל מקום",
-    heroSubtitle: "טיפול רגשי אונליין לישראלים בארץ ובעולם",
-    introTitle: 'טיפול בעברית לישראלים בחו"ל',
-    introContent: "<p>הטיפול האונליין מאפשר לך לקבל ליווי רגשי מקצועי מכל מקום בעולם, בפרטיות ובנוחות של הבית שלך.</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '70vh',
-    heroTextAlign: 'center',
-    features: [
-      { title: 'לישראלים בחו"ל', icon: "Orbit", description: "טיפול בעברית מכל מקום בעולם, ללא פשרות על איכות." },
-      { title: "60 דקות טיפול", icon: "Star", description: "מפגש מלא ומעמיק דרך זום בזמן שנוח לך." },
-      { title: "מרחב בטוח מהבית", icon: "Heart", description: "הפרטיות והנוחות של הסביבה המוכרת שלך." },
-      { title: "פסיכותרפיה הוליסטית", icon: "Sparkles", description: "אותה גישה עמוקה — גוף, נפש ורוח — גם אונליין." }
-    ]
-  },
-  tivon: {
-    heroTitle: "פסיכותרפיה הוליסטית בטבעון",
-    heroSubtitle: "מרחב בטוח לנשימה ושינוי בלב הטבע של קריית טבעון.",
-    introTitle: "טיפול רגשי קרוב לבית",
-    introContent: "<p>הקליניקה בטבעון ממוקמת בלב הטבע הירוק, מה שמאפשר מרחב של שקט והתנתקות מהרעש החיצוני עוד לפני תחילת המפגש.</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '75vh',
-    heroTextAlign: 'center',
-    features: [
-      { title: "אווירה כפרית ושלווה", icon: "Sparkles", description: "מיקום שקט בלב הירוק של טבעון." },
-      { title: "מרחב בטוח ומכיל", icon: "Heart", description: "עיצוב מינימליסטי המשרה רוגע וביטחון." },
-      { title: "אירוח חם", icon: "Star", description: "פינת ישיבה נעימה ותה צמחים להרגעה." },
-      { title: "אור טבעי", icon: "Orbit", description: "חלונות גדולים הפונים לצמחייה ירוקה." }
-    ],
-    faqs: [
-      { question: "למה כדאי להגיע לטיפול בטבעון?", answer: "הקליניקה בטבעון ממוקמת בלב הטבע הירוק, מה שמאפשר מרחב של שקט והתנתקות מהרעש החיצוני עוד לפני תחילת המפגש." },
-      { question: "מהי פסיכותרפיה הוליסטית?", answer: "זוהי גישה טיפולית הרואה באדם שלם - גוף, נפש ורוח." }
-    ]
-  },
-  'emeq-izrael': {
-    heroTitle: "טיפול רגשי בעמק יזרעאל",
-    heroSubtitle: "מרחב בטוח לצמיחה, ריפוי ומודעות בלב העמק - ליווי רגשי לנשים ונוער.",
-    introTitle: "קרוב לבית, עמוק בלב",
-    introContent: "<p>ליווי רגשי מקצועי לתושבי עמק יזרעאל והסביבה. נפגשים בקליניקה או אונליין — כמה שנוח לך.</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '70vh',
-    heroTextAlign: 'center',
-  },
-  blog: {
-    heroTitle: "נקודות של אור",
-    heroSubtitle: "ידע, תובנות והשראה למסע הפנימי",
-    introTitle: "ברוכים הבאים ל״נקודות של אור״",
-    introContent: "<p>&quot;אני מאמינה שהמסע אל עצמנו רצוף ברגעים של גילוי, לחישות של הלב ותובנות שמבקשות לצאת לאור. המרחב הזה נועד להיות בית למחשבות, השראה וידע המשלבים גוף, נפש ורוח – כלים שנועדו להאיר את הדרך חזרה אל המהות האמיתית שלנו. אני מזמינה אתכם לקרוא, לנשום ולמצוא כאן נקודה של אור עבור המסע האישי שלכם.&quot;</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '80vh',
-    heroTextAlign: 'center',
-  },
-  women: {
-    heroTitle: "ליווי רגשי לנשים",
-    heroSubtitle: "לחזור אל הבית הפנימי שלך",
-    introTitle: "טיפול וליווי לנשים",
-    introContent: "<p>הטיפול והליווי לנשים בקליניקה שלי הוא הזמנה עבורך לעצור ולהקשיב למה שמבקש ביטוי בתוכך.</p><p>אני כאן כדי לספק לך את המקום בו תוכלי להניח הכל ולחזור לעצמך.</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '70vh',
-    heroTextAlign: 'center',
-  },
-  youth: {
-    heroTitle: "טיפול רגשי לנוער",
-    heroSubtitle: "מקום בטוח להיות מי שאת/ה",
-    introTitle: "טיפול וליווי לנוער",
-    introContent: "<p>גישה מותאמת לגיל המשלבת כלים יצירתיים וחווייתיים שמדברים בשפה של בני הנוער.</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '70vh',
-    heroTextAlign: 'center',
-  },
-  adults: {
-    heroTitle: "טיפול למבוגרים",
-    heroSubtitle: "למצוא עוגן בתוך סערות החיים",
-    introTitle: "טיפול רגשי למבוגרים",
-    introContent: "<p>ליווי רגשי למבוגרים המחפשים בהירות, שינוי ועוגן יציב בחיים המודרניים.</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '70vh',
-    heroTextAlign: 'center',
-  },
-  updates: {
-    heroTitle: "עדכונים והודעות",
-    heroSubtitle: "כל מה שחדש במרחב ©BeinMe",
-    introTitle: "הישארו מעודכנים",
-    introContent: "<p>במרחב הזה תוכלו למצוא הודעות על סדנאות חדשות, מאמרים שהתפרסמו ועדכונים שוטפים מהקליניקה.</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '60vh',
-    heroTextAlign: 'center',
-  },
-};
+const CTA_SIZES = [
+  { label: 'קטן', value: 'sm' },
+  { label: 'רגיל', value: 'default' },
+  { label: 'גדול', value: 'lg' },
+];
 
-// ─── Content State Type ───────────────────────────────────────────────────────
-
-type CtaButton = { label: string; href: string; variant: 'primary' | 'outline' | 'ghost'; size: 'sm' | 'default' | 'lg' };
-type Feature   = { title: string; description: string; icon: string };
-type Testimonial = { text: string; author: string; location: string };
-type Faq       = { question: string; answer: string };
-type NavItem   = { label: string; href: string };
-
-type ContentState = {
-  heroTitle: string;
-  heroSubtitle: string;
-  heroImageUrlDesktop: string;
-  heroImageUrlMobile: string;
-  heroHeight: string;
-  heroTextAlign: string;
-  heroBgColor: string;
-  introTitle: string;
-  introContent: string;
-  portraitImageUrl: string;
-  portraitShape: string;
-  portraitPosition: string;
-  clinicImageUrl: string;
-  sectionBg: string;
-  primaryColor: string;
-  metaTitle: string;
-  metaDescription: string;
-  siteName: string;
-  siteSubtitle: string;
-  ctaAlign: string;
-  navItems: NavItem[];
-  ctaButtons: CtaButton[];
-  features: Feature[];
-  testimonials: Testimonial[];
-  faqs: Faq[];
-};
-
-const EMPTY_CONTENT: ContentState = {
-  heroTitle: '',
-  heroSubtitle: '',
-  heroImageUrlDesktop: '',
-  heroImageUrlMobile: '',
-  portraitImageUrl: '',
-  portraitShape: 'circle',
-  portraitPosition: 'left',
-  clinicImageUrl: '',
-  heroHeight: '70vh',
-  heroTextAlign: 'center',
-  heroBgColor: '',
-  introTitle: '',
-  introContent: '',
-  sectionBg: 'white',
-  primaryColor: '35 40% 45%',
-  metaTitle: '',
-  metaDescription: '',
-  siteName: '',
-  siteSubtitle: '',
-  ctaAlign: 'center',
-  navItems: [],
-  ctaButtons: [],
-  features: [],
-  testimonials: [],
-  faqs: [],
-};
+const EMPTY_CONTENT: ContentState = getInitialPageContent('home');
 
 // ─── Small reusable sub-components ────────────────────────────────────────────
 
