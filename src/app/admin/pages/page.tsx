@@ -387,8 +387,16 @@ export default function PageManagement() {
   const [isDirty, setIsDirty] = useState(false);
 
   const set = (patch: Partial<ContentState>) => {
-    setContent(prev => ({ ...prev, ...patch }));
-    setIsDirty(true);
+    setContent(prev => {
+      // Basic check: is anything actually changing?
+      const isChanged = Object.entries(patch).some(([k, v]) => prev[k as keyof ContentState] !== v);
+      if (!isChanged) return prev;
+      
+      if (!isFetching && mounted) {
+        setIsDirty(true);
+      }
+      return { ...prev, ...patch };
+    });
   };
 
   useEffect(() => {
@@ -477,12 +485,16 @@ export default function PageManagement() {
           faqs:                 Array.isArray(fb.faqs)         ? fb.faqs         : [],
         });
       }
-      setIsDirty(false);
+      // Delay resetting isDirty to allow components (like Quill) to finish initializing 
+      // which might trigger false-positive onChange events.
+      setTimeout(() => {
+        setIsDirty(false);
+        setIsFetching(false);
+      }, 500);
     } catch (e) {
       toast({ variant: 'destructive', title: 'שגיאה בטעינת הדף', description: String(e) });
-    } finally {
       setIsFetching(false);
-    }
+    } 
   };
 
   const handleSave = async (e: React.FormEvent) => {
@@ -509,14 +521,20 @@ export default function PageManagement() {
     }
   };
 
-  // Array helpers
-  const addItem   = <K extends 'ctaButtons' | 'features' | 'testimonials' | 'faqs' | 'navItems'>(key: K, item: ContentState[K][number]) =>
+  // Array helpers (all now trigger setIsDirty)
+  const addItem   = <K extends 'ctaButtons' | 'features' | 'testimonials' | 'faqs' | 'navItems'>(key: K, item: ContentState[K][number]) => {
     setContent(prev => ({ ...prev, [key]: [...(prev[key] as any[]), item] }));
-  const removeItem = (key: keyof ContentState, i: number) =>
+    setIsDirty(true);
+  };
+  const removeItem = (key: keyof ContentState, i: number) => {
     setContent(prev => { const a = [...(prev[key] as any[])]; a.splice(i, 1); return { ...prev, [key]: a }; });
-  const updateItem = (key: keyof ContentState, i: number, field: string, val: string) =>
+    setIsDirty(true);
+  };
+  const updateItem = (key: keyof ContentState, i: number, field: string, val: string) => {
     setContent(prev => { const a = [...(prev[key] as any[])]; a[i] = { ...a[i], [field]: val }; return { ...prev, [key]: a }; });
-  const moveItem   = (key: keyof ContentState, i: number, dir: 'up' | 'down') =>
+    setIsDirty(true);
+  };
+  const moveItem   = (key: keyof ContentState, i: number, dir: 'up' | 'down') => {
     setContent(prev => {
       const a = [...(prev[key] as any[])];
       const j = dir === 'up' ? i - 1 : i + 1;
@@ -524,6 +542,8 @@ export default function PageManagement() {
       [a[i], a[j]] = [a[j], a[i]];
       return { ...prev, [key]: a };
     });
+    setIsDirty(true);
+  };
 
   if (!mounted || authLoading) {
     return <div className="min-h-screen flex items-center justify-center bg-stone-50"><Loader2 className="animate-spin text-primary size-12" /></div>;

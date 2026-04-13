@@ -16,13 +16,16 @@ import { GraduationCap, Briefcase, Sparkles, Heart, Orbit, Users, Star, Compass,
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
 
+const ICON_MAP: Record<string, React.ElementType> = { 
+  Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle, GraduationCap, Briefcase 
+};
+
 export default function AboutPage() {
   const db = useFirestore();
   const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'about') : null, [db]);
   const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
 
   const introReveal = useReveal();
-  const servicesReveal = useReveal();
   const uniquenessReveal = useReveal();
 
   return (
@@ -32,28 +35,14 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
         <div className="absolute inset-0">
-          {/* Desktop Hero */}
           {pageContent?.heroImageUrlDesktop && (
             <div className="hidden md:block absolute inset-0">
-              <Image
-                src={pageContent.heroImageUrlDesktop}
-                alt="About Moran Paz"
-                fill
-                className="object-cover opacity-60"
-                priority
-              />
+              <Image src={pageContent.heroImageUrlDesktop} alt="About" fill className="object-cover opacity-60" priority />
             </div>
           )}
-          {/* Mobile Hero */}
           {(pageContent?.heroImageUrlMobile || pageContent?.heroImageUrlDesktop) && (
             <div className="md:hidden absolute inset-0">
-              <Image
-                src={pageContent.heroImageUrlMobile || pageContent.heroImageUrlDesktop}
-                alt="About Moran Paz"
-                fill
-                className="object-cover opacity-60"
-                priority
-              />
+              <Image src={pageContent.heroImageUrlMobile || pageContent.heroImageUrlDesktop} alt="About" fill className="object-cover opacity-60" priority />
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
@@ -63,13 +52,12 @@ export default function AboutPage() {
             <div className="space-y-6 animate-pulse">
               <div className="h-4 w-32 bg-white/20 rounded mx-auto" />
               <div className="h-24 w-96 bg-white/20 rounded mx-auto" />
-              <div className="h-8 w-80 bg-white/10 rounded mx-auto" />
             </div>
           ) : (
             <>
               <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">About Moran Paz</span>
               <h1 className="text-6xl md:text-8xl xl:text-[110px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
-                {pageContent?.heroTitle}
+                {pageContent?.heroTitle ?? "נעים להכיר"}
               </h1>
               <p className="text-2xl md:text-4xl xl:text-5xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
                 {pageContent?.heroSubtitle}
@@ -79,7 +67,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Personal Text Section - Updated to 1st Person Female */}
+      {/* Personal Introduction Section */}
       <section className="py-20 md:py-32 xl:py-56 px-6 md:px-12 xl:px-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 xl:gap-24 items-start">
@@ -95,7 +83,7 @@ export default function AboutPage() {
             <div ref={introReveal} className="lg:col-span-7 reveal space-y-8 min-w-0 overflow-hidden">
                <div className="relative pr-6 md:pr-10 xl:pr-12 border-r-[3px] border-primary/20 overflow-hidden">
                   <h3 className="text-2xl md:text-4xl xl:text-5xl font-headline text-accent italic font-light leading-snug break-words">
-                    {pageContent?.introTitle ?? "אני מאמינה ששינוי – כל שינוי – מתחיל קודם כל במפגש. מפגש אמיץ וחשוף עם כל אותם חלקים המרכיבים אותנו."}
+                    {pageContent?.introTitle ?? "אני מאמינה ששינוי – כל שינוי – מתחיל קודם כל במפגש."}
                   </h3>
                </div>
                
@@ -103,10 +91,7 @@ export default function AboutPage() {
                   {pageContent?.introContent != null ? (
                     <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
                   ) : (
-                    <>
-                      <p>בתוך המרחב הטיפולי, המטרה שלי היא לעזור לך להדליק את האור. בכל מקום שבו קיימת טיפת חושך, ניתן לשפוך את אור המודעות ולהאיר את עצמנו מחדש.</p>
-                      <p>הרגשות שלנו הם המצפן. לכל אחד מאיתנו יש מפת דרכים פנימית ייחודית לחייו, ולעיתים כל מה שנדרש הוא מישהי שתחזיק את הפנס בזמן שאת מגלה אותה מחדש.</p>
-                    </>
+                    <p>בתוך המרחב הטיפולי, המטרה שלי היא לעזור לך להדליק את האור.</p>
                   )}
                </div>
                
@@ -131,73 +116,27 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Expertise Cards Section */}
-      <section ref={servicesReveal} className="py-32 md:py-48 px-4 md:px-8 xl:px-24 bg-stone-50 border-y border-stone-100 reveal">
-        <div className="max-w-7xl mx-auto">
-          <SectionTitle subtitle="How I Help" title="מרחבי הטיפול והליווי שלי" className="flex flex-col items-center text-center" />
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-24">
-            {/* Women Card */}
-            <Link href="/audience/women" className="group">
-              <div className="bg-white p-12 border border-stone-100 shadow-sm group-hover:shadow-2xl transition-all duration-700 h-full flex flex-col items-center text-center">
-                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
-                  <Heart size={32} strokeWidth={1} />
-                </div>
-                <h3 className="text-3xl font-headline text-accent mb-6 font-bold">ליווי רגשי לנשים</h3>
-                <p className="text-stone-500 font-light mb-8 leading-relaxed">מרחב בטוח לחזור אל הבית הפנימי שלך, לשחרר עומסים ולמצוא את הקול האותנטי.</p>
-                <div className="mt-auto flex items-center gap-3 text-primary boutique-label font-bold text-xs opacity-60 group-hover:opacity-100 transition-opacity">
-                  לפרטים נוספים <ArrowLeft size={14} />
-                </div>
-              </div>
-            </Link>
-
-            {/* Youth Card */}
-            <Link href="/audience/youth" className="group">
-              <div className="bg-white p-12 border border-stone-100 shadow-sm group-hover:shadow-2xl transition-all duration-700 h-full flex flex-col items-center text-center">
-                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
-                  <Users size={32} strokeWidth={1} />
-                </div>
-                <h3 className="text-3xl font-headline text-accent mb-6 font-bold">טיפול רגשי לנוער</h3>
-                <p className="text-stone-500 font-light mb-8 leading-relaxed">ליווי בגובה העיניים לפיתוח חוסן רגשי, ביטוי עצמי והתמודדות עם אתגרי גיל ההתבגרות.</p>
-                <div className="mt-auto flex items-center gap-3 text-primary boutique-label font-bold text-xs opacity-60 group-hover:opacity-100 transition-opacity">
-                  לפרטים נוספים <ArrowLeft size={14} />
-                </div>
-              </div>
-            </Link>
-
-            {/* Workshop Card */}
-            <Link href="/blog" className="group">
-              <div className="bg-white p-12 border border-stone-100 shadow-sm group-hover:shadow-2xl transition-all duration-700 h-full flex flex-col items-center text-center">
-                <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
-                  <Star size={32} strokeWidth={1} />
-                </div>
-                <h3 className="text-3xl font-headline text-accent mb-6 font-bold">סדנת BeinMe</h3>
-                <p className="text-stone-500 font-light mb-8 leading-relaxed">מסע קבוצתי של גילוי עצמי, שילוב גוף-נפש-רוח וחיבור עמוק לסמכות הפנימית.</p>
-                <div className="mt-auto flex items-center gap-3 text-primary boutique-label font-bold text-xs opacity-60 group-hover:opacity-100 transition-opacity">
-                  לפרטים בבלוג <ArrowLeft size={14} />
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Dynamic Features / Philosophy Section */}
+      {/* Dynamic Content Blocks (קוביות מידע) */}
       {pageContent?.features?.length > 0 && (
-        <section ref={uniquenessReveal} className="py-32 md:py-56 px-4 md:px-8 xl:px-24 bg-white reveal">
-          <div className="max-w-6xl mx-auto">
-            <SectionTitle subtitle="Unique Approach" title="מה מיוחד בגישה שלי?" className="flex flex-col items-center text-center" />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-32">
+        <section ref={uniquenessReveal} className="py-32 md:py-48 px-4 md:px-8 xl:px-24 bg-stone-50 border-y border-stone-100 reveal">
+          <div className="max-w-7xl mx-auto">
+            <SectionTitle subtitle="Approach & Expertise" title={pageContent?.featuresTitle ?? "מרחבי הטיפול והליווי שלי"} className="flex flex-col items-center text-center" />
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-24">
               {pageContent.features.map((point: any, i: number) => {
-                const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle };
-                const Icon = IconMap[point.icon] || Heart;
+                const Icon = ICON_MAP[point.icon] || Heart;
                 return (
-                  <div key={i} className="flex flex-col items-center text-center gap-10">
-                    <div className="text-primary"><Icon size={56} strokeWidth={0.2} /></div>
-                    <div className="space-y-6">
-                      <h4 className="text-3xl font-headline font-bold text-accent">{point.title}</h4>
-                      <p className="text-xl font-light text-stone-500 leading-relaxed">{point.description}</p>
+                  <div key={i} className="bg-white p-12 border border-stone-100 shadow-sm hover:shadow-2xl transition-all duration-700 h-full flex flex-col items-center text-center group">
+                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                      <Icon size={32} strokeWidth={1} />
                     </div>
+                    <h4 className="text-3xl font-headline text-accent mb-6 font-bold">{point.title}</h4>
+                    <p className="text-stone-500 font-light leading-relaxed text-lg">{point.description}</p>
+                    {point.link && (
+                       <Link href={point.link} className="mt-8 flex items-center gap-3 text-primary boutique-label font-bold text-xs opacity-60 group-hover:opacity-100 transition-opacity">
+                         לפרטים נוספים <ArrowLeft size={14} />
+                       </Link>
+                    )}
                   </div>
                 );
               })}
@@ -208,7 +147,7 @@ export default function AboutPage() {
 
       {/* Dynamic CTA Buttons */}
       {pageContent?.ctaButtons?.length > 0 && (
-        <section className="py-16 px-6 bg-white">
+        <section className="py-24 px-6 bg-white">
           <div className="max-w-5xl mx-auto">
             <CtaButtons buttons={pageContent.ctaButtons} align={pageContent?.ctaAlign} />
           </div>
