@@ -8,8 +8,9 @@ import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
+import { CtaButtons } from '@/components/shared/CtaButtons';
 import { ContactForm } from '@/components/shared/ContactForm';
-import { MapPin, Trees, Coffee, Sun, Wind, ArrowLeft } from 'lucide-react';
+import { MapPin, Trees, Coffee, Sun, Wind, ArrowLeft, Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
 
@@ -90,27 +91,34 @@ export default function TivonPage() {
         </div>
       </section>
       
-      <section className="py-32 px-6 md:px-20 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <SectionTitle subtitle="Therapy in Nature" title="למה לבחור בטיפול בטבעון?" className="flex flex-col items-center text-center" />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-20">
-            {highlights.map((item, i) => (
-              <div key={i} className="flex flex-col items-center text-center space-y-6 p-8 bg-stone-50 border border-border/10 hover:shadow-lg transition-all duration-700">
-                <div className="text-primary p-4 bg-white rounded-full shadow-sm">{item.icon}</div>
-                <h3 className="text-2xl font-headline font-bold text-accent">{item.title}</h3>
-                <p className="text-lg font-light text-stone-500 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
+      {/* Dynamic Features/Highlights */}
+      {pageContent?.features?.length > 0 && (
+        <section className="py-32 px-6 md:px-20 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <SectionTitle subtitle="Therapy in Nature" title="למה לבחור בטיפול בטבעון?" className="flex flex-col items-center text-center" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-20">
+              {pageContent.features.map((item: any, i: number) => {
+                const IconMap: Record<string, React.ElementType> = { Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle };
+                const Icon = IconMap[item.icon] || Heart;
+                return (
+                  <div key={i} className="flex flex-col items-center text-center space-y-6 p-8 bg-stone-50 border border-border/10 hover:shadow-lg transition-all duration-700">
+                    <div className="text-primary p-4 bg-white rounded-full shadow-sm"><Icon size={24} /></div>
+                    <h3 className="text-2xl font-headline font-bold text-accent">{item.title}</h3>
+                    <p className="text-lg font-light text-stone-500 leading-relaxed">{item.description}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="py-32 px-6 md:px-20 bg-background relative overflow-hidden">
          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="text-right order-2 lg:order-1">
-               <h2 className="text-5xl md:text-7xl font-handwriting text-accent mb-12 font-light">{pageContent?.introTitle || "טיפול רגשי קרוב לבית"}</h2>
+               <h2 className="text-5xl md:text-7xl font-handwriting text-accent mb-12 font-light">{pageContent?.introTitle ?? "טיפול רגשי קרוב לבית"}</h2>
                <div className="space-y-8 boutique-para mb-12">
-                  {pageContent?.introContent ? (
+                  {pageContent?.introContent != null ? (
                     <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
                   ) : (
                     <p>המרחב שבו מתקיים הטיפול הוא בעל משמעות אדירה. כשאנחנו יוצאים מהמרוץ ונכנסים אל תוך הירוק של טבעון, המערכת העצבית שלנו מתחילה להירגע.</p>
@@ -140,7 +148,22 @@ export default function TivonPage() {
          </div>
       </section>
 
-      <TestimonialsSection />
+      {/* Dynamic Testimonials */}
+      <TestimonialsSection customTestimonials={pageContent?.testimonials} />
+
+      {/* Dynamic FAQs */}
+      {pageContent?.faqs?.length > 0 && (
+        <FaqSection items={pageContent.faqs} />
+      )}
+
+      {/* Dynamic CTA Buttons */}
+      {pageContent?.ctaButtons?.length > 0 && (
+        <section className="py-16 px-6 bg-white">
+          <div className="max-w-5xl mx-auto">
+            <CtaButtons buttons={pageContent.ctaButtons} align={pageContent?.ctaAlign} />
+          </div>
+        </section>
+      )}
 
       <section className="py-32 bg-stone-50 px-6 md:px-20" id="contact">
         <div className="max-w-4xl mx-auto text-center">

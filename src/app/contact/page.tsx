@@ -60,10 +60,10 @@ export default function ContactPage() {
             <>
               <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">Get in Touch</span>
               <h1 className="text-8xl md:text-[120px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
-                {pageContent?.heroTitle || "צור קשר"}
+                {pageContent?.heroTitle ?? "צור קשר"}
               </h1>
               <p className="text-2xl md:text-4xl font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
-                {pageContent?.heroSubtitle || "אני כאן עבורך לכל שאלה או תיאום"}
+                {pageContent?.heroSubtitle ?? "אני כאן עבורך לכל שאלה או תיאום"}
               </p>
             </>
           )}

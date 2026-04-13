@@ -7,6 +7,9 @@ import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
+import { CtaButtons } from '@/components/shared/CtaButtons';
+import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
+import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { PortraitImage } from '@/components/shared/PortraitImage';
@@ -75,10 +78,10 @@ export default function BlogPage() {
             <>
               <span className="boutique-label text-white/80 mb-8 block drop-shadow-md">The Wisdom</span>
               <h1 className="text-5xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow">
-                {pageContent?.heroTitle}
+                {pageContent?.heroTitle ?? "נקודות של אור"}
               </h1>
               <p className="text-xl md:text-3xl xl:text-[50px] font-headline italic text-white/90 leading-relaxed font-light hero-para-shadow">
-                {pageContent?.heroSubtitle}
+                {pageContent?.heroSubtitle ?? "ממרחב של השראה, מחשבה וריפוי"}
               </p>
             </>
           )}
@@ -105,12 +108,14 @@ export default function BlogPage() {
             ) : (
               <>
                 <h2 className="text-3xl md:text-5xl font-handwriting text-accent font-bold break-words">
-                  {pageContent?.introTitle}
+                  {pageContent?.introTitle ?? "מילים מהלב"}
                 </h2>
-                {pageContent?.introContent && (
+                {pageContent?.introContent != null ? (
                   <div className="boutique-para !text-lg md:!text-xl !mr-0 !max-w-none italic text-stone-600 leading-relaxed font-headline font-light">
                     <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
                   </div>
+                ) : (
+                  <p className="text-xl italic opacity-50">כאן תמצאו שיתופים, מאמרים ומחשבות על הדרך.</p>
                 )}
                 <span className="boutique-label text-primary block mt-4">— מורן פז</span>
               </>
@@ -176,6 +181,21 @@ export default function BlogPage() {
           </div>
         </div>
       </section>
+
+      {/* Dynamic CTA, Testimonials, FAQs */}
+      <section className="py-24 bg-stone-50 border-t border-stone-100">
+        <div className="max-w-5xl mx-auto px-6">
+           <CtaButtons buttons={pageContent?.ctaButtons} align={pageContent?.ctaAlign} />
+        </div>
+      </section>
+
+      {pageContent?.testimonials?.length > 0 && (
+        <TestimonialsSection customTestimonials={pageContent.testimonials} />
+      )}
+
+      {pageContent?.faqs?.length > 0 && (
+        <FaqSection items={pageContent.faqs} />
+      )}
 
       <Footer />
     </main>

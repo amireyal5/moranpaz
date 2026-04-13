@@ -5,8 +5,11 @@ import React, { useMemo } from 'react';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
+import { CtaButtons } from '@/components/shared/CtaButtons';
+import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
+import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
-import { Heart, CheckCircle2, Quote } from 'lucide-react';
+import { Heart, CheckCircle2, Quote, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
 import Image from 'next/image';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -74,11 +77,11 @@ export default function YouthPage() {
 
       <section className="pt-32 pb-32 px-4 md:px-8 xl:px-24">
         <div className="max-w-5xl mx-auto">
-          <SectionTitle subtitle="Audience" title={pageContent?.introTitle || "טיפול וליווי לנוער"} />
+          <SectionTitle subtitle="Audience" title={pageContent?.introTitle ?? "טיפול וליווי לנוער"} />
           
           <div ref={contentReveal} className="reveal space-y-12">
             <div className="boutique-para space-y-8 text-stone-600">
-              {pageContent?.introContent ? (
+              {pageContent?.introContent != null ? (
                 <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               ) : (
                 <>
@@ -116,6 +119,44 @@ export default function YouthPage() {
             </div>
          </div>
       </section>
+
+      {/* Dynamic Features */}
+      {pageContent?.features?.length > 0 && (
+        <section className="py-24 px-4 md:px-8 xl:px-24 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {pageContent.features.map((feat: any, i: number) => {
+                const IconMap: Record<string, React.ElementType> = { Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle };
+                const Icon = IconMap[feat.icon] || Heart;
+                return (
+                  <div key={i} className="boutique-card group border border-stone-100 hover:border-primary/20">
+                    <div className="text-primary mb-6 group-hover:scale-110 transition-transform"><Icon size={40} strokeWidth={0.2} /></div>
+                    <h3 className="text-2xl font-headline font-bold text-accent mb-4">{feat.title}</h3>
+                    <p className="text-lg font-light text-stone-600 leading-relaxed">{feat.description}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Dynamic CTA Buttons */}
+      {pageContent?.ctaButtons?.length > 0 && (
+        <section className="py-16 px-6 bg-white">
+          <div className="max-w-5xl mx-auto">
+            <CtaButtons buttons={pageContent.ctaButtons} align={pageContent?.ctaAlign} />
+          </div>
+        </section>
+      )}
+
+      {/* Dynamic Testimonials */}
+      <TestimonialsSection customTestimonials={pageContent?.testimonials} />
+
+      {/* Dynamic FAQs */}
+      {pageContent?.faqs?.length > 0 && (
+        <FaqSection items={pageContent.faqs} />
+      )}
 
       <Footer />
     </main>

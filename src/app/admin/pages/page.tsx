@@ -50,22 +50,21 @@ const QUILL_FORMATS = [
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const DEFAULT_PAGES = [
-  { id: 'home', name: 'דף הבית' },
-  { id: 'about', name: 'אודות' },
-  { id: 'practice', name: 'התהליך הטיפולי' },
-  { id: 'online', name: 'טיפול אונליין' },
-  { id: 'tivon', name: 'טבעון' },
-  { id: 'emeq-izrael', name: 'עמק יזרעאל' },
-  { id: 'women', name: 'טיפול בנשים' },
-  { id: 'youth', name: 'טיפול בנוער' },
-  { id: 'adults', name: 'טיפול במבוגרים' },
-  { id: 'blog', name: 'ראשי - בלוג' },
-  { id: 'contact', name: 'צור קשר' },
-  { id: 'privacy', name: 'פרטיות' },
-  { id: 'terms', name: 'תנאי שימוש' },
-  { id: 'accessibility', name: 'נגישות' },
-  { id: 'updates', name: 'עדכונים' },
-  { id: 'workshop', name: 'סדנאות' },
+  { id: 'home', name: '🏠 דף הבית' },
+  { id: 'about', name: '👩‍⚕️ אודות' },
+  { id: 'practice', name: '🌿 התהליך הטיפולי' },
+  { id: 'online-therapy', name: '💻 טיפול אונליין' },
+  { id: 'tivon', name: '🌳 קליניקה בטבעון' },
+  { id: 'emeq-izrael', name: '🌾 קליניקה בעמק יזרעאל' },
+  { id: 'women', name: '🌸 ליווי לנשים' },
+  { id: 'youth', name: '🎈 טיפול בנוער' },
+  { id: 'adults', name: '💼 טיפול במבוגרים' },
+  { id: 'updates', name: '📢 עדכונים והודעות' },
+  { id: 'blog', name: '📝 בלוג (ראשי)' },
+  { id: 'contact', name: '📩 צור קשר' },
+  { id: 'privacy', name: '📄 מדיניות פרטיות' },
+  { id: 'terms', name: '⚖️ תנאי שימוש' },
+  { id: 'accessibility', name: '♿ נגישות' },
 ];
 
 const ICON_OPTIONS = [
@@ -162,7 +161,7 @@ const PAGE_FALLBACKS: Record<string, any> = {
       { question: "כמה זמן אורך תהליך הטיפול?", answer: "זה משתנה מאדם לאדם. בדרך כלל מדובר בתהליך של מספר חודשים עד שנה." }
     ]
   },
-  online: {
+  'online-therapy': {
     heroTitle: "בית פנימי מכל מקום",
     heroSubtitle: "טיפול רגשי אונליין לישראלים בארץ ובעולם",
     introTitle: 'טיפול בעברית לישראלים בחו"ל',
@@ -239,6 +238,15 @@ const PAGE_FALLBACKS: Record<string, any> = {
     introContent: "<p>ליווי רגשי למבוגרים המחפשים בהירות, שינוי ועוגן יציב בחיים המודרניים.</p>",
     primaryColor: '35 40% 45%',
     heroHeight: '70vh',
+    heroTextAlign: 'center',
+  },
+  updates: {
+    heroTitle: "עדכונים והודעות",
+    heroSubtitle: "כל מה שחדש במרחב ©BeinMe",
+    introTitle: "הישארו מעודכנים",
+    introContent: "<p>במרחב הזה תוכלו למצוא הודעות על סדנאות חדשות, מאמרים שהתפרסמו ועדכונים שוטפים מהקליניקה.</p>",
+    primaryColor: '35 40% 45%',
+    heroHeight: '60vh',
     heroTextAlign: 'center',
   },
 };
@@ -376,13 +384,25 @@ export default function PageManagement() {
   const [isSaving, setIsSaving] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [content, setContent] = useState<ContentState>(EMPTY_CONTENT);
+  const [isDirty, setIsDirty] = useState(false);
 
-  const set = (patch: Partial<ContentState>) => setContent(prev => ({ ...prev, ...patch }));
+  const set = (patch: Partial<ContentState>) => {
+    setContent(prev => ({ ...prev, ...patch }));
+    setIsDirty(true);
+  };
 
   useEffect(() => {
     setMounted(true);
     if (!authLoading && !user) router.push('/admin/login');
   }, [user, authLoading, router]);
+
+  const handlePageSelect = (newPage: string) => {
+    if (isDirty) {
+      const confirm = window.confirm('יש לך שינויים שלא נשמרו. האם את בטוחה שברצונך לעבור דף? השינויים יאבדו.');
+      if (!confirm) return;
+    }
+    setSelectedPage(newPage);
+  };
 
   useEffect(() => {
     if (selectedPage !== 'custom' && db) fetchPageContent(selectedPage);
@@ -394,34 +414,70 @@ export default function PageManagement() {
     try {
       const snap = await getDoc(doc(db, 'siteContent', id));
       const fb = PAGE_FALLBACKS[id] || {};
-      const d = snap.exists() ? snap.data() : {};
-      setContent({
-        heroTitle:            d.heroTitle            || fb.heroTitle            || '',
-        heroSubtitle:         d.heroSubtitle         || fb.heroSubtitle         || '',
-        heroImageUrlDesktop:  d.heroImageUrlDesktop  || '',
-        heroImageUrlMobile:   d.heroImageUrlMobile   || '',
-        portraitImageUrl:     d.portraitImageUrl     || '',
-        portraitShape:        d.portraitShape        || 'circle',
-        portraitPosition:     d.portraitPosition     || 'left',
-        clinicImageUrl:       d.clinicImageUrl       || '',
-        heroHeight:           d.heroHeight           || fb.heroHeight           || '70vh',
-        heroTextAlign:        d.heroTextAlign        || fb.heroTextAlign        || 'center',
-        heroBgColor:          d.heroBgColor          || '',
-        introTitle:           d.introTitle           || fb.introTitle           || '',
-        introContent:         d.introContent         || fb.introContent         || '',
-        sectionBg:            d.sectionBg            || 'white',
-        primaryColor:         d.primaryColor         || fb.primaryColor         || '35 40% 45%',
-        metaTitle:            d.metaTitle            || '',
-        metaDescription:      d.metaDescription      || '',
-        siteName:             d.siteName             || (id === 'global' ? 'MORAN PAZ' : ''),
-        siteSubtitle:         d.siteSubtitle         || (id === 'global' ? 'BeinMe — להיות אני בתוכי' : ''),
-        ctaAlign:             d.ctaAlign             || 'center',
-        navItems:             d.navItems             || fb.navItems             || [],
-        ctaButtons:           d.ctaButtons           || fb.ctaButtons           || [],
-        features:             d.features             || fb.features             || [],
-        testimonials:         d.testimonials         || fb.testimonials         || [],
-        faqs:                 d.faqs                 || fb.faqs                 || [],
-      });
+      // snap.exists() distinguishes "document exists with value" from "no document".
+      // When a document exists, we trust Firestore data (even empty string / empty array).
+      // We only fall back to PAGE_FALLBACKS when the document doesn't exist yet.
+      const d = snap.exists() ? snap.data() : null;
+      if (d !== null) {
+        // Document exists in Firestore — trust it completely, even if fields are empty.
+        setContent({
+          heroTitle:            d.heroTitle            ?? '',
+          heroSubtitle:         d.heroSubtitle         ?? '',
+          heroImageUrlDesktop:  d.heroImageUrlDesktop  ?? '',
+          heroImageUrlMobile:   d.heroImageUrlMobile   ?? '',
+          portraitImageUrl:     d.portraitImageUrl     ?? '',
+          portraitShape:        d.portraitShape        ?? 'circle',
+          portraitPosition:     d.portraitPosition     ?? 'left',
+          clinicImageUrl:       d.clinicImageUrl       ?? '',
+          heroHeight:           d.heroHeight           ?? '70vh',
+          heroTextAlign:        d.heroTextAlign        ?? 'center',
+          heroBgColor:          d.heroBgColor          ?? '',
+          introTitle:           d.introTitle           ?? '',
+          introContent:         d.introContent         ?? '',
+          sectionBg:            d.sectionBg            ?? 'white',
+          primaryColor:         d.primaryColor         ?? '35 40% 45%',
+          metaTitle:            d.metaTitle            ?? '',
+          metaDescription:      d.metaDescription      ?? '',
+          siteName:             d.siteName             ?? '',
+          siteSubtitle:         d.siteSubtitle         ?? '',
+          ctaAlign:             d.ctaAlign             ?? 'center',
+          navItems:             Array.isArray(d.navItems)     ? d.navItems     : [],
+          ctaButtons:           Array.isArray(d.ctaButtons)   ? d.ctaButtons   : [],
+          features:             Array.isArray(d.features)     ? d.features     : [],
+          testimonials:         Array.isArray(d.testimonials) ? d.testimonials : [],
+          faqs:                 Array.isArray(d.faqs)         ? d.faqs         : [],
+        });
+      } else {
+        // No document in Firestore yet — pre-fill editor with PAGE_FALLBACKS as a starting point.
+        setContent({
+          heroTitle:            fb.heroTitle            ?? '',
+          heroSubtitle:         fb.heroSubtitle         ?? '',
+          heroImageUrlDesktop:  '',
+          heroImageUrlMobile:   '',
+          portraitImageUrl:     '',
+          portraitShape:        'circle',
+          portraitPosition:     'left',
+          clinicImageUrl:       '',
+          heroHeight:           fb.heroHeight           ?? '70vh',
+          heroTextAlign:        fb.heroTextAlign        ?? 'center',
+          heroBgColor:          '',
+          introTitle:           fb.introTitle           ?? '',
+          introContent:         fb.introContent         ?? '',
+          sectionBg:            'white',
+          primaryColor:         fb.primaryColor         ?? '35 40% 45%',
+          metaTitle:            '',
+          metaDescription:      '',
+          siteName:             '',
+          siteSubtitle:         '',
+          ctaAlign:             'center',
+          navItems:             Array.isArray(fb.navItems)     ? fb.navItems     : [],
+          ctaButtons:           Array.isArray(fb.ctaButtons)   ? fb.ctaButtons   : [],
+          features:             Array.isArray(fb.features)     ? fb.features     : [],
+          testimonials:         Array.isArray(fb.testimonials) ? fb.testimonials : [],
+          faqs:                 Array.isArray(fb.faqs)         ? fb.faqs         : [],
+        });
+      }
+      setIsDirty(false);
     } catch (e) {
       toast({ variant: 'destructive', title: 'שגיאה בטעינת הדף', description: String(e) });
     } finally {
@@ -441,6 +497,7 @@ export default function PageManagement() {
     setIsSaving(true);
     try {
       await setDoc(doc(db, 'siteContent', targetId), { ...content, pageId: targetId, updatedAt: Date.now() });
+      setIsDirty(false);
       toast({ title: '✅ נשמר בהצלחה!', description: `הדף "${targetId}" עודכן.` });
     } catch (err: any) {
       const msg = err?.code === 'permission-denied'
@@ -488,10 +545,10 @@ export default function PageManagement() {
 
           <div className="w-full md:w-80 space-y-4">
             <Field label="בחר דף לעריכה">
-              <Select value={selectedPage} onValueChange={setSelectedPage}>
+              <Select value={selectedPage} onValueChange={handlePageSelect}>
                 <SelectTrigger className="bg-white border-none h-12 rounded-none shadow-sm"><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="global" className="font-bold text-primary">⚙️ הגדרות כלליות</SelectItem>
+                  <SelectItem value="global" className="font-bold text-primary">⚙️ הגדרות אתר כלליות</SelectItem>
                   {DEFAULT_PAGES.map(p => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
                   <SelectItem value="custom" className="italic text-stone-400">✚ עמוד חדש</SelectItem>
                 </SelectContent>

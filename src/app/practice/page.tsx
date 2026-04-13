@@ -6,8 +6,11 @@ import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
+import { CtaButtons } from '@/components/shared/CtaButtons';
+import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
+import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
-import { Orbit, Heart, Sparkles, Compass } from 'lucide-react';
+import { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -84,27 +87,37 @@ export default function PracticePage() {
           <div ref={introReveal} className="reveal mb-32 max-w-5xl">
             <span className="boutique-label text-primary mb-10 block">Integrated Care</span>
             <div className="boutique-para !text-3xl md:!text-5xl leading-tight mb-16 font-light">
-              {pageContent?.introTitle ? pageContent.introTitle : "העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח."}
+              {pageContent?.introTitle ?? "העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח."}
             </div>
             <div className="space-y-8 boutique-para text-stone-600">
-              {pageContent?.introContent && (
+              {pageContent?.introContent != null && (
                 <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               )}
             </div>
             <div className="mashrabiya-divider max-w-[300px]"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-48">
-            {categories.map((item, i) => (
-              <div key={i} className="boutique-card group border border-stone-100 hover:border-primary/20">
-                <h3 className="text-4xl font-headline mb-8 text-accent">{item.title}</h3>
-                <p className="text-xl font-light opacity-80 leading-relaxed">{item.desc}</p>
-                <div className="absolute bottom-8 right-8 text-primary/10 group-hover:text-primary/40 transition-colors">
-                  <Compass size={40} />
-                </div>
-              </div>
-            ))}
-          </div>
+          {/* Dynamic categories from features */}
+          {pageContent?.features?.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-48">
+              {pageContent.features.map((item: any, i: number) => {
+                const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle };
+                const Icon = IconMap[item.icon] || Compass;
+                return (
+                  <div key={i} className="boutique-card group border border-stone-100 hover:border-primary/20">
+                    <h3 className="text-4xl font-headline mb-8 text-accent">{item.title}</h3>
+                    <p className="text-xl font-light opacity-80 leading-relaxed">{item.description}</p>
+                    <div className="absolute bottom-8 right-8 text-primary/10 group-hover:text-primary/40 transition-colors">
+                      <Icon size={40} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Dynamic CTA Buttons */}
+          <CtaButtons buttons={pageContent?.ctaButtons} align={pageContent?.ctaAlign} />
 
           <div ref={stepsReveal} className="reveal space-y-24">
             <SectionTitle subtitle="How it works" title="שלבי המסע שלנו" className="flex flex-col items-center text-center" />
@@ -128,6 +141,14 @@ export default function PracticePage() {
           </div>
         </div>
       </section>
+
+      {/* Dynamic Testimonials */}
+      <TestimonialsSection customTestimonials={pageContent?.testimonials} />
+
+      {/* Dynamic FAQs */}
+      {pageContent?.faqs?.length > 0 && (
+        <FaqSection items={pageContent.faqs} />
+      )}
 
       <Footer />
     </main>

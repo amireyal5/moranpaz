@@ -9,9 +9,10 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { ContactForm } from '@/components/shared/ContactForm';
 import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { FaqSection } from '@/components/shared/FaqSection';
+import { CtaButtons } from '@/components/shared/CtaButtons';
 import { useReveal } from '@/hooks/use-reveal';
 import { PortraitImage } from '@/components/shared/PortraitImage';
-import { Orbit, Heart, Sparkles } from 'lucide-react';
+import { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -173,7 +174,7 @@ export default function Home() {
                 </div>
               ))
             ) : (pageContent?.features || []).map((point: any, i: number) => {
-              const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles };
+              const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle };
               const Icon = IconMap[point.icon] || Heart;
               return (
                 <div key={i} className={cn("boutique-card group backdrop-blur-md bg-white/90", `stagger-${i+1}`)}>
@@ -182,7 +183,7 @@ export default function Home() {
                   </div>
                   <div className="space-y-6">
                     <h3 className="text-3xl sm:text-4xl font-headline font-bold text-accent">{point.title}</h3>
-                    <p className="text-lg sm:text-xl font-light text-stone-600 leading-relaxed">{point.description || point.desc}</p>
+                    <p className="text-lg sm:text-xl font-light text-stone-600 leading-relaxed">{point.description}</p>
                   </div>
                 </div>
               );
@@ -192,8 +193,17 @@ export default function Home() {
       </section>
 
       <TestimonialsSection customTestimonials={pageContent?.testimonials} />
-      
+
       <FaqSection items={homeFaqs} />
+
+      {/* Dynamic CTA Buttons */}
+      {pageContent?.ctaButtons?.length > 0 && (
+        <section className="py-16 px-6 bg-white">
+          <div className="max-w-5xl mx-auto">
+            <CtaButtons buttons={pageContent.ctaButtons} align={pageContent?.ctaAlign} />
+          </div>
+        </section>
+      )}
 
       <section id="contact" className="py-24 md:py-48 px-6 bg-white border-t border-stone-100">
         <div className="max-w-4xl mx-auto text-center">

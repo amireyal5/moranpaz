@@ -7,9 +7,12 @@ import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
+import { CtaButtons } from '@/components/shared/CtaButtons';
+import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
+import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { PortraitImage } from '@/components/shared/PortraitImage';
-import { GraduationCap, Briefcase, Sparkles, Heart, Orbit, Users, Star, ArrowLeft } from 'lucide-react';
+import { GraduationCap, Briefcase, Sparkles, Heart, Orbit, Users, Star, Compass, MessageSquare, HelpCircle, ArrowLeft } from 'lucide-react';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
 
@@ -92,12 +95,12 @@ export default function AboutPage() {
             <div ref={introReveal} className="lg:col-span-7 reveal space-y-8 min-w-0 overflow-hidden">
                <div className="relative pr-6 md:pr-10 xl:pr-12 border-r-[3px] border-primary/20 overflow-hidden">
                   <h3 className="text-2xl md:text-4xl xl:text-5xl font-headline text-accent italic font-light leading-snug break-words">
-                    {pageContent?.introTitle || "אני מאמינה ששינוי – כל שינוי – מתחיל קודם כל במפגש. מפגש אמיץ וחשוף עם כל אותם חלקים המרכיבים אותנו."}
+                    {pageContent?.introTitle ?? "אני מאמינה ששינוי – כל שינוי – מתחיל קודם כל במפגש. מפגש אמיץ וחשוף עם כל אותם חלקים המרכיבים אותנו."}
                   </h3>
                </div>
                
                <div className="space-y-10 boutique-para text-stone-600">
-                  {pageContent?.introContent ? (
+                  {pageContent?.introContent != null ? (
                     <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
                   ) : (
                     <>
@@ -179,27 +182,46 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Philosophy Section */}
-      <section ref={uniquenessReveal} className="py-32 md:py-56 px-4 md:px-8 xl:px-24 bg-white reveal">
-        <div className="max-w-6xl mx-auto">
-          <SectionTitle subtitle="Unique Approach" title="מה מיוחד בגישה שלי?" className="flex flex-col items-center text-center" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-32">
-            {[
-              { title: "שילוב גוף-נפש-רוח", icon: <Orbit />, desc: "אני עובדת עם הרגש, הגוף והרוח יחד לריפוי עמוק וחיבור למשמעות." },
-              { title: "כלים חווייתיים", icon: <Sparkles />, desc: "אני משלבת עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס בטיפול." },
-              { title: "גישה אנושית", icon: <Heart />, desc: "אני משלבת מקצועיות אקדמית (M.A) יחד עם חיבור אנושי חם בגובה העיניים." }
-            ].map((point, i) => (
-              <div key={i} className="flex flex-col items-center text-center gap-10">
-                <div className="text-primary">{React.cloneElement(point.icon as React.ReactElement, { size: 56, strokeWidth: 0.2 })}</div>
-                <div className="space-y-6">
-                  <h4 className="text-3xl font-headline font-bold text-accent">{point.title}</h4>
-                  <p className="text-xl font-light text-stone-500 leading-relaxed">{point.desc}</p>
-                </div>
-              </div>
-            ))}
+      {/* Dynamic Features / Philosophy Section */}
+      {pageContent?.features?.length > 0 && (
+        <section ref={uniquenessReveal} className="py-32 md:py-56 px-4 md:px-8 xl:px-24 bg-white reveal">
+          <div className="max-w-6xl mx-auto">
+            <SectionTitle subtitle="Unique Approach" title="מה מיוחד בגישה שלי?" className="flex flex-col items-center text-center" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-32">
+              {pageContent.features.map((point: any, i: number) => {
+                const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle };
+                const Icon = IconMap[point.icon] || Heart;
+                return (
+                  <div key={i} className="flex flex-col items-center text-center gap-10">
+                    <div className="text-primary"><Icon size={56} strokeWidth={0.2} /></div>
+                    <div className="space-y-6">
+                      <h4 className="text-3xl font-headline font-bold text-accent">{point.title}</h4>
+                      <p className="text-xl font-light text-stone-500 leading-relaxed">{point.description}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Dynamic CTA Buttons */}
+      {pageContent?.ctaButtons?.length > 0 && (
+        <section className="py-16 px-6 bg-white">
+          <div className="max-w-5xl mx-auto">
+            <CtaButtons buttons={pageContent.ctaButtons} align={pageContent?.ctaAlign} />
+          </div>
+        </section>
+      )}
+
+      {/* Dynamic Testimonials */}
+      <TestimonialsSection customTestimonials={pageContent?.testimonials} />
+
+      {/* Dynamic FAQs */}
+      {pageContent?.faqs?.length > 0 && (
+        <FaqSection items={pageContent.faqs} />
+      )}
 
       <Footer />
     </main>

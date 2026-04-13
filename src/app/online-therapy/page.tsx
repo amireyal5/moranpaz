@@ -6,9 +6,12 @@ import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SectionTitle } from '@/components/shared/SectionTitle';
+import { CtaButtons } from '@/components/shared/CtaButtons';
+import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
+import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { PortraitImage } from '@/components/shared/PortraitImage';
-import { Globe, ShieldCheck, Clock, Infinity } from 'lucide-react';
+import { Globe, ShieldCheck, Clock, Infinity, Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
@@ -103,10 +106,10 @@ export default function OnlineTherapyPage() {
           <div ref={introReveal} className="lg:col-span-7 reveal">
             <span className="boutique-label block mb-8 text-primary">Global Care</span>
             <h2 className="text-5xl md:text-7xl font-headline text-accent mb-12 font-bold leading-tight">
-              {pageContent?.introTitle || "טיפול בעברית לישראלים בחו\"ל"}
+              {pageContent?.introTitle ?? "טיפול בעברית לישראלים בחו\"ל"}
             </h2>
             <div className="boutique-para mb-16 space-y-10 leading-relaxed text-xl text-stone-600">
-              {pageContent?.introContent ? (
+              {pageContent?.introContent != null ? (
                 <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               ) : (
                 <>
@@ -136,29 +139,52 @@ export default function OnlineTherapyPage() {
         </div>
       </section>
 
-      <section ref={benefitsReveal} className="py-32 md:py-56 bg-stone-50 px-4 md:px-8 xl:px-24 reveal">
-        <div className="max-w-7xl mx-auto">
-          <SectionTitle 
-            subtitle="The Advantages" 
-            title="למה לבחור בטיפול אונליין?" 
-            className="flex flex-col items-center text-center"
-          />
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-32">
-            {benefits.map((benefit, i) => (
-              <div key={i} className={cn("boutique-card group !min-h-[400px] backdrop-blur-md bg-white/90", `stagger-${i+1}`)}>
-                <div className="art-icon !top-10 !right-10 opacity-30 text-primary">
-                  {benefit.icon}
-                </div>
-                <div className="relative z-10 text-right w-full">
-                  <h3 className="text-3xl font-headline font-bold mb-8 text-accent">{benefit.title}</h3>
-                  <p className="opacity-80 font-light text-xl leading-relaxed text-stone-600">{benefit.desc}</p>
-                </div>
-              </div>
-            ))}
+      {/* Dynamic Features / Benefits */}
+      {pageContent?.features?.length > 0 && (
+        <section ref={benefitsReveal} className="py-32 md:py-56 bg-stone-50 px-4 md:px-8 xl:px-24 reveal">
+          <div className="max-w-7xl mx-auto">
+            <SectionTitle 
+              subtitle="The Advantages" 
+              title="למה לבחור בטיפול אונליין?" 
+              className="flex flex-col items-center text-center"
+            />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-32">
+              {pageContent.features.map((benefit: any, i: number) => {
+                const IconMap: Record<string, React.ElementType> = { Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle };
+                const Icon = IconMap[benefit.icon] || Heart;
+                return (
+                  <div key={i} className={cn("boutique-card group !min-h-[400px] backdrop-blur-md bg-white/90", `stagger-${i+1}`)}>
+                    <div className="art-icon !top-10 !right-10 opacity-30 text-primary">
+                      <Icon size={40} strokeWidth={0.2} />
+                    </div>
+                    <div className="relative z-10 text-right w-full">
+                      <h3 className="text-3xl font-headline font-bold mb-8 text-accent">{benefit.title}</h3>
+                      <p className="opacity-80 font-light text-xl leading-relaxed text-stone-600">{benefit.description}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Dynamic CTA Buttons */}
+      {pageContent?.ctaButtons?.length > 0 && (
+        <section className="py-16 px-6 bg-white">
+          <div className="max-w-5xl mx-auto">
+            <CtaButtons buttons={pageContent.ctaButtons} align={pageContent?.ctaAlign} />
+          </div>
+        </section>
+      )}
+
+      {/* Dynamic Testimonials */}
+      <TestimonialsSection customTestimonials={pageContent?.testimonials} />
+
+      {/* Dynamic FAQs */}
+      {pageContent?.faqs?.length > 0 && (
+        <FaqSection items={pageContent.faqs} />
+      )}
 
       <Footer />
     </main>
