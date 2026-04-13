@@ -33,14 +33,6 @@ export default function AboutPage() {
   const introReveal = useReveal();
   const uniquenessReveal = useReveal();
 
-  if (pageLoading) {
-    return <div className="min-h-screen flex items-center justify-center bg-stone-50"><Loader2 className="animate-spin text-primary size-12" /></div>;
-  }
-
-  if (pageError) {
-    return <div className="min-h-screen flex items-center justify-center bg-stone-50 text-destructive font-bold">Error: {pageError.message}</div>;
-  }
-
   const mergedContent = useMemo(() => {
     const defaults = getInitialPageContent('about');
     if (!pageContent) return defaults;
@@ -54,6 +46,14 @@ export default function AboutPage() {
       faqs:         Array.isArray(pageContent.faqs)         ? pageContent.faqs         : defaults.faqs,
     };
   }, [pageContent]);
+
+  if (pageLoading) {
+    return <div className="min-h-screen flex items-center justify-center bg-stone-50"><Loader2 className="animate-spin text-primary size-12" /></div>;
+  }
+
+  if (pageError) {
+    return <div className="min-h-screen flex items-center justify-center bg-stone-50 text-destructive font-bold">Error: {pageError.message}</div>;
+  }
 
   console.log("About page merged content:", mergedContent);
 

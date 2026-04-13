@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -120,60 +120,6 @@ const CTA_SIZES = [
   { label: 'גדול', value: 'lg' },
 ];
 
-const PAGE_FALLBACKS: Record<string, any> = {
-  home: {
-    heroTitle: "להאיר את עצמכם",
-    heroSubtitle: "ברוכים הבאים למרחב של BeinMe. אני מזמינה אתכם למסע של מודעות, קבלה וחיבור לסמכות הפנימית דרך עבודה משולבת של גוף, נפש ורוח",
-    introTitle: "בכל טיפת חושך אפשר לשפוך אור של מודעות",
-    introContent: "<p><strong>ברוכים הבאים, אני מורן פז.</strong></p><p>אני מאמינה ששינוי עמוק מתחיל במפגש כנה ובקבלה של כל חלקי העצמי שלנו. עבורי, הרגשות הם המצפן המדויק ביותר שיש לנו, ולכל אחד ואחת מאיתנו יש מפת דרכים פנימית הייחודית רק לו.</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '80vh',
-    heroTextAlign: 'center',
-    features: [
-      { title: "גוף", icon: "Orbit", description: "הקשבה לתחושות הפיזיקליות כפתח לעולם הרגשי." },
-      { title: "נפש", icon: "Heart", description: "עיבוד רגשות, דפוסים והסיפור שאנחנו מספרים לעצמנו." },
-      { title: "רוח", icon: "Sparkles", description: "חיבור למודעות, למשמעות ולאור שבתוכנו." }
-    ]
-  },
-  about: {
-    heroTitle: "הלב מאחורי הקליניקה",
-    heroSubtitle: "להדליק את האור בתוך המרחב הטיפולי",
-    introTitle: "אני מאמינה ששינוי – כל שינוי – מתחיל קודם כל במפגש. מפגש אמיץ וחשוף עם כל אותם חלקים המרכיבים אותנו.",
-    introContent: "<p>בתוך המרחב הטיפולי, המטרה שלי היא לעזור לך להדליק את האור. בכל מקום שבו קיימת טיפת חושך, ניתן לשפוך את אור המודעות ולהאיר את עצמנו מחדש.</p><p>הרגשות שלנו הם המצפן. לכל אחד מאיתנו יש מפת דרכים פנימית ייחודית לחייו, ולעיתים כל מה שנדרש הוא מישהי שתחזיק את הפנס בזמן שאת מגלה אותה מחדש.</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '70vh',
-    heroTextAlign: 'center',
-    features: [
-      { title: "שילוב גוף-נפש-רוח", icon: "Orbit", description: "אני עובדת עם הרגש, הגוף והרוח יחד לריפוי עמוק וחיבור למשמעות." },
-      { title: "כלים חווייתיים", icon: "Sparkles", description: "אני משלבת עבודת צללים, ילדה פנימית, פוקוסינג ומיינדפולנס בטיפול." },
-      { title: "גישה אנושית", icon: "Heart", description: "מקצועיות אקדמית (M.A) יחד עם חיבור אנושי חם בגובה העיניים." }
-    ]
-  },
-  practice: {
-    heroTitle: "התהליך הטיפולי",
-    heroSubtitle: "מסע משותף של גילוי וריפוי",
-    introTitle: "העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח.",
-    introContent: "<p>הגישה שלי רואה בכל אדם שלם — גוף, נפש ורוח. אנחנו עובדים יחד עם הרגשות, הגוף, הדפוסים והסיפורים שאנחנו מספרים לעצמנו.</p>",
-    primaryColor: '35 40% 45%',
-    heroHeight: '70vh',
-    heroTextAlign: 'center',
-    features: [
-      { title: "תקיעות בחיים", icon: "Compass", description: "שחרור חסמים ויצירת תנועה חדשה." },
-      { title: "חרדה ומתח", icon: "Heart", description: "כלים לוויסות רגשי ומרחב לנשימה." },
-      { title: "מערכות יחסים", icon: "Users", description: "שיפור הקשר עם עצמך ועם הסביבה." },
-      { title: "דימוי עצמי", icon: "Star", description: "בניית ערך פנימי וחיבור לקול האותנטי." }
-    ],
-    faqs: [
-      { question: "מה זה פסיכותרפיה הוליסטית?", answer: "זוהי גישה טיפולית הרואה באדם שלם - גוף, נפש ורוח." },
-      { question: "כמה זמן אורך תהליך הטיפול?", answer: "זה משתנה מאדם לאדם. בדרך כלל מדובר בתהליך של מספר חודשים עד שנה." }
-    ]
-  },
-const CTA_SIZES = [
-  { label: 'קטן', value: 'sm' },
-  { label: 'רגיל', value: 'default' },
-  { label: 'גדול', value: 'lg' },
-];
-
 const EMPTY_CONTENT: ContentState = getInitialPageContent('home');
 
 // ─── Small reusable sub-components ────────────────────────────────────────────
@@ -200,43 +146,44 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-function AlignPicker({ value, onChange }: { value: string; onChange: (v: string) => void }) {
-  const options = [
-    { v: 'right', Icon: AlignRight },
-    { v: 'center', Icon: AlignCenter },
-    { v: 'left', Icon: AlignLeft },
-  ];
+function MoveButtons({ onUp, onDown, disableUp, disableDown }: { onUp: () => void, onDown: () => void, disableUp: boolean, disableDown: boolean }) {
   return (
     <div className="flex gap-1">
-      {options.map(({ v, Icon }) => (
-        <button
-          key={v}
-          type="button"
-          onClick={() => onChange(v)}
-          className={`p-2 border rounded-sm transition-colors ${value === v ? 'bg-primary text-white border-primary' : 'bg-white border-stone-200 text-stone-400 hover:border-primary'}`}
-        >
-          <Icon size={16} />
-        </button>
-      ))}
+      <Button type="button" variant="ghost" size="sm" onClick={onUp} disabled={disableUp} className="h-8 w-8 p-0 text-stone-400 hover:text-primary"><ChevronRight className="-rotate-90 size-4" /></Button>
+      <Button type="button" variant="ghost" size="sm" onClick={onDown} disabled={disableDown} className="h-8 w-8 p-0 text-stone-400 hover:text-primary"><ChevronRight className="rotate-90 size-4" /></Button>
     </div>
   );
 }
 
-function MoveButtons({ onUp, onDown, disableUp, disableDown }: { onUp: () => void; onDown: () => void; disableUp: boolean; disableDown: boolean }) {
+function AlignPicker({ value, onChange }: { value: string, onChange: (v: string) => void }) {
+  const options = [
+    { value: 'right', icon: <AlignRight size={16} /> },
+    { value: 'center', icon: <AlignCenter size={16} /> },
+    { value: 'left', icon: <AlignLeft size={16} /> }
+  ];
   return (
-    <div className="flex gap-1">
-      <Button type="button" variant="ghost" size="sm" onClick={onUp} disabled={disableUp} className="h-8 w-8 p-0">▲</Button>
-      <Button type="button" variant="ghost" size="sm" onClick={onDown} disabled={disableDown} className="h-8 w-8 p-0">▼</Button>
+    <div className="flex gap-1 bg-stone-50 p-1 w-fit">
+      {options.map(opt => (
+        <Button
+          key={opt.value}
+          type="button"
+          variant={value === opt.value ? 'primary' : 'ghost'}
+          onClick={() => onChange(opt.value)}
+          className={`h-9 w-12 p-0 ${value === opt.value ? 'bg-primary text-white' : 'text-stone-400'}`}
+        >
+          {opt.icon}
+        </Button>
+      ))}
     </div>
   );
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
-export default function PageManagement() {
+export default function AdminPages() {
+  const router = useRouter();
   const { user, loading: authLoading } = useUser();
   const db = useFirestore();
-  const router = useRouter();
   const { toast } = useToast();
 
   const [mounted, setMounted] = useState(false);
@@ -283,12 +230,8 @@ export default function PageManagement() {
     try {
       const snap = await getDoc(doc(db, 'siteContent', id));
       const fb = PAGE_FALLBACKS[id] || {};
-      // snap.exists() distinguishes "document exists with value" from "no document".
-      // When a document exists, we trust Firestore data (even empty string / empty array).
-      // We only fall back to PAGE_FALLBACKS when the document doesn't exist yet.
       const d = snap.exists() ? snap.data() : null;
       if (d !== null) {
-        // Document exists in Firestore — trust it completely, even if fields are empty.
         setContent({
           heroTitle:            d.heroTitle            ?? '',
           heroSubtitle:         d.heroSubtitle         ?? '',
@@ -317,7 +260,6 @@ export default function PageManagement() {
           faqs:                 Array.isArray(d.faqs)         ? d.faqs         : [],
         });
       } else {
-        // No document in Firestore yet — pre-fill editor with PAGE_FALLBACKS as a starting point.
         setContent({
           heroTitle:            fb.heroTitle            ?? '',
           heroSubtitle:         fb.heroSubtitle         ?? '',
@@ -346,8 +288,6 @@ export default function PageManagement() {
           faqs:                 Array.isArray(fb.faqs)         ? fb.faqs         : [],
         });
       }
-      // Delay resetting isDirty to allow components (like Quill) to finish initializing 
-      // which might trigger false-positive onChange events.
       setTimeout(() => {
         setIsDirty(false);
         setIsFetching(false);
@@ -382,7 +322,6 @@ export default function PageManagement() {
     }
   };
 
-  // Array helpers (all now trigger setIsDirty)
   const addItem   = <K extends 'ctaButtons' | 'features' | 'testimonials' | 'faqs' | 'navItems'>(key: K, item: ContentState[K][number]) => {
     setContent(prev => ({ ...prev, [key]: [...(prev[key] as any[]), item] }));
     setIsDirty(true);
@@ -444,85 +383,56 @@ export default function PageManagement() {
         </div>
 
         {isFetching ? (
-          <div className="flex justify-center py-20"><Loader2 className="animate-spin text-stone-300 size-12" /></div>
+          <div className="h-96 flex flex-col items-center justify-center text-stone-400 gap-4">
+            <Loader2 className="animate-spin size-12" />
+            <p className="boutique-label">טוען נתונים מ-Firestore...</p>
+          </div>
         ) : (
-          <form onSubmit={handleSave} className="space-y-8 md:space-y-12">
-
-            {/* ── Design & SEO ── */}
-            <SectionCard icon={<Palette size={20} />} title="עיצוב ו-SEO">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Field label="צבע מותג">
-                  <Select value={content.primaryColor} onValueChange={v => set({ primaryColor: v })}>
-                    <SelectTrigger className="bg-stone-50"><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      {PRESET_COLORS.map(c => (
-                        <SelectItem key={c.value} value={c.value}>
-                          <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `hsl(${c.value})` }} />
-                            {c.name}
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </Field>
-                <Field label="כותרת גוגל (עד 60 תווים)">
-                  <Input value={content.metaTitle} onChange={e => set({ metaTitle: e.target.value })} maxLength={60} />
-                  <p className="text-[10px] text-stone-400 text-left">{content.metaTitle.length}/60</p>
-                </Field>
-                <div className="md:col-span-2">
-                  <Field label="תיאור גוגל (עד 160 תווים)">
-                    <Textarea value={content.metaDescription} onChange={e => set({ metaDescription: e.target.value })} maxLength={160} rows={2} className="resize-none" />
-                    <p className="text-[10px] text-stone-400 text-left">{content.metaDescription.length}/160</p>
+          <form onSubmit={handleSave} className="space-y-12">
+            
+            {selectedPage === 'global' ? (
+              <SectionCard icon={<Globe size={20} />} title="הגדרות כלליות">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <Field label="שם האתר">
+                    <Input value={content.siteName} onChange={e => set({ siteName: e.target.value })} />
+                  </Field>
+                  <Field label="סלוגן / תיאור קצר">
+                    <Input value={content.siteSubtitle} onChange={e => set({ siteSubtitle: e.target.value })} />
                   </Field>
                 </div>
-              </div>
-            </SectionCard>
-
-            {/* ── Global Settings ── */}
-            {selectedPage === 'global' ? (
-              <>
-                <SectionCard icon={<Globe size={20} />} title="הגדרות מותג">
-                  <Field label="שם האתר"><Input value={content.siteName} onChange={e => set({ siteName: e.target.value })} className="h-12 text-lg" /></Field>
-                  <Field label="שורת מיתוג"><Input value={content.siteSubtitle} onChange={e => set({ siteSubtitle: e.target.value })} className="h-12 italic" /></Field>
-                </SectionCard>
-
-                {/* Nav Items */}
-                <SectionCard icon={<AlignRight size={20} />} title="פריטי ניווט">
+                {/* Global Nav Editor */}
+                <div className="pt-8 space-y-4">
+                  <Label className="boutique-label flex items-center gap-2">תפריט עליון (Navbar)</Label>
                   {content.navItems.map((item, i) => (
-                    <div key={i} className="flex gap-3 items-center bg-stone-50 p-3 rounded-sm">
+                    <div key={i} className="flex gap-2 items-end">
+                      <div className="flex-1 space-y-1">
+                        <Label className="text-[10px]">תווית</Label>
+                        <Input value={item.label} onChange={e => updateItem('navItems', i, 'label', e.target.value)} />
+                      </div>
+                      <div className="flex-1 space-y-1">
+                        <Label className="text-[10px]">קישור (Slug/URL)</Label>
+                        <Input value={item.href} onChange={e => updateItem('navItems', i, 'href', e.target.value)} />
+                      </div>
                       <MoveButtons onUp={() => moveItem('navItems', i, 'up')} onDown={() => moveItem('navItems', i, 'down')} disableUp={i === 0} disableDown={i === content.navItems.length - 1} />
-                      <Input value={item.label} onChange={e => updateItem('navItems', i, 'label', e.target.value)} placeholder="תווית" className="bg-white flex-1" />
-                      <Input value={item.href} onChange={e => updateItem('navItems', i, 'href', e.target.value)} placeholder="/path" className="bg-white flex-1 font-sans" dir="ltr" />
-                      <Button type="button" variant="ghost" onClick={() => removeItem('navItems', i)} className="text-destructive p-2 h-auto"><Trash2 size={16} /></Button>
+                      <Button type="button" variant="ghost" onClick={() => removeItem('navItems', i)} className="text-destructive"><Trash2 size={16} /></Button>
                     </div>
                   ))}
-                  <Button type="button" onClick={() => addItem('navItems', { label: '', href: '' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary hover:bg-primary/5">
-                    <Plus className="mr-2 size-4" /> הוספת פריט ניווט
+                  <Button type="button" onClick={() => addItem('navItems', { label: '', href: '' })} variant="outline" className="w-full h-12 border-dashed">
+                    <Plus className="mr-2 size-4" /> הוספת קישור לתפריט
                   </Button>
-                </SectionCard>
-              </>
+                </div>
+              </SectionCard>
             ) : (
               <>
-                {/* ── Hero ── */}
-                <SectionCard icon={<Smartphone size={20} />} title="כותרות ותמונות (Hero)">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <Field label="כותרת ראשית">
-                      <Input value={content.heroTitle} onChange={e => set({ heroTitle: e.target.value })} className="h-12 md:h-14 md:text-xl font-headline" />
+                {/* ── Visual Design ── */}
+                <SectionCard icon={<Palette size={20} />} title="עיצוב ותצוגה">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Field label="צבע ראשי (Primary Accent)">
+                      <Select value={content.primaryColor} onValueChange={v => set({ primaryColor: v })}>
+                        <SelectTrigger className="bg-stone-50"><SelectValue /></SelectTrigger>
+                        <SelectContent>{PRESET_COLORS.map(c => <SelectItem key={c.value} value={c.value}>{c.name}</SelectItem>)}</SelectContent>
+                      </Select>
                     </Field>
-                    <Field label="כותרת משנית">
-                      <Input value={content.heroSubtitle} onChange={e => set({ heroSubtitle: e.target.value })} className="h-12 italic" />
-                    </Field>
-                    <Field label="תמונת דסקטופ (URL)">
-                      <Input value={content.heroImageUrlDesktop} onChange={e => set({ heroImageUrlDesktop: e.target.value })} className="font-sans" dir="ltr" />
-                    </Field>
-                    <Field label="תמונת מובייל (URL)">
-                      <Input value={content.heroImageUrlMobile} onChange={e => set({ heroImageUrlMobile: e.target.value })} className="font-sans" dir="ltr" />
-                    </Field>
-                  </div>
-
-                  {/* Hero Style */}
-                  <div className="pt-4 border-t border-stone-100 grid grid-cols-1 md:grid-cols-3 gap-5">
                     <Field label="גובה Hero">
                       <Select value={content.heroHeight} onValueChange={v => set({ heroHeight: v })}>
                         <SelectTrigger className="bg-stone-50"><SelectValue /></SelectTrigger>
@@ -534,6 +444,24 @@ export default function PageManagement() {
                     </Field>
                     <Field label="צבע רקע (fallback)">
                       <Input value={content.heroBgColor} onChange={e => set({ heroBgColor: e.target.value })} placeholder="#1c1917 או stone-900" className="font-sans" dir="ltr" />
+                    </Field>
+                  </div>
+                </SectionCard>
+
+                {/* ── Hero ── */}
+                <SectionCard icon={<Smartphone size={20} />} title="חלק עליון (Hero)">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <Field label="כותרת Hero">
+                      <Input value={content.heroTitle} onChange={e => set({ heroTitle: e.target.value })} className="h-12 text-xl font-bold" />
+                    </Field>
+                    <Field label="כותרת משנה">
+                      <Input value={content.heroSubtitle} onChange={e => set({ heroSubtitle: e.target.value })} className="h-12" />
+                    </Field>
+                    <Field label="תמונת רקע - דסקטופ (URL)">
+                      <Input value={content.heroImageUrlDesktop} onChange={e => set({ heroImageUrlDesktop: e.target.value })} className="font-sans" dir="ltr" placeholder="https://..." />
+                    </Field>
+                    <Field label="תמונת רקע - מובייל (URL)">
+                      <Input value={content.heroImageUrlMobile} onChange={e => set({ heroImageUrlMobile: e.target.value })} className="font-sans" dir="ltr" placeholder="https://..." />
                     </Field>
                   </div>
                 </SectionCard>
@@ -601,8 +529,6 @@ export default function PageManagement() {
                       />
                     </div>
                   </Field>
-
-                  {/* Live Preview */}
                   {content.introContent && (
                     <div className="border-t border-stone-100 pt-5">
                       <p className="boutique-label text-stone-400 mb-3">תצוגה מקדימה</p>
@@ -649,9 +575,9 @@ export default function PageManagement() {
                           </Select>
                         </Field>
                       </div>
-                      {/* Preview */}
-                      <div className="flex gap-3 pt-1" style={{ justifyContent: content.ctaAlign === 'right' ? 'flex-end' : content.ctaAlign === 'left' ? 'flex-start' : 'center' }}>
-                        <div className={`px-4 py-2 text-sm font-bold rounded-sm border transition-colors ${
+                      <div className="mt-4 flex flex-col items-center">
+                        <p className="text-[10px] text-stone-400 mb-2">תצוגה מקדימה</p>
+                        <div className={`border h-fit w-fit transition-all duration-700 font-bold tracking-[0.15em] rounded-sm whitespace-nowrap ${
                           btn.variant === 'primary' ? 'bg-primary text-white border-primary' :
                           btn.variant === 'outline' ? 'bg-transparent text-primary border-primary' :
                           'bg-transparent text-stone-600 border-transparent'
