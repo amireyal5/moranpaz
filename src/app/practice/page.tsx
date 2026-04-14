@@ -86,12 +86,12 @@ export default function PracticePage() {
         <div className="max-w-7xl mx-auto">
           <div ref={introReveal} className="reveal mb-32 max-w-5xl">
             <SectionTitle 
-              subtitle={pageContent.introTitleSettings?.subtitle || "Integrated Care"} 
-              title={pageContent.introTitleSettings?.text || pageContent.introTitle || "העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח."} 
-              fontSize={pageContent.introTitleSettings?.fontSize}
-              fontFamily={pageContent.introTitleSettings?.fontFamily}
-              color={pageContent.introTitleSettings?.color}
-              align={pageContent.introTitleSettings?.align || 'right'}
+              subtitle={pageContent?.introTitleSettings?.subtitle || "Integrated Care"} 
+              title={pageContent?.introTitleSettings?.text || pageContent?.introTitle || "העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח."} 
+              fontSize={pageContent?.introTitleSettings?.fontSize}
+              fontFamily={pageContent?.introTitleSettings?.fontFamily}
+              color={pageContent?.introTitleSettings?.color}
+              align={pageContent?.introTitleSettings?.align || 'right'}
             />
             <div className="space-y-8 boutique-para text-stone-600">
               {pageContent?.introContent != null && (
@@ -125,13 +125,13 @@ export default function PracticePage() {
 
           <div ref={stepsReveal} className="reveal space-y-24">
             <SectionTitle 
-              subtitle={pageContent.featuresTitle?.subtitle || "How it works"} 
-              title={pageContent.featuresTitle?.text || "שלבי המסע שלנו"} 
+              subtitle={pageContent?.featuresTitle?.subtitle || "How it works"} 
+              title={pageContent?.featuresTitle?.text || "שלבי המסע שלנו"} 
               className="flex flex-col items-center text-center"
-              fontSize={pageContent.featuresTitle?.fontSize}
-              fontFamily={pageContent.featuresTitle?.fontFamily}
-              color={pageContent.featuresTitle?.color}
-              align={pageContent.featuresTitle?.align || 'center'}
+              fontSize={pageContent?.featuresTitle?.fontSize}
+              fontFamily={pageContent?.featuresTitle?.fontFamily}
+              color={pageContent?.featuresTitle?.color}
+              align={pageContent?.featuresTitle?.align || 'center'}
             />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
               {[
