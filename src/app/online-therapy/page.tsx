@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -11,65 +11,27 @@ import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { useReveal } from '@/hooks/use-reveal';
 import { PortraitImage } from '@/components/shared/PortraitImage';
-import { Globe, ShieldCheck, Clock, Infinity, Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
+import { Globe, ShieldCheck, Clock, Infinity, Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useFirestore, useDoc } from '@/firebase';
-import { doc } from 'firebase/firestore';
-import { getInitialPageContent } from '@/config/page-defaults';
-
+import { usePageContent } from '@/hooks/use-page-content';
 
 export default function OnlineTherapyPage() {
-  const db = useFirestore();
-  const contentRef = useMemo(() => db ? doc(db, 'siteContent', 'online-therapy') : null, [db]);
-  const { data: pageContent, loading: pageLoading } = useDoc<any>(contentRef);
-
-  const mergedContent = useMemo(() => {
-    const defaults = getInitialPageContent('online-therapy');
-    if (!pageContent) return defaults;
-    return {
-      ...defaults,
-      ...pageContent,
-      features:     Array.isArray(pageContent.features)     ? pageContent.features     : defaults.features,
-      ctaButtons:   Array.isArray(pageContent.ctaButtons)   ? pageContent.ctaButtons   : defaults.ctaButtons,
-      testimonials: Array.isArray(pageContent.testimonials) ? pageContent.testimonials : defaults.testimonials,
-      faqs:         Array.isArray(pageContent.faqs)         ? pageContent.faqs         : defaults.faqs,
-    };
-  }, [pageContent]);
+  const { content: mergedContent, loading, error } = usePageContent('online-therapy');
 
   const introReveal = useReveal();
-  const benefitsReveal = useReveal();
   
   const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20אשמח%20לפרטים%20על%20טיפול%20אונליין%20לישראלים%20בחו%22ל";
 
-  const benefits = [
-    {
-      title: "לישראלים בחו\"ל",
-      desc: "טיפול רגשי עמוק בשפת האם שלך, המגשר על פערי תרבות ומרחק.",
-      icon: <Globe size={40} strokeWidth={0.2} />
-    },
-    {
-      title: "60 דקות טיפול",
-      desc: "מפגש מלא ומעמיק של שעה שלמה המוקדשת כולה לך.",
-      icon: <Clock size={40} strokeWidth={0.2} />
-    },
-    {
-      title: "מרחב בטוח מהבית",
-      desc: "תהליך רגשי עמוק מהנוחות והביטחון של הפינה השקטה שלך.",
-      icon: <ShieldCheck size={40} strokeWidth={0.2} />
-    },
-    {
-      title: "פסיכותרפיה הוליסטית",
-      desc: "הקשר הרגשי עובר דרך המסך בצורה מלאה ואינטימית.",
-      icon: <Infinity size={40} strokeWidth={0.2} />
-    }
-  ];
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center bg-stone-50"><Loader2 className="animate-spin text-primary size-12" /></div>;
+  }
 
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
       
-      {/* Hero Section - Fixed with Therapist Portrait */}
-      <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900">
+      {/* Hero Section */}
+      <section className="relative h-[80vh] w-full flex flex-col items-center justify-center px-6 overflow-hidden bg-stone-900 shadow-2xl">
         <div className="absolute inset-0">
           {mergedContent.heroImageUrlDesktop && (
             <div className="hidden md:block absolute inset-0">
@@ -96,27 +58,17 @@ export default function OnlineTherapyPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background/20"></div>
         </div>
         <div className="relative z-10 text-center">
-          {pageLoading ? (
-            <div className="space-y-6 animate-pulse">
-              <div className="h-4 w-24 bg-white/20 rounded mx-auto" />
-              <div className="h-24 w-96 bg-white/20 rounded mx-auto" />
-              <div className="h-8 w-72 bg-white/10 rounded mx-auto" />
-            </div>
-          ) : (
-            <>
-              <span className="boutique-label text-white/90 mb-8 block drop-shadow-md">Global Connection</span>
-              <h1 className="text-6xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow leading-none">
-                {mergedContent.heroTitle}
-              </h1>
-              <p className="text-2xl md:text-4xl font-headline italic text-white/95 leading-relaxed font-light hero-para-shadow">
-                {mergedContent.heroSubtitle}
-              </p>
-            </>
-          )}
+            <span className="boutique-label text-white/90 mb-8 block drop-shadow-md">Global Connection</span>
+            <h1 className="text-6xl md:text-8xl xl:text-[140px] font-handwriting text-white mb-8 font-bold hero-title-shadow leading-none">
+              {mergedContent.heroTitle}
+            </h1>
+            <p className="text-2xl md:text-4xl font-headline italic text-white/95 leading-relaxed font-light hero-para-shadow">
+              {mergedContent.heroSubtitle}
+            </p>
         </div>
       </section>
 
-      <section className="py-32 px-4 md:px-8 xl:px-24">
+      <section className="py-32 px-4 md:px-8 xl:px-24 border-b border-stone-100">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
           <div ref={introReveal} className="lg:col-span-7 reveal">
             <span className="boutique-label block mb-8 text-primary">Global Care</span>
@@ -146,7 +98,7 @@ export default function OnlineTherapyPage() {
           <div className="lg:col-span-5 flex justify-center">
             <PortraitImage
               src={mergedContent.portraitImageUrl}
-              loading={pageLoading}
+              loading={loading}
               shape={mergedContent.portraitShape as any || 'circle'}
               alt="מורן פז"
             />
@@ -156,7 +108,7 @@ export default function OnlineTherapyPage() {
 
       {/* Dynamic Features / Benefits */}
       {mergedContent.features.length > 0 && (
-        <section className="py-32 md:py-56 bg-stone-50 px-4 md:px-8 xl:px-24">
+        <section className="py-32 md:py-56 bg-stone-50 px-4 md:px-8 xl:px-24 border-b border-stone-100">
           <div className="max-w-7xl mx-auto">
             <SectionTitle 
               subtitle="The Advantages" 
@@ -165,11 +117,11 @@ export default function OnlineTherapyPage() {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-32">
               {mergedContent.features.map((benefit: any, i: number) => {
-                const IconMap: Record<string, React.ElementType> = { Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle };
+                const IconMap: Record<string, React.ElementType> = { Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle, Globe, ShieldCheck, Clock, Infinity };
                 const Icon = IconMap[benefit.icon] || Heart;
                 return (
-                  <div key={i} className={cn("boutique-card group !min-h-[400px] backdrop-blur-md bg-white/90", `stagger-${i+1}`)}>
-                    <div className="art-icon !top-10 !right-10 opacity-30 text-primary">
+                  <div key={i} className={cn("boutique-card group !min-h-[400px] backdrop-blur-md bg-white/90 shadow-sm hover:shadow-2xl transition-all duration-700", `stagger-${i+1}`)}>
+                    <div className="art-icon !top-10 !right-10 opacity-30 text-primary group-hover:opacity-100 transition-opacity">
                       <Icon size={40} strokeWidth={0.2} />
                     </div>
                     <div className="relative z-10 text-right w-full">
@@ -186,7 +138,7 @@ export default function OnlineTherapyPage() {
 
       {/* Dynamic CTA Buttons */}
       {mergedContent.ctaButtons.length > 0 && (
-        <section className="py-16 px-6 bg-white">
+        <section className="py-24 px-6 bg-white border-b border-stone-100">
           <div className="max-w-5xl mx-auto">
             <CtaButtons buttons={mergedContent.ctaButtons} align={mergedContent.ctaAlign} />
           </div>

@@ -1,15 +1,20 @@
 
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Mail, Phone, ExternalLink, Facebook, Instagram, Lock } from 'lucide-react';
 import { WhatsAppIcon } from '@/components/shared/WhatsAppIcon';
+import { useFirestore, useDoc } from '@/firebase';
+import { doc } from 'firebase/firestore';
 
 export function Footer() {
   const [year, setYear] = useState(new Date().getFullYear());
   const wazeLink = "https://waze.com/ul?ll=32.723342373686044,35.14095372397462&navigate=yes";
   const facebookLink = "https://www.facebook.com/share/18MjZEfzgv/?mibextid=wwXIfr";
+  const db = useFirestore();
+  const settingsRef = useMemo(() => db ? doc(db, 'siteContent', 'global') : null, [db]);
+  const { data: globalSettings } = useDoc<any>(settingsRef);
 
   useEffect(() => {
     setYear(new Date().getFullYear());
@@ -25,10 +30,14 @@ export function Footer() {
           
           {/* Brand Section */}
           <div className="lg:col-span-4">
-            <h3 className="text-3xl font-headline tracking-[0.4em] font-light mb-4 text-white">MORAN PAZ</h3>
-            <span className="text-white font-handwriting text-6xl block mb-8">BeinMe — להיות אני בתוכי</span>
+            <h3 className="text-3xl font-headline tracking-[0.4em] font-light mb-4 text-white uppercase">
+              {globalSettings?.siteName || "MORAN PAZ"}
+            </h3>
+            <span className="text-white font-handwriting text-5xl sm:text-6xl block mb-8 leading-tight">
+              {globalSettings?.siteSubtitle || "BeinMe — להיות אני בתוכי"}
+            </span>
             <p className="text-white/80 font-light leading-relaxed max-w-md mr-0 text-xl">
-              פסיכותרפיה הוליסטית וליווי רגשי המשלב גוף, נפש ורוח. מרחב בטוח לגילוי, ריפוי וחיבור לסמכות הפנימית בטבעון ובאונליין.
+              {globalSettings?.siteDescription || "פסיכותרפיה הוליסטית וליווי רגשי המשלב גוף, נפש ורוח. מרחב בטוח לגילוי, ריפוי וחיבור לסמכות הפנימית בטבעון ובאונליין."}
             </p>
           </div>
           

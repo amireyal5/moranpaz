@@ -1,38 +1,45 @@
 
 "use client";
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
+  const [element, setElement] = useState<HTMLElement | null>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const refCallback = useCallback((node: HTMLElement | null) => {
+    if (node) {
+      setElement(node);
+    }
+  }, []);
 
   useEffect(() => {
+    if (!element) return;
+
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('reveal-visible');
-            // Once revealed, we don't need to observe anymore
             observer.unobserve(entry.target);
           }
         });
       },
       { 
-        threshold: 0.05, // Trigger earlier for better UX
-        rootMargin: '0px 0px -50px 0px' // Trigger slightly before it hits the viewport
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+    observer.observe(element);
+    observerRef.current = observer;
 
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, []);
+    return () => observer.disconnect();
+  }, [element]);
 
-  return ref;
+  return refCallback;
 }

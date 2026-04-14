@@ -8,17 +8,15 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { CtaButtons } from '@/components/shared/CtaButtons';
 import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { FaqSection } from '@/components/shared/FaqSection';
-import { useFirestore, useDoc } from '@/firebase';
-import { doc } from 'firebase/firestore';
 import { Loader2, Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
+import { usePageContent } from '@/hooks/use-page-content';
 
 const ICON_MAP: Record<string, any> = {
   Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle
 };
 
 export default function UpdatesPage() {
-  const db = useFirestore();
-  const { data: pageContent, loading } = useDoc<any>(db ? doc(db, 'siteContent', 'updates') : null);
+  const { content: pageContent, loading } = usePageContent('updates');
 
   if (loading) {
     return (
@@ -35,12 +33,12 @@ export default function UpdatesPage() {
         <div className="max-w-4xl mx-auto">
           <SectionTitle 
             subtitle="Journal" 
-            title={pageContent?.introTitle ?? "עדכונים והודעות"} 
+            title={pageContent.introTitle || "עדכונים והודעות"} 
           />
           
           <div className="space-y-12 mt-12">
             <div className="boutique-para space-y-8 text-stone-600">
-              {pageContent?.introContent != null ? (
+              {pageContent.introContent ? (
                 <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
               ) : (
                 <p className="text-center italic opacity-30">אין עדכונים זמינים כרגע.</p>
@@ -49,7 +47,7 @@ export default function UpdatesPage() {
           </div>
 
           {/* Features as update items if any */}
-          {pageContent?.features?.length > 0 && (
+          {pageContent.features.length > 0 && (
             <div className="space-y-16 mt-24">
               {pageContent.features.map((feat: any, i: number) => {
                 const Icon = ICON_MAP[feat.icon] || Heart;
@@ -69,18 +67,18 @@ export default function UpdatesPage() {
           )}
 
           <div className="mt-24">
-            <CtaButtons buttons={pageContent?.ctaButtons} align={pageContent?.ctaAlign} />
+            <CtaButtons buttons={pageContent.ctaButtons} align={pageContent.ctaAlign} />
           </div>
         </div>
       </section>
 
       {/* Dynamic Testimonials */}
-      {pageContent?.testimonials?.length > 0 && (
+      {pageContent.testimonials.length > 0 && (
         <TestimonialsSection customTestimonials={pageContent.testimonials} />
       )}
 
       {/* Dynamic FAQs */}
-      {pageContent?.faqs?.length > 0 && (
+      {pageContent.faqs.length > 0 && (
         <FaqSection items={pageContent.faqs} />
       )}
 
