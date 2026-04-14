@@ -18,7 +18,7 @@ import {
   Loader2, Save, Plus, Trash2, Box, Heart, Sparkles, Image as ImageIcon, Type, Layout,
   Orbit, Compass, Users, Star, Palette, MessageSquare, HelpCircle,
   MousePointerClick, Quote, AlignLeft, AlignCenter, AlignRight, UserRound, RefreshCcw,
-  ChevronRight, Monitor, Smartphone, Globe
+  ChevronRight, Monitor, Smartphone, Globe, X
 } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
@@ -353,6 +353,97 @@ function DynamicSectionEditor({ section, onChange, onRemove, onMoveUp, onMoveDow
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
+// ─── Help Guide Component ──────────────────────────────────────────────────
+function AdminGuide() {
+  const [open, setOpen] = useState(false);
+  
+  if (!open) return (
+    <button 
+      onClick={() => setOpen(true)}
+      className="fixed bottom-8 left-8 z-[500] w-14 h-14 bg-accent text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform group"
+    >
+      <HelpCircle size={30} />
+      <span className="absolute right-full mr-4 bg-accent text-white px-3 py-1.5 rounded-sm text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">מדריך למשתמש</span>
+    </button>
+  );
+
+  return (
+    <div className="fixed inset-0 z-[500] flex justify-end">
+      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setOpen(false)} />
+      <div className="relative w-full max-w-md bg-white h-full shadow-2xl overflow-y-auto p-8 animate-in slide-in-from-left duration-500">
+        <button onClick={() => setOpen(false)} className="absolute top-6 left-6 text-stone-400 hover:text-accent p-2">
+          <X size={24} />
+        </button>
+        
+        <div className="mt-8 space-y-10" dir="rtl">
+          <div className="space-y-4">
+            <h2 className="text-3xl font-handwriting text-accent">מדריך העורך של מורן</h2>
+            <p className="text-stone-500 leading-relaxed">ברוכה הבאה לעורך המודרני של אתר מורן פז. המערכת עוצבה כדי לתת לך שליטה מלאה על התוכן, העיצוב והמבנה של כל דף.</p>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">1. בחירת דפים והגדרות כלליות</h3>
+            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
+              <li>השתמשי בתפריט העליון כדי לעבור בין הדפים הקיימים.</li>
+              <li><b>הגדרות אתר כלליות:</b> כאן מעדכנים את פרטי הקשר, הרשתות החברתיות ואת תפריטי הניווט.</li>
+              <li><b>הפרדת תפריטים:</b> ניתן להגדיר רשימת קישורים נפרדת לתפריט העליון (Navbar) ולתפריט התחתון (Footer). אם תשאירי את הפוטר ריק, הוא ישתמש בקישורי התפריט העליון.</li>
+            </ul>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">2. ניהול דפים (יצירה ומחיקה)</h3>
+            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
+              <li><b>עמוד חדש:</b> בחרי "עמוד חדש" מהרשימה כדי ליצור דף עם כתובת (Slug) שתבחרי.</li>
+              <li><b>מחיקה:</b> ניתן למחוק דפים שיצרת (מלבד דפים קבועים כמו הבית) באמצעות כפתור המחיקה שיופיע תחת בחירת המזהה.</li>
+            </ul>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">3. ניהול מבנה העמוד (Layout)</h3>
+            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
+              <li>בכרטיסיית <b>"סדר חלקי העמוד"</b>, תמצאי רשימה של כל חלקי הדף (הדר, המלצות, שאלות וכו').</li>
+              <li>השתמשי בחיצים כדי להזיז כל קטע למעלה או למטה.</li>
+              <li>הסדר שקבעת שם הוא הסדר שבו הגולשים יראו את העמוד.</li>
+            </ul>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">3. בלוקים חופשיים (Custom Blocks)</h3>
+            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
+              <li>ניתן להוסיף כמות בלתי מוגבלת של גושי טקסט או שילובי תמונה+טקסט.</li>
+              <li><b>בלוק טקסט:</b> עורך עשיר המאפשר ליישר ימינה/שמאל, להוסיף לינקים, להדגיש טקסט ועוד.</li>
+              <li><b>תמונה וטקסט:</b> ניתן לקבוע אם התמונה תהיה מימין או משמאל לטקסט.</li>
+            </ul>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">4. עיצוב מתקדם (Custom Titles)</h3>
+            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
+              <li>בכל סקשן ניתן לערוך את הכותרת בנפרד: גודל הטקסט, צבע, יישור וסוג הגופן (כתב יד אומנותי או כותרת נקייה).</li>
+            </ul>
+          </div>
+
+          <div className="space-y-6">
+            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">5. תמונות ו-SEO</h3>
+            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
+              <li>לכל דף ניתן להגדיר כותרת (Meta Title) ותיאור (Meta Description) שיעזרו לגוגל למצוא אותך.</li>
+              <li>ב-Hero, מומלץ להעלות תמונה נפרדת למובייל כדי שהיא תיראה טוב גם בטלפונים צרים.</li>
+            </ul>
+          </div>
+
+          <div className="space-y-4 pt-10 border-t border-accent/10">
+            <div className="flex items-center gap-3 text-accent font-bold">
+              <Sparkles size={18} />
+              <span>טיפ לשימוש:</span>
+            </div>
+            <p className="text-sm italic text-stone-500">"אל תשכחי ללחוץ על כפתור השמירה הצף בתחתית העמוד לאחר ביצוע שינויים. השינויים מתעדכנים באתר תוך שניות ספורות."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminPages() {
   const router = useRouter();
   const { user, loading: authLoading } = useUser();
@@ -583,7 +674,7 @@ export default function AdminPages() {
     }
   };
 
-  const addItem   = <K extends 'ctaButtons' | 'features' | 'testimonials' | 'faqs' | 'navItems'>(key: K, item: ContentState[K][number]) => {
+  const addItem   = <K extends 'ctaButtons' | 'features' | 'testimonials' | 'faqs' | 'navItems' | 'footerItems'>(key: K, item: ContentState[K][number]) => {
     setContent(prev => ({ ...prev, [key]: [...(prev[key] as any[]), item] }));
     setIsDirty(true);
   };
@@ -729,6 +820,29 @@ export default function AdminPages() {
                   ))}
                   <Button type="button" onClick={() => addItem('navItems', { label: '', href: '' })} variant="outline" className="w-full h-12 border-dashed">
                     <Plus className="mr-2 size-4" /> הוספת קישור לתפריט
+                  </Button>
+                </div>
+
+                {/* Global Footer Editor */}
+                <div className="pt-8 border-t border-stone-100 mt-8 space-y-4">
+                  <Label className="boutique-label flex items-center gap-2 text-primary">קישורים בפוטר (Footer Links)</Label>
+                  <p className="text-xs text-stone-400">אם רשימה זו ריקה, הפוטר ישתמש אוטומטית בקישורי התפריט העליון.</p>
+                  {(content.footerItems || []).map((item, i) => (
+                    <div key={i} className="flex gap-2 items-end">
+                      <div className="flex-1 space-y-1">
+                        <Label className="text-[10px]">תווית</Label>
+                        <Input value={item.label} onChange={e => updateItem('footerItems', i, 'label', e.target.value)} />
+                      </div>
+                      <div className="flex-1 space-y-1">
+                        <Label className="text-[10px]">קישור (Slug/URL)</Label>
+                        <Input value={item.href} onChange={e => updateItem('footerItems', i, 'href', e.target.value)} />
+                      </div>
+                      <MoveButtons onUp={() => moveItem('footerItems', i, 'up')} onDown={() => moveItem('footerItems', i, 'down')} disableUp={i === 0} disableDown={i === (content.footerItems?.length || 0) - 1} />
+                      <Button type="button" variant="ghost" onClick={() => removeItem('footerItems', i)} className="text-destructive"><Trash2 size={16} /></Button>
+                    </div>
+                  ))}
+                  <Button type="button" onClick={() => addItem('footerItems', { label: '', href: '' })} variant="outline" className="w-full h-12 border-dashed">
+                    <Plus className="mr-2 size-4" /> הוספת קישור לפוטר
                   </Button>
                 </div>
               </SectionCard>

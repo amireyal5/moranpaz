@@ -54,6 +54,7 @@ export type ContentState = {
   instagramLink?: string;
   ctaAlign: string;
   navItems: NavItem[];
+  footerItems: NavItem[];
   ctaButtons: CtaButton[];
   features: Feature[];
   testimonials: Testimonial[];
@@ -76,6 +77,7 @@ export const DEFAULT_CONTENT_VALUES: Partial<ContentState> = {
   portraitPosition: 'left',
   ctaAlign: 'center',
   navItems: [],
+  footerItems: [],
   ctaButtons: [],
   features: [],
   testimonials: [],
@@ -154,6 +156,7 @@ export function getInitialPageContent(id: string): ContentState {
     instagramLink:        fallback.instagramLink        || '',
     ctaAlign:             fallback.ctaAlign             || 'center',
     navItems:             fallback.navItems             || [],
+    footerItems:          fallback.footerItems          || [],
     ctaButtons:           fallback.ctaButtons           || [],
     features:             fallback.features             || [],
     testimonials:         fallback.testimonials         || [],
