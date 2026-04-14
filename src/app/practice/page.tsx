@@ -135,20 +135,23 @@ export default function PracticePage() {
             />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
               {[
-                { title: "זיהוי הסיפור", icon: <Orbit />, desc: "הבנת הדפוסים והסיפור שסיפרת לעצמך עד היום." },
-                { title: "קבלת חלקים", icon: <Heart />, desc: "מפגש אמיץ עם החלקים החבויים וקבלה שלהם." },
-                { title: "סמכות פנימית", icon: <Sparkles />, desc: "התחברות למקום שבו נמצאות התשובות שלך." }
-              ].map((step, i) => (
-                <div key={i} className="flex flex-col items-center text-center space-y-10 group">
-                  <div className="text-primary group-hover:scale-110 transition-transform duration-700">
-                    {React.cloneElement(step.icon as React.ReactElement, { size: 60, strokeWidth: 0.2 })}
+                { title: "זיהוי הסיפור", icon: Orbit, desc: "הבנת הדפוסים והסיפור שסיפרת לעצמך עד היום." },
+                { title: "קבלת חלקים", icon: Heart, desc: "מפגש אמיץ עם החלקים החבויים וקבלה שלהם." },
+                { title: "סמכות פנימית", icon: Sparkles, desc: "התחברות למקום שבו נמצאות התשובות שלך." }
+              ].map((step, i) => {
+                const Icon = step.icon;
+                return (
+                  <div key={i} className="flex flex-col items-center text-center space-y-10 group">
+                    <div className="text-primary group-hover:scale-110 transition-transform duration-700">
+                      <Icon size={60} strokeWidth={0.2} />
+                    </div>
+                    <div className="space-y-6">
+                      <h4 className="text-3xl font-headline font-bold text-accent">{step.title}</h4>
+                      <p className="text-xl font-light text-stone-600 leading-relaxed max-w-[280px]">{step.desc}</p>
+                    </div>
                   </div>
-                  <div className="space-y-6">
-                    <h4 className="text-3xl font-headline font-bold text-accent">{step.title}</h4>
-                    <p className="text-xl font-light text-stone-600 leading-relaxed max-w-[280px]">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
