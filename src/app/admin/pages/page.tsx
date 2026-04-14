@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, getDocs, deleteDoc } from 'firebase/firestore';
 import { useUser, useFirestore } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -15,10 +15,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import {
-  Loader2, Save, ChevronRight, Monitor, Smartphone, Globe,
-  Plus, Trash2, Box, Heart, Sparkles,
+  Loader2, Save, Plus, Trash2, Box, Heart, Sparkles, Image as ImageIcon, Type, Layout,
   Orbit, Compass, Users, Star, Palette, MessageSquare, HelpCircle,
-  MousePointerClick, Quote, AlignLeft, AlignCenter, AlignRight, UserRound
+  MousePointerClick, Quote, AlignLeft, AlignCenter, AlignRight, UserRound, RefreshCcw,
+  ChevronRight, Monitor, Smartphone, Globe
 } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
@@ -213,9 +213,23 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
 
 function MoveButtons({ onUp, onDown, disableUp, disableDown }: { onUp: () => void, onDown: () => void, disableUp: boolean, disableDown: boolean }) {
   return (
-    <div className="flex gap-1">
-      <Button type="button" variant="ghost" size="sm" onClick={onUp} disabled={disableUp} className="h-8 w-8 p-0 text-stone-400 hover:text-primary"><ChevronRight className="-rotate-90 size-4" /></Button>
-      <Button type="button" variant="ghost" size="sm" onClick={onDown} disabled={disableDown} className="h-8 w-8 p-0 text-stone-400 hover:text-primary"><ChevronRight className="rotate-90 size-4" /></Button>
+    <div className="flex gap-1 bg-stone-100/50 p-1 rounded-sm">
+      <button 
+        type="button" 
+        onClick={(e) => { e.preventDefault(); onUp(); }} 
+        disabled={disableUp} 
+        className={`h-8 w-10 flex items-center justify-center transition-all ${disableUp ? 'opacity-20 cursor-not-allowed' : 'text-stone-500 hover:text-primary hover:bg-white shadow-sm'}`}
+      >
+        <ChevronRight className="-rotate-90 size-4" />
+      </button>
+      <button 
+        type="button" 
+        onClick={(e) => { e.preventDefault(); onDown(); }} 
+        disabled={disableDown} 
+        className={`h-8 w-10 flex items-center justify-center transition-all ${disableDown ? 'opacity-20 cursor-not-allowed' : 'text-stone-500 hover:text-primary hover:bg-white shadow-sm'}`}
+      >
+        <ChevronRight className="rotate-90 size-4" />
+      </button>
     </div>
   );
 }
@@ -243,6 +257,100 @@ function AlignPicker({ value, onChange }: { value: string, onChange: (v: string)
   );
 }
 
+function DynamicSectionEditor({ section, onChange, onRemove, onMoveUp, onMoveDown, isFirst, isLast }: { 
+  section: any, 
+  onChange: (s: any) => void, 
+  onRemove: () => void,
+  onMoveUp: () => void,
+  onMoveDown: () => void,
+  isFirst: boolean,
+  isLast: boolean
+}) {
+  return (
+    <div className="bg-white p-6 border border-stone-100 rounded-none shadow-sm space-y-6 mb-8 relative group">
+      <div className="flex justify-between items-center border-b border-stone-50 pb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-1.5 h-6 bg-accent" />
+          <Label className="boutique-label text-accent text-lg">
+            {section.type === 'text' ? 'בלוק טקסט' : section.type === 'image-text' ? 'תמונה וטקסט' : 'כותרת בלבד'}
+          </Label>
+        </div>
+        <div className="flex items-center gap-3">
+          <MoveButtons onUp={onMoveUp} onDown={onMoveDown} disableUp={isFirst} disableDown={isLast} />
+          <button 
+            type="button" 
+            onClick={onRemove} 
+            className="text-red-400 hover:text-red-600 transition-colors h-8 w-8 flex items-center justify-center"
+          >
+            <Trash2 size={16} />
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Field label="סוג הבלוק">
+          <Select value={section.type} onValueChange={v => onChange({ ...section, type: v })}>
+            <SelectTrigger className="bg-stone-50 border-none h-12"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="text">טקסט בלבד</SelectItem>
+              <SelectItem value="image-text">תמונה וטקסט</SelectItem>
+              <SelectItem value="title-only">כותרת בלבד</SelectItem>
+            </SelectContent>
+          </Select>
+        </Field>
+
+        <Field label="צבע רקע">
+          <Select value={section.bg || 'white'} onValueChange={v => onChange({ ...section, bg: v })}>
+            <SelectTrigger className="bg-stone-50 border-none h-12"><SelectValue /></SelectTrigger>
+            <SelectContent>
+              {SECTION_BG_OPTIONS.map(o => <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>)}
+            </SelectContent>
+          </Select>
+        </Field>
+
+        <div className="md:col-span-2">
+          <Field label="כותרת הבלוק (אופציונלי)">
+            <Input value={section.title || ''} onChange={e => onChange({ ...section, title: e.target.value })} className="bg-stone-50 border-none h-12" />
+          </Field>
+        </div>
+
+        {section.type === 'image-text' && (
+          <>
+            <Field label="קישור לתמונה">
+              <Input value={section.imageUrl || ''} onChange={e => onChange({ ...section, imageUrl: e.target.value })} placeholder="https://..." className="bg-stone-50 border-none h-12 font-sans" dir="ltr" />
+            </Field>
+            <Field label="מיקום תמונה">
+              <Select value={section.imagePosition || 'right'} onValueChange={v => onChange({ ...section, imagePosition: v })}>
+                <SelectTrigger className="bg-stone-50 border-none h-12"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="right">ימין</SelectItem>
+                  <SelectItem value="left">שמאל</SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
+          </>
+        )}
+
+        {section.type !== 'title-only' && (
+          <div className="md:col-span-2">
+            <Field label="תוכן">
+              <div className="min-h-[200px]" dir="rtl">
+                <ReactQuill
+                  theme="snow"
+                  value={section.content || ''}
+                  onChange={val => onChange({ ...section, content: val })}
+                  modules={QUILL_MODULES}
+                  formats={QUILL_FORMATS}
+                />
+              </div>
+            </Field>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function AdminPages() {
@@ -260,27 +368,28 @@ export default function AdminPages() {
   const [isDirty, setIsDirty] = useState(false);
   const [allPages, setAllPages] = useState<{id: string, name: string}[]>(DEFAULT_PAGES);
 
+  const loadAllPages = async () => {
+    if (!db) return;
+    try {
+      const snap = await getDocs(collection(db, 'siteContent'));
+      const pages = snap.docs
+        .map(d => ({ id: d.id, name: d.id === 'global' ? '⚙️ הגדרות כלליות' : d.data().siteName || d.id }))
+        .filter(p => p.id !== 'global'); // We handle global separately
+      
+      // Merge with DEFAULT_PAGES to ensure standard ones are there
+      const combined = [...DEFAULT_PAGES];
+      pages.forEach(p => {
+        if (!combined.find(cp => cp.id === p.id)) {
+          combined.push({ id: p.id, name: `📄 ${p.name}` });
+        }
+      });
+      setAllPages(combined);
+    } catch (e) {
+      console.error("Error loading pages:", e);
+    }
+  };
+
   useEffect(() => {
-    const loadAllPages = async () => {
-      if (!db) return;
-      try {
-        const snap = await getDocs(collection(db, 'siteContent'));
-        const pages = snap.docs
-          .map(d => ({ id: d.id, name: d.id === 'global' ? '⚙️ הגדרות כלליות' : d.data().siteName || d.id }))
-          .filter(p => p.id !== 'global'); // We handle global separately
-        
-        // Merge with DEFAULT_PAGES to ensure standard ones are there
-        const combined = [...DEFAULT_PAGES];
-        pages.forEach(p => {
-          if (!combined.find(cp => cp.id === p.id)) {
-            combined.push({ id: p.id, name: `📄 ${p.name}` });
-          }
-        });
-        setAllPages(combined);
-      } catch (e) {
-        console.error("Error loading pages:", e);
-      }
-    };
     loadAllPages();
   }, [db]);
 
@@ -325,6 +434,8 @@ export default function AdminPages() {
         setContent({
           heroTitle:            d.heroTitle            ?? '',
           heroSubtitle:         d.heroSubtitle         ?? '',
+          heroTitleSettings:    d.heroTitleSettings    ?? { ...DEFAULT_CONTENT_VALUES.heroTitleSettings, text: d.heroTitle || '' },
+          heroSubtitleSettings: d.heroSubtitleSettings ?? { ...DEFAULT_CONTENT_VALUES.heroSubtitleSettings, text: d.heroSubtitle || '' },
           heroImageUrlDesktop:  d.heroImageUrlDesktop  ?? '',
           heroImageUrlMobile:   d.heroImageUrlMobile   ?? '',
           portraitImageUrl:     d.portraitImageUrl     ?? '',
@@ -342,22 +453,31 @@ export default function AdminPages() {
           metaDescription:      d.metaDescription      ?? '',
           siteName:             d.siteName             ?? '',
           siteSubtitle:         d.siteSubtitle         ?? '',
+          siteEmail:            d.siteEmail            ?? '',
+          sitePhone:            d.sitePhone            ?? '',
+          siteDescription:      d.siteDescription      ?? '',
+          facebookLink:         d.facebookLink         ?? '',
+          instagramLink:        d.instagramLink        ?? '',
           ctaAlign:             d.ctaAlign             ?? 'center',
           navItems:             Array.isArray(d.navItems)     ? d.navItems     : [],
           ctaButtons:           Array.isArray(d.ctaButtons)   ? d.ctaButtons   : [],
           features:             Array.isArray(d.features)     ? d.features     : [],
           testimonials:         Array.isArray(d.testimonials) ? d.testimonials : [],
           faqs:                 Array.isArray(d.faqs)         ? d.faqs         : [],
+          dynamicSections:      Array.isArray(d.dynamicSections) ? d.dynamicSections : [],
           featuresTitle:        d.featuresTitle               ?? DEFAULT_CONTENT_VALUES.featuresTitle,
           testimonialsTitle:    d.testimonialsTitle           ?? DEFAULT_CONTENT_VALUES.testimonialsTitle,
           faqsTitle:           d.faqsTitle                   ?? DEFAULT_CONTENT_VALUES.faqsTitle,
           introTitleSettings:   d.introTitleSettings          ?? DEFAULT_CONTENT_VALUES.introTitleSettings,
           contactTitleSettings: d.contactTitleSettings        ?? DEFAULT_CONTENT_VALUES.contactTitleSettings,
+          sectionOrder:         d.sectionOrder                ?? [...(DEFAULT_CONTENT_VALUES.sectionOrder as string[])],
         });
       } else {
         setContent({
           heroTitle:            fb.heroTitle            ?? '',
           heroSubtitle:         fb.heroSubtitle         ?? '',
+          heroTitleSettings:    fb.heroTitleSettings    ?? { ...DEFAULT_CONTENT_VALUES.heroTitleSettings, text: fb.heroTitle || '' },
+          heroSubtitleSettings: fb.heroSubtitleSettings ?? { ...DEFAULT_CONTENT_VALUES.heroSubtitleSettings, text: fb.heroSubtitle || '' },
           heroImageUrlDesktop:  '',
           heroImageUrlMobile:   '',
           portraitImageUrl:     '',
@@ -375,17 +495,24 @@ export default function AdminPages() {
           metaDescription:      '',
           siteName:             '',
           siteSubtitle:         '',
+          siteEmail:            '',
+          sitePhone:            '',
+          siteDescription:      '',
+          facebookLink:         '',
+          instagramLink:        '',
           ctaAlign:             'center',
           navItems:             Array.isArray(fb.navItems)     ? fb.navItems     : [],
           ctaButtons:           Array.isArray(fb.ctaButtons)   ? fb.ctaButtons   : [],
           features:             Array.isArray(fb.features)     ? fb.features     : [],
           testimonials:         Array.isArray(fb.testimonials) ? fb.testimonials : [],
           faqs:                 Array.isArray(fb.faqs)         ? fb.faqs         : [],
+          dynamicSections:      [],
           featuresTitle:        fb.featuresTitle               ?? DEFAULT_CONTENT_VALUES.featuresTitle,
           testimonialsTitle:    fb.testimonialsTitle           ?? DEFAULT_CONTENT_VALUES.testimonialsTitle,
           faqsTitle:           fb.faqsTitle                   ?? DEFAULT_CONTENT_VALUES.faqsTitle,
           introTitleSettings:   fb.introTitleSettings          ?? DEFAULT_CONTENT_VALUES.introTitleSettings,
           contactTitleSettings: fb.contactTitleSettings        ?? DEFAULT_CONTENT_VALUES.contactTitleSettings,
+          sectionOrder:         fb.sectionOrder                || [...(DEFAULT_CONTENT_VALUES.sectionOrder as string[])],
         });
       }
       setTimeout(() => {
@@ -402,21 +529,55 @@ export default function AdminPages() {
     e.preventDefault();
     if (!db || isSaving) return;
     const rawId = selectedPage === 'custom' ? customPageId : selectedPage;
-    const targetId = rawId.toLowerCase().trim().replace(/[^a-z0-9-]/g, '-');
+    let targetId = rawId.toLowerCase().trim().replace(/[^a-z0-9-]/g, '-');
+    
     if (!targetId) {
       toast({ variant: 'destructive', title: 'אנא הזיני מזהה עמוד (Slug)' });
       return;
     }
+
     setIsSaving(true);
     try {
-      await setDoc(doc(db, 'siteContent', targetId), { ...content, pageId: targetId, updatedAt: Date.now() });
+      // If the slug changed for an existing page, we need to create a new doc and delete the old one
+      if (selectedPage !== 'custom' && selectedPage !== 'global' && selectedPage !== targetId) {
+        if (window.confirm(`האם את בטוחה שברצונך לשנות את הכתובת מ-${selectedPage} ל-${targetId}? קישורים קיימים עלולים להישבר.`)) {
+          await setDoc(doc(db, 'siteContent', targetId), { ...content, pageId: targetId, updatedAt: Date.now() });
+          await deleteDoc(doc(db, 'siteContent', selectedPage));
+          setSelectedPage(targetId);
+        } else {
+          setIsSaving(false);
+          return;
+        }
+      } else {
+        await setDoc(doc(db, 'siteContent', targetId), { ...content, pageId: targetId, updatedAt: Date.now() });
+      }
+      
       setIsDirty(false);
+      await loadAllPages(); // Refresh the list
       toast({ title: '✅ נשמר בהצלחה!', description: `הדף "${targetId}" עודכן.` });
+      if (selectedPage === 'custom') setSelectedPage(targetId);
     } catch (err: any) {
       const msg = err?.code === 'permission-denied'
         ? 'אין הרשאות כתיבה. ודאי שאת מחוברת ושה-Firebase Rules מאפשרים כתיבה.'
         : String(err?.message || err);
       toast({ variant: 'destructive', title: '❌ שמירה נכשלה', description: msg });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDeletePage = async () => {
+    if (!db || !selectedPage || selectedPage === 'global') return;
+    if (!window.confirm(`האם את בטוחה שברצונך למחוק את הדף "${selectedPage}"? פעולה זו אינה ניתנת לביטול.`)) return;
+    
+    setIsSaving(true);
+    try {
+      await deleteDoc(doc(db, 'siteContent', selectedPage));
+      toast({ title: '✅ נמחק בהצלחה', description: `הדף ${selectedPage} הוסר מהמערכת.` });
+      await loadAllPages();
+      setSelectedPage('home');
+    } catch (err) {
+      toast({ variant: 'destructive', title: 'מחיקה נכשלה', description: String(err) });
     } finally {
       setIsSaving(false);
     }
@@ -457,27 +618,56 @@ export default function AdminPages() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
           <div className="w-full">
-            <Button variant="ghost" onClick={() => router.push('/admin/dashboard')} className="mb-4 text-stone-400 p-0 hover:text-primary h-auto">
+            <button 
+              type="button"
+              onClick={() => router.push('/admin/dashboard')} 
+              className="mb-4 text-stone-400 p-0 hover:text-primary h-auto flex items-center transition-colors"
+            >
               <ChevronRight className="ml-2 size-4" /> חזרה ללוח הבקרה
-            </Button>
+            </button>
             <h1 className="text-4xl md:text-6xl font-handwriting text-accent">ניהול תוכן ועיצוב</h1>
           </div>
 
-          <div className="w-full md:w-80 space-y-4">
-            <Field label="בחר דף לעריכה">
-              <Select value={selectedPage} onValueChange={handlePageSelect}>
-                <SelectTrigger className="bg-white border-none h-12 rounded-none shadow-sm"><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="global" className="font-bold text-primary">⚙️ הגדרות אתר כלליות</SelectItem>
-                  {allPages.map(p => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
-                  <SelectItem value="custom" className="italic text-stone-400">✚ עמוד חדש</SelectItem>
-                </SelectContent>
-              </Select>
-            </Field>
-            {selectedPage === 'custom' && (
+          <div className="w-full md:w-96 flex flex-col gap-4">
+            <div className="flex gap-2">
+              <div className="flex-1">
+                <Field label="בחר דף לעריכה">
+                  <Select value={selectedPage} onValueChange={handlePageSelect}>
+                    <SelectTrigger className="bg-white border-none h-12 rounded-none shadow-sm"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="global" className="font-bold text-primary">⚙️ הגדרות אתר כלליות</SelectItem>
+                      {allPages.map(p => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
+                      <SelectItem value="custom" className="italic text-stone-400">✚ עמוד חדש</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </Field>
+              </div>
+              <button 
+                type="button" 
+                onClick={loadAllPages} 
+                className="mt-7 text-stone-400 hover:text-primary transition-colors p-2"
+              >
+                <RefreshCcw size={16} />
+              </button>
+            </div>
+            {(selectedPage === 'custom' || (selectedPage !== 'global' && selectedPage !== 'custom')) && (
               <Field label="מזהה עמוד (Slug)">
-                <Input value={customPageId} onChange={e => setCustomPageId(e.target.value)} placeholder="my-new-page" className="bg-white h-12" />
+                <Input 
+                  value={selectedPage === 'custom' ? customPageId : customPageId || selectedPage} 
+                  onChange={e => setCustomPageId(e.target.value)} 
+                  placeholder="my-new-page" 
+                  className="bg-white h-12" 
+                />
               </Field>
+            )}
+            {selectedPage !== 'global' && selectedPage !== 'custom' && (
+              <button 
+                type="button" 
+                onClick={handleDeletePage} 
+                className="text-red-500 hover:text-red-700 self-end text-xs transition-colors hover:underline mt-1"
+              >
+                מחיקת דף זה לצמיתות
+              </button>
             )}
           </div>
         </div>
@@ -496,8 +686,28 @@ export default function AdminPages() {
                   <Field label="שם האתר">
                     <Input value={content.siteName} onChange={e => set({ siteName: e.target.value })} />
                   </Field>
-                  <Field label="סלוגן / תיאור קצר">
+                  <Field label="סלוגן ראשי">
                     <Input value={content.siteSubtitle} onChange={e => set({ siteSubtitle: e.target.value })} />
+                  </Field>
+                  <div className="md:col-span-2">
+                    <Field label="תיאור אתר (לפוטר / SEO)">
+                      <Textarea value={content.siteDescription || ''} onChange={e => set({ siteDescription: e.target.value })} rows={3} />
+                    </Field>
+                  </div>
+                  <Field label="אימייל ליצירת קשר">
+                    <Input value={content.siteEmail || ''} onChange={e => set({ siteEmail: e.target.value })} dir="ltr" />
+                  </Field>
+                  <Field label="טלפון ליצירת קשר">
+                    <Input value={content.sitePhone || ''} onChange={e => set({ sitePhone: e.target.value })} dir="ltr" />
+                  </Field>
+                  <Field label="כתובת / מיקום">
+                    <Input value={content.siteAddress || ''} onChange={e => set({ siteAddress: e.target.value })} />
+                  </Field>
+                  <Field label="לינק פייסבוק">
+                    <Input value={content.facebookLink || ''} onChange={e => set({ facebookLink: e.target.value })} dir="ltr" />
+                  </Field>
+                  <Field label="לינק אינסטגרם">
+                    <Input value={content.instagramLink || ''} onChange={e => set({ instagramLink: e.target.value })} dir="ltr" />
                   </Field>
                 </div>
                 {/* Global Nav Editor */}
@@ -550,13 +760,17 @@ export default function AdminPages() {
 
                 {/* ── Hero ── */}
                 <SectionCard icon={<Smartphone size={20} />} title="חלק עליון (Hero)">
+                  <TitleEditor 
+                    label="כותרת Hero הראשית" 
+                    settings={content.heroTitleSettings} 
+                    onChange={s => set({ heroTitleSettings: s, heroTitle: s.text })} 
+                  />
+                  <TitleEditor 
+                    label="כותרת משנה ב-Hero" 
+                    settings={content.heroSubtitleSettings} 
+                    onChange={s => set({ heroSubtitleSettings: s, heroSubtitle: s.text })} 
+                  />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <Field label="כותרת Hero">
-                      <Input value={content.heroTitle} onChange={e => set({ heroTitle: e.target.value })} className="h-12 text-xl font-bold" />
-                    </Field>
-                    <Field label="כותרת משנה">
-                      <Input value={content.heroSubtitle} onChange={e => set({ heroSubtitle: e.target.value })} className="h-12" />
-                    </Field>
                     <Field label="תמונת רקע - דסקטופ (URL)">
                       <Input value={content.heroImageUrlDesktop} onChange={e => set({ heroImageUrlDesktop: e.target.value })} className="font-sans" dir="ltr" placeholder="https://..." />
                     </Field>
@@ -794,6 +1008,112 @@ export default function AdminPages() {
                   <Button type="button" onClick={() => addItem('faqs', { question: '', answer: '' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary hover:bg-primary/5">
                     <Plus className="mr-2 size-4" /> הוספת שאלה
                   </Button>
+                </SectionCard>
+
+                {/* ── Page Layout ── */}
+                <SectionCard icon={<Layout size={20} />} title="סדר חלקי העמוד (Layout)">
+                  <div className="space-y-3">
+                    <p className="text-sm text-stone-500 mb-4 font-bold">השתמשי בחיצים כדי לשנות את סדר הופעת הקטעים בעמוד:</p>
+                    {content.sectionOrder.map((secId, i) => {
+                      const labels: any = {
+                        hero: 'הדר (Hero)',
+                        intro: 'תוכן ראשי (About)',
+                        dynamic: 'בלוקים חופשיים (Dynamic)',
+                        features: 'מרחבי הטיפול (Features)',
+                        testimonials: 'המלצות (Testimonials)',
+                        faqs: 'שאלות נפוצות (FAQ)',
+                        cta: 'כפתורי פעולה (CTA)',
+                        contact: 'יצירת קשר (Contact)'
+                      };
+                      return (
+                        <div key={secId} className="flex items-center justify-between bg-white p-4 border border-stone-100 shadow-sm">
+                          <div className="flex items-center gap-3">
+                            <div className="w-1.5 h-6 bg-accent/20" />
+                            <span className="font-bold text-accent">{labels[secId] || secId}</span>
+                          </div>
+                          <MoveButtons 
+                            onUp={() => {
+                              const next = [...content.sectionOrder];
+                              if (i > 0) {
+                                [next[i], next[i-1]] = [next[i-1], next[i]];
+                                set({ sectionOrder: next });
+                              }
+                            }} 
+                            onDown={() => {
+                              const next = [...content.sectionOrder];
+                              if (i < next.length - 1) {
+                                [next[i], next[i+1]] = [next[i+1], next[i]];
+                                set({ sectionOrder: next });
+                              }
+                            }} 
+                            disableUp={i === 0} 
+                            disableDown={i === content.sectionOrder.length - 1} 
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </SectionCard>
+
+                {/* ── Dynamic Sections ── */}
+                <SectionCard icon={<Box size={20} />} title="בלוקים חופשיים (Custom Blocks)">
+                  <p className="text-sm text-stone-500 mb-6">בלוקים אלו יופיעו תחת הקטגוריה "בלוקים חופשיים" בסדר שקבעתם למעלה.</p>
+                  {(content.dynamicSections || []).map((sec, i) => (
+                    <DynamicSectionEditor 
+                      key={sec.id || i}
+                      section={sec}
+                      onChange={s => {
+                        const next = [...(content.dynamicSections || [])];
+                        next[i] = s;
+                        set({ dynamicSections: next });
+                      }}
+                      onRemove={() => {
+                        const next = [...(content.dynamicSections || [])];
+                        next.splice(i, 1);
+                        set({ dynamicSections: next });
+                      }}
+                      onMoveUp={() => {
+                        const next = [...(content.dynamicSections || [])];
+                        if (i > 0) {
+                          [next[i], next[i-1]] = [next[i-1], next[i]];
+                          set({ dynamicSections: next });
+                        }
+                      }}
+                      onMoveDown={() => {
+                        const next = [...(content.dynamicSections || [])];
+                        if (i < next.length - 1) {
+                          [next[i], next[i+1]] = [next[i+1], next[i]];
+                          set({ dynamicSections: next });
+                        }
+                      }}
+                      isFirst={i === 0}
+                      isLast={i === (content.dynamicSections?.length || 0) - 1}
+                    />
+                  ))}
+                  <div className="flex gap-4">
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        const id = Math.random().toString(36).substr(2, 9);
+                        const next = [...(content.dynamicSections || []), { id, type: 'text', content: '', title: '', bg: 'white' }];
+                        set({ dynamicSections: next as any });
+                      }} 
+                      className="flex-1 h-14 border-2 border-primary/20 border-dashed rounded-sm text-primary hover:bg-primary/5 transition-all flex items-center justify-center font-bold tracking-wider"
+                    >
+                      <Type className="ml-2 size-5" /> הוספת בלוק טקסט חופשי
+                    </button>
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        const id = Math.random().toString(36).substr(2, 9);
+                        const next = [...(content.dynamicSections || []), { id, type: 'image-text', content: '', title: '', imageUrl: '', imagePosition: 'right', bg: 'white' }];
+                        set({ dynamicSections: next as any });
+                      }} 
+                      className="flex-1 h-14 border-2 border-primary/20 border-dashed rounded-sm text-primary hover:bg-primary/5 transition-all flex items-center justify-center font-bold tracking-wider"
+                    >
+                      <ImageIcon className="ml-2 size-5" /> תמונה משולבת עם טקסט
+                    </button>
+                  </div>
                 </SectionCard>
 
                 {/* ── Contact Section ── */}

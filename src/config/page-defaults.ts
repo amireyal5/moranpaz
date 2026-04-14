@@ -14,9 +14,21 @@ export type TitleSettings = {
   subtitle?: string;
 };
 
+export type DynamicSection = {
+  id: string;
+  type: 'text' | 'image-text' | 'title-only' | 'hero' | 'intro' | 'features' | 'testimonials' | 'faqs' | 'cta' | 'contact';
+  content: string;
+  title?: string;
+  imageUrl?: string;
+  imagePosition?: 'left' | 'right';
+  bg?: string;
+};
+
 export type ContentState = {
   heroTitle: string;
   heroSubtitle: string;
+  heroTitleSettings?: TitleSettings;
+  heroSubtitleSettings?: TitleSettings;
   heroImageUrlDesktop: string;
   heroImageUrlMobile: string;
   heroHeight: string;
@@ -34,17 +46,25 @@ export type ContentState = {
   metaDescription: string;
   siteName: string;
   siteSubtitle: string;
+  siteDescription?: string;
+  siteEmail?: string;
+  sitePhone?: string;
+  siteAddress?: string;
+  facebookLink?: string;
+  instagramLink?: string;
   ctaAlign: string;
   navItems: NavItem[];
   ctaButtons: CtaButton[];
   features: Feature[];
   testimonials: Testimonial[];
   faqs: Faq[];
+  dynamicSections?: DynamicSection[];
   featuresTitle?: TitleSettings;
   testimonialsTitle?: TitleSettings;
   faqsTitle?: TitleSettings;
   introTitleSettings?: TitleSettings;
   contactTitleSettings?: TitleSettings;
+  sectionOrder: string[];
 };
 
 export const DEFAULT_CONTENT_VALUES: Partial<ContentState> = {
@@ -60,11 +80,15 @@ export const DEFAULT_CONTENT_VALUES: Partial<ContentState> = {
   features: [],
   testimonials: [],
   faqs: [],
+  dynamicSections: [],
   featuresTitle: { text: "התהליך הטיפולי", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
   testimonialsTitle: { text: "לקוחות ממליצים", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
   faqsTitle: { text: "שאלות נפוצות", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
   introTitleSettings: { text: "קצת עלי", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'right', color: 'text-foreground' },
   contactTitleSettings: { text: "צרו קשר", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
+  heroTitleSettings: { text: "", fontSize: 'text-9xl', fontFamily: 'font-handwriting', align: 'center', color: '#ffffff' },
+  heroSubtitleSettings: { text: "", fontSize: 'text-4xl', fontFamily: 'font-headline', align: 'center', color: '#f5f5f5' },
+  sectionOrder: ['hero', 'intro', 'dynamic', 'features', 'testimonials', 'faqs', 'cta', 'contact']
 };
 
 export const PAGE_FALLBACKS: Record<string, Partial<ContentState>> = {
@@ -120,18 +144,28 @@ export function getInitialPageContent(id: string): ContentState {
     primaryColor:         fallback.primaryColor         || '35 40% 45%',
     metaTitle:            '',
     metaDescription:      '',
-    siteName:             '',
-    siteSubtitle:         '',
+    siteName:             fallback.siteName             || '',
+    siteSubtitle:         fallback.siteSubtitle         || '',
+    siteDescription:      fallback.siteDescription      || '',
+    siteEmail:            fallback.siteEmail            || '',
+    sitePhone:            fallback.sitePhone            || '',
+    siteAddress:          fallback.siteAddress          || '',
+    facebookLink:         fallback.facebookLink         || '',
+    instagramLink:        fallback.instagramLink        || '',
     ctaAlign:             fallback.ctaAlign             || 'center',
     navItems:             fallback.navItems             || [],
     ctaButtons:           fallback.ctaButtons           || [],
     features:             fallback.features             || [],
     testimonials:         fallback.testimonials         || [],
     faqs:                 fallback.faqs                 || [],
+    dynamicSections:      fallback.dynamicSections      || [],
     featuresTitle:        fallback.featuresTitle        || DEFAULT_CONTENT_VALUES.featuresTitle,
     testimonialsTitle:    fallback.testimonialsTitle    || DEFAULT_CONTENT_VALUES.testimonialsTitle,
     faqsTitle:           fallback.faqsTitle           || DEFAULT_CONTENT_VALUES.faqsTitle,
     introTitleSettings:   fallback.introTitleSettings   || DEFAULT_CONTENT_VALUES.introTitleSettings,
     contactTitleSettings: fallback.contactTitleSettings || DEFAULT_CONTENT_VALUES.contactTitleSettings,
+    heroTitleSettings:    fallback.heroTitleSettings    || { ...DEFAULT_CONTENT_VALUES.heroTitleSettings, text: fallback.heroTitle || '' } as TitleSettings,
+    heroSubtitleSettings: fallback.heroSubtitleSettings || { ...DEFAULT_CONTENT_VALUES.heroSubtitleSettings, text: fallback.heroSubtitle || '' } as TitleSettings,
+    sectionOrder:         fallback.sectionOrder         || [...(DEFAULT_CONTENT_VALUES.sectionOrder as string[])]
   };
 }

@@ -69,23 +69,31 @@ export function Footer() {
           <div className="lg:col-span-3">
              <h4 className="boutique-label text-white border-b border-white/20 pb-2 mb-10 inline-block">יצירת קשר</h4>
              <div className="space-y-6">
-                <a href="tel:0507817338" className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light text-white/90 hover:text-white transition-colors duration-500">
-                  <Phone size={18} className="opacity-80" />
-                  <span>050-781-7338</span>
-                </a>
-                <a href="mailto:moraniva5@gmail.com" className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light text-white/90 hover:text-white transition-colors duration-500">
-                  <Mail size={18} className="opacity-80" />
-                  <span>moraniva5@gmail.com</span>
-                </a>
+                {(globalSettings?.sitePhone || "050-781-7338") && (
+                  <a href={`tel:${(globalSettings?.sitePhone || "050-781-7338").replace(/-/g, '')}`} className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light text-white/90 hover:text-white transition-colors duration-500">
+                    <Phone size={18} className="opacity-80" />
+                    <span>{globalSettings?.sitePhone || "050-781-7338"}</span>
+                  </a>
+                )}
+                {(globalSettings?.siteEmail || "moraniva5@gmail.com") && (
+                  <a href={`mailto:${globalSettings?.siteEmail || "moraniva5@gmail.com"}`} className="flex items-center justify-start space-x-reverse space-x-4 text-xl font-light text-white/90 hover:text-white transition-colors duration-500">
+                    <Mail size={18} className="opacity-80" />
+                    <span>{globalSettings?.siteEmail || "moraniva5@gmail.com"}</span>
+                  </a>
+                )}
                 
                 <div className="flex gap-6 pt-6">
-                  <a href={facebookLink} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-all">
-                    <Facebook size={24} strokeWidth={1} />
-                  </a>
-                  <a href="https://www.instagram.com/beinme_moranpaz" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-all">
-                    <Instagram size={24} strokeWidth={1} />
-                  </a>
-                  <a href="https://wa.me/972507817338" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-all">
+                  {(globalSettings?.facebookLink || facebookLink) && (
+                    <a href={globalSettings?.facebookLink || facebookLink} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-all">
+                      <Facebook size={24} strokeWidth={1} />
+                    </a>
+                  )}
+                  {(globalSettings?.instagramLink || "https://www.instagram.com/beinme_moranpaz") && (
+                    <a href={globalSettings?.instagramLink || "https://www.instagram.com/beinme_moranpaz"} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-all">
+                      <Instagram size={24} strokeWidth={1} />
+                    </a>
+                  )}
+                  <a href={`https://wa.me/${(globalSettings?.sitePhone || "972507817338").replace(/-/g, '').replace(/^0/, '972')}`} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-all">
                     <WhatsAppIcon size={24} variant="outline" />
                   </a>
                 </div>
@@ -95,7 +103,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center space-y-10 md:space-y-0 text-[11px] uppercase tracking-[0.3em] text-white/60 font-bold text-center md:text-right">
-          <p className="order-1">© {year} BEINME — מורן פז — כל הזכויות שמורות</p>
+          <p className="order-1">© {year} {globalSettings?.siteName || "BEINME"} — מורן פז — כל הזכויות שמורות</p>
           
           <div className="order-2 flex flex-col items-center gap-6">
             {/* Mobile-only prominent management link, placed above legal links */}

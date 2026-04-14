@@ -20,7 +20,8 @@ export function Navbar() {
   const pathname = usePathname();
   const isAdminPage = pathname?.startsWith('/admin');
   
-  const whatsappLink = "https://wa.me/972507817338?text=היי%20מורן%20הגעתי%20מהאתר%20שלך%20מעוניין%20לקבל%20פרטים%20נוספים%20תודה";
+  const sitePhone = globalSettings?.sitePhone || "050-781-7338";
+  const whatsappLink = `https://wa.me/${sitePhone.replace(/-/g, '').replace(/^0/, '972')}?text=היי%20מורן%20הגעתי%20מהאתר%20שלך%20מעוניין%20לקבל%20פרטים%20נוספים%20תודה`;
 
   useEffect(() => {
     const handleScroll = () => {
