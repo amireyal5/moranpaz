@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore';
 import { useUser, useFirestore } from '@/firebase';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
@@ -120,9 +120,74 @@ const CTA_SIZES = [
   { label: 'גדול', value: 'lg' },
 ];
 
+const FONT_OPTIONS = [
+  { label: 'כותרת (Headline)', value: 'font-headline' },
+  { label: 'כתב יד (Handwriting)', value: 'font-handwriting' },
+  { label: 'רגיל (Sans)', value: 'font-sans' },
+];
+
+const SIZE_OPTIONS = [
+  { label: 'קטן (2xl)', value: 'text-2xl' },
+  { label: 'בינוני (4xl)', value: 'text-4xl' },
+  { label: 'גדול (6xl)', value: 'text-6xl' },
+  { label: 'ענק (7xl)', value: 'text-7xl' },
+  { label: 'מקסימלי (9xl)', value: 'text-9xl' },
+];
+
 const EMPTY_CONTENT: ContentState = getInitialPageContent('home');
 
 // ─── Small reusable sub-components ────────────────────────────────────────────
+
+function TitleEditor({ settings, onChange, label }: { settings?: TitleSettings, onChange: (s: TitleSettings) => void, label: string }) {
+  const s = settings || { text: '', fontSize: 'text-4xl', fontFamily: 'font-headline', align: 'right', color: 'text-foreground' };
+  
+  return (
+    <div className="bg-white p-6 border border-stone-100 rounded-none shadow-sm space-y-6 mb-8">
+      <div className="flex items-center gap-3 border-b border-stone-50 pb-4">
+        <div className="w-1.5 h-6 bg-primary" />
+        <Label className="boutique-label text-primary text-lg">{label}</Label>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="md:col-span-2">
+          <Field label="טקסט הכותרת">
+            <Input value={s.text} onChange={e => onChange({ ...s, text: e.target.value })} className="bg-stone-50 border-none h-12" />
+          </Field>
+        </div>
+        <Field label="כותרת משנה (Optional)">
+          <Input value={s.subtitle || ''} onChange={e => onChange({ ...s, subtitle: e.target.value })} className="bg-stone-50 border-none h-12" />
+        </Field>
+        <Field label="יישור">
+          <AlignPicker value={s.align || 'right'} onChange={v => onChange({ ...s, align: v as any })} />
+        </Field>
+        <Field label="גופן">
+          <Select value={s.fontFamily} onValueChange={v => onChange({ ...s, fontFamily: v })}>
+            <SelectTrigger className="bg-stone-50 border-none h-12"><SelectValue /></SelectTrigger>
+            <SelectContent>{FONT_OPTIONS.map(f => <SelectItem key={f.value} value={f.value}>{f.label}</SelectItem>)}</SelectContent>
+          </Select>
+        </Field>
+        <Field label="גודל">
+          <Select value={s.fontSize} onValueChange={v => onChange({ ...s, fontSize: v })}>
+            <SelectTrigger className="bg-stone-50 border-none h-12"><SelectValue /></SelectTrigger>
+            <SelectContent>{SIZE_OPTIONS.map(z => <SelectItem key={z.value} value={z.value}>{z.label}</SelectItem>)}</SelectContent>
+          </Select>
+        </Field>
+        <div className="md:col-span-2">
+          <Field label="צבע (Class/Hex)">
+            <Input value={s.color || ''} onChange={e => onChange({ ...s, color: e.target.value })} placeholder="text-primary או #000000" className="bg-stone-50 border-none h-12" />
+          </Field>
+        </div>
+      </div>
+      <div className="pt-4 border-t border-stone-50 mt-4">
+        <p className="text-[10px] text-stone-400 mb-2">תצוגה מקדימה של הכותרת</p>
+        <div className={`p-4 rounded border border-dashed border-stone-200 ${s.align === 'center' ? 'text-center' : s.align === 'left' ? 'text-left' : 'text-right'}`}>
+          {s.subtitle && <span className="boutique-label block text-primary text-xs mb-2">{s.subtitle}</span>}
+          <h2 className={`${s.fontFamily} ${s.fontSize} ${s.color?.startsWith('#') ? '' : s.color}`}>{s.text || 'כותרת לדוגמה'}</h2>
+          <div className={`w-12 h-[2px] bg-primary/20 mt-4 ${s.align === 'center' ? 'mx-auto' : s.align === 'left' ? 'mr-auto ml-0' : 'ml-auto mr-0'}`} />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function SectionCard({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
   return (
@@ -193,6 +258,31 @@ export default function AdminPages() {
   const [isFetching, setIsFetching] = useState(false);
   const [content, setContent] = useState<ContentState>(EMPTY_CONTENT);
   const [isDirty, setIsDirty] = useState(false);
+  const [allPages, setAllPages] = useState<{id: string, name: string}[]>(DEFAULT_PAGES);
+
+  useEffect(() => {
+    const loadAllPages = async () => {
+      if (!db) return;
+      try {
+        const snap = await getDocs(collection(db, 'siteContent'));
+        const pages = snap.docs
+          .map(d => ({ id: d.id, name: d.id === 'global' ? '⚙️ הגדרות כלליות' : d.data().siteName || d.id }))
+          .filter(p => p.id !== 'global'); // We handle global separately
+        
+        // Merge with DEFAULT_PAGES to ensure standard ones are there
+        const combined = [...DEFAULT_PAGES];
+        pages.forEach(p => {
+          if (!combined.find(cp => cp.id === p.id)) {
+            combined.push({ id: p.id, name: `📄 ${p.name}` });
+          }
+        });
+        setAllPages(combined);
+      } catch (e) {
+        console.error("Error loading pages:", e);
+      }
+    };
+    loadAllPages();
+  }, [db]);
 
   const set = (patch: Partial<ContentState>) => {
     setContent(prev => {
@@ -258,6 +348,11 @@ export default function AdminPages() {
           features:             Array.isArray(d.features)     ? d.features     : [],
           testimonials:         Array.isArray(d.testimonials) ? d.testimonials : [],
           faqs:                 Array.isArray(d.faqs)         ? d.faqs         : [],
+          featuresTitle:        d.featuresTitle               ?? DEFAULT_CONTENT_VALUES.featuresTitle,
+          testimonialsTitle:    d.testimonialsTitle           ?? DEFAULT_CONTENT_VALUES.testimonialsTitle,
+          faqsTitle:           d.faqsTitle                   ?? DEFAULT_CONTENT_VALUES.faqsTitle,
+          introTitleSettings:   d.introTitleSettings          ?? DEFAULT_CONTENT_VALUES.introTitleSettings,
+          contactTitleSettings: d.contactTitleSettings        ?? DEFAULT_CONTENT_VALUES.contactTitleSettings,
         });
       } else {
         setContent({
@@ -286,6 +381,11 @@ export default function AdminPages() {
           features:             Array.isArray(fb.features)     ? fb.features     : [],
           testimonials:         Array.isArray(fb.testimonials) ? fb.testimonials : [],
           faqs:                 Array.isArray(fb.faqs)         ? fb.faqs         : [],
+          featuresTitle:        fb.featuresTitle               ?? DEFAULT_CONTENT_VALUES.featuresTitle,
+          testimonialsTitle:    fb.testimonialsTitle           ?? DEFAULT_CONTENT_VALUES.testimonialsTitle,
+          faqsTitle:           fb.faqsTitle                   ?? DEFAULT_CONTENT_VALUES.faqsTitle,
+          introTitleSettings:   fb.introTitleSettings          ?? DEFAULT_CONTENT_VALUES.introTitleSettings,
+          contactTitleSettings: fb.contactTitleSettings        ?? DEFAULT_CONTENT_VALUES.contactTitleSettings,
         });
       }
       setTimeout(() => {
@@ -369,7 +469,7 @@ export default function AdminPages() {
                 <SelectTrigger className="bg-white border-none h-12 rounded-none shadow-sm"><SelectValue /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="global" className="font-bold text-primary">⚙️ הגדרות אתר כלליות</SelectItem>
-                  {DEFAULT_PAGES.map(p => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
+                  {allPages.map(p => <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>)}
                   <SelectItem value="custom" className="italic text-stone-400">✚ עמוד חדש</SelectItem>
                 </SelectContent>
               </Select>
@@ -508,6 +608,11 @@ export default function AdminPages() {
 
                 {/* ── Content ── */}
                 <SectionCard icon={<Monitor size={20} />} title="תוכן העמוד">
+                  <TitleEditor 
+                    label="כותרת קטע תוכן ראשי" 
+                    settings={content.introTitleSettings} 
+                    onChange={s => set({ introTitleSettings: s })} 
+                  />
                   <Field label="רקע קטע תוכן">
                     <Select value={content.sectionBg} onValueChange={v => set({ sectionBg: v })}>
                       <SelectTrigger className="bg-stone-50"><SelectValue /></SelectTrigger>
@@ -594,6 +699,11 @@ export default function AdminPages() {
 
                 {/* ── Features / Blocks ── */}
                 <SectionCard icon={<Box size={20} />} title="קוביות תוכן">
+                  <TitleEditor 
+                    label="כותרת קטע קוביות תוכן" 
+                    settings={content.featuresTitle} 
+                    onChange={s => set({ featuresTitle: s })} 
+                  />
                   {content.features.map((feat, i) => (
                     <div key={i} className="bg-stone-50 p-4 md:p-5 border border-stone-100 rounded-sm space-y-4">
                       <div className="flex justify-between items-center">
@@ -631,6 +741,11 @@ export default function AdminPages() {
 
                 {/* ── Testimonials ── */}
                 <SectionCard icon={<Quote size={20} />} title="עדויות ממליצים">
+                  <TitleEditor 
+                    label="כותרת קטע עדויות" 
+                    settings={content.testimonialsTitle} 
+                    onChange={s => set({ testimonialsTitle: s })} 
+                  />
                   {content.testimonials.map((t, i) => (
                     <div key={i} className="bg-stone-50 p-4 border border-stone-100 rounded-sm space-y-3">
                       <div className="flex justify-between items-center">
@@ -657,6 +772,11 @@ export default function AdminPages() {
 
                 {/* ── FAQs ── */}
                 <SectionCard icon={<HelpCircle size={20} />} title="שאלות ותשובות">
+                  <TitleEditor 
+                    label="כותרת קטע שאלות נפוצות" 
+                    settings={content.faqsTitle} 
+                    onChange={s => set({ faqsTitle: s })} 
+                  />
                   {content.faqs.map((faq, i) => (
                     <div key={i} className="bg-stone-50 p-4 border border-stone-100 rounded-sm space-y-3">
                       <div className="flex justify-between items-center">
@@ -674,6 +794,15 @@ export default function AdminPages() {
                   <Button type="button" onClick={() => addItem('faqs', { question: '', answer: '' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary hover:bg-primary/5">
                     <Plus className="mr-2 size-4" /> הוספת שאלה
                   </Button>
+                </SectionCard>
+
+                {/* ── Contact Section ── */}
+                <SectionCard icon={<MessageSquare size={20} />} title="קטע יצירת קשר">
+                  <TitleEditor 
+                    label="כותרת קטע יצירת קשר" 
+                    settings={content.contactTitleSettings} 
+                    onChange={s => set({ contactTitleSettings: s })} 
+                  />
                 </SectionCard>
               </>
             )}

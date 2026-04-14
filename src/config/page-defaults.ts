@@ -5,6 +5,15 @@ export type Feature = { title: string; description: string; icon: string };
 export type Testimonial = { text: string; author: string; location: string };
 export type Faq = { question: string; answer: string };
 
+export type TitleSettings = {
+  text: string;
+  fontSize?: string; // e.g. 'text-4xl'
+  color?: string; // e.g. '#333333' or tailwind class
+  fontFamily?: string; // 'font-headline', 'font-handwriting', 'font-sans'
+  align?: 'right' | 'center' | 'left';
+  subtitle?: string;
+};
+
 export type ContentState = {
   heroTitle: string;
   heroSubtitle: string;
@@ -31,6 +40,11 @@ export type ContentState = {
   features: Feature[];
   testimonials: Testimonial[];
   faqs: Faq[];
+  featuresTitle?: TitleSettings;
+  testimonialsTitle?: TitleSettings;
+  faqsTitle?: TitleSettings;
+  introTitleSettings?: TitleSettings;
+  contactTitleSettings?: TitleSettings;
 };
 
 export const DEFAULT_CONTENT_VALUES: Partial<ContentState> = {
@@ -46,6 +60,11 @@ export const DEFAULT_CONTENT_VALUES: Partial<ContentState> = {
   features: [],
   testimonials: [],
   faqs: [],
+  featuresTitle: { text: "התהליך הטיפולי", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
+  testimonialsTitle: { text: "לקוחות ממליצים", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
+  faqsTitle: { text: "שאלות נפוצות", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
+  introTitleSettings: { text: "קצת עלי", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'right', color: 'text-foreground' },
+  contactTitleSettings: { text: "צרו קשר", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
 };
 
 export const PAGE_FALLBACKS: Record<string, Partial<ContentState>> = {
@@ -109,5 +128,10 @@ export function getInitialPageContent(id: string): ContentState {
     features:             fallback.features             || [],
     testimonials:         fallback.testimonials         || [],
     faqs:                 fallback.faqs                 || [],
+    featuresTitle:        fallback.featuresTitle        || DEFAULT_CONTENT_VALUES.featuresTitle,
+    testimonialsTitle:    fallback.testimonialsTitle    || DEFAULT_CONTENT_VALUES.testimonialsTitle,
+    faqsTitle:           fallback.faqsTitle           || DEFAULT_CONTENT_VALUES.faqsTitle,
+    introTitleSettings:   fallback.introTitleSettings   || DEFAULT_CONTENT_VALUES.introTitleSettings,
+    contactTitleSettings: fallback.contactTitleSettings || DEFAULT_CONTENT_VALUES.contactTitleSettings,
   };
 }

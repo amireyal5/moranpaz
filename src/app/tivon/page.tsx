@@ -95,7 +95,15 @@ export default function TivonPage() {
       {pageContent?.features?.length > 0 && (
         <section className="py-32 px-6 md:px-20 bg-white">
           <div className="max-w-7xl mx-auto">
-            <SectionTitle subtitle="Therapy in Nature" title="למה לבחור בטיפול בטבעון?" className="flex flex-col items-center text-center" />
+            <SectionTitle 
+              subtitle={pageContent.featuresTitle?.subtitle || "Therapy in Nature"} 
+              title={pageContent.featuresTitle?.text || "למה לבחור בטיפול בטבעון?"} 
+              className="flex flex-col items-center text-center"
+              fontSize={pageContent.featuresTitle?.fontSize}
+              fontFamily={pageContent.featuresTitle?.fontFamily}
+              color={pageContent.featuresTitle?.color}
+              align={pageContent.featuresTitle?.align || 'center'}
+            />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-20">
               {pageContent.features.map((item: any, i: number) => {
                 const IconMap: Record<string, React.ElementType> = { Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle };
@@ -116,7 +124,15 @@ export default function TivonPage() {
       <section className="py-32 px-6 md:px-20 bg-background relative overflow-hidden">
          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="text-right order-2 lg:order-1">
-               <h2 className="text-5xl md:text-7xl font-handwriting text-accent mb-12 font-light">{pageContent?.introTitle ?? "טיפול רגשי קרוב לבית"}</h2>
+               <SectionTitle 
+                 subtitle={pageContent.introTitleSettings?.subtitle || "Therapy"} 
+                 title={pageContent.introTitleSettings?.text || pageContent.introTitle || "טיפול רגשי קרוב לבית"} 
+                 fontSize={pageContent.introTitleSettings?.fontSize}
+                 fontFamily={pageContent.introTitleSettings?.fontFamily}
+                 color={pageContent.introTitleSettings?.color}
+                 align={pageContent.introTitleSettings?.align || 'right'}
+                 className="!mb-12"
+               />
                <div className="space-y-8 boutique-para mb-12">
                   {pageContent?.introContent != null ? (
                     <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
@@ -149,11 +165,17 @@ export default function TivonPage() {
       </section>
 
       {/* Dynamic Testimonials */}
-      <TestimonialsSection customTestimonials={pageContent?.testimonials} />
+      <TestimonialsSection 
+        customTestimonials={pageContent?.testimonials} 
+        titleSettings={pageContent?.testimonialsTitle}
+      />
 
       {/* Dynamic FAQs */}
       {pageContent?.faqs?.length > 0 && (
-        <FaqSection items={pageContent.faqs} />
+        <FaqSection 
+          items={pageContent.faqs} 
+          titleSettings={pageContent.faqsTitle}
+        />
       )}
 
       {/* Dynamic CTA Buttons */}
@@ -167,7 +189,15 @@ export default function TivonPage() {
 
       <section className="py-32 bg-stone-50 px-6 md:px-20" id="contact">
         <div className="max-w-4xl mx-auto text-center">
-          <SectionTitle subtitle="Connect" title="נפגש בקליניקה בטבעון?" className="flex flex-col items-center" />
+          <SectionTitle 
+            subtitle={pageContent.contactTitleSettings?.subtitle || "Connect"} 
+            title={pageContent.contactTitleSettings?.text || "נפגש בקליניקה בטבעון?"} 
+            className="flex flex-col items-center" 
+            fontSize={pageContent.contactTitleSettings?.fontSize}
+            fontFamily={pageContent.contactTitleSettings?.fontFamily}
+            color={pageContent.contactTitleSettings?.color}
+            align={pageContent.contactTitleSettings?.align || 'center'}
+          />
           <p className="boutique-para mb-12">ניתן לתאם פגישת הכרות ללא עלות עבור טיפול רגשי בטבעון.</p>
           <div className="flex justify-center mb-16">
             <a 

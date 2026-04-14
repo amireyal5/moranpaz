@@ -71,10 +71,14 @@ export default function OnlineTherapyPage() {
       <section className="py-32 px-4 md:px-8 xl:px-24 border-b border-stone-100">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-24 items-center">
           <div ref={introReveal} className="lg:col-span-7 reveal">
-            <span className="boutique-label block mb-8 text-primary">Global Care</span>
-            <h2 className="text-5xl md:text-7xl font-headline text-accent mb-12 font-bold leading-tight">
-              {mergedContent.introTitle || "טיפול בעברית לישראלים בחו\"ל"}
-            </h2>
+            <SectionTitle 
+              subtitle={mergedContent.introTitleSettings?.subtitle || "Global Care"} 
+              title={mergedContent.introTitleSettings?.text || mergedContent.introTitle || "טיפול בעברית לישראלים בחו\"ל"} 
+              fontSize={mergedContent.introTitleSettings?.fontSize}
+              fontFamily={mergedContent.introTitleSettings?.fontFamily}
+              color={mergedContent.introTitleSettings?.color}
+              align={mergedContent.introTitleSettings?.align || 'right'}
+            />
             <div className="boutique-para mb-16 space-y-10 leading-relaxed text-xl text-stone-600">
               {mergedContent.introContent ? (
                 <div className="page-content-container" dangerouslySetInnerHTML={{ __html: mergedContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
@@ -111,9 +115,13 @@ export default function OnlineTherapyPage() {
         <section className="py-32 md:py-56 bg-stone-50 px-4 md:px-8 xl:px-24 border-b border-stone-100">
           <div className="max-w-7xl mx-auto">
             <SectionTitle 
-              subtitle="The Advantages" 
-              title="למה לבחור בטיפול אונליין?" 
+              subtitle={mergedContent.featuresTitle?.subtitle || "The Advantages"} 
+              title={mergedContent.featuresTitle?.text || "למה לבחור בטיפול אונליין?"} 
               className="flex flex-col items-center text-center"
+              fontSize={mergedContent.featuresTitle?.fontSize}
+              fontFamily={mergedContent.featuresTitle?.fontFamily}
+              color={mergedContent.featuresTitle?.color}
+              align={mergedContent.featuresTitle?.align || 'center'}
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mt-32">
               {mergedContent.features.map((benefit: any, i: number) => {
@@ -147,12 +155,18 @@ export default function OnlineTherapyPage() {
 
       {/* Dynamic Testimonials */}
       {mergedContent.testimonials.length > 0 && (
-        <TestimonialsSection customTestimonials={mergedContent.testimonials} />
+        <TestimonialsSection 
+          customTestimonials={mergedContent.testimonials} 
+          titleSettings={mergedContent.testimonialsTitle}
+        />
       )}
 
       {/* Dynamic FAQs */}
       {mergedContent.faqs.length > 0 && (
-        <FaqSection items={mergedContent.faqs} />
+        <FaqSection 
+          items={mergedContent.faqs} 
+          titleSettings={mergedContent.faqsTitle}
+        />
       )}
 
       <Footer />

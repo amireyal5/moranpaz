@@ -32,9 +32,17 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
 
 interface TestimonialsSectionProps {
   customTestimonials?: Testimonial[];
+  title?: string;
+  subtitle?: string;
+  titleSettings?: any;
 }
 
-export function TestimonialsSection({ customTestimonials }: TestimonialsSectionProps) {
+export function TestimonialsSection({ 
+  customTestimonials, 
+  title = "לקוחות ממליצים", 
+  subtitle = "Success Stories",
+  titleSettings
+}: TestimonialsSectionProps) {
   const revealRef = useReveal();
   const displayItems = customTestimonials || DEFAULT_TESTIMONIALS;
 
@@ -44,7 +52,15 @@ export function TestimonialsSection({ customTestimonials }: TestimonialsSectionP
     <section className="py-32 md:py-64 bg-stone-50 px-8 border-y border-stone-100">
       <div ref={revealRef} className="max-w-7xl mx-auto reveal">
         <div className="text-center mb-24 md:mb-32">
-          <SectionTitle subtitle="Success Stories" title="לקוחות ממליצים" className="flex flex-col items-center" />
+          <SectionTitle 
+            subtitle={titleSettings?.subtitle || subtitle} 
+            title={titleSettings?.text || title} 
+            className="flex flex-col items-center" 
+            fontSize={titleSettings?.fontSize}
+            fontFamily={titleSettings?.fontFamily}
+            color={titleSettings?.color}
+            align={titleSettings?.align || 'center'}
+          />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20 mt-20 md:mt-32">

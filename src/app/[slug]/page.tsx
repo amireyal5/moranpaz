@@ -135,7 +135,14 @@ export default function DynamicPage() {
               </div>
               <div className={`lg:col-span-7 ${pageContent?.portraitPosition === 'right' ? 'lg:order-1' : 'lg:order-2'} space-y-10`}>
                 {pageContent?.introTitle && (
-                  <SectionTitle subtitle="Information" title={pageContent.introTitle} />
+                  <SectionTitle 
+                    subtitle={pageContent.introTitleSettings?.subtitle || "Information"} 
+                    title={pageContent.introTitleSettings?.text || pageContent.introTitle} 
+                    fontSize={pageContent.introTitleSettings?.fontSize}
+                    fontFamily={pageContent.introTitleSettings?.fontFamily}
+                    color={pageContent.introTitleSettings?.color}
+                    align={pageContent.introTitleSettings?.align || 'right'}
+                  />
                 )}
                 <div ref={contentReveal} className="reveal space-y-12">
                   <div className="boutique-para space-y-8 text-stone-600">
@@ -151,7 +158,14 @@ export default function DynamicPage() {
           ) : (
             <>
               {pageContent?.introTitle && (
-                <SectionTitle subtitle="Information" title={pageContent.introTitle} />
+                <SectionTitle 
+                  subtitle={pageContent.introTitleSettings?.subtitle || "Information"} 
+                  title={pageContent.introTitleSettings?.text || pageContent.introTitle} 
+                  fontSize={pageContent.introTitleSettings?.fontSize}
+                  fontFamily={pageContent.introTitleSettings?.fontFamily}
+                  color={pageContent.introTitleSettings?.color}
+                  align={pageContent.introTitleSettings?.align || 'right'}
+                />
               )}
               <div ref={contentReveal} className="reveal space-y-12">
                 <div className="boutique-para space-y-8 text-stone-600">
@@ -179,8 +193,18 @@ export default function DynamicPage() {
 
           {/* Structured Features Grid */}
           {pageContent?.features?.length > 0 && (
-            <div ref={featuresReveal} className="reveal grid grid-cols-1 md:grid-cols-3 gap-8 mt-24">
-              {pageContent.features.map((feat: any, i: number) => {
+            <div className="mt-24">
+              <SectionTitle 
+                subtitle={pageContent.featuresTitle?.subtitle || "Our Approach"} 
+                title={pageContent.featuresTitle?.text || "מרחבי הטיפול והליווי שלי"} 
+                className="flex flex-col items-center text-center"
+                fontSize={pageContent.featuresTitle?.fontSize}
+                fontFamily={pageContent.featuresTitle?.fontFamily}
+                color={pageContent.featuresTitle?.color}
+                align={pageContent.featuresTitle?.align || 'center'}
+              />
+              <div ref={featuresReveal} className="reveal grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+                {pageContent.features.map((feat: any, i: number) => {
                 const Icon = ICON_MAP[feat.icon] || Heart;
                 return (
                   <div key={i} className="boutique-card group border border-stone-100 hover:border-primary/20">
@@ -201,12 +225,18 @@ export default function DynamicPage() {
 
       {/* Dynamic Testimonials */}
       {pageContent?.testimonials?.length > 0 && (
-        <TestimonialsSection customTestimonials={pageContent.testimonials} />
+        <TestimonialsSection 
+          customTestimonials={pageContent.testimonials} 
+          titleSettings={pageContent.testimonialsTitle}
+        />
       )}
 
       {/* Dynamic FAQs */}
       {pageContent?.faqs?.length > 0 && (
-        <FaqSection items={pageContent.faqs} />
+        <FaqSection 
+          items={pageContent.faqs} 
+          titleSettings={pageContent.faqsTitle}
+        />
       )}
 
       <Footer />

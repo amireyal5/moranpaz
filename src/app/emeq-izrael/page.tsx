@@ -79,7 +79,14 @@ export default function EmeqIzraelPage() {
       <section className="py-32 px-4 md:px-8 xl:px-24 bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="space-y-12">
-            <SectionTitle subtitle="Local Therapy" title={pageContent?.introTitle ?? "קרוב לבית, עמוק בלב"} />
+            <SectionTitle 
+              subtitle={pageContent.introTitleSettings?.subtitle || "Local Therapy"} 
+              title={pageContent.introTitleSettings?.text || pageContent?.introTitle || "קרוב לבית, עמוק בלב"} 
+              fontSize={pageContent.introTitleSettings?.fontSize}
+              fontFamily={pageContent.introTitleSettings?.fontFamily}
+              color={pageContent.introTitleSettings?.color}
+              align={pageContent.introTitleSettings?.align || 'right'}
+            />
             <div className="boutique-para space-y-8 text-xl leading-relaxed text-stone-600">
               {pageContent?.introContent != null ? (
                 <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
@@ -128,7 +135,15 @@ export default function EmeqIzraelPage() {
       {pageContent?.features?.length > 0 && (
         <section className="py-24 px-4 md:px-8 xl:px-24 bg-stone-50">
           <div className="max-w-7xl mx-auto">
-            <SectionTitle subtitle="Services" title="תחומי הטיפול" className="flex flex-col items-center text-center" />
+            <SectionTitle 
+              subtitle={pageContent.featuresTitle?.subtitle || "Services"} 
+              title={pageContent.featuresTitle?.text || "תחומי הטיפול"} 
+              className="flex flex-col items-center text-center"
+              fontSize={pageContent.featuresTitle?.fontSize}
+              fontFamily={pageContent.featuresTitle?.fontFamily}
+              color={pageContent.featuresTitle?.color}
+              align={pageContent.featuresTitle?.align || 'center'}
+            />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
               {pageContent.features.map((feat: any, i: number) => {
                 const IconMap: Record<string, React.ElementType> = { Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle };
@@ -149,11 +164,17 @@ export default function EmeqIzraelPage() {
       )}
 
       {/* Dynamic Testimonials */}
-      <TestimonialsSection customTestimonials={pageContent?.testimonials} />
+      <TestimonialsSection 
+        customTestimonials={pageContent?.testimonials} 
+        titleSettings={pageContent?.testimonialsTitle}
+      />
 
       {/* Dynamic FAQs */}
       {pageContent?.faqs?.length > 0 && (
-        <FaqSection items={pageContent.faqs} />
+        <FaqSection 
+          items={pageContent.faqs} 
+          titleSettings={pageContent.faqsTitle}
+        />
       )}
 
       {/* Dynamic CTA Buttons */}
@@ -187,7 +208,15 @@ export default function EmeqIzraelPage() {
 
       <section className="py-32 bg-white px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
+          <SectionTitle 
+            subtitle={pageContent.contactTitleSettings?.subtitle || "Connect"} 
+            title={pageContent.contactTitleSettings?.text || "צרו קשר"} 
+            className="flex flex-col items-center" 
+            fontSize={pageContent.contactTitleSettings?.fontSize}
+            fontFamily={pageContent.contactTitleSettings?.fontFamily}
+            color={pageContent.contactTitleSettings?.color}
+            align={pageContent.contactTitleSettings?.align || 'center'}
+          />
           <ContactForm />
         </div>
       </section>

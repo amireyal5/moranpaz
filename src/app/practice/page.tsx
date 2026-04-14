@@ -85,10 +85,14 @@ export default function PracticePage() {
       <section className="py-32 md:py-56 px-4 md:px-8 xl:px-24">
         <div className="max-w-7xl mx-auto">
           <div ref={introReveal} className="reveal mb-32 max-w-5xl">
-            <span className="boutique-label text-primary mb-10 block">Integrated Care</span>
-            <div className="boutique-para !text-3xl md:!text-5xl leading-tight mb-16 font-light">
-              {pageContent?.introTitle ?? "העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח."}
-            </div>
+            <SectionTitle 
+              subtitle={pageContent.introTitleSettings?.subtitle || "Integrated Care"} 
+              title={pageContent.introTitleSettings?.text || pageContent.introTitle || "העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח."} 
+              fontSize={pageContent.introTitleSettings?.fontSize}
+              fontFamily={pageContent.introTitleSettings?.fontFamily}
+              color={pageContent.introTitleSettings?.color}
+              align={pageContent.introTitleSettings?.align || 'right'}
+            />
             <div className="space-y-8 boutique-para text-stone-600">
               {pageContent?.introContent != null && (
                 <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
@@ -120,7 +124,15 @@ export default function PracticePage() {
           <CtaButtons buttons={pageContent?.ctaButtons} align={pageContent?.ctaAlign} />
 
           <div ref={stepsReveal} className="reveal space-y-24">
-            <SectionTitle subtitle="How it works" title="שלבי המסע שלנו" className="flex flex-col items-center text-center" />
+            <SectionTitle 
+              subtitle={pageContent.featuresTitle?.subtitle || "How it works"} 
+              title={pageContent.featuresTitle?.text || "שלבי המסע שלנו"} 
+              className="flex flex-col items-center text-center"
+              fontSize={pageContent.featuresTitle?.fontSize}
+              fontFamily={pageContent.featuresTitle?.fontFamily}
+              color={pageContent.featuresTitle?.color}
+              align={pageContent.featuresTitle?.align || 'center'}
+            />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
               {[
                 { title: "זיהוי הסיפור", icon: <Orbit />, desc: "הבנת הדפוסים והסיפור שסיפרת לעצמך עד היום." },
@@ -143,11 +155,17 @@ export default function PracticePage() {
       </section>
 
       {/* Dynamic Testimonials */}
-      <TestimonialsSection customTestimonials={pageContent?.testimonials} />
+      <TestimonialsSection 
+        customTestimonials={pageContent?.testimonials} 
+        titleSettings={pageContent?.testimonialsTitle}
+      />
 
       {/* Dynamic FAQs */}
       {pageContent?.faqs?.length > 0 && (
-        <FaqSection items={pageContent.faqs} />
+        <FaqSection 
+          items={pageContent.faqs} 
+          titleSettings={pageContent.faqsTitle}
+        />
       )}
 
       <Footer />

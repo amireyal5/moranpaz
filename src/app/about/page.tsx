@@ -74,9 +74,13 @@ export default function AboutPage() {
           {/* Section Title moved OUT of the grid to ensure it's always visible and balanced */}
           <div className="mb-20">
              <SectionTitle 
-               subtitle="About me" 
-               title={mergedContent.introTitle || "נעים להכיר, אני מורן"} 
+               subtitle={mergedContent.introTitleSettings?.subtitle || "About me"} 
+               title={mergedContent.introTitleSettings?.text || mergedContent.introTitle || "נעים להכיר, אני מורן"} 
                className="text-right" 
+               fontSize={mergedContent.introTitleSettings?.fontSize}
+               fontFamily={mergedContent.introTitleSettings?.fontFamily}
+               color={mergedContent.introTitleSettings?.color}
+               align={mergedContent.introTitleSettings?.align || 'right'}
              />
           </div>
 
@@ -124,7 +128,15 @@ export default function AboutPage() {
       {/* Dynamic Content Blocks (קוביות מידע) */}
       <section className="py-32 md:py-48 px-4 md:px-8 xl:px-24 bg-stone-50 border-y border-stone-100">
         <div className="max-w-7xl mx-auto">
-          <SectionTitle subtitle="Approach & Expertise" title={"מרחבי הטיפול והליווי שלי"} className="flex flex-col items-center text-center" />
+          <SectionTitle 
+            subtitle={mergedContent.featuresTitle?.subtitle || "Approach & Expertise"} 
+            title={mergedContent.featuresTitle?.text || "מרחבי הטיפול והליווי שלי"} 
+            className="flex flex-col items-center text-center"
+            fontSize={mergedContent.featuresTitle?.fontSize}
+            fontFamily={mergedContent.featuresTitle?.fontFamily}
+            color={mergedContent.featuresTitle?.color}
+            align={mergedContent.featuresTitle?.align || 'center'}
+          />
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mt-24">
             {mergedContent.features && mergedContent.features.length > 0 ? (
@@ -169,12 +181,18 @@ export default function AboutPage() {
 
       {/* Dynamic Testimonials */}
       {mergedContent.testimonials && mergedContent.testimonials.length > 0 && (
-        <TestimonialsSection customTestimonials={mergedContent.testimonials} />
+        <TestimonialsSection 
+          customTestimonials={mergedContent.testimonials} 
+          titleSettings={mergedContent.testimonialsTitle}
+        />
       )}
 
       {/* Dynamic FAQs */}
       {mergedContent.faqs && mergedContent.faqs.length > 0 && (
-        <FaqSection items={mergedContent.faqs} />
+        <FaqSection 
+          items={mergedContent.faqs} 
+          titleSettings={mergedContent.faqsTitle}
+        />
       )}
 
       <Footer />

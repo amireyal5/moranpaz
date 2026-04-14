@@ -108,11 +108,15 @@ export default function Home() {
 
             <div ref={introReveal} className={cn("lg:col-span-7 order-1 lg:order-2 space-y-10 sm:space-y-16 reveal", pageContent.portraitPosition === 'right' ? 'lg:order-1' : 'lg:order-2')}>
                 <div className="relative">
-                  <span className="boutique-label text-primary/70 mb-4 block">The Agenda</span>
-                  <h2 className="text-4xl sm:text-6xl lg:text-7xl xl:text-7xl 2xl:text-8xl font-handwriting font-bold text-foreground leading-tight mb-8 break-words uppercase">
-                    {pageContent.introTitle || "נעים להכיר"}
-                  </h2>
-                  <div className="mashrabiya-divider max-w-[150px] sm:max-w-[200px]"></div>
+                  <SectionTitle 
+                    subtitle={pageContent.introTitleSettings?.subtitle || "The Agenda"} 
+                    title={pageContent.introTitleSettings?.text || pageContent.introTitle || "נעים להכיר"} 
+                    fontSize={pageContent.introTitleSettings?.fontSize}
+                    fontFamily={pageContent.introTitleSettings?.fontFamily}
+                    color={pageContent.introTitleSettings?.color}
+                    align={pageContent.introTitleSettings?.align || 'right'}
+                  />
+                  <div className="mashrabiya-divider max-w-[150px] sm:max-w-[200px] -mt-10 mb-10"></div>
                 </div>
                 {pageContent.introContent && (
                   <div className="space-y-8 sm:space-y-12 boutique-para text-stone-600 !text-right">
@@ -135,7 +139,15 @@ export default function Home() {
       {/* Core Pillars Grid — dynamic from Firestore */}
       <section className="py-24 md:py-40 xl:py-48 px-6 md:px-12 xl:px-24 bg-stone-50 border-y border-stone-100">
         <div className="max-w-7xl mx-auto">
-          <SectionTitle subtitle="Core Pillars" title="הכלים שלי" className="flex flex-col items-center text-center" />
+          <SectionTitle 
+            subtitle={pageContent.featuresTitle?.subtitle || "Core Pillars"} 
+            title={pageContent.featuresTitle?.text || "הכלים שלי"} 
+            className="flex flex-col items-center text-center"
+            fontSize={pageContent.featuresTitle?.fontSize}
+            fontFamily={pageContent.featuresTitle?.fontFamily}
+            color={pageContent.featuresTitle?.color}
+            align={pageContent.featuresTitle?.align || 'center'}
+          />
           <div ref={uniquenessReveal} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-16 mt-20 sm:mt-32 reveal">
             {(pageContent.features || []).map((point: any, i: number) => {
               const Icon = ICON_MAP[point.icon] || Heart;
@@ -167,11 +179,17 @@ export default function Home() {
       )}
 
       {pageContent.testimonials && pageContent.testimonials.length > 0 && (
-        <TestimonialsSection customTestimonials={pageContent.testimonials} />
+        <TestimonialsSection 
+          customTestimonials={pageContent.testimonials} 
+          titleSettings={pageContent.testimonialsTitle}
+        />
       )}
 
       {pageContent.faqs && pageContent.faqs.length > 0 && (
-        <FaqSection items={pageContent.faqs} />
+        <FaqSection 
+          items={pageContent.faqs} 
+          titleSettings={pageContent.faqsTitle}
+        />
       )}
 
       {/* Dynamic CTA Buttons */}
@@ -185,7 +203,15 @@ export default function Home() {
 
       <section id="contact" className="py-24 md:py-48 px-6 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <SectionTitle subtitle="Connect" title="צרו קשר" className="flex flex-col items-center" />
+          <SectionTitle 
+            subtitle={pageContent.contactTitleSettings?.subtitle || "Connect"} 
+            title={pageContent.contactTitleSettings?.text || "צרו קשר"} 
+            className="flex flex-col items-center" 
+            fontSize={pageContent.contactTitleSettings?.fontSize}
+            fontFamily={pageContent.contactTitleSettings?.fontFamily}
+            color={pageContent.contactTitleSettings?.color}
+            align={pageContent.contactTitleSettings?.align || 'center'}
+          />
           <p className="boutique-para mb-12 sm:mb-20 font-medium !text-xl text-center">אני כאן עבורכם לתיאום שיחת היכרות ללא עלות.</p>
           <ContactForm />
         </div>
