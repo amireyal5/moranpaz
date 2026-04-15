@@ -79,13 +79,13 @@ export default function EmeqIzraelPage() {
       <section className="py-32 px-4 md:px-8 xl:px-24 bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <div className="space-y-12">
-            <SectionTitle 
-              subtitle={pageContent.introTitleSettings?.subtitle || "Local Therapy"} 
-              title={pageContent.introTitleSettings?.text || pageContent?.introTitle || "קרוב לבית, עמוק בלב"} 
-              fontSize={pageContent.introTitleSettings?.fontSize}
-              fontFamily={pageContent.introTitleSettings?.fontFamily}
-              color={pageContent.introTitleSettings?.color}
-              align={pageContent.introTitleSettings?.align || 'right'}
+            <SectionTitle
+              subtitle={pageContent?.introTitleSettings?.subtitle || "Local Therapy"}
+              title={pageContent?.introTitleSettings?.text || pageContent?.introTitle || "קרוב לבית, עמוק בלב"}
+              fontSize={pageContent?.introTitleSettings?.fontSize}
+              fontFamily={pageContent?.introTitleSettings?.fontFamily}
+              color={pageContent?.introTitleSettings?.color}
+              align={pageContent?.introTitleSettings?.align || 'right'}
             />
             <div className="boutique-para space-y-8 text-xl leading-relaxed text-stone-600">
               {pageContent?.introContent != null ? (
@@ -208,14 +208,14 @@ export default function EmeqIzraelPage() {
 
       <section className="py-32 bg-white px-8">
         <div className="max-w-4xl mx-auto">
-          <SectionTitle 
-            subtitle={pageContent.contactTitleSettings?.subtitle || "Connect"} 
-            title={pageContent.contactTitleSettings?.text || "צרו קשר"} 
-            className="flex flex-col items-center" 
-            fontSize={pageContent.contactTitleSettings?.fontSize}
-            fontFamily={pageContent.contactTitleSettings?.fontFamily}
-            color={pageContent.contactTitleSettings?.color}
-            align={pageContent.contactTitleSettings?.align || 'center'}
+          <SectionTitle
+            subtitle={pageContent?.contactTitleSettings?.subtitle || "Connect"}
+            title={pageContent?.contactTitleSettings?.text || "צרו קשר"}
+            className="flex flex-col items-center"
+            fontSize={pageContent?.contactTitleSettings?.fontSize}
+            fontFamily={pageContent?.contactTitleSettings?.fontFamily}
+            color={pageContent?.contactTitleSettings?.color}
+            align={pageContent?.contactTitleSettings?.align || 'center'}
           />
           <ContactForm />
         </div>

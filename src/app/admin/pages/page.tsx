@@ -30,7 +30,8 @@ import {
   ContentState, 
   PAGE_FALLBACKS, 
   getInitialPageContent, 
-  DEFAULT_CONTENT_VALUES 
+  DEFAULT_CONTENT_VALUES,
+  TitleSettings
 } from '@/config/page-defaults';
 
 
@@ -246,7 +247,7 @@ function AlignPicker({ value, onChange }: { value: string, onChange: (v: string)
         <Button
           key={opt.value}
           type="button"
-          variant={value === opt.value ? 'primary' : 'ghost'}
+          variant={value === opt.value ? 'default' : 'ghost'}
           onClick={() => onChange(opt.value)}
           className={`h-9 w-12 p-0 ${value === opt.value ? 'bg-primary text-white' : 'text-stone-400'}`}
         >
@@ -551,6 +552,7 @@ export default function AdminPages() {
           instagramLink:        d.instagramLink        ?? '',
           ctaAlign:             d.ctaAlign             ?? 'center',
           navItems:             Array.isArray(d.navItems)     ? d.navItems     : [],
+          footerItems:          Array.isArray(d.footerItems)  ? d.footerItems  : [],
           ctaButtons:           Array.isArray(d.ctaButtons)   ? d.ctaButtons   : [],
           features:             Array.isArray(d.features)     ? d.features     : [],
           testimonials:         Array.isArray(d.testimonials) ? d.testimonials : [],
@@ -593,6 +595,7 @@ export default function AdminPages() {
           instagramLink:        '',
           ctaAlign:             'center',
           navItems:             Array.isArray(fb.navItems)     ? fb.navItems     : [],
+          footerItems:          Array.isArray(fb.footerItems)  ? fb.footerItems  : [],
           ctaButtons:           Array.isArray(fb.ctaButtons)   ? fb.ctaButtons   : [],
           features:             Array.isArray(fb.features)     ? fb.features     : [],
           testimonials:         Array.isArray(fb.testimonials) ? fb.testimonials : [],
