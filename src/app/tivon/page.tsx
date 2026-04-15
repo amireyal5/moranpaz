@@ -124,13 +124,13 @@ export default function TivonPage() {
       <section className="py-32 px-6 md:px-20 bg-background relative overflow-hidden">
          <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
             <div className="text-right order-2 lg:order-1">
-               <SectionTitle 
-                 subtitle={pageContent.introTitleSettings?.subtitle || "Therapy"} 
-                 title={pageContent.introTitleSettings?.text || pageContent.introTitle || "טיפול רגשי קרוב לבית"} 
-                 fontSize={pageContent.introTitleSettings?.fontSize}
-                 fontFamily={pageContent.introTitleSettings?.fontFamily}
-                 color={pageContent.introTitleSettings?.color}
-                 align={pageContent.introTitleSettings?.align || 'right'}
+               <SectionTitle
+                 subtitle={pageContent?.introTitleSettings?.subtitle || "Therapy"}
+                 title={pageContent?.introTitleSettings?.text || pageContent?.introTitle || "טיפול רגשי קרוב לבית"}
+                 fontSize={pageContent?.introTitleSettings?.fontSize}
+                 fontFamily={pageContent?.introTitleSettings?.fontFamily}
+                 color={pageContent?.introTitleSettings?.color}
+                 align={pageContent?.introTitleSettings?.align || 'right'}
                  className="!mb-12"
                />
                <div className="space-y-8 boutique-para mb-12">
@@ -189,14 +189,14 @@ export default function TivonPage() {
 
       <section className="py-32 bg-stone-50 px-6 md:px-20" id="contact">
         <div className="max-w-4xl mx-auto text-center">
-          <SectionTitle 
-            subtitle={pageContent.contactTitleSettings?.subtitle || "Connect"} 
-            title={pageContent.contactTitleSettings?.text || "נפגש בקליניקה בטבעון?"} 
-            className="flex flex-col items-center" 
-            fontSize={pageContent.contactTitleSettings?.fontSize}
-            fontFamily={pageContent.contactTitleSettings?.fontFamily}
-            color={pageContent.contactTitleSettings?.color}
-            align={pageContent.contactTitleSettings?.align || 'center'}
+          <SectionTitle
+            subtitle={pageContent?.contactTitleSettings?.subtitle || "Connect"}
+            title={pageContent?.contactTitleSettings?.text || "נפגש בקליניקה בטבעון?"}
+            className="flex flex-col items-center"
+            fontSize={pageContent?.contactTitleSettings?.fontSize}
+            fontFamily={pageContent?.contactTitleSettings?.fontFamily}
+            color={pageContent?.contactTitleSettings?.color}
+            align={pageContent?.contactTitleSettings?.align || 'center'}
           />
           <p className="boutique-para mb-12">ניתן לתאם פגישת הכרות ללא עלות עבור טיפול רגשי בטבעון.</p>
           <div className="flex justify-center mb-16">
