@@ -68,7 +68,12 @@ export default function TivonPage() {
                />
              </div>
            )}
-           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background/20"></div>
+           <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-transparent"></div>
+           {/* Decorative "Cloud" / Mist at the bottom */}
+           <div 
+             className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-background via-background/40 to-transparent z-0 pointer-events-none"
+             style={{ opacity: (pageContent?.heroCloudiness ?? 30) / 100 }}
+           />
         </div>
         <div className="relative z-10 text-center px-6 max-w-4xl">
           {pageLoading ? (

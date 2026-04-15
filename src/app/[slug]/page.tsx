@@ -112,7 +112,12 @@ export default function DynamicPage() {
                       />
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-background"></div>
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20"></div>
+                  {/* Decorative "Cloud" / Mist at the bottom */}
+                  <div 
+                    className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-background via-background/40 to-transparent z-0 pointer-events-none"
+                    style={{ opacity: (pageContent?.heroCloudiness ?? 30) / 100 }}
+                  />
                 </div>
                 <div className={`relative z-10 flex flex-col ${heroAlignClass} w-full max-w-5xl mx-auto px-4`}>
                   <h1 className={`font-bold hero-title-shadow leading-tight mb-8 ${pageContent?.heroTitleSettings?.fontFamily || 'font-handwriting'} ${pageContent?.heroTitleSettings?.fontSize || 'text-7xl md:text-9xl'}`}

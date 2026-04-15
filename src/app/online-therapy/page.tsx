@@ -55,7 +55,12 @@ export default function OnlineTherapyPage() {
               />
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent"></div>
+          {/* Decorative "Cloud" / Mist at the bottom */}
+          <div 
+            className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-background via-background/40 to-transparent z-0 pointer-events-none"
+            style={{ opacity: (mergedContent?.heroCloudiness ?? 30) / 100 }}
+          />
         </div>
         <div className="relative z-10 text-center">
             <span className="boutique-label text-white/90 mb-8 block drop-shadow-md">Global Connection</span>

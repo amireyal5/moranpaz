@@ -13,6 +13,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Slider } from '@/components/ui/slider';
 import { useToast } from '@/hooks/use-toast';
 import {
   Loader2, Save, Plus, Trash2, Box, Heart, Sparkles, Image as ImageIcon, Type, Layout,
@@ -964,6 +965,21 @@ export default function AdminPages() {
                     <Field label="תמונת רקע - מובייל (URL)">
                       <Input value={content.heroImageUrlMobile} onChange={e => set({ heroImageUrlMobile: e.target.value })} className="font-sans" dir="ltr" placeholder="https://..." />
                     </Field>
+                    <div className="md:col-span-2 space-y-3 pt-4 border-t border-stone-50 mt-4">
+                      <div className="flex justify-between items-center">
+                        <Label className="boutique-label">עוצמת ה"ערפל" בתחתית התמונה (0-100)</Label>
+                        <span className="font-mono text-xs text-primary font-bold">{content.heroCloudiness ?? 30}%</span>
+                      </div>
+                      <Slider
+                        value={[content.heroCloudiness ?? 30]}
+                        min={0}
+                        max={100}
+                        step={1}
+                        onValueChange={([val]) => set({ heroCloudiness: val })}
+                        className="py-4"
+                      />
+                      <p className="text-[10px] text-stone-400">שכבת מעבר לבנה בתחתית התמונה שעוזרת לטקסט ולתוכן שמתחת להשתלב בצורה חלקה.</p>
+                    </div>
                   </div>
                 </SectionCard>
 

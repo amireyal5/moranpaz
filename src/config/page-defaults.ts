@@ -34,6 +34,7 @@ export type ContentState = {
   heroHeight: string;
   heroTextAlign: string;
   heroBgColor: string;
+  heroCloudiness?: number; // 0 to 100
   introTitle: string;
   introContent: string;
   portraitImageUrl: string;
@@ -71,6 +72,7 @@ export type ContentState = {
 export const DEFAULT_CONTENT_VALUES: Partial<ContentState> = {
   heroHeight: '70vh',
   heroTextAlign: 'center',
+  heroCloudiness: 30,
   primaryColor: '35 40% 45%',
   sectionBg: 'white',
   portraitShape: 'circle',
@@ -140,6 +142,7 @@ export function getInitialPageContent(id: string): ContentState {
     heroHeight:           fallback.heroHeight           || '70vh',
     heroTextAlign:        fallback.heroTextAlign        || 'center',
     heroBgColor:          '',
+    heroCloudiness:       fallback.heroCloudiness       ?? 30,
     introTitle:           fallback.introTitle           || '',
     introContent:         fallback.introContent         || '',
     sectionBg:            fallback.sectionBg            || 'white',
