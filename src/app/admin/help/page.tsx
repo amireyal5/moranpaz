@@ -9,119 +9,35 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { 
-  ChevronRight, Search, Book, Image as ImageIcon, Link as LinkIcon, 
-  FileText, Layout, MousePointer2, Settings, ExternalLink, Info, Box, 
-  MoveVertical, Lock, ShieldCheck, Globe, Palette, HelpCircle, Heart, 
-  Sparkles, Orbit, Compass, Users, Star
+import {
+  ChevronRight, Search, Image as ImageIcon,
+  FileText, Layout, Settings, Box,
+  Lock, ShieldCheck, Globe, Palette, HelpCircle, Heart,
+  Sparkles, Orbit, Compass, Users, Star,
+  Type, MousePointerClick, BookOpen, MessageSquare
 } from 'lucide-react';
+import { ADMIN_HELP_CONTENT } from '@/config/admin-help-content';
 
-const HELP_TOPICS = [
-  {
-    id: 'security',
-    title: 'התחברות ואבטחה',
-    icon: <Lock className="text-primary" />,
-    content: [
-      {
-        sub: 'איך נכנסים למערכת הניהול?',
-        text: 'הגישה למערכת היא דרך הכתובת moranpaz.com/admin/login. שם תתבקשי להזין את המייל והסיסמה האישיים שלך.',
-      },
-      {
-        sub: 'שכחתי סיסמה - מה עושים?',
-        text: 'בעמוד הלוגין תמצאי כפתור קטן בשם "שכחתי סיסמה?". הזיני את המייל שלך ולחצי עליו. מערכת Firebase תשלח אלייך מייל אוטומטי עם קישור לאיפוס. אם לא קיבלת את המייל תוך דקה, בדקי בתיקיית הספאם (דואר זבל).',
-      },
-      {
-        sub: 'עריכה מהמחשב בלבד',
-        text: 'למען נוחות מרבית ומניעת טעויות עיצוביות, אזורי עריכת העמודים והבלוג חסומים לשימוש מהטלפון הנייד. אנא התחברי מהמחשב (PC/Mac) כדי לבצע שינויים בתוכן האתר.',
-      }
-    ]
-  },
-  {
-    id: 'pages',
-    title: 'ניהול עמודי האתר',
-    icon: <Layout className="text-primary" />,
-    content: [
-      {
-        sub: 'איך עורכים עמוד קיים?',
-        text: 'בעמוד "ניהול דפים", בחרי את העמוד הרצוי מהרשימה (למשל: דף הבית, אודות). התוכן הקיים ייטען אוטומטית, ותוכלי לשנות כותרות, טקסטים ותמונות.',
-      },
-      {
-        sub: 'הוספת עמוד חדש (Slug)',
-        text: 'כדי להוסיף עמוד שלא היה קיים, בחרי באופציה "הוספת עמוד חדש". תתבקשי להזין "Slug" - זהו המזהה באנגלית שיופיע בכתובת האתר (למשל: workshops). המערכת תייצר עבורך את העמוד באופן אוטומטי.',
-      },
-      {
-        sub: 'שימוש בעורך הטקסט (Rich Text)',
-        text: 'עורך הטקסט מאפשר לך לעצב את גוף העמוד כמו ב-Word: להדגיש טקסט, ליצור רשימות (בולטים), ולהוסיף כותרות פנימיות. טיפ: שימוש בסימון "ציטוט" (Blockquote) יהפוך את הטקסט אוטומטית לפונט כתב-יד גדול ומרהיב.',
-      }
-    ]
-  },
-  {
-    id: 'ordering',
-    title: 'שליטה בסדר ומיקום (חצים)',
-    icon: <MoveVertical className="text-primary" />,
-    content: [
-      {
-        sub: 'איך לקבוע איזה כפתור או קובייה יופיעו קודם?',
-        text: 'בכל מקום שיש רשימה של אלמנטים (כפתורי CTA, קוביות תוכן, שאלות נפוצות), תמצאי חצים של ▲ ו-▼. לחיצה על החץ למעלה תזיז את הפריט מקום אחד קדימה בסדר ההופעה באתר. זכרי ללחוץ על "שמירה" בתחתית העמוד לאחר סידור האלמנטים.',
-      }
-    ]
-  },
-  {
-    id: 'blocks',
-    title: 'ניהול קוביות תוכן (Features)',
-    icon: <Box className="text-primary" />,
-    content: [
-      {
-        sub: 'מהן קוביות תוכן?',
-        text: 'קוביות תוכן הן אלמנטים מעוצבים המורכבים מאייקון, כותרת ותיאור קצר. הן מצוינות להצגת שירותים, יתרונות או שלבים בתהליך הטיפולי.',
-      },
-      {
-        sub: 'איך בוחרים אייקון?',
-        text: 'בזמן הוספת קובייה, תוכלי לבחור אייקון מתוך רשימה סגורה: לב (Heart), כוכבים (Sparkles), מסלול (Orbit), מצפן (Compass), אנשים (Users) או כוכב (Star). כל אייקון משדר תחושה אחרת של ריפוי ומודעות.',
-      }
-    ]
-  },
-  {
-    id: 'images',
-    title: 'תמונות ו-Cloudinary',
-    icon: <ImageIcon className="text-primary" />,
-    content: [
-      {
-        sub: 'מה זה לינק לתמונה (URL)?',
-        text: 'URL הוא "כתובת המגורים" של התמונה באינטרנט. כדי שהאתר יציג תמונה, הוא צריך לדעת איפה היא נמצאת. כתובת תקינה תמיד תתחיל ב-https:// ותסתיים בסיומת של קובץ תמונה (כמו .jpg או .png).',
-      },
-      {
-        sub: 'איך להשתמש ב-Cloudinary?',
-        text: 'העלי את התמונה שבחרת לחשבון ה-Cloudinary שלך. לאחר ההעלאה, עמדי על התמונה ולחצי על אייקון השרשרת (Copy Link). את הלינק שהועתק הדביקי בשדה המתאים במערכת הניהול שלנו.',
-      },
-      {
-        sub: 'תמונת דסקטופ מול מובייל',
-        text: 'האתר מאפשר לך להגדיר תמונה שונה לכל מכשיר. מומלץ להשתמש בתמונות לרוחב (Horizontal) למחשב, ובתמונות לאורך (Vertical) לטלפון הנייד כדי שהחיתוך יהיה מושלם.',
-      }
-    ]
-  },
-  {
-    id: 'branding',
-    title: 'עיצוב, מיתוג ו-SEO',
-    icon: <Palette className="text-primary" />,
-    content: [
-      {
-        sub: 'שינוי צבע המותג',
-        text: 'תחת "הגדרות עיצוב" בניהול הדפים, תוכלי לבחור את הגוון הראשי של האתר. שינוי הצבע ישפיע באופן מיידי על כל הכפתורים, האייקונים והעיטורים בכל דפי האתר.',
-      },
-      {
-        sub: 'מה זה SEO ולמה זה חשוב?',
-        text: 'SEO הוא האופן שבו גוגל קורא את האתר שלך. בניהול כל עמוד תמצאי שדות של "כותרת גוגל" ו"תיאור גוגל". מילוי השדות האלו במילים הנכונות (כמו "טיפול רגשי בטבעון") יעזור למטופלות חדשות למצוא אותך בחיפוש.',
-      }
-    ]
-  }
-];
+const ICON_MAP: Record<string, React.ReactNode> = {
+  Lock: <Lock className="text-primary" />,
+  Layout: <Layout className="text-primary" />,
+  Type: <Type className="text-primary" />,
+  Image: <ImageIcon className="text-primary" />,
+  Box: <Box className="text-primary" />,
+  FileText: <FileText className="text-primary" />,
+  Sparkles: <Sparkles className="text-primary" />,
+  MousePointerClick: <MousePointerClick className="text-primary" />,
+  Globe: <Globe className="text-primary" />,
+  Palette: <Palette className="text-primary" />,
+  HelpCircle: <HelpCircle className="text-primary" />,
+  BookOpen: <BookOpen className="text-primary" />,
+};
 
 export default function AdminHelpPage() {
   const router = useRouter();
   const [search, setSearch] = useState('');
 
-  const filteredTopics = HELP_TOPICS.filter(topic => 
+  const filteredTopics = ADMIN_HELP_CONTENT.filter(topic =>
     topic.title.includes(search) || 
     topic.content.some(c => c.sub.includes(search) || c.text.includes(search))
   );
@@ -162,7 +78,7 @@ export default function AdminHelpPage() {
               <Card key={topic.id} className="border-none shadow-xl rounded-none overflow-hidden">
                 <CardHeader className="bg-stone-50/50 border-b border-stone-100 py-6">
                   <CardTitle className="flex items-center gap-4 text-2xl font-headline text-accent">
-                    <span className="p-2 bg-white rounded-sm shadow-sm">{topic.icon}</span>
+                    <span className="p-2 bg-white rounded-sm shadow-sm">{ICON_MAP[topic.icon] ?? <HelpCircle className="text-primary" />}</span>
                     {topic.title}
                   </CardTitle>
                 </CardHeader>
@@ -189,7 +105,7 @@ export default function AdminHelpPage() {
             <Card className="bg-accent text-white border-none rounded-none p-8">
               <h3 className="text-2xl font-handwriting mb-6">טיפ מקצועי</h3>
               <p className="font-headline font-light leading-relaxed opacity-90">
-                זכרי שפחות זה יותר. בעת כתיבת עמודי השירות, השתמשי במשפטים קצרים ומרווחים גדולים בין פסקאות. זה עוזר למטופלות לנשום בזמן הקריאה.
+                הכלל הזהוב: פחות זה יותר. משפטים קצרים, מרווחים גדולים בין פסקאות. זכרי — כותרת Hero ב-Handwriting + כפתור Primary בולט + תמונה נפרדת למובייל = עמוד מושלם.
               </p>
             </Card>
 
@@ -197,15 +113,17 @@ export default function AdminHelpPage() {
               <h3 className="text-xl font-headline font-bold text-accent border-b border-stone-100 pb-4">אייקונים זמינים</h3>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { name: 'Heart', icon: <Heart /> },
-                  { name: 'Sparkles', icon: <Sparkles /> },
-                  { name: 'Orbit', icon: <Orbit /> },
-                  { name: 'Compass', icon: <Compass /> },
-                  { name: 'Users', icon: <Users /> },
-                  { name: 'Star', icon: <Star /> },
+                  { name: 'Heart', icon: <Heart size={16} /> },
+                  { name: 'Sparkles', icon: <Sparkles size={16} /> },
+                  { name: 'Orbit', icon: <Orbit size={16} /> },
+                  { name: 'Compass', icon: <Compass size={16} /> },
+                  { name: 'Users', icon: <Users size={16} /> },
+                  { name: 'Star', icon: <Star size={16} /> },
+                  { name: 'MessageSquare', icon: <MessageSquare size={16} /> },
+                  { name: 'HelpCircle', icon: <HelpCircle size={16} /> },
                 ].map((icon, i) => (
                   <div key={i} className="flex items-center gap-3 text-stone-400">
-                    <div className="p-2 bg-stone-50 text-primary">{React.cloneElement(icon.icon as React.ReactElement, { size: 16 })}</div>
+                    <div className="p-2 bg-stone-50 text-primary">{icon.icon}</div>
                     <span className="text-xs uppercase font-bold tracking-tighter">{icon.name}</span>
                   </div>
                 ))}

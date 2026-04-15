@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { doc, getDoc, setDoc, collection, getDocs, deleteDoc } from 'firebase/firestore';
@@ -18,7 +18,7 @@ import {
   Loader2, Save, Plus, Trash2, Box, Heart, Sparkles, Image as ImageIcon, Type, Layout,
   Orbit, Compass, Users, Star, Palette, MessageSquare, HelpCircle,
   MousePointerClick, Quote, AlignLeft, AlignCenter, AlignRight, UserRound, RefreshCcw,
-  ChevronRight, Monitor, Smartphone, Globe, X
+  ChevronRight, Monitor, Smartphone, Globe, X, Search, BookOpen, FileText, ShieldCheck, Check
 } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
@@ -26,13 +26,14 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
   loading: () => <div className="h-48 w-full bg-stone-50 flex items-center justify-center font-headline text-stone-400">טוען עורך...</div>
 });
 import 'react-quill-new/dist/quill.snow.css';
-import { 
-  ContentState, 
-  PAGE_FALLBACKS, 
-  getInitialPageContent, 
+import {
+  ContentState,
+  PAGE_FALLBACKS,
+  getInitialPageContent,
   DEFAULT_CONTENT_VALUES,
   TitleSettings
 } from '@/config/page-defaults';
+import { ADMIN_HELP_CONTENT } from '@/config/admin-help-content';
 
 
 // Quill toolbar with RTL + image support
@@ -352,93 +353,129 @@ function DynamicSectionEditor({ section, onChange, onRemove, onMoveUp, onMoveDow
   );
 }
 
+function CharCounter({ value, limit }: { value: string; limit: number }) {
+  const len = value.length;
+  const color = len > limit ? 'text-red-500' : len > Math.floor(limit * 0.85) ? 'text-amber-500' : 'text-stone-400';
+  return <span className={`text-[10px] font-headline tabular-nums ${color}`}>{len}/{limit}</span>;
+}
+
+function GoogleSearchPreview({ title, url, description }: { title: string; url: string; description: string }) {
+  if (!title && !description) return null;
+  return (
+    <div className="p-4 border border-stone-100 bg-stone-50 shadow-sm" dir="ltr">
+      <p className="text-[10px] boutique-label text-stone-400 mb-3 text-right">תצוגה מקדימה — כך יופיע בגוגל</p>
+      <div className="space-y-0.5 font-sans">
+        <p className={`text-[15px] font-normal leading-snug truncate ${title.length > 60 ? 'text-red-500' : 'text-[#1a0dab]'}`}>{title || 'כותרת הדף'}</p>
+        <p className="text-[13px] text-[#006621] truncate">{url}</p>
+        <p className="text-[13px] text-[#545454] leading-snug line-clamp-2">{description || 'תיאור הדף יופיע כאן...'}</p>
+      </div>
+    </div>
+  );
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 // ─── Help Guide Component ──────────────────────────────────────────────────
 function AdminGuide() {
   const [open, setOpen] = useState(false);
-  
+  const [search, setSearch] = useState('');
+
+  const ICON_MAP: Record<string, React.ReactNode> = {
+    Lock: <ShieldCheck size={18} />,
+    Layout: <Layout size={18} />,
+    Type: <Type size={18} />,
+    Image: <ImageIcon size={18} />,
+    Box: <Box size={18} />,
+    FileText: <FileText size={18} />,
+    Sparkles: <Sparkles size={18} />,
+    MousePointerClick: <MousePointerClick size={18} />,
+    Globe: <Globe size={18} />,
+    Palette: <Palette size={18} />,
+    HelpCircle: <HelpCircle size={18} />,
+    BookOpen: <BookOpen size={18} />,
+  };
+
+  const filtered = ADMIN_HELP_CONTENT.filter(topic =>
+    search === '' ||
+    topic.title.includes(search) ||
+    topic.content.some(c => c.sub.includes(search) || c.text.includes(search))
+  );
+
   if (!open) return (
-    <button 
+    <button
       onClick={() => setOpen(true)}
       className="fixed bottom-8 left-8 z-[500] w-14 h-14 bg-accent text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform group"
     >
-      <HelpCircle size={30} />
-      <span className="absolute right-full mr-4 bg-accent text-white px-3 py-1.5 rounded-sm text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">מדריך למשתמש</span>
+      <HelpCircle size={28} />
+      <span className="absolute right-full mr-4 bg-accent text-white px-3 py-1.5 rounded-sm text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none font-headline">מדריך עורך</span>
     </button>
   );
 
   return (
-    <div className="fixed inset-0 z-[500] flex justify-end">
-      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" onClick={() => setOpen(false)} />
-      <div className="relative w-full max-w-md bg-white h-full shadow-2xl overflow-y-auto p-8 animate-in slide-in-from-left duration-500">
-        <button onClick={() => setOpen(false)} className="absolute top-6 left-6 text-stone-400 hover:text-accent p-2">
-          <X size={24} />
-        </button>
-        
-        <div className="mt-8 space-y-10" dir="rtl">
-          <div className="space-y-4">
-            <h2 className="text-3xl font-handwriting text-accent">מדריך העורך של מורן</h2>
-            <p className="text-stone-500 leading-relaxed">ברוכה הבאה לעורך המודרני של אתר מורן פז. המערכת עוצבה כדי לתת לך שליטה מלאה על התוכן, העיצוב והמבנה של כל דף.</p>
+    <div className="fixed inset-0 z-[500] flex justify-end" dir="rtl">
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setOpen(false)} />
+      <div className="relative w-full max-w-lg bg-white h-full shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 border-b border-stone-100 bg-accent text-white flex-shrink-0">
+          <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white p-1 transition-colors">
+            <X size={22} />
+          </button>
+          <div className="text-right">
+            <h2 className="text-2xl font-handwriting">מדריך העורך</h2>
+            <p className="text-xs text-white/70 font-headline mt-0.5">כל מה שצריך לדעת על העורך</p>
           </div>
+        </div>
 
-          <div className="space-y-6">
-            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">1. בחירת דפים והגדרות כלליות</h3>
-            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
-              <li>השתמשי בתפריט העליון כדי לעבור בין הדפים הקיימים.</li>
-              <li><b>הגדרות אתר כלליות:</b> כאן מעדכנים את פרטי הקשר, הרשתות החברתיות ואת תפריטי הניווט.</li>
-              <li><b>הפרדת תפריטים:</b> ניתן להגדיר רשימת קישורים נפרדת לתפריט העליון (Navbar) ולתפריט התחתון (Footer). אם תשאירי את הפוטר ריק, הוא ישתמש בקישורי התפריט העליון.</li>
-            </ul>
+        {/* Search */}
+        <div className="p-4 border-b border-stone-100 flex-shrink-0">
+          <div className="relative">
+            <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-stone-300 size-4" />
+            <input
+              type="text"
+              placeholder="חפשי נושא (למשל: Slug, Hero, CTA...)"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              className="w-full pr-9 pl-4 h-10 bg-stone-50 border border-stone-100 text-sm font-headline focus:outline-none focus:border-primary/40 text-right"
+            />
           </div>
+        </div>
 
-          <div className="space-y-6">
-            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">2. ניהול דפים (יצירה ומחיקה)</h3>
-            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
-              <li><b>עמוד חדש:</b> בחרי "עמוד חדש" מהרשימה כדי ליצור דף עם כתובת (Slug) שתבחרי.</li>
-              <li><b>מחיקה:</b> ניתן למחוק דפים שיצרת (מלבד דפים קבועים כמו הבית) באמצעות כפתור המחיקה שיופיע תחת בחירת המזהה.</li>
-            </ul>
-          </div>
-
-          <div className="space-y-6">
-            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">3. ניהול מבנה העמוד (Layout)</h3>
-            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
-              <li>בכרטיסיית <b>"סדר חלקי העמוד"</b>, תמצאי רשימה של כל חלקי הדף (הדר, המלצות, שאלות וכו').</li>
-              <li>השתמשי בחיצים כדי להזיז כל קטע למעלה או למטה.</li>
-              <li>הסדר שקבעת שם הוא הסדר שבו הגולשים יראו את העמוד.</li>
-            </ul>
-          </div>
-
-          <div className="space-y-6">
-            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">3. בלוקים חופשיים (Custom Blocks)</h3>
-            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
-              <li>ניתן להוסיף כמות בלתי מוגבלת של גושי טקסט או שילובי תמונה+טקסט.</li>
-              <li><b>בלוק טקסט:</b> עורך עשיר המאפשר ליישר ימינה/שמאל, להוסיף לינקים, להדגיש טקסט ועוד.</li>
-              <li><b>תמונה וטקסט:</b> ניתן לקבוע אם התמונה תהיה מימין או משמאל לטקסט.</li>
-            </ul>
-          </div>
-
-          <div className="space-y-6">
-            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">4. עיצוב מתקדם (Custom Titles)</h3>
-            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
-              <li>בכל סקשן ניתן לערוך את הכותרת בנפרד: גודל הטקסט, צבע, יישור וסוג הגופן (כתב יד אומנותי או כותרת נקייה).</li>
-            </ul>
-          </div>
-
-          <div className="space-y-6">
-            <h3 className="font-bold text-lg border-b border-stone-100 pb-2">5. תמונות ו-SEO</h3>
-            <ul className="space-y-3 text-sm text-stone-600 list-disc pr-4">
-              <li>לכל דף ניתן להגדיר כותרת (Meta Title) ותיאור (Meta Description) שיעזרו לגוגל למצוא אותך.</li>
-              <li>ב-Hero, מומלץ להעלות תמונה נפרדת למובייל כדי שהיא תיראה טוב גם בטלפונים צרים.</li>
-            </ul>
-          </div>
-
-          <div className="space-y-4 pt-10 border-t border-accent/10">
-            <div className="flex items-center gap-3 text-accent font-bold">
-              <Sparkles size={18} />
-              <span>טיפ לשימוש:</span>
+        {/* Content */}
+        <div className="flex-1 overflow-y-auto">
+          {filtered.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20 text-stone-300">
+              <HelpCircle size={40} className="mb-3" />
+              <p className="font-headline text-sm">לא נמצאו תוצאות</p>
             </div>
-            <p className="text-sm italic text-stone-500">"אל תשכחי ללחוץ על כפתור השמירה הצף בתחתית העמוד לאחר ביצוע שינויים. השינויים מתעדכנים באתר תוך שניות ספורות."</p>
-          </div>
+          ) : (
+            filtered.map((topic) => (
+              <details key={topic.id} className="border-b border-stone-50 group">
+                <summary className="flex items-center justify-between gap-3 px-6 py-4 cursor-pointer hover:bg-stone-50 transition-colors list-none">
+                  <ChevronRight className="text-stone-300 group-open:rotate-90 transition-transform flex-shrink-0 size-4" />
+                  <div className="flex items-center gap-3 flex-1 justify-end">
+                    <span className="font-headline font-bold text-stone-700 text-sm">{topic.title}</span>
+                    <span className="text-primary flex-shrink-0">{ICON_MAP[topic.icon] ?? <HelpCircle size={18} />}</span>
+                  </div>
+                </summary>
+                <div className="px-6 pb-4 space-y-4">
+                  {topic.content.map((item, idx) => (
+                    <div key={idx} className="border-r-2 border-primary/20 pr-4">
+                      <p className="text-xs font-bold text-accent mb-1.5 font-headline">{item.sub}</p>
+                      <p className="text-xs text-stone-500 leading-relaxed font-headline">{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            ))
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="p-4 border-t border-stone-100 bg-stone-50 flex-shrink-0">
+          <a href="/admin/help" className="flex items-center justify-center gap-2 text-xs text-stone-400 hover:text-primary font-headline transition-colors">
+            <BookOpen size={14} />
+            פתיחת מרכז הידע המלא
+          </a>
         </div>
       </div>
     </div>
@@ -459,6 +496,8 @@ export default function AdminPages() {
   const [content, setContent] = useState<ContentState>(EMPTY_CONTENT);
   const [isDirty, setIsDirty] = useState(false);
   const [allPages, setAllPages] = useState<{id: string, name: string}[]>(DEFAULT_PAGES);
+  const autoSaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [autoSaveStatus, setAutoSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
 
   const loadAllPages = async () => {
     if (!db) return;
@@ -509,11 +548,41 @@ export default function AdminPages() {
       if (!confirm) return;
     }
     setSelectedPage(newPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
     if (selectedPage !== 'custom' && db) fetchPageContent(selectedPage);
   }, [selectedPage, db]);
+
+  // Auto-save: debounce 3s after last change
+  useEffect(() => {
+    if (!isDirty || isSaving || selectedPage === 'custom' || !mounted || !db) return;
+    if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current);
+    autoSaveTimer.current = setTimeout(async () => {
+      const targetId = selectedPage;
+      setAutoSaveStatus('saving');
+      try {
+        await setDoc(doc(db, 'siteContent', targetId), { ...content, pageId: targetId, updatedAt: Date.now() });
+        setIsDirty(false);
+        setAutoSaveStatus('saved');
+        setTimeout(() => setAutoSaveStatus('idle'), 2500);
+      } catch {
+        setAutoSaveStatus('error');
+        setTimeout(() => setAutoSaveStatus('idle'), 4000);
+      }
+    }, 3000);
+    return () => { if (autoSaveTimer.current) clearTimeout(autoSaveTimer.current); };
+  }, [isDirty, content, selectedPage, isSaving, mounted, db]);
+
+  // Warn before leaving with unsaved changes
+  useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      if (isDirty) { e.preventDefault(); e.returnValue = ''; }
+    };
+    window.addEventListener('beforeunload', handler);
+    return () => window.removeEventListener('beforeunload', handler);
+  }, [isDirty]);
 
   const fetchPageContent = async (id: string) => {
     if (!db) return;
@@ -705,7 +774,7 @@ export default function AdminPages() {
   }
 
   return (
-    <main className="min-h-screen bg-stone-50 text-right pb-32">
+    <main className="min-h-screen bg-stone-50 text-right pb-44">
       <Navbar />
       <section className="pt-28 md:pt-48 px-4 md:px-6 max-w-5xl mx-auto">
 
@@ -722,7 +791,7 @@ export default function AdminPages() {
             <h1 className="text-4xl md:text-6xl font-handwriting text-accent">ניהול תוכן ועיצוב</h1>
           </div>
 
-          <div className="w-full md:w-96 flex flex-col gap-4">
+          <div className="w-full md:w-96 flex flex-col gap-4 md:sticky md:top-[88px] md:z-[40]">
             <div className="flex gap-2">
               <div className="flex-1">
                 <Field label="בחר דף לעריכה">
@@ -1235,20 +1304,61 @@ export default function AdminPages() {
 
                 {/* ── Contact Section ── */}
                 <SectionCard icon={<MessageSquare size={20} />} title="קטע יצירת קשר">
-                  <TitleEditor 
-                    label="כותרת קטע יצירת קשר" 
-                    settings={content.contactTitleSettings} 
-                    onChange={s => set({ contactTitleSettings: s })} 
+                  <TitleEditor
+                    label="כותרת קטע יצירת קשר"
+                    settings={content.contactTitleSettings}
+                    onChange={s => set({ contactTitleSettings: s })}
                   />
+                </SectionCard>
+
+                {/* ── SEO ── */}
+                <SectionCard icon={<Globe size={20} />} title="קידום בגוגל (SEO)">
+                  <div className="space-y-5">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <CharCounter value={content.metaTitle || ''} limit={60} />
+                        <Label className="boutique-label">כותרת גוגל (Meta Title)</Label>
+                      </div>
+                      <Input value={content.metaTitle || ''} onChange={e => set({ metaTitle: e.target.value })} placeholder="כותרת העמוד בגוגל — עד 60 תווים" className="h-12" />
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <CharCounter value={content.metaDescription || ''} limit={160} />
+                        <Label className="boutique-label">תיאור גוגל (Meta Description)</Label>
+                      </div>
+                      <Textarea value={content.metaDescription || ''} onChange={e => set({ metaDescription: e.target.value })} placeholder="תיאור קצר שמופיע תחת הכותרת בגוגל — 140-160 תווים" rows={3} />
+                    </div>
+                    <GoogleSearchPreview
+                      title={content.metaTitle || ''}
+                      url={`www.moranpaz.co.il${selectedPage !== 'home' ? `/${selectedPage}` : ''}`}
+                      description={content.metaDescription || ''}
+                    />
+                  </div>
                 </SectionCard>
               </>
             )}
 
             {/* ── Save Button ── */}
-            <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/90 backdrop-blur-md border-t border-border/40 z-[250] md:relative md:bg-transparent md:border-none md:p-0">
-              <Button type="submit" disabled={isSaving} className="w-full bg-primary hover:bg-accent h-14 md:h-16 text-white text-lg md:text-xl boutique-label rounded-none shadow-2xl">
-                {isSaving ? <Loader2 className="animate-spin" /> : <><Save className="ml-4 size-5" /> שמירת כל השינויים</>}
-              </Button>
+            <div className="fixed bottom-0 left-0 right-0 z-[250] bg-background/95 backdrop-blur-md border-t border-border/40">
+              {autoSaveStatus !== 'idle' && (
+                <div className={`flex items-center justify-center gap-1.5 text-xs font-headline py-1.5 transition-all ${
+                  autoSaveStatus === 'saving' ? 'text-stone-400 bg-stone-50/80' :
+                  autoSaveStatus === 'saved' ? 'text-green-700 bg-green-50/80' : 'text-red-600 bg-red-50/80'
+                }`}>
+                  {autoSaveStatus === 'saving' && <Loader2 size={11} className="animate-spin" />}
+                  {autoSaveStatus === 'saved' && <Check size={11} />}
+                  {autoSaveStatus === 'saving' ? 'שומר אוטומטית...' : autoSaveStatus === 'saved' ? 'נשמר אוטומטית ✓' : '⚠ שגיאה בשמירה האוטומטית'}
+                </div>
+              )}
+              <div className="p-3 md:p-4">
+                <Button type="submit" disabled={isSaving || autoSaveStatus === 'saving'} className="w-full bg-primary hover:bg-accent h-13 text-white text-base boutique-label rounded-none shadow-xl flex items-center justify-center gap-3">
+                  {isSaving ? (
+                    <><Loader2 className="animate-spin size-4" /> שומר...</>
+                  ) : (
+                    <><Save className="size-4" /> {isDirty ? 'שמירת שינויים ידנית' : 'כל השינויים שמורים ✓'}</>
+                  )}
+                </Button>
+              </div>
             </div>
 
           </form>
