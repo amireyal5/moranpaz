@@ -40,6 +40,7 @@ import { ADMIN_HELP_CONTENT } from '@/config/admin-help-content';
 const QUILL_MODULES = {
   toolbar: [
     [{ direction: 'rtl' }, { align: [] }],
+    [{ font: [] }, { size: ['small', false, 'large', 'huge'] }],
     [{ header: [1, 2, 3, false] }],
     ['bold', 'italic', 'underline'],
     [{ color: [] }, { background: [] }],
@@ -49,7 +50,7 @@ const QUILL_MODULES = {
   ],
 };
 const QUILL_FORMATS = [
-  'direction', 'align', 'header',
+  'direction', 'align', 'header', 'font', 'size',
   'bold', 'italic', 'underline',
   'color', 'background',
   'list',

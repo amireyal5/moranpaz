@@ -345,3 +345,55 @@
   right: 20px;
   left: auto;
 }
+
+/* Quill Toolbar Translations (Hebrew) */
+.ql-snow .ql-picker.ql-size .ql-picker-label::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item::before {
+  content: 'רגיל' !important;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=small]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=small]::before {
+  content: 'קטן' !important;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=large]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
+  content: 'גדול' !important;
+}
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=huge]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
+  content: 'ענק' !important;
+}
+
+.ql-snow .ql-picker.ql-font .ql-picker-label::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item::before {
+  content: 'רגיל' !important;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=serif]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=serif]::before {
+  content: 'סריף' !important;
+}
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=monospace]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=monospace]::before {
+  content: 'קוד' !important;
+}
+
+/* Ensure toolbar picker text is aligned correctly for RTL */
+.ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
+  left: 5px !important;
+  right: auto !important;
+}
+.ql-snow .ql-picker-label {
+  padding-left: 18px !important;
+  padding-right: 12px !important;
+  text-align: right;
+}
+.ql-snow .ql-picker-item {
+  text-align: right;
+}
+
+/* Global Quill Render Support */
+.ql-size-small { font-size: 0.75em !important; }
+.ql-size-large { font-size: 1.5em !important; }
+.ql-size-huge { font-size: 2.5em !important; }
+.ql-font-serif { font-family: serif !important; }
+.ql-font-monospace { font-family: monospace !important; }
