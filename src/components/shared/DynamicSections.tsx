@@ -5,15 +5,7 @@ import React from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
-interface DynamicSection {
-  id: string;
-  type: 'text' | 'image-text' | 'title-only';
-  content: string;
-  title?: string;
-  imageUrl?: string;
-  imagePosition?: 'left' | 'right';
-  bg?: string;
-}
+import { DynamicSection } from '@/config/page-defaults';
 
 interface DynamicSectionsProps {
   sections?: DynamicSection[];

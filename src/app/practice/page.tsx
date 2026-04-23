@@ -128,7 +128,8 @@ export default function PracticePage() {
                 );
               })}
             </div>
-          )}
+          </div>
+        )}
 
           {/* Dynamic CTA Buttons */}
           <div className="mb-32">
