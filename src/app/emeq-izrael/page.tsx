@@ -13,6 +13,7 @@ import { CtaButtons } from '@/components/shared/CtaButtons';
 import { MapPin, Sparkles, ArrowLeft, Heart, Orbit, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
+import { DynamicSections } from '@/components/shared/DynamicSections';
 
 export default function EmeqIzraelPage() {
   const db = useFirestore();
@@ -190,6 +191,9 @@ export default function EmeqIzraelPage() {
           </div>
         </section>
       )}
+
+      {/* Dynamic Custom Blocks */}
+      <DynamicSections sections={pageContent?.dynamicSections} className="mb-24" />
 
       <section className="py-32 bg-stone-50 px-8">
         <div className="max-w-4xl mx-auto text-center space-y-12">

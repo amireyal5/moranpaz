@@ -16,6 +16,7 @@ import { PortraitImage } from '@/components/shared/PortraitImage';
 import { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePageContent } from '@/hooks/use-page-content';
+import { DynamicSections } from '@/components/shared/DynamicSections';
 
 const ICON_MAP: Record<string, React.ElementType> = { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle };
 
@@ -205,6 +206,9 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* Dynamic Custom Blocks */}
+      <DynamicSections sections={pageContent.dynamicSections} className="mb-24" />
 
       <section id="contact" className="py-24 md:py-48 px-6 bg-white">
         <div className="max-w-4xl mx-auto text-center">

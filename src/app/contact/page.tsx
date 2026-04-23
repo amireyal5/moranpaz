@@ -10,6 +10,7 @@ import { ContactForm } from '@/components/shared/ContactForm';
 import { Phone, Mail, MapPin, MessageSquare } from 'lucide-react';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
+import { DynamicSections } from '@/components/shared/DynamicSections';
 
 export default function ContactPage() {
   const db = useFirestore();
@@ -130,6 +131,9 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* Dynamic Custom Blocks */}
+      <DynamicSections sections={pageContent?.dynamicSections} className="mb-24" />
 
       <Footer />
     </main>

@@ -14,6 +14,7 @@ import { Sparkles, Heart, Quote, Orbit, Compass, Users, Star, MessageSquare, Hel
 import Image from 'next/image';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
+import { DynamicSections } from '@/components/shared/DynamicSections';
 
 export default function WomenPage() {
   const db = useFirestore();
@@ -160,6 +161,9 @@ export default function WomenPage() {
       {pageContent?.faqs?.length > 0 && (
         <FaqSection items={pageContent.faqs} />
       )}
+
+      {/* Dynamic Custom Blocks */}
+      <DynamicSections sections={pageContent?.dynamicSections} className="mb-24" />
 
       <Footer />
     </main>

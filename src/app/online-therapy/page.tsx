@@ -14,6 +14,7 @@ import { PortraitImage } from '@/components/shared/PortraitImage';
 import { Globe, ShieldCheck, Clock, Infinity, Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { usePageContent } from '@/hooks/use-page-content';
+import { DynamicSections } from '@/components/shared/DynamicSections';
 
 export default function OnlineTherapyPage() {
   const { content: mergedContent, loading, error } = usePageContent('online-therapy');
@@ -173,6 +174,9 @@ export default function OnlineTherapyPage() {
           titleSettings={mergedContent.faqsTitle}
         />
       )}
+
+      {/* Dynamic Custom Blocks */}
+      <DynamicSections sections={mergedContent.dynamicSections} className="mb-24" />
 
       <Footer />
     </main>

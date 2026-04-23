@@ -14,6 +14,7 @@ import { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle
 import { cn } from '@/lib/utils';
 import { useFirestore, useDoc } from '@/firebase';
 import { doc } from 'firebase/firestore';
+import { DynamicSections } from '@/components/shared/DynamicSections';
 
 export default function PracticePage() {
   const db = useFirestore();
@@ -108,7 +109,11 @@ export default function PracticePage() {
 
           {/* Dynamic categories from features */}
           {pageContent?.features?.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-48">
+            <div className="mb-48">
+              <div className="mb-16 reveal">
+                <h2 className="text-4xl md:text-5xl font-headline text-accent">בטיפול אנחנו עובדים על -</h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {pageContent.features.map((item: any, i: number) => {
                 const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle };
                 const Icon = IconMap[item.icon] || Compass;
@@ -126,7 +131,9 @@ export default function PracticePage() {
           )}
 
           {/* Dynamic CTA Buttons */}
-          <CtaButtons buttons={pageContent?.ctaButtons} align={pageContent?.ctaAlign} />
+          <div className="mb-32">
+            <CtaButtons buttons={pageContent?.ctaButtons} align={pageContent?.ctaAlign} />
+          </div>
 
           <div ref={stepsReveal} className="reveal space-y-24">
             <SectionTitle 
@@ -175,6 +182,9 @@ export default function PracticePage() {
           titleSettings={pageContent.faqsTitle}
         />
       )}
+
+      {/* Dynamic Custom Blocks */}
+      <DynamicSections sections={pageContent?.dynamicSections} className="mb-24" />
 
       <Footer />
     </main>

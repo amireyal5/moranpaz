@@ -14,6 +14,7 @@ import { useReveal } from '@/hooks/use-reveal';
 import { PortraitImage } from '@/components/shared/PortraitImage';
 import { GraduationCap, Briefcase, Sparkles, Heart, Orbit, Users, Star, Compass, MessageSquare, HelpCircle, ArrowLeft, Loader2 } from 'lucide-react';
 import { usePageContent } from '@/hooks/use-page-content';
+import { DynamicSections } from '@/components/shared/DynamicSections';
 
 const ICON_MAP: Record<string, React.ElementType> = { 
   Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle, GraduationCap, Briefcase 
@@ -199,6 +200,9 @@ export default function AboutPage() {
           titleSettings={mergedContent.faqsTitle}
         />
       )}
+
+      {/* Dynamic Custom Blocks */}
+      <DynamicSections sections={mergedContent.dynamicSections} className="mb-24" />
 
       <Footer />
     </main>

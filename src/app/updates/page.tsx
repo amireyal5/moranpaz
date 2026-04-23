@@ -10,6 +10,7 @@ import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { FaqSection } from '@/components/shared/FaqSection';
 import { Loader2, Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
 import { usePageContent } from '@/hooks/use-page-content';
+import { DynamicSections } from '@/components/shared/DynamicSections';
 
 const ICON_MAP: Record<string, any> = {
   Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle
@@ -81,6 +82,11 @@ export default function UpdatesPage() {
       {pageContent.faqs.length > 0 && (
         <FaqSection items={pageContent.faqs} />
       )}
+
+      {/* Dynamic Custom Blocks */}
+      <div className="max-w-4xl mx-auto px-4 md:px-8">
+        <DynamicSections sections={pageContent.dynamicSections} className="mb-24" />
+      </div>
 
       <Footer />
     </main>
