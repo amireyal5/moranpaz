@@ -31,6 +31,133 @@ export default function PracticePage() {
     { title: "דימוי עצמי", desc: "בניית ערך פנימי וחיבור לקול האותנטי." }
   ];
 
+  const sectionOrder = pageContent?.sectionOrder || ['intro', 'features', 'cta', 'journey', 'testimonials', 'faqs', 'dynamic'];
+
+  const renderSection = (sectionId: string) => {
+    switch (sectionId) {
+      case 'intro':
+        return (
+          <div key="intro" ref={introReveal} className="reveal mb-32 max-w-5xl">
+            <SectionTitle 
+              subtitle={pageContent?.introTitleSettings?.subtitle || "Integrated Care"} 
+              title={pageContent?.introTitleSettings?.text || pageContent?.introTitle || "העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח."} 
+              fontSize={pageContent?.introTitleSettings?.fontSize}
+              fontFamily={pageContent?.introTitleSettings?.fontFamily}
+              color={pageContent?.introTitleSettings?.color}
+              align={pageContent?.introTitleSettings?.align || 'right'}
+            />
+            <div className="space-y-8 boutique-para text-stone-600">
+              {pageContent?.introContent != null && (
+                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
+              )}
+            </div>
+            <div className="mashrabiya-divider max-w-[300px]"></div>
+          </div>
+        );
+
+      case 'features':
+        if (!pageContent?.features?.length) return null;
+        return (
+          <div key="features" className="mb-48 reveal">
+            <div className="mb-16">
+              <SectionTitle 
+                title={pageContent?.featuresTitle?.text || "בטיפול אנחנו עובדים על -"} 
+                subtitle={pageContent?.featuresTitle?.subtitle}
+                fontSize={pageContent?.featuresTitle?.fontSize}
+                fontFamily={pageContent?.featuresTitle?.fontFamily}
+                color={pageContent?.featuresTitle?.color}
+                align={pageContent?.featuresTitle?.align || 'right'}
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {pageContent.features.map((item: any, i: number) => {
+                const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle };
+                const Icon = IconMap[item.icon] || Compass;
+                return (
+                  <div key={i} className={cn(
+                    "boutique-card group border border-stone-100 hover:border-primary/20",
+                    item.bg
+                  )}>
+                    <h3 className={cn("text-4xl font-headline mb-8 text-accent", item.titleColor)}>{item.title}</h3>
+                    <p className="text-xl font-light opacity-80 leading-relaxed">{item.description}</p>
+                    <div className="absolute bottom-8 right-8 text-primary/10 group-hover:text-primary/40 transition-colors">
+                      <Icon size={40} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+
+      case 'cta':
+        return (
+          <div key="cta" className="mb-32">
+            <CtaButtons buttons={pageContent?.ctaButtons} align={pageContent?.ctaAlign} />
+          </div>
+        );
+
+      case 'journey':
+        const steps = pageContent?.journeySteps || [];
+        if (steps.length === 0) return null;
+        return (
+          <div key="journey" ref={stepsReveal} className="reveal space-y-24 mb-32">
+            <SectionTitle 
+              subtitle={pageContent?.journeyTitleSettings?.subtitle || "How it works"} 
+              title={pageContent?.journeyTitleSettings?.text || "שלבי המסע שלנו"} 
+              className="flex flex-col items-center text-center"
+              fontSize={pageContent?.journeyTitleSettings?.fontSize}
+              fontFamily={pageContent?.journeyTitleSettings?.fontFamily}
+              color={pageContent?.journeyTitleSettings?.color}
+              align={pageContent?.journeyTitleSettings?.align || 'center'}
+            />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
+              {steps.map((step: any, i: number) => {
+                const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle };
+                const Icon = IconMap[step.icon] || Orbit;
+                return (
+                  <div key={i} className="flex flex-col items-center text-center space-y-10 group">
+                    <div className="text-primary group-hover:scale-110 transition-transform duration-700">
+                      <Icon size={60} strokeWidth={0.2} />
+                    </div>
+                    <div className="space-y-6">
+                      <h4 className="text-3xl font-headline font-bold text-accent">{step.title}</h4>
+                      <p className="text-xl font-light text-stone-600 leading-relaxed max-w-[280px]">{step.description}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+
+      case 'testimonials':
+        return (
+          <TestimonialsSection 
+            key="testimonials"
+            customTestimonials={pageContent?.testimonials} 
+            titleSettings={pageContent?.testimonialsTitle}
+          />
+        );
+
+      case 'faqs':
+        if (!pageContent?.faqs?.length) return null;
+        return (
+          <FaqSection 
+            key="faqs"
+            items={pageContent.faqs} 
+            titleSettings={pageContent.faqsTitle}
+          />
+        );
+
+      case 'dynamic':
+        return <DynamicSections key="dynamic" sections={pageContent?.dynamicSections} className="mb-24" />;
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <main className="min-h-screen bg-background text-right overflow-x-hidden">
       <Navbar />
@@ -90,102 +217,9 @@ export default function PracticePage() {
 
       <section className="py-32 md:py-56 px-4 md:px-8 xl:px-24">
         <div className="max-w-7xl mx-auto">
-          <div ref={introReveal} className="reveal mb-32 max-w-5xl">
-            <SectionTitle 
-              subtitle={pageContent?.introTitleSettings?.subtitle || "Integrated Care"} 
-              title={pageContent?.introTitleSettings?.text || pageContent?.introTitle || "העבודה הטיפולית משלבת כלים מעולמות הפסיכולוגיה והרוח."} 
-              fontSize={pageContent?.introTitleSettings?.fontSize}
-              fontFamily={pageContent?.introTitleSettings?.fontFamily}
-              color={pageContent?.introTitleSettings?.color}
-              align={pageContent?.introTitleSettings?.align || 'right'}
-            />
-            <div className="space-y-8 boutique-para text-stone-600">
-              {pageContent?.introContent != null && (
-                <div className="page-content-container" dangerouslySetInnerHTML={{ __html: pageContent.introContent.replace(/&nbsp;|\u00A0/g, ' ') }} />
-              )}
-            </div>
-            <div className="mashrabiya-divider max-w-[300px]"></div>
-          </div>
-
-          {/* Dynamic categories from features */}
-          {pageContent?.features?.length > 0 && (
-            <div className="mb-48">
-              <div className="mb-16 reveal">
-                <h2 className="text-4xl md:text-5xl font-headline text-accent">בטיפול אנחנו עובדים על -</h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {pageContent.features.map((item: any, i: number) => {
-                const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle };
-                const Icon = IconMap[item.icon] || Compass;
-                return (
-                  <div key={i} className="boutique-card group border border-stone-100 hover:border-primary/20">
-                    <h3 className="text-4xl font-headline mb-8 text-accent">{item.title}</h3>
-                    <p className="text-xl font-light opacity-80 leading-relaxed">{item.description}</p>
-                    <div className="absolute bottom-8 right-8 text-primary/10 group-hover:text-primary/40 transition-colors">
-                      <Icon size={40} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-          {/* Dynamic CTA Buttons */}
-          <div className="mb-32">
-            <CtaButtons buttons={pageContent?.ctaButtons} align={pageContent?.ctaAlign} />
-          </div>
-
-          <div ref={stepsReveal} className="reveal space-y-24">
-            <SectionTitle 
-              subtitle={pageContent?.featuresTitle?.subtitle || "How it works"} 
-              title={pageContent?.featuresTitle?.text || "שלבי המסע שלנו"} 
-              className="flex flex-col items-center text-center"
-              fontSize={pageContent?.featuresTitle?.fontSize}
-              fontFamily={pageContent?.featuresTitle?.fontFamily}
-              color={pageContent?.featuresTitle?.color}
-              align={pageContent?.featuresTitle?.align || 'center'}
-            />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
-              {[
-                { title: "זיהוי הסיפור", icon: Orbit, desc: "הבנת הדפוסים והסיפור שסיפרת לעצמך עד היום." },
-                { title: "קבלת חלקים", icon: Heart, desc: "מפגש אמיץ עם החלקים החבויים וקבלה שלהם." },
-                { title: "סמכות פנימית", icon: Sparkles, desc: "התחברות למקום שבו נמצאות התשובות שלך." }
-              ].map((step, i) => {
-                const Icon = step.icon;
-                return (
-                  <div key={i} className="flex flex-col items-center text-center space-y-10 group">
-                    <div className="text-primary group-hover:scale-110 transition-transform duration-700">
-                      <Icon size={60} strokeWidth={0.2} />
-                    </div>
-                    <div className="space-y-6">
-                      <h4 className="text-3xl font-headline font-bold text-accent">{step.title}</h4>
-                      <p className="text-xl font-light text-stone-600 leading-relaxed max-w-[280px]">{step.desc}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          {(sectionOrder as string[]).map((id: string) => renderSection(id))}
         </div>
       </section>
-
-      {/* Dynamic Testimonials */}
-      <TestimonialsSection 
-        customTestimonials={pageContent?.testimonials} 
-        titleSettings={pageContent?.testimonialsTitle}
-      />
-
-      {/* Dynamic FAQs */}
-      {pageContent?.faqs?.length > 0 && (
-        <FaqSection 
-          items={pageContent.faqs} 
-          titleSettings={pageContent.faqsTitle}
-        />
-      )}
-
-      {/* Dynamic Custom Blocks */}
-      <DynamicSections sections={pageContent?.dynamicSections} className="mb-24" />
 
       <Footer />
     </main>

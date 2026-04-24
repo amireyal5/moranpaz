@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { doc, getDoc, setDoc, collection, getDocs, deleteDoc } from 'firebase/firestore';
 import { useUser, useFirestore } from '@/firebase';
+import { cn } from '@/lib/utils';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Button } from '@/components/ui/button';
@@ -96,6 +97,10 @@ const PRESET_COLORS = [
   { name: 'כחול ערפל (Ocean Mist)', value: '190 15% 55%' },
   { name: 'חרדל כהה (Dark Mustard)', value: '40 50% 35%' },
   { name: 'טרקוטה (Terracotta)', value: '15 35% 50%' },
+  { name: 'זית עדין (Soft Olive)', value: '75 10% 40%' },
+  { name: 'חול חם (Warm Sand)', value: '30 20% 85%' },
+  { name: 'לילך מעושן (Smoky Lilac)', value: '280 10% 60%' },
+  { name: 'אפור אבן (Stone Gray)', value: '25 5% 45%' },
 ];
 
 const HERO_HEIGHTS = [
@@ -110,6 +115,9 @@ const SECTION_BG_OPTIONS = [
   { label: 'אבן בהיר', value: 'stone-50' },
   { label: 'אבן כהה', value: 'stone-100' },
   { label: 'ראשי (Primary)', value: 'primary' },
+  { label: 'זהב עדין', value: 'bg-[hsl(35,40%,95%)]' },
+  { label: 'ירוק עדין', value: 'bg-[hsl(155,15%,95%)]' },
+  { label: 'ורוד עדין', value: 'bg-[hsl(350,20%,95%)]' },
 ];
 
 const CTA_VARIANTS = [
@@ -276,7 +284,7 @@ function DynamicSectionEditor({ section, onChange, onRemove, onMoveUp, onMoveDow
         <div className="flex items-center gap-3">
           <div className="w-1.5 h-6 bg-accent" />
           <Label className="boutique-label text-accent text-lg">
-            {section.type === 'text' ? 'בלוק טקסט' : section.type === 'image-text' ? 'תמונה וטקסט' : 'כותרת בלבד'}
+            {section.type === 'text' ? 'בלוק טקסט' : section.type === 'image-text' ? 'תמונה וטקסט' : section.type === 'logos' ? 'לוגואים (גריד)' : 'כותרת בלבד'}
           </Label>
         </div>
         <div className="flex items-center gap-3">
@@ -298,6 +306,7 @@ function DynamicSectionEditor({ section, onChange, onRemove, onMoveUp, onMoveDow
             <SelectContent>
               <SelectItem value="text">טקסט בלבד</SelectItem>
               <SelectItem value="image-text">תמונה וטקסט</SelectItem>
+              <SelectItem value="logos">לוגואים (גריד)</SelectItem>
               <SelectItem value="title-only">כותרת בלבד</SelectItem>
             </SelectContent>
           </Select>
@@ -313,9 +322,11 @@ function DynamicSectionEditor({ section, onChange, onRemove, onMoveUp, onMoveDow
         </Field>
 
         <div className="md:col-span-2">
-          <Field label="כותרת הבלוק (אופציונלי)">
-            <Input value={section.title || ''} onChange={e => onChange({ ...section, title: e.target.value })} className="bg-stone-50 border-none h-12" />
-          </Field>
+          <TitleEditor 
+            label="כותרת הבלוק (אופציונלי)" 
+            settings={section.titleSettings} 
+            onChange={s => onChange({ ...section, titleSettings: s, title: s.text })} 
+          />
         </div>
 
         {section.type === 'image-text' && (
@@ -334,8 +345,76 @@ function DynamicSectionEditor({ section, onChange, onRemove, onMoveUp, onMoveDow
             </Field>
           </>
         )}
+        
+        {section.type === 'logos' && (
+          <div className="md:col-span-2 space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <Field label="גודל לוגואים">
+                <Select value={section.logoSize || 'md'} onValueChange={v => onChange({ ...section, logoSize: v })}>
+                  <SelectTrigger className="bg-stone-50 border-none h-12"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="sm">קטן</SelectItem>
+                    <SelectItem value="md">בינוני</SelectItem>
+                    <SelectItem value="lg">גדול</SelectItem>
+                  </SelectContent>
+                </Select>
+              </Field>
+              <Field label="מסגרת">
+                <Select value={section.logoShape || 'square'} onValueChange={v => onChange({ ...section, logoShape: v })}>
+                  <SelectTrigger className="bg-stone-50 border-none h-12"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="square">מרובע</SelectItem>
+                    <SelectItem value="circle">עגול</SelectItem>
+                  </SelectContent>
+                </Select>
+              </Field>
+            </div>
+            <Label className="boutique-label">רשימת לוגואים</Label>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {(section.logos || []).map((logo: any, idx: number) => (
+                <div key={logo.id || idx} className="flex gap-2 items-center bg-stone-50 p-2">
+                  <Input 
+                    value={logo.imageUrl} 
+                    onChange={e => {
+                      const nextLogos = [...(section.logos || [])];
+                      nextLogos[idx] = { ...nextLogos[idx], imageUrl: e.target.value };
+                      onChange({ ...section, logos: nextLogos });
+                    }} 
+                    placeholder="URL תמונה" 
+                    className="flex-1 bg-white h-10 text-xs font-sans" 
+                  />
+                  <Button 
+                    type="button" 
+                    variant="ghost" 
+                    size="icon" 
+                    onClick={() => {
+                      const nextLogos = [...(section.logos || [])];
+                      nextLogos.splice(idx, 1);
+                      onChange({ ...section, logos: nextLogos });
+                    }}
+                    className="text-red-400 h-8 w-8"
+                  >
+                    <X size={14} />
+                  </Button>
+                </div>
+              ))}
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={() => {
+                  const id = Math.random().toString(36).substr(2, 9);
+                  const nextLogos = [...(section.logos || []), { id, imageUrl: '' }];
+                  onChange({ ...section, logos: nextLogos });
+                }}
+                className="border-dashed border-primary/20 h-10"
+              >
+                <Plus size={14} className="ml-1" /> הוספת לוגו
+              </Button>
+            </div>
+          </div>
+        )}
 
-        {section.type !== 'title-only' && (
+        {section.type !== 'title-only' && section.type !== 'logos' && (
           <div className="md:col-span-2">
             <Field label="תוכן">
               <div className="min-h-[200px]" dir="rtl">
@@ -634,6 +713,8 @@ export default function AdminPages() {
           faqsTitle:           d.faqsTitle                   ?? DEFAULT_CONTENT_VALUES.faqsTitle,
           introTitleSettings:   d.introTitleSettings          ?? DEFAULT_CONTENT_VALUES.introTitleSettings,
           contactTitleSettings: d.contactTitleSettings        ?? DEFAULT_CONTENT_VALUES.contactTitleSettings,
+          journeyTitleSettings: d.journeyTitleSettings        ?? DEFAULT_CONTENT_VALUES.journeyTitleSettings,
+          journeySteps:         Array.isArray(d.journeySteps) ? d.journeySteps : (d.pageId === 'practice' ? DEFAULT_CONTENT_VALUES.journeySteps : []),
           sectionOrder:         d.sectionOrder                ?? [...(DEFAULT_CONTENT_VALUES.sectionOrder as string[])],
         });
       } else {
@@ -677,6 +758,8 @@ export default function AdminPages() {
           faqsTitle:           fb.faqsTitle                   ?? DEFAULT_CONTENT_VALUES.faqsTitle,
           introTitleSettings:   fb.introTitleSettings          ?? DEFAULT_CONTENT_VALUES.introTitleSettings,
           contactTitleSettings: fb.contactTitleSettings        ?? DEFAULT_CONTENT_VALUES.contactTitleSettings,
+          journeyTitleSettings: fb.journeyTitleSettings        ?? DEFAULT_CONTENT_VALUES.journeyTitleSettings,
+          journeySteps:         Array.isArray(fb.journeySteps) ? fb.journeySteps : (id === 'practice' ? DEFAULT_CONTENT_VALUES.journeySteps : []),
           sectionOrder:         fb.sectionOrder                || [...(DEFAULT_CONTENT_VALUES.sectionOrder as string[])],
         });
       }
@@ -748,7 +831,7 @@ export default function AdminPages() {
     }
   };
 
-  const addItem   = <K extends 'ctaButtons' | 'features' | 'testimonials' | 'faqs' | 'navItems' | 'footerItems'>(key: K, item: ContentState[K][number]) => {
+  const addItem   = <K extends 'ctaButtons' | 'features' | 'testimonials' | 'faqs' | 'navItems' | 'footerItems' | 'journeySteps'>(key: K, item: ContentState[K][number]) => {
     setContent(prev => ({ ...prev, [key]: [...(prev[key] as any[]), item] }));
     setIsDirty(true);
   };
@@ -1096,14 +1179,23 @@ export default function AdminPages() {
                             <SelectContent>{CTA_SIZES.map(s => <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>)}</SelectContent>
                           </Select>
                         </Field>
+                        <Field label="צבע רקע (לסגנון ראשי)">
+                          <Select value={(btn as any).bgColor || ''} onValueChange={v => updateItem('ctaButtons', i, 'bgColor', v)}>
+                            <SelectTrigger className="bg-white"><SelectValue placeholder="ברירת מחדל" /></SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="">ברירת מחדל</SelectItem>
+                              {PRESET_COLORS.map(c => <SelectItem key={c.value} value={`bg-[hsl(${c.value})] border-[hsl(${c.value})]`}>{c.name}</SelectItem>)}
+                            </SelectContent>
+                          </Select>
+                        </Field>
                       </div>
                       <div className="mt-4 flex flex-col items-center">
                         <p className="text-[10px] text-stone-400 mb-2">תצוגה מקדימה</p>
                         <div className={`border h-fit w-fit transition-all duration-700 font-bold tracking-[0.15em] rounded-sm whitespace-nowrap ${
-                          btn.variant === 'primary' ? 'bg-primary text-white border-primary' :
+                          btn.variant === 'primary' ? ((btn as any).bgColor || 'bg-primary text-white border-primary') :
                           btn.variant === 'outline' ? 'bg-transparent text-primary border-primary' :
                           'bg-transparent text-stone-600 border-transparent'
-                        } ${btn.size === 'lg' ? 'text-base px-6 py-3' : btn.size === 'sm' ? 'text-xs px-3 py-1' : ''}`}>
+                        } ${btn.variant === 'primary' && (btn as any).bgColor ? 'text-white' : ''} ${btn.size === 'lg' ? 'text-base px-6 py-3' : btn.size === 'sm' ? 'text-xs px-3 py-1' : 'px-5 py-2'}`}>
                           {btn.label || 'טקסט כפתור'}
                         </div>
                       </div>
@@ -1146,6 +1238,21 @@ export default function AdminPages() {
                           </Field>
                         </div>
                       </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <Field label="צבע רקע">
+                          <Select value={feat.bg || ''} onValueChange={v => updateItem('features', i, 'bg', v)}>
+                            <SelectTrigger className="bg-white"><SelectValue placeholder="ברירת מחדל" /></SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="transparent">שקוף</SelectItem>
+                              <SelectItem value="white">לבן</SelectItem>
+                              {PRESET_COLORS.map(c => <SelectItem key={c.value} value={`bg-[hsl(${c.value})]/10`}>{c.name}</SelectItem>)}
+                            </SelectContent>
+                          </Select>
+                        </Field>
+                        <Field label="צבע כותרת">
+                          <Input value={feat.titleColor || ''} onChange={e => updateItem('features', i, 'titleColor', e.target.value)} placeholder="text-accent או #000000" className="bg-white" />
+                        </Field>
+                      </div>
                       <Field label="תיאור">
                         <Textarea value={feat.description} onChange={e => updateItem('features', i, 'description', e.target.value)} rows={2} className="bg-white resize-none" />
                       </Field>
@@ -1153,6 +1260,48 @@ export default function AdminPages() {
                   ))}
                   <Button type="button" onClick={() => addItem('features', { title: '', description: '', icon: 'Heart' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary hover:bg-primary/5">
                     <Plus className="mr-2 size-4" /> הוספת קובייה
+                  </Button>
+                </SectionCard>
+
+                {/* ── Journey Steps ── */}
+                <SectionCard icon={<Orbit size={20} />} title="שלבי המסע (Steps)">
+                  <TitleEditor 
+                    label="כותרת קטע שלבי המסע" 
+                    settings={content.journeyTitleSettings} 
+                    onChange={s => set({ journeyTitleSettings: s })} 
+                  />
+                  {content.journeySteps?.map((step, i) => (
+                    <div key={i} className="bg-stone-50 p-4 md:p-5 border border-stone-100 rounded-sm space-y-4">
+                      <div className="flex justify-between items-center">
+                        <MoveButtons onUp={() => moveItem('journeySteps', i, 'up')} onDown={() => moveItem('journeySteps', i, 'down')} disableUp={i === 0} disableDown={i === (content.journeySteps?.length || 0) - 1} />
+                        <Button type="button" variant="ghost" onClick={() => removeItem('journeySteps', i)} className="text-destructive p-2 h-auto"><Trash2 size={16} /></Button>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <Field label="אייקון">
+                          <Select value={step.icon} onValueChange={v => updateItem('journeySteps', i, 'icon', v)}>
+                            <SelectTrigger className="bg-white"><SelectValue /></SelectTrigger>
+                            <SelectContent>
+                              {ICON_OPTIONS.map(opt => (
+                                <SelectItem key={opt.value} value={opt.value}>
+                                  <div className="flex items-center gap-2">{opt.icon} {opt.value}</div>
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </Field>
+                        <div className="md:col-span-2">
+                          <Field label="כותרת">
+                            <Input value={step.title} onChange={e => updateItem('journeySteps', i, 'title', e.target.value)} className="bg-white" />
+                          </Field>
+                        </div>
+                      </div>
+                      <Field label="תיאור">
+                        <Textarea value={step.description} onChange={e => updateItem('journeySteps', i, 'description', e.target.value)} rows={2} className="bg-white resize-none" />
+                      </Field>
+                    </div>
+                  ))}
+                  <Button type="button" onClick={() => addItem('journeySteps', { title: '', description: '', icon: 'Sparkles' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary hover:bg-primary/5">
+                    <Plus className="mr-2 size-4" /> הוספת שלב
                   </Button>
                 </SectionCard>
 
@@ -1222,7 +1371,8 @@ export default function AdminPages() {
                         hero: 'הדר (Hero)',
                         intro: 'תוכן ראשי (About)',
                         dynamic: 'בלוקים חופשיים (Dynamic)',
-                        features: 'מרחבי הטיפול (Features)',
+                        features: 'קוביות תוכן (Features)',
+                        journey: 'שלבי המסע (Steps)',
                         testimonials: 'המלצות (Testimonials)',
                         faqs: 'שאלות נפוצות (FAQ)',
                         cta: 'כפתורי פעולה (CTA)',

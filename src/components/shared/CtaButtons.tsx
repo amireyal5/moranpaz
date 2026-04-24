@@ -10,6 +10,7 @@ interface CtaButton {
   href: string;
   variant: 'primary' | 'outline' | 'ghost';
   size?: 'sm' | 'default' | 'lg';
+  bgColor?: string;
 }
 
 interface CtaButtonsProps {
@@ -45,10 +46,11 @@ export function CtaButtons({ buttons, align = 'center', className }: CtaButtonsP
               "boutique-label transition-all duration-700 rounded-sm shadow-xl min-w-[200px] text-center",
               sizeClass,
               btn.variant === 'primary'
-                ? "bg-primary text-white hover:bg-accent"
+                ? (btn.bgColor || "bg-primary text-white hover:bg-accent")
                 : btn.variant === 'outline'
                   ? "border border-primary text-primary hover:bg-primary hover:text-white"
-                  : "text-primary hover:text-accent bg-transparent"
+                  : "text-primary hover:text-accent bg-transparent",
+              (btn.variant === 'primary' && btn.bgColor) && "text-white"
             )}
           >
             {btn.label}

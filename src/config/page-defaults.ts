@@ -1,9 +1,16 @@
 
 export type NavItem = { label: string; href: string };
 export type CtaButton = { label: string; href: string; variant: 'primary' | 'outline' | 'ghost'; size: 'sm' | 'default' | 'lg' };
-export type Feature = { title: string; description: string; icon: string };
+export type Feature = { 
+  title: string; 
+  description: string; 
+  icon: string;
+  bg?: string;
+  titleColor?: string;
+};
 export type Testimonial = { text: string; author: string; location: string };
 export type Faq = { question: string; answer: string };
+export type LogoItem = { imageUrl: string; id: string };
 
 export type TitleSettings = {
   text: string;
@@ -16,12 +23,16 @@ export type TitleSettings = {
 
 export type DynamicSection = {
   id: string;
-  type: 'text' | 'image-text' | 'title-only' | 'hero' | 'intro' | 'features' | 'testimonials' | 'faqs' | 'cta' | 'contact';
+  type: 'text' | 'image-text' | 'title-only' | 'logos';
   content: string;
   title?: string;
+  titleSettings?: TitleSettings;
   imageUrl?: string;
   imagePosition?: 'left' | 'right';
   bg?: string;
+  logos?: LogoItem[];
+  logoSize?: 'sm' | 'md' | 'lg';
+  logoShape?: 'circle' | 'square';
 };
 
 export type ContentState = {
@@ -62,6 +73,8 @@ export type ContentState = {
   faqs: Faq[];
   dynamicSections?: DynamicSection[];
   featuresTitle?: TitleSettings;
+  journeyTitleSettings?: TitleSettings;
+  journeySteps?: Feature[];
   testimonialsTitle?: TitleSettings;
   faqsTitle?: TitleSettings;
   introTitleSettings?: TitleSettings;
@@ -85,14 +98,20 @@ export const DEFAULT_CONTENT_VALUES: Partial<ContentState> = {
   testimonials: [],
   faqs: [],
   dynamicSections: [],
-  featuresTitle: { text: "התהליך הטיפולי", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
+  featuresTitle: { text: "בטיפול אנחנו עובדים על -", fontSize: 'text-5xl', fontFamily: 'font-headline', align: 'right', color: 'text-accent' },
+  journeyTitleSettings: { text: "שלבי המסע שלנו", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground', subtitle: 'How it works' },
+  journeySteps: [
+    { title: "זיהוי הסיפור", icon: "Orbit", description: "הבנת הדפוסים והסיפור שסיפרת לעצמך עד היום." },
+    { title: "קבלת חלקים", icon: "Heart", description: "מפגש אמיץ עם החלקים החבויים וקבלה שלהם." },
+    { title: "סמכות פנימית", icon: "Sparkles", description: "התחברות למקום שבו נמצאות התשובות שלך." }
+  ],
   testimonialsTitle: { text: "לקוחות ממליצים", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
   faqsTitle: { text: "שאלות נפוצות", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
   introTitleSettings: { text: "קצת עלי", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'right', color: 'text-foreground' },
   contactTitleSettings: { text: "צרו קשר", fontSize: 'text-7xl', fontFamily: 'font-headline', align: 'center', color: 'text-foreground' },
   heroTitleSettings: { text: "", fontSize: 'text-9xl', fontFamily: 'font-handwriting', align: 'center', color: '#ffffff' },
   heroSubtitleSettings: { text: "", fontSize: 'text-4xl', fontFamily: 'font-headline', align: 'center', color: '#f5f5f5' },
-  sectionOrder: ['hero', 'intro', 'dynamic', 'features', 'testimonials', 'faqs', 'cta', 'contact']
+  sectionOrder: ['hero', 'intro', 'dynamic', 'features', 'journey', 'testimonials', 'faqs', 'cta', 'contact']
 };
 
 export const PAGE_FALLBACKS: Record<string, Partial<ContentState>> = {
@@ -172,6 +191,8 @@ export function getInitialPageContent(id: string): ContentState {
     contactTitleSettings: fallback.contactTitleSettings || DEFAULT_CONTENT_VALUES.contactTitleSettings,
     heroTitleSettings:    fallback.heroTitleSettings    || { ...DEFAULT_CONTENT_VALUES.heroTitleSettings, text: fallback.heroTitle || '' } as TitleSettings,
     heroSubtitleSettings: fallback.heroSubtitleSettings || { ...DEFAULT_CONTENT_VALUES.heroSubtitleSettings, text: fallback.heroSubtitle || '' } as TitleSettings,
+    journeyTitleSettings: fallback.journeyTitleSettings || DEFAULT_CONTENT_VALUES.journeyTitleSettings,
+    journeySteps:         fallback.journeySteps         || (id === 'practice' ? DEFAULT_CONTENT_VALUES.journeySteps : []),
     sectionOrder:         fallback.sectionOrder         || [...(DEFAULT_CONTENT_VALUES.sectionOrder as string[])]
   };
 }
