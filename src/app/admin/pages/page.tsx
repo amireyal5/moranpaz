@@ -306,6 +306,7 @@ function DynamicSectionEditor({ section, onChange, onRemove, onMoveUp, onMoveDow
             <SelectContent>
               <SelectItem value="text">טקסט בלבד</SelectItem>
               <SelectItem value="image-text">תמונה וטקסט</SelectItem>
+              <SelectItem value="features">קוביות תוכן (Features)</SelectItem>
               <SelectItem value="logos">לוגואים (גריד)</SelectItem>
               <SelectItem value="title-only">כותרת בלבד</SelectItem>
             </SelectContent>
@@ -414,7 +415,87 @@ function DynamicSectionEditor({ section, onChange, onRemove, onMoveUp, onMoveDow
           </div>
         )}
 
-        {section.type !== 'title-only' && section.type !== 'logos' && (
+        {section.type === 'features' && (
+          <div className="md:col-span-2 space-y-6">
+            <Label className="boutique-label">ניהול קוביות תוכן</Label>
+            <div className="grid grid-cols-1 gap-6">
+              {(section.features || []).map((feat: any, idx: number) => (
+                <div key={idx} className="bg-stone-50 p-6 border border-stone-100 rounded-none space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs font-bold text-accent">קובייה #{idx + 1}</span>
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={() => {
+                        const nextFeats = [...(section.features || [])];
+                        nextFeats.splice(idx, 1);
+                        onChange({ ...section, features: nextFeats });
+                      }}
+                      className="text-red-400 h-8 w-8"
+                    >
+                      <Trash2 size={16} />
+                    </Button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Field label="אייקון">
+                      <Select value={feat.icon || 'Heart'} onValueChange={v => {
+                        const nextFeats = [...(section.features || [])];
+                        nextFeats[idx] = { ...nextFeats[idx], icon: v };
+                        onChange({ ...section, features: nextFeats });
+                      }}>
+                        <SelectTrigger className="bg-white"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          {ICON_OPTIONS.map(opt => (
+                            <SelectItem key={opt.value} value={opt.value}>
+                              <div className="flex items-center gap-2">{opt.icon} {opt.value}</div>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </Field>
+                    <Field label="כותרת">
+                      <Input 
+                        value={feat.title || ''} 
+                        onChange={e => {
+                          const nextFeats = [...(section.features || [])];
+                          nextFeats[idx] = { ...nextFeats[idx], title: e.target.value };
+                          onChange({ ...section, features: nextFeats });
+                        }} 
+                        className="bg-white" 
+                      />
+                    </Field>
+                  </div>
+                  <Field label="תיאור">
+                    <Textarea 
+                      value={feat.description || ''} 
+                      onChange={e => {
+                        const nextFeats = [...(section.features || [])];
+                        nextFeats[idx] = { ...nextFeats[idx], description: e.target.value };
+                        onChange({ ...section, features: nextFeats });
+                      }} 
+                      rows={2} 
+                      className="bg-white resize-none" 
+                    />
+                  </Field>
+                </div>
+              ))}
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={() => {
+                  const nextFeats = [...(section.features || []), { title: '', description: '', icon: 'Heart' }];
+                  onChange({ ...section, features: nextFeats });
+                }}
+                className="border-dashed border-primary/20 h-12"
+              >
+                <Plus size={14} className="ml-2" /> הוספת קובייה לסט הזה
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {section.type !== 'title-only' && section.type !== 'logos' && section.type !== 'features' && (
           <div className="md:col-span-2">
             <Field label="תוכן">
               <div className="min-h-[200px]" dir="rtl">

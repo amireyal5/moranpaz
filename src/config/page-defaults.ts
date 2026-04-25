@@ -23,7 +23,7 @@ export type TitleSettings = {
 
 export type DynamicSection = {
   id: string;
-  type: 'text' | 'image-text' | 'title-only' | 'logos';
+  type: 'text' | 'image-text' | 'title-only' | 'logos' | 'features';
   content: string;
   title?: string;
   titleSettings?: TitleSettings;
@@ -33,6 +33,7 @@ export type DynamicSection = {
   logos?: LogoItem[];
   logoSize?: 'sm' | 'md' | 'lg';
   logoShape?: 'circle' | 'square';
+  features?: Feature[];
 };
 
 export type ContentState = {

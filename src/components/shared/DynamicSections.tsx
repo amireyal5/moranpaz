@@ -5,6 +5,7 @@ import React from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { SectionTitle } from './SectionTitle';
+import { Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
 
 import { DynamicSection } from '@/config/page-defaults';
 
@@ -95,6 +96,22 @@ export function DynamicSections({ sections, className }: DynamicSectionsProps) {
                       )}
                     </div>
                   ))}
+                </div>
+              ) : sec.type === 'features' ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+                  {(sec.features || []).map((feat, idx) => {
+                    const IconMap: Record<string, any> = { Heart, Sparkles, Orbit, Compass, Users, Star, MessageSquare, HelpCircle };
+                    const Icon = IconMap[feat.icon] || Heart;
+                    return (
+                      <div key={idx} className="boutique-card group border border-stone-100 hover:border-primary/20">
+                        <div className="text-primary mb-6 group-hover:scale-110 transition-transform">
+                          <Icon size={40} strokeWidth={0.2} />
+                        </div>
+                        <h3 className="text-2xl font-headline font-bold text-accent mb-4">{feat.title}</h3>
+                        <p className="text-lg font-light text-stone-600 leading-relaxed">{feat.description}</p>
+                      </div>
+                    );
+                  })}
                 </div>
               ) : (
                 <div className="boutique-para text-stone-600 !text-right">
