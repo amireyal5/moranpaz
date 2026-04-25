@@ -213,9 +213,9 @@
 */
 .page-content-container p {
   white-space: pre-wrap;
-  word-wrap: normal;
+  word-wrap: break-word;
   word-break: normal;
-  overflow-wrap: normal;
+  overflow-wrap: break-word;
 }
 
 .page-content-container * {

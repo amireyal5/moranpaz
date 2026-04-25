@@ -33,7 +33,7 @@ export function SectionTitle({
     'text-right items-end';
 
   const titleStyles = cn(
-    "stagger-2 transition-all duration-700",
+    "stagger-2 transition-all duration-700 break-words",
     fontFamily ? fontFamily : "boutique-title",
     fontSize ? fontSize : "!text-4xl sm:!text-6xl lg:!text-7xl",
     color ? color : (isLight ? 'text-white' : 'text-foreground'),

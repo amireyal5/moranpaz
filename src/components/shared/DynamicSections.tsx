@@ -69,7 +69,7 @@ export function DynamicSections({ sections, className }: DynamicSectionsProps) {
                   )}>
                     <div 
                       className="page-content-container" 
-                      dangerouslySetInnerHTML={{ __html: sec.content || '' }} 
+                      dangerouslySetInnerHTML={{ __html: (sec.content || '').replace(/&nbsp;|\u00A0/g, ' ') }} 
                     />
                   </div>
                 </div>
@@ -117,7 +117,7 @@ export function DynamicSections({ sections, className }: DynamicSectionsProps) {
                 <div className="boutique-para text-stone-600 !text-right">
                   <div 
                     className="page-content-container" 
-                    dangerouslySetInnerHTML={{ __html: sec.content || '' }} 
+                    dangerouslySetInnerHTML={{ __html: (sec.content || '').replace(/&nbsp;|\u00A0/g, ' ') }} 
                   />
                 </div>
               )}
