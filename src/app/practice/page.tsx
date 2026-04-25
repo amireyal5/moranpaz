@@ -9,6 +9,7 @@ import { SectionTitle } from '@/components/shared/SectionTitle';
 import { CtaButtons } from '@/components/shared/CtaButtons';
 import { TestimonialsSection } from '@/components/shared/TestimonialsSection';
 import { FaqSection } from '@/components/shared/FaqSection';
+import { ContactForm } from '@/components/shared/ContactForm';
 import { useReveal } from '@/hooks/use-reveal';
 import { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -24,14 +25,7 @@ export default function PracticePage() {
   const introReveal = useReveal();
   const stepsReveal = useReveal();
 
-  const categories = [
-    { title: "תקיעות בחיים", desc: "שחרור חסמים ויצירת תנועה חדשה." },
-    { title: "חרדה ומתח", desc: "כלים לוויסות רגשי ומרחב לנשימה." },
-    { title: "מערכות יחסים", desc: "שיפור הקשר עם עצמך ועם הסביבה." },
-    { title: "דימוי עצמי", desc: "בניית ערך פנימי וחיבור לקול האותנטי." }
-  ];
-
-  const sectionOrder = pageContent?.sectionOrder || ['intro', 'features', 'cta', 'journey', 'testimonials', 'faqs', 'dynamic'];
+  const sectionOrder = pageContent?.sectionOrder || ['intro', 'features', 'cta', 'journey', 'dynamic', 'testimonials', 'faqs', 'contact'];
 
   const renderSection = (sectionId: string) => {
     switch (sectionId) {
@@ -101,7 +95,7 @@ export default function PracticePage() {
         const steps = pageContent?.journeySteps || [];
         if (steps.length === 0) return null;
         return (
-          <div key="journey" ref={stepsReveal} className="reveal space-y-24 mb-32">
+          <div key="journey" ref={stepsReveal} className="reveal space-y-24 mb-48">
             <SectionTitle 
               subtitle={pageContent?.journeyTitleSettings?.subtitle || "How it works"} 
               title={pageContent?.journeyTitleSettings?.text || "שלבי המסע שלנו"} 
@@ -150,8 +144,26 @@ export default function PracticePage() {
           />
         );
 
+      case 'contact':
+        return (
+          <div key="contact" className="py-24 px-4 md:px-8 xl:px-24 bg-stone-50 rounded-sm mb-32">
+            <div className="max-w-5xl mx-auto text-center">
+               <SectionTitle 
+                 subtitle={pageContent?.contactTitleSettings?.subtitle || "Contact"} 
+                 title={pageContent?.contactTitleSettings?.text || "מחכה לשמוע ממך"} 
+                 fontSize={pageContent?.contactTitleSettings?.fontSize}
+                 fontFamily={pageContent?.contactTitleSettings?.fontFamily}
+                 color={pageContent?.contactTitleSettings?.color}
+                 align={pageContent?.contactTitleSettings?.align || 'center'}
+                 className="flex flex-col items-center"
+               />
+               <ContactForm />
+            </div>
+          </div>
+        );
+
       case 'dynamic':
-        return <DynamicSections key="dynamic" sections={pageContent?.dynamicSections} className="mb-24" />;
+        return <DynamicSections key="dynamic" sections={pageContent?.dynamicSections} className="mb-32" />;
 
       default:
         return null;
@@ -217,7 +229,11 @@ export default function PracticePage() {
 
       <section className="py-32 md:py-56 px-4 md:px-8 xl:px-24">
         <div className="max-w-7xl mx-auto">
-          {(sectionOrder as string[]).map((id: string) => renderSection(id))}
+          {(sectionOrder as string[]).map((id: string) => (
+            <React.Fragment key={id}>
+              {renderSection(id)}
+            </React.Fragment>
+          ))}
         </div>
       </section>
 

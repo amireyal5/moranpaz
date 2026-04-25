@@ -831,7 +831,10 @@ export default function AdminPages() {
     }
   };
 
-  const addItem   = <K extends 'ctaButtons' | 'features' | 'testimonials' | 'faqs' | 'navItems' | 'footerItems' | 'journeySteps'>(key: K, item: ContentState[K][number]) => {
+  const addItem = <K extends 'ctaButtons' | 'features' | 'testimonials' | 'faqs' | 'navItems' | 'footerItems' | 'journeySteps'>(
+    key: K, 
+    item: ContentState[K] extends any[] ? ContentState[K][number] : any
+  ) => {
     setContent(prev => ({ ...prev, [key]: [...(prev[key] as any[]), item] }));
     setIsDirty(true);
   };
@@ -1011,7 +1014,7 @@ export default function AdminPages() {
                     <Field label="צבע ראשי (Primary Accent)">
                       <Select value={content.primaryColor} onValueChange={v => set({ primaryColor: v })}>
                         <SelectTrigger className="bg-stone-50"><SelectValue /></SelectTrigger>
-                        <SelectContent>{PRESET_COLORS.map(c => <SelectItem key={c.value} value={c.value}>{c.name}</SelectItem>)}</SelectContent>
+                        <SelectContent>{PRESET_COLORS.map(c => <SelectItem key={c.value} value={c.value || 'default'}>{c.name}</SelectItem>)}</SelectContent>
                       </Select>
                     </Field>
                     <Field label="גובה Hero">
@@ -1180,11 +1183,11 @@ export default function AdminPages() {
                           </Select>
                         </Field>
                         <Field label="צבע רקע (לסגנון ראשי)">
-                          <Select value={(btn as any).bgColor || ''} onValueChange={v => updateItem('ctaButtons', i, 'bgColor', v)}>
+                          <Select value={(btn as any).bgColor || 'none'} onValueChange={v => updateItem('ctaButtons', i, 'bgColor', v === 'none' ? '' : v)}>
                             <SelectTrigger className="bg-white"><SelectValue placeholder="ברירת מחדל" /></SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="">ברירת מחדל</SelectItem>
-                              {PRESET_COLORS.map(c => <SelectItem key={c.value} value={`bg-[hsl(${c.value})] border-[hsl(${c.value})]`}>{c.name}</SelectItem>)}
+                              <SelectItem value="none">ברירת מחדל</SelectItem>
+                              {PRESET_COLORS.map(c => <SelectItem key={c.value} value={c.value ? `bg-[hsl(${c.value})] border-[hsl(${c.value})]` : 'none'}>{c.name}</SelectItem>)}
                             </SelectContent>
                           </Select>
                         </Field>
@@ -1245,7 +1248,7 @@ export default function AdminPages() {
                             <SelectContent>
                               <SelectItem value="transparent">שקוף</SelectItem>
                               <SelectItem value="white">לבן</SelectItem>
-                              {PRESET_COLORS.map(c => <SelectItem key={c.value} value={`bg-[hsl(${c.value})]/10`}>{c.name}</SelectItem>)}
+                              {PRESET_COLORS.map(c => <SelectItem key={c.value} value={c.value ? `bg-[hsl(${c.value})]/10` : 'transparent'}>{c.name}</SelectItem>)}
                             </SelectContent>
                           </Select>
                         </Field>
