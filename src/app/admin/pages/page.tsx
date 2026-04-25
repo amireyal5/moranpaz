@@ -284,7 +284,10 @@ function DynamicSectionEditor({ section, onChange, onRemove, onMoveUp, onMoveDow
         <div className="flex items-center gap-3">
           <div className="w-1.5 h-6 bg-accent" />
           <Label className="boutique-label text-accent text-lg">
-            {section.type === 'text' ? 'בלוק טקסט' : section.type === 'image-text' ? 'תמונה וטקסט' : section.type === 'logos' ? 'לוגואים (גריד)' : 'כותרת בלבד'}
+            {section.type === 'text' ? 'בלוק טקסט' : 
+             section.type === 'image-text' ? 'תמונה וטקסט' : 
+             section.type === 'features' ? 'קוביות תוכן (גריד)' : 
+             section.type === 'logos' ? 'לוגואים (גריד)' : 'כותרת בלבד'}
           </Label>
         </div>
         <div className="flex items-center gap-3">
@@ -1517,7 +1520,18 @@ export default function AdminPages() {
                       }} 
                       className="flex-1 h-14 border-2 border-primary/20 border-dashed rounded-sm text-primary hover:bg-primary/5 transition-all flex items-center justify-center font-bold tracking-wider"
                     >
-                      <ImageIcon className="ml-2 size-5" /> תמונה משולבת עם טקסט
+                      <ImageIcon className="ml-2 size-5" /> תמונה וטקסט
+                    </button>
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        const id = Math.random().toString(36).substr(2, 9);
+                        const next = [...(content.dynamicSections || []), { id, type: 'logos', content: '', title: '', logos: [], bg: 'white' }];
+                        set({ dynamicSections: next as any });
+                      }} 
+                      className="flex-1 h-14 border-2 border-primary/20 border-dashed rounded-sm text-primary hover:bg-primary/5 transition-all flex items-center justify-center font-bold tracking-wider"
+                    >
+                      <RefreshCcw className="ml-2 size-5" /> לוגואים
                     </button>
                   </div>
                 </SectionCard>
