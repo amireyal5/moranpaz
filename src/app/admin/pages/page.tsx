@@ -1347,47 +1347,6 @@ export default function AdminPages() {
                   </Button>
                 </SectionCard>
 
-                {/* ── Journey Steps ── */}
-                <SectionCard icon={<Orbit size={20} />} title="שלבי המסע (Steps)">
-                  <TitleEditor 
-                    label="כותרת קטע שלבי המסע" 
-                    settings={content.journeyTitleSettings} 
-                    onChange={s => set({ journeyTitleSettings: s })} 
-                  />
-                  {content.journeySteps?.map((step, i) => (
-                    <div key={i} className="bg-stone-50 p-4 md:p-5 border border-stone-100 rounded-sm space-y-4">
-                      <div className="flex justify-between items-center">
-                        <MoveButtons onUp={() => moveItem('journeySteps', i, 'up')} onDown={() => moveItem('journeySteps', i, 'down')} disableUp={i === 0} disableDown={i === (content.journeySteps?.length || 0) - 1} />
-                        <Button type="button" variant="ghost" onClick={() => removeItem('journeySteps', i)} className="text-destructive p-2 h-auto"><Trash2 size={16} /></Button>
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <Field label="אייקון">
-                          <Select value={step.icon} onValueChange={v => updateItem('journeySteps', i, 'icon', v)}>
-                            <SelectTrigger className="bg-white"><SelectValue /></SelectTrigger>
-                            <SelectContent>
-                              {ICON_OPTIONS.map(opt => (
-                                <SelectItem key={opt.value} value={opt.value}>
-                                  <div className="flex items-center gap-2">{opt.icon} {opt.value}</div>
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </Field>
-                        <div className="md:col-span-2">
-                          <Field label="כותרת">
-                            <Input value={step.title} onChange={e => updateItem('journeySteps', i, 'title', e.target.value)} className="bg-white" />
-                          </Field>
-                        </div>
-                      </div>
-                      <Field label="תיאור">
-                        <Textarea value={step.description} onChange={e => updateItem('journeySteps', i, 'description', e.target.value)} rows={2} className="bg-white resize-none" />
-                      </Field>
-                    </div>
-                  ))}
-                  <Button type="button" onClick={() => addItem('journeySteps', { title: '', description: '', icon: 'Sparkles' })} className="w-full h-12 border-dashed border-2 border-primary/20 bg-transparent text-primary hover:bg-primary/5">
-                    <Plus className="mr-2 size-4" /> הוספת שלב
-                  </Button>
-                </SectionCard>
 
                 {/* ── Testimonials ── */}
                 <SectionCard icon={<Quote size={20} />} title="עדויות ממליצים">
@@ -1456,7 +1415,6 @@ export default function AdminPages() {
                         intro: 'תוכן ראשי (About)',
                         dynamic: 'בלוקים חופשיים (Dynamic)',
                         features: 'קוביות תוכן (Features)',
-                        journey: 'שלבי המסע (Steps)',
                         testimonials: 'המלצות (Testimonials)',
                         faqs: 'שאלות נפוצות (FAQ)',
                         cta: 'כפתורי פעולה (CTA)',
