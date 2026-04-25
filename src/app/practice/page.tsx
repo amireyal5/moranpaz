@@ -95,28 +95,31 @@ export default function PracticePage() {
         const steps = pageContent?.journeySteps || [];
         if (steps.length === 0) return null;
         return (
-          <div key="journey" ref={stepsReveal} className="reveal space-y-24 mb-48">
-            <SectionTitle 
-              subtitle={pageContent?.journeyTitleSettings?.subtitle || "How it works"} 
-              title={pageContent?.journeyTitleSettings?.text || "שלבי המסע שלנו"} 
-              className="flex flex-col items-center text-center"
-              fontSize={pageContent?.journeyTitleSettings?.fontSize}
-              fontFamily={pageContent?.journeyTitleSettings?.fontFamily}
-              color={pageContent?.journeyTitleSettings?.color}
-              align={pageContent?.journeyTitleSettings?.align || 'center'}
-            />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-20">
-              {steps.map((step: any, i: number) => {
+          <div key="journey" ref={stepsReveal} className="reveal mb-48">
+            <div className="mb-16">
+              <SectionTitle 
+                subtitle={pageContent?.journeyTitleSettings?.subtitle || "How it works"} 
+                title={pageContent?.journeyTitleSettings?.text || "שלבי המסע שלנו"} 
+                fontSize={pageContent?.journeyTitleSettings?.fontSize}
+                fontFamily={pageContent?.journeyTitleSettings?.fontFamily}
+                color={pageContent?.journeyTitleSettings?.color}
+                align={pageContent?.journeyTitleSettings?.align || 'center'}
+                className={cn("flex flex-col", (pageContent?.journeyTitleSettings?.align === 'center' || !pageContent?.journeyTitleSettings?.align) ? "items-center text-center" : "items-end text-right")}
+              />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {steps.map((item: any, i: number) => {
                 const IconMap: Record<string, React.ElementType> = { Orbit, Heart, Sparkles, Compass, Users, Star, MessageSquare, HelpCircle };
-                const Icon = IconMap[step.icon] || Orbit;
+                const Icon = IconMap[item.icon] || Compass;
                 return (
-                  <div key={i} className="flex flex-col items-center text-center space-y-10 group">
-                    <div className="text-primary group-hover:scale-110 transition-transform duration-700">
-                      <Icon size={60} strokeWidth={0.2} />
-                    </div>
-                    <div className="space-y-6">
-                      <h4 className="text-3xl font-headline font-bold text-accent">{step.title}</h4>
-                      <p className="text-xl font-light text-stone-600 leading-relaxed max-w-[280px]">{step.description}</p>
+                  <div key={i} className={cn(
+                    "boutique-card group border border-stone-100 hover:border-primary/20",
+                    item.bg
+                  )}>
+                    <h3 className={cn("text-4xl font-headline mb-8 text-accent", item.titleColor)}>{item.title}</h3>
+                    <p className="text-xl font-light opacity-80 leading-relaxed">{item.description}</p>
+                    <div className="absolute bottom-8 right-8 text-primary/10 group-hover:text-primary/40 transition-colors">
+                      <Icon size={40} />
                     </div>
                   </div>
                 );
