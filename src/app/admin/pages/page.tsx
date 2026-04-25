@@ -1537,7 +1537,18 @@ export default function AdminPages() {
                       }} 
                       className="flex-1 h-14 border-2 border-primary/20 border-dashed rounded-sm text-primary hover:bg-primary/5 transition-all flex items-center justify-center font-bold tracking-wider"
                     >
-                      <Type className="ml-2 size-5" /> הוספת בלוק טקסט חופשי
+                      <Type className="ml-2 size-5" /> בלוק טקסט
+                    </button>
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        const id = Math.random().toString(36).substr(2, 9);
+                        const next = [...(content.dynamicSections || []), { id, type: 'features', content: '', title: '', features: [], bg: 'white' }];
+                        set({ dynamicSections: next as any });
+                      }} 
+                      className="flex-1 h-14 border-2 border-primary/20 border-dashed rounded-sm text-primary hover:bg-primary/5 transition-all flex items-center justify-center font-bold tracking-wider"
+                    >
+                      <Box className="ml-2 size-5" /> קוביות תוכן
                     </button>
                     <button 
                       type="button" 
