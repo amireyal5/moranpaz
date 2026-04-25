@@ -35,11 +35,11 @@ export function DynamicSections({ sections, className }: DynamicSectionsProps) {
             )}
           >
             <div className="max-w-5xl mx-auto">
-              {(sec.titleSettings || sec.title) && (
+              {(sec.titleSettings?.text || sec.title) && (
                 <div className="mb-12">
                   <SectionTitle 
                     title={sec.titleSettings?.text || sec.title || ''} 
-                    subtitle={sec.titleSettings?.subtitle}
+                    subtitle={sec.titleSettings?.subtitle || ''}
                     fontSize={sec.titleSettings?.fontSize}
                     fontFamily={sec.titleSettings?.fontFamily}
                     color={sec.titleSettings?.color}
