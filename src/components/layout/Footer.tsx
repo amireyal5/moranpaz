@@ -119,6 +119,12 @@ export function Footer() {
               <Link href="/privacy" className="hover:text-white transition-colors">פרטיות</Link>
               <Link href="/terms" className="hover:text-white transition-colors">תנאים</Link>
               <Link href="/accessibility" className="hover:text-white transition-colors">נגישות</Link>
+              <button 
+                onClick={() => window.dispatchEvent(new CustomEvent('openCookieSettings'))} 
+                className="hover:text-white transition-colors cursor-pointer text-right uppercase tracking-[0.3em] font-bold text-[11px]"
+              >
+                הגדרות עוגיות
+              </button>
               {/* Desktop-only management link */}
               <Link href="/admin/login" className="hidden md:flex hover:text-white transition-colors items-center gap-2">
                 <Lock size={10} /> ניהול

@@ -5,6 +5,8 @@ import './globals.css';
 import { FloatingWhatsApp } from '@/components/shared/FloatingWhatsApp';
 import { FirebaseClientProvider } from '@/firebase';
 import { Toaster } from '@/components/ui/toaster';
+import { CookieConsentProvider } from '@/components/shared/CookieConsent';
+import { CookieConsentBanner } from '@/components/shared/CookieConsentBanner';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -89,7 +91,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="he" dir="rtl">
+    <html lang="he" dir="rtl" suppressHydrationWarning={true}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -98,9 +100,12 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased bg-background text-foreground selection:bg-primary/20 overflow-x-hidden">
         <FirebaseClientProvider>
-          {children}
-          <FloatingWhatsApp />
-          <Toaster />
+          <CookieConsentProvider>
+            {children}
+            <CookieConsentBanner />
+            <FloatingWhatsApp />
+            <Toaster />
+          </CookieConsentProvider>
         </FirebaseClientProvider>
       </body>
     </html>

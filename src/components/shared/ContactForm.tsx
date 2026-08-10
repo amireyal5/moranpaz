@@ -130,15 +130,29 @@ export function ContactForm({ isLight = false }: { isLight?: boolean }) {
           />
         </div>
         
-        <div className="md:col-span-2 flex items-center space-x-reverse space-x-4 opacity-70">
-           <input 
-            type="checkbox" 
-            name="marketing" 
-            value="Yes" 
-            className="w-5 h-5 accent-primary cursor-pointer border-border" 
-            id="mkt" 
-           />
-           <label htmlFor="mkt" className="text-sm sm:text-base cursor-pointer">אני מאשר/ת קבלת חומר שיווקי ממורן פז</label>
+        <div className="md:col-span-2 space-y-4">
+          <div className="flex items-start space-x-reverse space-x-4 opacity-80">
+             <input 
+              type="checkbox" 
+              name="privacy_consent" 
+              required
+              className="w-5 h-5 mt-1 accent-primary cursor-pointer border-border shrink-0" 
+              id="prvc" 
+             />
+             <label htmlFor="prvc" className="text-sm sm:text-base cursor-pointer leading-relaxed">
+               * קראתי ואני מסכים/ה ל<a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline text-accent hover:text-primary transition-colors font-medium">מדיניות הפרטיות</a> ול<a href="/terms" target="_blank" rel="noopener noreferrer" className="underline text-accent hover:text-primary transition-colors font-medium">תנאי השימוש</a> של האתר
+             </label>
+          </div>
+          <div className="flex items-center space-x-reverse space-x-4 opacity-70">
+             <input 
+              type="checkbox" 
+              name="marketing" 
+              value="Yes" 
+              className="w-5 h-5 accent-primary cursor-pointer border-border" 
+              id="mkt" 
+             />
+             <label htmlFor="mkt" className="text-sm sm:text-base cursor-pointer">אני מאשר/ת קבלת חומר שיווקי ממורן פז</label>
+          </div>
         </div>
 
         {status === 'error' && (
